@@ -1,0 +1,48 @@
+plugins {
+    id 'application'
+    id 'ch.fhnw.thga.frege' version '0.1.0-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def junit5Group = 'org.junit.jupiter'
+    def junit5Version = '5.7.2'
+    testImplementation group: junit5Group, name: 'junit-jupiter-api', version: junit5Version
+    testRuntimeOnly group: junit5Group, name: 'junit-jupiter-engine', version: junit5Version
+    implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
+    compileOnly files(compileFrege.fregeCompilerJar)
+
+}
+
+application {
+    mainClass = 'ch.fhnw.thga.App'
+    applicationName = rootProject.name
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+frege {
+    version = '3.25.84'
+    release = '3.25alpha'
+    mainSourceDir = layout.projectDirectory.dir('src/main/frege')
+}
+
+tasks.register('copyCompiledFregeClasses', Copy) {
+    from compileFrege.fregeOutputDir
+    include "**/*.java"
+    into layout.projectDirectory.dir('src/main/java')
+    mustRunAfter compileFrege
+}
+
+compileJava.dependsOn compileFrege, copyCompiledFregeClasses

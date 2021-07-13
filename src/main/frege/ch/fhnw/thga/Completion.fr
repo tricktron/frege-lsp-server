@@ -1,0 +1,4 @@
+module ch.fhnw.thga.Completion where
+
+complete :: Int -> (Int, String)
+complete i = (i, "Frege rocks")
