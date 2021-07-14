@@ -19,7 +19,6 @@ dependencies {
 
 application {
     mainClass = 'ch.fhnw.thga.App'
-    applicationName = rootProject.name
 }
 
 java {
