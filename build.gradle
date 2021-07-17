@@ -13,7 +13,7 @@ dependencies {
     testImplementation group: junit5Group, name: 'junit-jupiter-api', version: junit5Version
     testRuntimeOnly group: junit5Group, name: 'junit-jupiter-engine', version: junit5Version
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
-    compileOnly files(compileFrege.fregeCompilerJar)
+    implementation files(compileFrege.fregeCompilerJar)
 
 }
 
