@@ -9,6 +9,7 @@ See [frege-vscode](https://github.com/tricktron/frege-vscode).
 ## How to Contribute
 - Install Java, preferably `v11` or newer
 - Install [Frege gradle plugin](https://github.com/tricktron/frege-gradle-plugin/tree/master)
+- `git clone https://github.com/tricktron/frege-lsp-server.git`
 - Run `./gradlew clean test` to execute tests
 - Add more tests and features
 
