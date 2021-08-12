@@ -2,6 +2,20 @@ module ch.fhnw.thga.TypeSignature where
 
 import Interpreter.FregeInterpreter
 import Control.monad.trans.MonadIO
+import Control.monad.trans.MonadTrans
+
+data ServerEnv = ServerEnv
+    { config :: InterpreterConfig
+    , state  :: MutableIO InterpreterClassLoader
+    }
+  where
+    initialState = do
+      loader <- InterpreterClassLoader.new ()
+      return ServerEnv
+        { config = InterpreterConfig.initialState
+        , state  = loader
+        }
+
 
 getTypeSignature :: String -> Interpreter String
 getTypeSignature expr = do
@@ -10,3 +24,14 @@ getTypeSignature expr = do
     Left ([Message {text=text}]) -> return text
     Right signature              -> return signature
     _                            -> return "Could not infer type"
+
+
+evalInterpreter :: Interpreter result -> IO result
+evalInterpreter res = do
+  env <- ServerEnv.initialState
+  (res, newState) <- Interpreter.run res env.config env.state
+  return res
+
+
+evalTypeSignature :: String -> IO String
+evalTypeSignature = evalInterpreter . getTypeSignature

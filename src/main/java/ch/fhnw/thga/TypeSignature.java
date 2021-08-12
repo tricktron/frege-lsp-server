@@ -156,43 +156,248 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/TypeSignature.fr",
-  time=1628610980388L, jmajor=11, jminor=-1,
+  time=1628750998641L, jmajor=11, jminor=-1,
   imps={
-    "frege.interpreter.FregeInterpreter", "frege.control.monad.trans.MonadIO", "frege.Prelude",
-    "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
+    "frege.interpreter.FregeInterpreter", "frege.control.monad.trans.MonadIO", "frege.control.monad.trans.MonadTrans",
+    "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
     "frege.prelude.PreludeIO", "frege.prelude.PreludeList", "frege.prelude.PreludeMonad", "frege.prelude.PreludeText",
     "frege.java.util.Regex"
   },
   nmss={
-    "FregeInterpreter", "MonadIO", "Prelude", "PreludeArrays", "PreludeBase", "PreludeDecimal", "PreludeIO",
-    "PreludeList", "PreludeMonad", "PreludeText", "Regexp"
+    "FregeInterpreter", "MonadIO", "MonadTrans", "Prelude", "PreludeArrays", "PreludeBase", "PreludeDecimal",
+    "PreludeIO", "PreludeList", "PreludeMonad", "PreludeText", "Regexp"
   },
-  symas={}, symcs={}, symis={}, symts={},
-  symvs={
-    @Meta.SymV(
-      offset=113, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="getTypeSignature"), stri="s(u)",
-      sig=1, depth=1, rkind=13
+  symas={}, symcs={}, symis={},
+  symts={
+    @Meta.SymT(
+      offset=156, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv"), typ=0,
+      kind=7,
+      cons={
+        @Meta.SymD(
+          offset=168, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="ServerEnv"),
+          cid=0, typ=3,
+          fields={
+            @Meta.Field(name="config", offset=184, sigma=1, strict=false),
+            @Meta.Field(name="state", offset=218, sigma=2, strict=false)
+          }
+        )
+      },
+      lnks={},
+      funs={
+        @Meta.SymV(
+          offset=219, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="upd$state"),
+          stri="s(su)", sig=4, depth=2, rkind=13, doc="update field @state@"
+        ),
+        @Meta.SymV(
+          offset=219, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="state"),
+          stri="s(s)", sig=5, depth=1, rkind=13, doc="access field @state@"
+        ),
+        @Meta.SymV(
+          offset=185,
+          name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="upd$config"),
+          stri="s(su)", sig=6, depth=2, rkind=13, doc="update field @config@"
+        ),
+        @Meta.SymV(
+          offset=219, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="has$state"),
+          stri="s(u)", sig=8, depth=1, rkind=13, doc="check if constructor has field @state@"
+        ),
+        @Meta.SymV(
+          offset=185,
+          name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="has$config"),
+          stri="s(u)", sig=8, depth=1, rkind=13, doc="check if constructor has field @config@"
+        ),
+        @Meta.SymV(
+          offset=279,
+          name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="initialState"),
+          stri="u", sig=9, depth=0, rkind=8
+        ),
+        @Meta.SymV(
+          offset=219, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="chg$state"),
+          stri="s(su)", sig=11, depth=2, rkind=13, doc="change field @state@"
+        ),
+        @Meta.SymV(
+          offset=185,
+          name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="chg$config"),
+          stri="s(su)", sig=13, depth=2, rkind=13, doc="change field @config@"
+        ),
+        @Meta.SymV(
+          offset=185, name=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="config"),
+          stri="s(s)", sig=14, depth=1, rkind=13, doc="access field @config@"
+        )
+      },
+      prod=true
     )
   },
-  symls={},
+  symvs={
+    @Meta.SymV(
+      offset=454, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="getTypeSignature"), stri="s(u)",
+      sig=16, depth=1, rkind=13
+    ),
+    @Meta.SymV(
+      offset=919, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalTypeSignature"), stri="s(u)",
+      sig=17, depth=1, rkind=12
+    ),
+    @Meta.SymV(
+      offset=734, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalInterpreter"), stri="s(u)",
+      sig=19, depth=1, rkind=13
+    )
+  },
+  symls={
+    @Meta.SymL(
+      offset=168, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="ServerEnv"),
+      alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv", member="ServerEnv")
+    )
+  },
   taus={
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.TypeSignature", base="ServerEnv")}),
+    @Meta.Tau(
+      kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.interpreter.FregeInterpreter", base="InterpreterConfig")}
+    ),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeIO", base="Mutable")}),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="RealWorld")}),
+    @Meta.Tau(kind=0, suba=2, subb=3),
+    @Meta.Tau(
+      kind=2, suba=0,
+      tcon={@Meta.QName(kind=0, pack="frege.interpreter.FregeInterpreter", base="InterpreterClassLoader")}
+    ),
+    @Meta.Tau(kind=0, suba=4, subb=5), @Meta.Tau(kind=9), @Meta.Tau(suba=7, tvar="α"),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Bool")}),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="ST")}),
+    @Meta.Tau(kind=0, suba=10, subb=3), @Meta.Tau(kind=0, suba=11, subb=0),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="->")}),
+    @Meta.Tau(kind=0, suba=13, subb=6), @Meta.Tau(kind=0, suba=14, subb=6), @Meta.Tau(kind=0, suba=13, subb=1),
+    @Meta.Tau(kind=0, suba=16, subb=1),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="StringJ")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Char")}),
-    @Meta.Tau(kind=0, suba=0, subb=1),
+    @Meta.Tau(kind=0, suba=18, subb=19),
     @Meta.Tau(
       kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.interpreter.FregeInterpreter", base="Interpreter")}
     ),
-    @Meta.Tau(kind=0, suba=3, subb=2)
+    @Meta.Tau(kind=0, suba=21, subb=20), @Meta.Tau(kind=0, suba=11, subb=20), @Meta.Tau(suba=7, tvar="result"),
+    @Meta.Tau(kind=0, suba=21, subb=24), @Meta.Tau(kind=0, suba=11, subb=24)
   },
-  rhos={@Meta.Rho(rhofun=false, rhotau=2), @Meta.Rho(rhofun=false, rhotau=4), @Meta.Rho(sigma=0, rhotau=1)},
-  sigmas={@Meta.Sigma(rho=0), @Meta.Sigma(rho=2)}, exprs={@Meta.Expr()}
+  rhos={
+    @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=1), @Meta.Rho(rhofun=false, rhotau=6),
+    @Meta.Rho(sigma=2, rhotau=0), @Meta.Rho(sigma=1, rhotau=3), @Meta.Rho(sigma=0, rhotau=3),
+    @Meta.Rho(sigma=0, rhotau=2), @Meta.Rho(sigma=1, rhotau=0), @Meta.Rho(sigma=0, rhotau=7),
+    @Meta.Rho(rhofun=false, rhotau=8), @Meta.Rho(rhofun=false, rhotau=9), @Meta.Rho(sigma=7, rhotau=10),
+    @Meta.Rho(rhofun=false, rhotau=12), @Meta.Rho(rhofun=false, rhotau=15), @Meta.Rho(sigma=10, rhotau=0),
+    @Meta.Rho(sigma=0, rhotau=14), @Meta.Rho(rhofun=false, rhotau=17), @Meta.Rho(sigma=12, rhotau=0),
+    @Meta.Rho(sigma=0, rhotau=17), @Meta.Rho(sigma=0, rhotau=1), @Meta.Rho(rhofun=false, rhotau=20),
+    @Meta.Rho(rhofun=false, rhotau=22), @Meta.Rho(sigma=15, rhotau=21), @Meta.Rho(rhofun=false, rhotau=23),
+    @Meta.Rho(sigma=15, rhotau=23), @Meta.Rho(rhofun=false, rhotau=25), @Meta.Rho(rhofun=false, rhotau=26),
+    @Meta.Rho(sigma=18, rhotau=26)
+  },
+  sigmas={
+    @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=4), @Meta.Sigma(rho=5),
+    @Meta.Sigma(rho=6), @Meta.Sigma(rho=8), @Meta.Sigma(rho=9), @Meta.Sigma(bound={"α"}, kinds={7}, rho=11),
+    @Meta.Sigma(rho=12), @Meta.Sigma(rho=13), @Meta.Sigma(rho=15), @Meta.Sigma(rho=16), @Meta.Sigma(rho=18),
+    @Meta.Sigma(rho=19), @Meta.Sigma(rho=20), @Meta.Sigma(rho=22), @Meta.Sigma(rho=24), @Meta.Sigma(rho=25),
+    @Meta.Sigma(bound={"result"}, kinds={7}, rho=27)
+  },
+  exprs={@Meta.Expr()}
 )
 final public class TypeSignature  {
   
 
 
 
-
+final public static class TServerEnv implements frege.runtime.Value, Lazy<TServerEnv> {
+  private TServerEnv(
+    final Lazy<FregeInterpreter.TInterpreterConfig> arg$1,
+    final Lazy<frege.interpreter.javasupport.InterpreterClassLoader> arg$2
+  ) {
+    mem$config = Thunk.<FregeInterpreter.TInterpreterConfig>shared(arg$1);
+    mem$state = Thunk.<frege.interpreter.javasupport.InterpreterClassLoader>shared(arg$2);
+  }
+  final public int constructor() {
+    return 0;
+  }
+  final public static TServerEnv mk(
+    final Lazy<FregeInterpreter.TInterpreterConfig> arg$1,
+    final Lazy<frege.interpreter.javasupport.InterpreterClassLoader> arg$2
+  ) {
+    return new TServerEnv(arg$1, arg$2);
+  }
+  final public Lazy<FregeInterpreter.TInterpreterConfig> mem$config  ;
+  final public Lazy<frege.interpreter.javasupport.InterpreterClassLoader> mem$state  ;
+  final public TServerEnv call() {
+    return this;
+  }
+  final public boolean isShared() {
+    return true;
+  }
+  final public Thunk<TServerEnv> asThunk() {
+    return null;
+  }
+  @SuppressWarnings("unchecked") final public TServerEnv simsalabim() {
+    return (TServerEnv)this;
+  }
+  final public static TServerEnv upd$state(
+    final TServerEnv arg$1, final Lazy<frege.interpreter.javasupport.InterpreterClassLoader> arg$2
+  ) {
+    return TServerEnv.mk(arg$1.mem$config, arg$2);
+  }
+  final public static frege.interpreter.javasupport.InterpreterClassLoader state(final TServerEnv arg$1) {
+    final frege.interpreter.javasupport.InterpreterClassLoader a2$18385 = arg$1.mem$state
+    .call();
+    return a2$18385;
+  }
+  final public static TServerEnv upd$config(final TServerEnv arg$1, final Lazy<FregeInterpreter.TInterpreterConfig> arg$2) {
+    return TServerEnv.mk(arg$2, arg$1.mem$state);
+  }
+  final public static <α> boolean has$state(final Lazy<α> arg$1) {
+    return true;
+  }
+  final public static <α> boolean has$config(final Lazy<α> arg$1) {
+    return true;
+  }
+  final public static Lazy<Func.U<RealWorld, TServerEnv>> initialState = Thunk.<Func.U<RealWorld, TServerEnv>>shared(
+        (Lazy<Func.U<RealWorld, TServerEnv>>)(() -> {
+              return PreludeBase.TST.<RealWorld, frege.interpreter.javasupport.InterpreterClassLoader, TServerEnv>$gt$gt$eq(
+                        FregeInterpreter.TInterpreterClassLoader.<RealWorld>newA(PreludeBase.TUnit.Unit),
+                        (Func.U<frege.interpreter.javasupport.InterpreterClassLoader, Func.U<RealWorld, TServerEnv>>)((
+                          final Lazy<frege.interpreter.javasupport.InterpreterClassLoader> arg$18531
+                        ) -> {
+                              return Thunk.<Func.U<RealWorld, TServerEnv>>shared(
+                                        (Lazy<Func.U<RealWorld, TServerEnv>>)(() -> PreludeMonad.IMonad_ST.<
+                                              RealWorld, TServerEnv
+                                            >pure(TServerEnv.mk(FregeInterpreter.TInterpreterConfig.initialState, arg$18531)))
+                                      );
+                            })
+                      );
+            })
+      );
+  final public static TServerEnv chg$state(
+    final TServerEnv arg$1,
+    final Lazy<Func.U<
+      frege.interpreter.javasupport.InterpreterClassLoader, frege.interpreter.javasupport.InterpreterClassLoader
+    >> arg$2
+  ) {
+    return TServerEnv.mk(
+              arg$1.mem$config,
+              Thunk.<frege.interpreter.javasupport.InterpreterClassLoader>nested(
+                    (Lazy<Lazy<frege.interpreter.javasupport.InterpreterClassLoader>>)(() -> arg$2
+                        .call().apply(arg$1.mem$state))
+                  )
+            );
+  }
+  final public static TServerEnv chg$config(
+    final TServerEnv arg$1, final Lazy<Func.U<FregeInterpreter.TInterpreterConfig, FregeInterpreter.TInterpreterConfig>> arg$2
+  ) {
+    return TServerEnv.mk(
+              Thunk.<FregeInterpreter.TInterpreterConfig>nested(
+                    (Lazy<Lazy<FregeInterpreter.TInterpreterConfig>>)(() -> arg$2.call()
+                        .apply(arg$1.mem$config))
+                  ),
+              arg$1.mem$state
+            );
+  }
+  final public static FregeInterpreter.TInterpreterConfig config(final TServerEnv arg$1) {
+    final FregeInterpreter.TInterpreterConfig a1$18372 = arg$1.mem$config.call();
+    return a1$18372;
+  }
+}
 final public static Kleisli.TKleisli<
   State.TStateT<
     frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>, ?
@@ -213,24 +418,24 @@ final public static Kleisli.TKleisli<
                 FregeInterpreter.TInterpreterConfig, String/*<Character>*/
               >
             >)((
-              final Lazy<PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/>> arg$18384
+              final Lazy<PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/>> arg$18533
             ) -> {
-                  final PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> res$18355 =
-                  arg$18384.call();
-                  final PreludeBase.TEither.DLeft<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> $18386 =
-                  res$18355.asLeft();
-                  if ($18386 != null) {
-                    final PreludeBase.TList<FregeInterpreter.TMessage> $18387 = $18386.mem1
+                  final PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> res$18396 =
+                  arg$18533.call();
+                  final PreludeBase.TEither.DLeft<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> $18535 =
+                  res$18396.asLeft();
+                  if ($18535 != null) {
+                    final PreludeBase.TList<FregeInterpreter.TMessage> $18536 = $18535.mem1
                     .call();
-                    final PreludeBase.TList.DCons<FregeInterpreter.TMessage> $18388 =
-                    $18387.asCons();
-                    if ($18388 != null) {
-                      final PreludeBase.TList<FregeInterpreter.TMessage> $18389 = $18388.mem2
+                    final PreludeBase.TList.DCons<FregeInterpreter.TMessage> $18537 =
+                    $18536.asCons();
+                    if ($18537 != null) {
+                      final PreludeBase.TList<FregeInterpreter.TMessage> $18538 = $18537.mem2
                       .call();
-                      final PreludeBase.TList.DList<FregeInterpreter.TMessage> $18390 =
-                      $18389.asList();
-                      if ($18390 != null) {
-                        final FregeInterpreter.TMessage $18391 = $18388.mem1.call();
+                      final PreludeBase.TList.DList<FregeInterpreter.TMessage> $18539 =
+                      $18538.asList();
+                      if ($18539 != null) {
+                        final FregeInterpreter.TMessage $18540 = $18537.mem1.call();
                         return Thunk.<
                               Kleisli.TKleisli<
                                 State.TStateT<
@@ -247,15 +452,15 @@ final public static Kleisli.TKleisli<
                                     >,
                                     FregeInterpreter.TInterpreterConfig, String/*<Character>*/
                                   >>)(() -> FregeInterpreter.IMonad_Interpreter.<String/*<Character>*/>pure(
-                                            $18391.mem$text
+                                            $18540.mem$text
                                           ))
                                 );
                       }
                     }
                   }
-                  final PreludeBase.TEither.DRight<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> $18392 =
-                  res$18355.asRight();
-                  if ($18392 != null) {
+                  final PreludeBase.TEither.DRight<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/> $18541 =
+                  res$18396.asRight();
+                  if ($18541 != null) {
                     return Thunk.<
                           Kleisli.TKleisli<
                             State.TStateT<
@@ -272,7 +477,7 @@ final public static Kleisli.TKleisli<
                                 >,
                                 FregeInterpreter.TInterpreterConfig, String/*<Character>*/
                               >>)(() -> FregeInterpreter.IMonad_Interpreter.<String/*<Character>*/>pure(
-                                        $18392.mem1
+                                        $18541.mem1
                                       ))
                             );
                   }
@@ -297,6 +502,110 @@ final public static Kleisli.TKleisli<
                           );
                 })
           );
+}
+final public static <result> Func.U<RealWorld, result> evalInterpreter(
+  final Lazy<Kleisli.TKleisli<
+    State.TStateT<
+      frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>, ?
+    >,
+    FregeInterpreter.TInterpreterConfig, result
+  >> arg$1
+) {
+  return PreludeBase.TST.<RealWorld, TServerEnv, result>$gt$gt$eq(
+            TServerEnv.initialState.call(),
+            (Func.U<TServerEnv, Func.U<RealWorld, result>>)((final Lazy<TServerEnv> arg$18542) -> {
+                  return Thunk.<Func.U<RealWorld, result>>shared(
+                            (Lazy<Func.U<RealWorld, result>>)(() -> PreludeBase.TST.<
+                                  RealWorld, PreludeBase.TTuple2<result, frege.interpreter.javasupport.InterpreterClassLoader>,
+                                  result
+                                >$gt$gt$eq(
+                                      FregeInterpreter.TInterpreter.<result>run(
+                                            arg$1.call(), TServerEnv.config(arg$18542.call()),
+                                            Thunk.<frege.interpreter.javasupport.InterpreterClassLoader>lazy(
+                                                  TServerEnv.state(arg$18542.call())
+                                                )
+                                          ),
+                                      (Func.U<
+                                        PreludeBase.TTuple2<result, frege.interpreter.javasupport.InterpreterClassLoader>,
+                                        Func.U<RealWorld, result>
+                                      >)((
+                                        final Lazy<PreludeBase.TTuple2<
+                                          result, frege.interpreter.javasupport.InterpreterClassLoader
+                                        >> arg$18543
+                                      ) -> {
+                                            final PreludeBase.TTuple2<
+                                              result, frege.interpreter.javasupport.InterpreterClassLoader
+                                            > $18544 = arg$18543.call();
+                                            return Thunk.<Func.U<RealWorld, result>>shared(
+                                                      (Lazy<Func.U<RealWorld, result>>)(() -> PreludeMonad.IMonad_ST.<
+                                                            RealWorld, result
+                                                          >pure($18544.mem1))
+                                                    );
+                                          })
+                                    ))
+                          );
+                })
+          );
+}
+final public static Lazy<Func.U<RealWorld, String/*<Character>*/>> evalTypeSignature(final Lazy<String/*<Character>*/> arg$1) {
+  return Semigroupoid.ISemigroupoid_$minus$gt.<
+        Kleisli.TKleisli<
+          State.TStateT<
+            frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>, ?
+          >,
+          FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+        >,
+        String/*<Character>*/, Func.U<RealWorld, String/*<Character>*/>
+      >$bullet(
+            (Func.U<
+              Kleisli.TKleisli<
+                State.TStateT<
+                  frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>,
+                  ?
+                >,
+                FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+              >,
+              Func.U<RealWorld, String/*<Character>*/>
+            >)((
+              final Lazy<Kleisli.TKleisli<
+                State.TStateT<
+                  frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>,
+                  ?
+                >,
+                FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+              >> η$18545
+            ) -> Thunk.<Func.U<RealWorld, String/*<Character>*/>>shared(
+                      (Lazy<Func.U<RealWorld, String/*<Character>*/>>)(() -> TypeSignature.<
+                            String/*<Character>*/
+                          >evalInterpreter(η$18545))
+                    )),
+            (Func.U<
+              String/*<Character>*/,
+              Kleisli.TKleisli<
+                State.TStateT<
+                  frege.interpreter.javasupport.InterpreterClassLoader, State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>,
+                  ?
+                >,
+                FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+              >
+            >)((final Lazy<String/*<Character>*/> η$18546) -> Thunk.<
+                  Kleisli.TKleisli<
+                    State.TStateT<
+                      frege.interpreter.javasupport.InterpreterClassLoader,
+                      State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>, ?
+                    >,
+                    FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+                  >
+                >shared(
+                      (Lazy<Kleisli.TKleisli<
+                        State.TStateT<
+                          frege.interpreter.javasupport.InterpreterClassLoader,
+                          State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, ?>, ?
+                        >,
+                        FregeInterpreter.TInterpreterConfig, String/*<Character>*/
+                      >>)(() -> TypeSignature.getTypeSignature(η$18546))
+                    ))
+          ).call().apply(arg$1);
 }
 
 }
