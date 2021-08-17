@@ -1,9 +1,8 @@
 module ch.fhnw.thga.TypeSignature where
 
-import Interpreter.FregeInterpreter
-import Control.monad.trans.MonadIO
-import Control.monad.trans.MonadTrans
-import Repl.FregeRepl
+import Interpreter.FregeInterpreter(Interpreter, typeof)
+import Control.monad.trans.MonadIO(liftIO)
+import Repl.FregeRepl(ReplResult, ReplEnv, Repl, Eval, Type, eval)
 
 evalFregeFile :: String -> IO (ReplResult, ReplEnv)
 evalFregeFile file = do
@@ -11,9 +10,13 @@ evalFregeFile file = do
   (res, newEnv) <- Repl.run (eval $ Eval file) env
   return (res, newEnv)
 
-getFunctionTypeSignature :: String -> String -> IO (ReplResult)
-getFunctionTypeSignature file fname = do
-  (_, env) <- evalFregeFile file
-  (res, newEnv) <- Repl.run (eval $ Type fname) env
-  return res
-  
+getFunctionTypeSignature :: String -> ReplEnv -> IO (Maybe String, ReplEnv)
+getFunctionTypeSignature fname env = Repl.run (evalType fname) env
+
+evalType :: String -> Repl (Maybe String)
+evalType expr = do
+  env <- Repl.get
+  res <- liftIO $ fst <$> Interpreter.run (typeof expr) env.config env.state
+  case res of
+    Left _     -> return Nothing
+    Right typ -> return $ Just typ

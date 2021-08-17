@@ -19,7 +19,7 @@ public class SimpleLanguageServer implements LanguageServer {
 	LanguageClient client;
 
 	public SimpleLanguageServer() {
-		textService = new SimpleTextDocumentService(this);
+		textService = new FregeService(this);
 		workspaceService = new SimpleWorkspaceService();
 	}
 

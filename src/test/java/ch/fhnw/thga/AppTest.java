@@ -1,8 +1,8 @@
 package ch.fhnw.thga;
 
 import org.junit.jupiter.api.Test;
-import static ch.fhnw.thga.SimpleTextDocumentService.createTextCompletionItem;
-import static ch.fhnw.thga.SimpleTextDocumentService.findUpperCaseWordsWithLengthTwoOrMore;
+import static ch.fhnw.thga.FregeService.createTextCompletionItem;
+import static ch.fhnw.thga.FregeService.findUpperCaseWordsWithLengthTwoOrMore;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
