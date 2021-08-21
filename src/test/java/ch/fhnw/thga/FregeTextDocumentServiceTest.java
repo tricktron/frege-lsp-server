@@ -3,9 +3,10 @@ package ch.fhnw.thga;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.timeout;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -103,13 +104,17 @@ class FregeTextDocumentServiceTest {
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
 
+        @BeforeAll
+        void setup() throws Exception {
+            correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
+        }
+
         @BeforeEach
-        void init() throws Exception {
+        void init() {
             server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
             service = new FregeTextDocumentService(server);
-            correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
             service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
         }
 
@@ -179,7 +184,7 @@ class FregeTextDocumentServiceTest {
             service.didChange(params);
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(correctFregeFile.getUri())));
 
-            Mockito.verify(client, times(1)).publishDiagnostics(diagnosticCaptor.capture());
+            Mockito.verify(client, timeout(1000)).publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
         }
     }
@@ -198,19 +203,23 @@ class FregeTextDocumentServiceTest {
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
 
+        @BeforeAll
+        void setup() throws Exception {
+            faultyFregeFile = readFregeFile(FAULTY_FREGE_FILENAME);
+        }
+
         @BeforeEach
-        void init() throws Exception {
+        void init() {
             server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
             service = new FregeTextDocumentService(server);
-            faultyFregeFile = readFregeFile(FAULTY_FREGE_FILENAME);
             service.didOpen(new DidOpenTextDocumentParams(faultyFregeFile));
         }
 
         @Test
         void then_publish_all_errors_as_diagnostics() {
-            Mockito.verify(client, times(1)).publishDiagnostics(diagnosticCaptor.capture());
+            Mockito.verify(client, timeout(1000)).publishDiagnostics(diagnosticCaptor.capture());
             PublishDiagnosticsParams expectedErrors = new PublishDiagnosticsParams(faultyFregeFile.getUri(),
                     expectedErrorDiagnostics);
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
@@ -222,7 +231,7 @@ class FregeTextDocumentServiceTest {
                     expectedErrorDiagnostics);
 
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(faultyFregeFile.getUri())));
-            Mockito.verify(client, times(2)).publishDiagnostics(diagnosticCaptor.capture());
+            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
         }
 
@@ -238,7 +247,7 @@ class FregeTextDocumentServiceTest {
             service.didChange(params);
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(faultyFregeFile.getUri())));
 
-            Mockito.verify(client, times(1)).publishDiagnostics(diagnosticCaptor.capture());
+            Mockito.verify(client, after(1000)).publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
         }
     }
