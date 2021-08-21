@@ -13,15 +13,15 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
-public class SimpleLanguageServer implements LanguageServer, LanguageClientAware {
+public class FregeLanguageServer implements LanguageServer, LanguageClientAware {
 
 	private TextDocumentService textService;
 	private WorkspaceService workspaceService;
 	LanguageClient client;
 
-	public SimpleLanguageServer() {
-		textService = new FregeService(this);
-		workspaceService = new SimpleWorkspaceService();
+	public FregeLanguageServer() {
+		textService = new FregeTextDocumentService(this);
+		workspaceService = new FregeWorkspaceService();
 	}
 
 	@Override

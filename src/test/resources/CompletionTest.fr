@@ -1,3 +1,0 @@
-module ch.fhnw.thga.CompletionTest where
-
-complete i = (i, "Frege rocks")

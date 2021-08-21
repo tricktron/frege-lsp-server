@@ -54,7 +54,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class FregeServiceTest {
+class FregeTextDocumentServiceTest {
     private static final String CORRECT_FREGE_FILENAME = "CorrectFregeTest.fr";
     private static final String FAULTY_FREGE_FILENAME = "FaultyFregeTest.fr";
     private String correctFregeFileContents;
@@ -73,7 +73,7 @@ class FregeServiceTest {
 
     static TextDocumentItem readFregeFile(String filename) throws IOException {
         String uri = getPathFromTestResources(filename).toUri().toString();
-        return new TextDocumentItem(uri, FregeService.FREGE_LANGUAGE_ID, 1, readFileFromTestResources(filename));
+        return new TextDocumentItem(uri, FregeTextDocumentService.FREGE_LANGUAGE_ID, 1, readFileFromTestResources(filename));
     }
 
     @BeforeAll
@@ -94,9 +94,9 @@ class FregeServiceTest {
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     class Given_opened_correct_frege_file {
 
-        SimpleLanguageServer server;
+        FregeLanguageServer server;
         LanguageClient client;
-        FregeService service;
+        FregeTextDocumentService service;
         private TextDocumentItem correctFregeFile;
 
         @Captor
@@ -109,10 +109,10 @@ class FregeServiceTest {
 
         @BeforeEach
         void init() throws Exception {
-            server = spy(SimpleLanguageServer.class);
+            server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
-            service = new FregeService(server);
+            service = new FregeTextDocumentService(server);
             service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
         }
 
@@ -138,7 +138,7 @@ class FregeServiceTest {
         @MethodSource("expectedFirstWords")
         @DisplayName("then can extract first word on each line")
         void then_can_extract_first_word_on_each_line(int line, String expected) throws Exception {
-            String actual = FregeService.extractFirstWordFromLine(correctFregeFileContents, line);
+            String actual = FregeTextDocumentService.extractFirstWordFromLine(correctFregeFileContents, line);
             assertEquals(expected, actual);
         }
 
@@ -149,7 +149,7 @@ class FregeServiceTest {
                 String expectedTypeSignature) throws Exception {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()), position);
             CompletableFuture<Hover> expected = CompletableFuture
-                    .completedFuture(new Hover(FregeService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
+                    .completedFuture(new Hover(FregeTextDocumentService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
 
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             if (expectedTypeSignature == null) {
@@ -194,9 +194,9 @@ class FregeServiceTest {
     class Given_opened_faulty_frege_file {
 
         private TextDocumentItem faultyFregeFile;
-        SimpleLanguageServer server;
+        FregeLanguageServer server;
         LanguageClient client;
-        FregeService service;
+        FregeTextDocumentService service;
 
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
@@ -208,10 +208,10 @@ class FregeServiceTest {
 
         @BeforeEach
         void init() {
-            server = spy(SimpleLanguageServer.class);
+            server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
-            service = new FregeService(server);
+            service = new FregeTextDocumentService(server);
             service.didOpen(new DidOpenTextDocumentParams(faultyFregeFile));
         }
 
