@@ -2,7 +2,6 @@ package ch.fhnw.thga;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.lsp4j.CompletionOptions;
 import org.eclipse.lsp4j.InitializeParams;
 import org.eclipse.lsp4j.InitializeResult;
 import org.eclipse.lsp4j.ServerCapabilities;
@@ -27,10 +26,8 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params) {
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
-		CompletionOptions completionProvider = new CompletionOptions();
-		completionProvider.setResolveProvider(Boolean.TRUE);
-		res.getCapabilities().setCompletionProvider(completionProvider);
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
+		res.getCapabilities().setHoverProvider(true);
 		return CompletableFuture.supplyAsync(() -> res);
 	}
 
@@ -57,6 +54,5 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 	@Override
 	public void connect(LanguageClient client) {
 		this.client = client;
-
 	}
 }
