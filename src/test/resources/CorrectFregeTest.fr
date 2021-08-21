@@ -1,0 +1,7 @@
+module ch.fhnw.thga.CorrectFregeTest where
+
+complete i = (i, "Frege rocks")
+
+answerToEverything = 42
+
+square x = x * x

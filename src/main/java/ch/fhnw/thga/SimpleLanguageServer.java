@@ -8,11 +8,12 @@ import org.eclipse.lsp4j.InitializeResult;
 import org.eclipse.lsp4j.ServerCapabilities;
 import org.eclipse.lsp4j.TextDocumentSyncKind;
 import org.eclipse.lsp4j.services.LanguageClient;
+import org.eclipse.lsp4j.services.LanguageClientAware;
 import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
-public class SimpleLanguageServer implements LanguageServer {
+public class SimpleLanguageServer implements LanguageServer, LanguageClientAware {
 
 	private TextDocumentService textService;
 	private WorkspaceService workspaceService;
@@ -53,7 +54,9 @@ public class SimpleLanguageServer implements LanguageServer {
 		return this.workspaceService;
 	}
 
-	public void connectClient(LanguageClient client) {
+	@Override
+	public void connect(LanguageClient client) {
 		this.client = client;
+
 	}
 }

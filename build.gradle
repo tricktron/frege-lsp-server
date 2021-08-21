@@ -10,13 +10,16 @@ repositories {
 dependencies {
     def junit5Group = 'org.junit.jupiter'
     def junit5Version = '5.7.2'
+    def mockitoGroup = 'org.mockito'
+    def mockitoVersion = '3.+'
     testImplementation group: junit5Group, name: 'junit-jupiter-api', version: junit5Version
     testImplementation group: junit5Group, name: 'junit-jupiter-params', version: junit5Version
     testRuntimeOnly group: junit5Group, name: 'junit-jupiter-engine', version: junit5Version
     testRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-console', version: junit5Version
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
-    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation group: mockitoGroup, name: 'mockito-core', version: mockitoVersion
+    testImplementation group: mockitoGroup, name: 'mockito-junit-jupiter', version: mockitoVersion
     implementation(enforcedPlatform("org.junit:junit-bom:${junit5Version}"))
 
 }

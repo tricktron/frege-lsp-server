@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.google.gson.JsonPrimitive;
 
@@ -27,26 +28,31 @@ import org.eclipse.lsp4j.MarkupKind;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 import org.eclipse.lsp4j.Range;
-import org.eclipse.lsp4j.TextDocumentItem;
+import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
+import ch.fhnw.thga.TypeSignature.TArrayList;
+import frege.interpreter.FregeInterpreter.TMessage;
 import frege.prelude.PreludeBase;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.repl.FregeRepl.TReplEnv;
+import frege.repl.FregeRepl.TReplResult;
 import frege.run8.Lazy;
 import frege.run8.Thunk;
 
 public class FregeService implements TextDocumentService {
 	public static final String FREGE_LANGUAGE_ID = "frege";
 	private final SimpleLanguageServer simpleLanguageServer;
-	private TextDocumentItem currentOpenFile;
+	private String currentOpenFileContents;
 	private Lazy<TReplEnv> replEnv;
 
 	public FregeService(SimpleLanguageServer server) {
 		simpleLanguageServer = server;
+		currentOpenFileContents = "";
+		replEnv = PreludeBase.TST.performUnsafe(TypeSignature.initialReplEnv.call());
 	}
 
 	protected static CompletionItem createTextCompletionItem(String label, Object data) {
@@ -118,12 +124,13 @@ public class FregeService implements TextDocumentService {
 	}
 
 	protected static MarkupContent createFregeTypeSignatureCodeBlock(String typeSignature) {
-		return new MarkupContent(MarkupKind.MARKDOWN, String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, typeSignature));
+		return new MarkupContent(MarkupKind.MARKDOWN,
+				String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, typeSignature));
 	}
 
 	@Override
 	public CompletableFuture<Hover> hover(HoverParams params) {
-		String functionName = extractFirstWordFromLine(currentOpenFile.getText(), params.getPosition().getLine());
+		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
 		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
 		if (functionSignature.isEmpty()) {
 			return null;
@@ -133,25 +140,51 @@ public class FregeService implements TextDocumentService {
 		}
 	}
 
+	private static Diagnostic mapMessageToDiagnostic(TMessage message) {
+		int line = message.mem$pos.call().mem$first.mem$line;
+		int col = message.mem$pos.call().mem$first.mem$col;
+		short messageType = message.mem$msgType.call();
+		String compilerMessage = message.mem$text.call();
+		return new Diagnostic(new Range(new Position(line, col), new Position(line, col + 1)), compilerMessage,
+				DiagnosticSeverity.forValue(messageType), "fregeCompiler");
+	}
+
+	private void publishCompilerDiagnostics(TReplResult result, String documentUri) {
+		if (result.asReplInfo() != null) {
+			ArrayList<TMessage> messages = PreludeBase.TST
+					.performUnsafe(TArrayList.fromFregeList(result.asReplInfo().mem1.call())).call();
+			List<Diagnostic> compilerDiagnostics = messages.stream().map(FregeService::mapMessageToDiagnostic)
+					.collect(Collectors.toList());
+			CompletableFuture.runAsync(() -> simpleLanguageServer.client
+					.publishDiagnostics(new PublishDiagnosticsParams(documentUri, compilerDiagnostics)));
+		}
+	}
+
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params) {
-		currentOpenFile = params.getTextDocument();
-		replEnv = PreludeBase.TST.performUnsafe(TypeSignature.evalFregeFile(Thunk.lazy(currentOpenFile.getText())))
-				.call().mem2;
-		CompletableFuture.runAsync(() -> simpleLanguageServer.client
-				.publishDiagnostics(new PublishDiagnosticsParams(params.getTextDocument().getUri(),
-						findUpperCaseWordsWithLengthTwoOrMore(params.getTextDocument().getText()))));
+		currentOpenFileContents = params.getTextDocument().getText();
+		TTuple2<TReplResult, TReplEnv> resEnvTuple = PreludeBase.TST
+				.performUnsafe(TypeSignature.evalFregeFile(Thunk.lazy(currentOpenFileContents), replEnv)).call();
+		replEnv = resEnvTuple.mem2;
+		publishCompilerDiagnostics(resEnvTuple.mem1.call(), params.getTextDocument().getUri());
 	}
 
 	@Override
 	public void didChange(DidChangeTextDocumentParams params) {
+		List<TextDocumentContentChangeEvent> changes = params.getContentChanges();
+		currentOpenFileContents = changes.get(changes.size() - 1).getText();
 	}
 
 	@Override
 	public void didClose(DidCloseTextDocumentParams params) {
+		currentOpenFileContents = "";
 	}
 
 	@Override
 	public void didSave(DidSaveTextDocumentParams params) {
+		TTuple2<TReplResult, TReplEnv> resEnvTuple = PreludeBase.TST
+				.performUnsafe(TypeSignature.evalFregeFile(Thunk.lazy(currentOpenFileContents), replEnv)).call();
+		replEnv = resEnvTuple.mem2;
+		publishCompilerDiagnostics(resEnvTuple.mem1.call(), params.getTextDocument().getUri());
 	}
 }

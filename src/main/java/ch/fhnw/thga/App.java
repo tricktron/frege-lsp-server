@@ -14,7 +14,7 @@ public class App {
     public static void startServer(InputStream in, OutputStream out) throws InterruptedException, ExecutionException {
         SimpleLanguageServer server = new SimpleLanguageServer();
         Launcher<LanguageClient> launcher = LSPLauncher.createServerLauncher(server, in, out);
-        server.connectClient(launcher.getRemoteProxy());
+        server.connect(launcher.getRemoteProxy());
         Future<?> startListening = launcher.startListening();
         startListening.get();
     }
