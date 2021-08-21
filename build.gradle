@@ -62,4 +62,7 @@ tasks.register('copyCompiledFregeClasses', Copy) {
     mustRunAfter compileFrege
 }
 
-compileJava.dependsOn compileFrege, copyCompiledFregeClasses
+compileJava.configure {
+    options.encoding = 'UTF-8'
+    dependsOn compileFrege, copyCompiledFregeClasses
+}

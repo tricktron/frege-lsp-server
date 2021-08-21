@@ -73,7 +73,8 @@ class FregeTextDocumentServiceTest {
 
     static TextDocumentItem readFregeFile(String filename) throws IOException {
         String uri = getPathFromTestResources(filename).toUri().toString();
-        return new TextDocumentItem(uri, FregeTextDocumentService.FREGE_LANGUAGE_ID, 1, readFileFromTestResources(filename));
+        return new TextDocumentItem(uri, FregeTextDocumentService.FREGE_LANGUAGE_ID, 1,
+                readFileFromTestResources(filename));
     }
 
     @BeforeAll
@@ -102,17 +103,13 @@ class FregeTextDocumentServiceTest {
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
 
-        @BeforeAll
-        void setup() throws Exception {
-            correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
-        }
-
         @BeforeEach
         void init() throws Exception {
             server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
             service = new FregeTextDocumentService(server);
+            correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
             service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
         }
 
@@ -148,8 +145,8 @@ class FregeTextDocumentServiceTest {
         void when_hovering_over_function_name_then_returns_type_signature(Position position,
                 String expectedTypeSignature) throws Exception {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()), position);
-            CompletableFuture<Hover> expected = CompletableFuture
-                    .completedFuture(new Hover(FregeTextDocumentService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
+            CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
+                    new Hover(FregeTextDocumentService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
 
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             if (expectedTypeSignature == null) {
@@ -201,17 +198,13 @@ class FregeTextDocumentServiceTest {
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
 
-        @BeforeAll
-        void setup() throws Exception {
-            faultyFregeFile = readFregeFile(FAULTY_FREGE_FILENAME);
-        }
-
         @BeforeEach
-        void init() {
+        void init() throws Exception {
             server = spy(FregeLanguageServer.class);
             client = mock(LanguageClient.class);
             server.connect(client);
             service = new FregeTextDocumentService(server);
+            faultyFregeFile = readFregeFile(FAULTY_FREGE_FILENAME);
             service.didOpen(new DidOpenTextDocumentParams(faultyFregeFile));
         }
 
