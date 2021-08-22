@@ -81,3 +81,7 @@ compileJava.configure {
     options.encoding = 'UTF-8'
     dependsOn compileFrege, copyCompiledFregeClasses
 }
+
+tasks.withType(Jar).configureEach {
+    dependsOn check
+}
