@@ -1,5 +1,9 @@
 # Frege LSP Server
 
+![build](https://github.com/tricktron/frege-lsp-server/actions/workflows/build.yml/badge.svg)
+![coverage](.github/badges/jacoco.svg)
+![license](https://img.shields.io/github/license/tricktron/frege-lsp-server)
+
 Frege Language Server using the language server protocol
 
 ## How to use

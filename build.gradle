@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id 'jacoco'
     id 'ch.fhnw.thga.frege' version '1.0.0-alpha'
 }
 
@@ -10,10 +11,17 @@ repositories {
 dependencies {
     def junit5Group = 'org.junit.jupiter'
     def junit5Version = '5.7.2'
+    def mockitoGroup = 'org.mockito'
+    def mockitoVersion = '3.+'
     testImplementation group: junit5Group, name: 'junit-jupiter-api', version: junit5Version
+    testImplementation group: junit5Group, name: 'junit-jupiter-params', version: junit5Version
     testRuntimeOnly group: junit5Group, name: 'junit-jupiter-engine', version: junit5Version
+    testRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-console', version: junit5Version
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
+    testImplementation group: mockitoGroup, name: 'mockito-core', version: mockitoVersion
+    testImplementation group: mockitoGroup, name: 'mockito-junit-jupiter', version: mockitoVersion
+    implementation(enforcedPlatform("org.junit:junit-bom:${junit5Version}"))
 
 }
 
@@ -27,8 +35,33 @@ java {
     }
 }
 
+tasks.register('consoleLauncher', JavaExec) {
+    dependsOn testClasses
+    def reportsDir = layout.buildDirectory.dir('test-results')
+    outputs.dir reportsDir
+    classpath sourceSets.test.runtimeClasspath
+    mainClass = 'org.junit.platform.console.ConsoleLauncher'
+    args '--scan-classpath', '--details', 'tree', '--reports-dir', reportsDir.get()
+}
+
 tasks.withType(Test).configureEach {
-    useJUnitPlatform()
+    dependsOn consoleLauncher
+    finalizedBy codeCoverageReport
+    exclude '**/*' // Needed to stop the default junit4 test runner.
+                   // We already execute the tests using the junit5 console launcher.
+}
+
+jacoco {
+    applyTo consoleLauncher
+}
+
+tasks.register('codeCoverageReport', JacocoReport) {
+    executionData consoleLauncher
+    sourceSets sourceSets.main
+    reports {
+        csv.required = true
+    }
+    dependsOn test
 }
 
 frege {
@@ -39,9 +72,16 @@ frege {
 
 tasks.register('copyCompiledFregeClasses', Copy) {
     from compileFrege.fregeOutputDir
-    include "**/*.java"
+    include '**/*.java'
     into layout.projectDirectory.dir('src/main/java')
     mustRunAfter compileFrege
 }
 
-compileJava.dependsOn compileFrege, copyCompiledFregeClasses
+compileJava.configure {
+    options.encoding = 'UTF-8'
+    dependsOn compileFrege, copyCompiledFregeClasses
+}
+
+tasks.withType(Jar).configureEach {
+    dependsOn check
+}
