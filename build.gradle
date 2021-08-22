@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id 'jacoco'
     id 'ch.fhnw.thga.frege' version '1.0.0-alpha'
 }
 
@@ -45,8 +46,22 @@ tasks.register('consoleLauncher', JavaExec) {
 
 tasks.withType(Test).configureEach {
     dependsOn consoleLauncher
+    finalizedBy codeCoverageReport
     exclude '**/*' // Needed to stop the default junit4 test runner.
                    // We already execute the tests using the junit5 console launcher.
+}
+
+jacoco {
+    applyTo consoleLauncher
+}
+
+tasks.register('codeCoverageReport', JacocoReport) {
+    executionData consoleLauncher
+    sourceSets sourceSets.main
+    reports {
+        csv.required = true
+    }
+    dependsOn test
 }
 
 frege {

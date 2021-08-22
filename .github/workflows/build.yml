@@ -1,0 +1,84 @@
+name: build
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [macos-10.15, ubuntu-20.04, windows-2019]
+
+    steps:
+      - name: Setup Java 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt-openj9
+          java-version: 11
+      - name: Checkout Frege Gradle Plugin Repo
+        uses: actions/checkout@v2
+        with:
+          repository: tricktron/frege-gradle-plugin
+          ref: v1.0.0-alpha
+          path: frege-gradle-plugin
+      - name: Install Frege Gradle Plugin to MavenLocal
+        run: |
+          cd frege-gradle-plugin
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            ./gradlew.bat clean publishToMavenLocal
+          else
+            ./gradlew clean publishToMavenLocal
+          fi
+        shell: bash
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          path: frege-lsp-server
+      - name: Run Unit Tests
+        run: |
+          cd frege-lsp-server
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            ./gradlew.bat clean check
+          else
+            ./gradlew clean check
+          fi
+        shell: bash
+      - name: Upload JaCoCo Code Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-coverage-report
+          path: frege-lsp-server/build/reports/jacoco/codeCoverageReport
+        if: runner.os == 'Linux'
+  coverage:
+    needs: build
+    runs-on: ubuntu-20.04
+    name: generate jacoco code coverage badge
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download Code Coverage Report
+        uses: actions/download-artifact@v2
+        with:
+          name: jacoco-coverage-report
+      - name: Generate JaCoCo Code Coverage Badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          jacoco-csv-file: codeCoverageReport.csv
+      - name: Log Code Coverage Percentage
+        run : |
+          echo "Instructions Coverage = ${{ steps.jacoco.outputs.coverage }}"
+          echo "Branches Coverage     = ${{ steps.jacoco.outputs.branches }}"
+        shell: bash
+      - name: Commit and Push the Coverage Badge if it Changed
+        uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
+          message: 'chore: updates jacoco code coverage badges'
+          add: '*.svg'
