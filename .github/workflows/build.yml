@@ -11,10 +11,9 @@ jobs:
     name: build ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [macos-10.15, ubuntu-20.04, windows-2019]
-
     steps:
       - name: Setup Java 11
         uses: actions/setup-java@v2
@@ -49,12 +48,34 @@ jobs:
             ./gradlew clean check
           fi
         shell: bash
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}-unit-test-results
+          path: frege-lsp-server/build/test-results/TEST-junit-jupiter.xml
       - name: Upload JaCoCo Code Coverage Report
         uses: actions/upload-artifact@v2
         with:
           name: jacoco-coverage-report
           path: frege-lsp-server/build/reports/jacoco/codeCoverageReport
         if: runner.os == 'Linux'
+
+  unit-test-results:
+    name: publish unit test results
+    needs: build
+    runs-on: ubuntu-20.04
+    if: success() || failure()
+    steps:
+      - name: Download Unit Test & Code Coverage Results
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
+
   coverage:
     needs: build
     runs-on: ubuntu-20.04
