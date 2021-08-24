@@ -3,6 +3,7 @@ package ch.fhnw.thga;
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -100,15 +101,19 @@ public class FregeTextDocumentService implements TextDocumentService {
 				DiagnosticSeverity.forValue(messageType), "fregeCompiler");
 	}
 
-	private void publishCompilerDiagnostics(TReplResult result, String documentUri) {
+	private List<Diagnostic> getCompilerDiagnostics(TReplResult result) {
 		if (result.asReplInfo() != null) {
 			ArrayList<TMessage> messages = performUnsafe(TArrayList.fromFregeList(result.asReplInfo().mem1.call()))
 					.call();
-			List<Diagnostic> compilerDiagnostics = messages.stream()
-					.map(FregeTextDocumentService::mapMessageToDiagnostic).collect(Collectors.toList());
-			CompletableFuture.runAsync(() -> simpleLanguageServer.client
-					.publishDiagnostics(new PublishDiagnosticsParams(documentUri, compilerDiagnostics)));
+			return messages.stream().map(FregeTextDocumentService::mapMessageToDiagnostic).collect(Collectors.toList());
+		} else {
+			return Collections.emptyList();
 		}
+	}
+
+	private void publishCompilerDiagnostics(TReplResult result, String documentUri) {
+		CompletableFuture.runAsync(() -> simpleLanguageServer.client
+				.publishDiagnostics(new PublishDiagnosticsParams(documentUri, getCompilerDiagnostics(result))));
 	}
 
 	@Override
