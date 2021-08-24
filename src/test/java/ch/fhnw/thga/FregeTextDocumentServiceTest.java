@@ -2,6 +2,8 @@ package ch.fhnw.thga;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.mock;
@@ -15,6 +17,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
@@ -179,6 +182,17 @@ class FregeTextDocumentServiceTest {
             } else {
                 assertEquals(expected.get(), actual.get());
             }
+        }
+
+        @Test
+        void supports_cancellation_of_hover() throws Exception {
+            HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()),
+                    new Position(2, 2));
+            CompletableFuture<Hover> actual = service.hover(hoverParams);
+            assertTrue(actual.cancel(true));
+            assertThrows(CancellationException.class, () -> {
+                actual.get();
+            });
         }
 
         @Test
