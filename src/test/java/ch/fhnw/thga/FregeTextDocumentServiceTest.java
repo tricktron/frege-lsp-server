@@ -193,7 +193,7 @@ class FregeTextDocumentServiceTest {
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             actual.cancel(true);
             assertThrows(CancellationException.class, () -> {
-                actual.get(1, TimeUnit.SECONDS);
+                assertNull(actual.get(1, TimeUnit.SECONDS));
             });
         }
 

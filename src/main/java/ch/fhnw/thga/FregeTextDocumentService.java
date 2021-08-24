@@ -86,8 +86,7 @@ public class FregeTextDocumentService implements TextDocumentService {
 		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
 		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
 		return CompletableFutures.computeAsync(cancel -> {
-			cancel.checkCanceled();
-			if (functionSignature.isEmpty()) {
+			if (functionSignature.isEmpty() || cancel.isCanceled()) {
 				return null;
 			} else {
 				return (new Hover(
