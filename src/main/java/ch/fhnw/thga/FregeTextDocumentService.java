@@ -73,9 +73,12 @@ public class FregeTextDocumentService implements TextDocumentService {
 		}
 	}
 
-	protected static MarkupContent createFregeTypeSignatureCodeBlock(String typeSignature) {
-		return new MarkupContent(MarkupKind.MARKDOWN,
-				String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, typeSignature));
+	private String fregeFunctionTypeSignature(String functionName, String typeSignature) {
+		return String.format("%s :: %s", functionName, typeSignature);
+	}
+
+	protected static MarkupContent createFregeCodeBlock(String fregeCode) {
+		return new MarkupContent(MarkupKind.MARKDOWN, String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, fregeCode));
 	}
 
 	@Override
@@ -87,7 +90,8 @@ public class FregeTextDocumentService implements TextDocumentService {
 			if (functionSignature.isEmpty()) {
 				return null;
 			} else {
-				return (new Hover(createFregeTypeSignatureCodeBlock(functionSignature.get())));
+				return (new Hover(
+						createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
 			}
 		});
 	}

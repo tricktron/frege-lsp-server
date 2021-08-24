@@ -158,8 +158,8 @@ class FregeTextDocumentServiceTest {
         }
 
         Stream<Arguments> expectedFunctionSignatures() {
-            String[] expectedFunctionSignatures = new String[] { null, null, "a -> (a,String)", null, "Int", null,
-                    "Num a => a -> a", null };
+            String[] expectedFunctionSignatures = new String[] { null, null, "complete :: a -> (a,String)", null, "answerToEverything :: Int", null,
+                    "square :: Num a => a -> a", null };
             int[] lengthOfLines = correctFregeFileContents.lines().mapToInt(line -> line.length()).toArray();
             ThreadLocalRandom random = ThreadLocalRandom.current();
             return IntStream.range(0, (int) correctFregeFileContents.lines().count())
@@ -175,7 +175,7 @@ class FregeTextDocumentServiceTest {
                 String expectedTypeSignature) throws Exception {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()), position);
             CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
-                    new Hover(FregeTextDocumentService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
+                    new Hover(FregeTextDocumentService.createFregeCodeBlock(expectedTypeSignature)));
 
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             if (expectedTypeSignature == null) {
