@@ -189,7 +189,7 @@ class FregeTextDocumentServiceTest {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()),
                     new Position(2, 2));
             CompletableFuture<Hover> actual = service.hover(hoverParams);
-            assertTrue(actual.cancel(true));
+            actual.cancel(true);
             assertThrows(CancellationException.class, () -> {
                 actual.get();
             });
