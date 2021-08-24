@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eclipse.lsp4j.Diagnostic;
@@ -46,10 +48,16 @@ public class FregeTextDocumentService implements TextDocumentService {
 		replEnv = performUnsafe(TypeSignature.initialReplEnv.call());
 	}
 
+	private static String findFirstWordFromLine(String line) {
+		Pattern pattern = Pattern.compile("\\b\\w+\\b");
+		Matcher matcher = pattern.matcher(line);
+		return matcher.find() ? matcher.group() : "";
+	}
+
 	protected static String extractFirstWordFromLine(String fregeFile, int line) {
-		Optional<String> functionName = fregeFile.lines().skip(line).findFirst().filter(l -> !l.isEmpty())
-				.map(l -> l.substring(0, l.indexOf(" ")));
-		return functionName.isEmpty() ? "" : functionName.get().trim();
+		Optional<String> functionName = fregeFile.lines().skip(line).findFirst()
+				.map(FregeTextDocumentService::findFirstWordFromLine);
+		return functionName.isEmpty() ? "" : functionName.get();
 	}
 
 	protected static Optional<String> getFunctionTypeSignature(String functionName, Lazy<TReplEnv> replEnv) {
