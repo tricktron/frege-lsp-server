@@ -3,6 +3,7 @@ package ch.fhnw.thga;
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -72,23 +73,27 @@ public class FregeTextDocumentService implements TextDocumentService {
 		}
 	}
 
-	protected static MarkupContent createFregeTypeSignatureCodeBlock(String typeSignature) {
-		return new MarkupContent(MarkupKind.MARKDOWN,
-				String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, typeSignature));
+	private String fregeFunctionTypeSignature(String functionName, String typeSignature) {
+		return String.format("%s :: %s", functionName, typeSignature);
+	}
+
+	protected static MarkupContent createFregeCodeBlock(String fregeCode) {
+		return new MarkupContent(MarkupKind.MARKDOWN, String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, fregeCode));
 	}
 
 	@Override
 	public CompletableFuture<Hover> hover(HoverParams params) {
 		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
 		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
-		if (functionSignature.isEmpty()) {
-			return CompletableFuture.completedFuture(null);
-		} else {
-			return CompletableFutures.computeAsync(cancel -> {
-				cancel.checkCanceled();
-				return (new Hover(createFregeTypeSignatureCodeBlock(functionSignature.get())));
-			});
-		}
+		return CompletableFutures.computeAsync(cancel -> {
+			cancel.checkCanceled();
+			if (functionSignature.isEmpty()) {
+				return null;
+			} else {
+				return (new Hover(
+						createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
+			}
+		});
 	}
 
 	private static Diagnostic mapMessageToDiagnostic(TMessage message) {
@@ -100,15 +105,19 @@ public class FregeTextDocumentService implements TextDocumentService {
 				DiagnosticSeverity.forValue(messageType), "fregeCompiler");
 	}
 
-	private void publishCompilerDiagnostics(TReplResult result, String documentUri) {
+	private List<Diagnostic> getCompilerDiagnostics(TReplResult result) {
 		if (result.asReplInfo() != null) {
 			ArrayList<TMessage> messages = performUnsafe(TArrayList.fromFregeList(result.asReplInfo().mem1.call()))
 					.call();
-			List<Diagnostic> compilerDiagnostics = messages.stream()
-					.map(FregeTextDocumentService::mapMessageToDiagnostic).collect(Collectors.toList());
-			CompletableFuture.runAsync(() -> simpleLanguageServer.client
-					.publishDiagnostics(new PublishDiagnosticsParams(documentUri, compilerDiagnostics)));
+			return messages.stream().map(FregeTextDocumentService::mapMessageToDiagnostic).collect(Collectors.toList());
+		} else {
+			return Collections.emptyList();
 		}
+	}
+
+	private void publishCompilerDiagnostics(TReplResult result, String documentUri) {
+		CompletableFuture.runAsync(() -> simpleLanguageServer.client
+				.publishDiagnostics(new PublishDiagnosticsParams(documentUri, getCompilerDiagnostics(result))));
 	}
 
 	@Override

@@ -16,10 +16,12 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -157,8 +159,8 @@ class FregeTextDocumentServiceTest {
         }
 
         Stream<Arguments> expectedFunctionSignatures() {
-            String[] expectedFunctionSignatures = new String[] { null, null, "a -> (a,String)", null, "Int", null,
-                    "Num a => a -> a", null };
+            String[] expectedFunctionSignatures = new String[] { null, null, "complete :: a -> (a,String)", null, "answerToEverything :: Int", null,
+                    "square :: Num a => a -> a", null };
             int[] lengthOfLines = correctFregeFileContents.lines().mapToInt(line -> line.length()).toArray();
             ThreadLocalRandom random = ThreadLocalRandom.current();
             return IntStream.range(0, (int) correctFregeFileContents.lines().count())
@@ -174,7 +176,7 @@ class FregeTextDocumentServiceTest {
                 String expectedTypeSignature) throws Exception {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()), position);
             CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
-                    new Hover(FregeTextDocumentService.createFregeTypeSignatureCodeBlock(expectedTypeSignature)));
+                    new Hover(FregeTextDocumentService.createFregeCodeBlock(expectedTypeSignature)));
 
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             if (expectedTypeSignature == null) {
@@ -189,21 +191,27 @@ class FregeTextDocumentServiceTest {
             HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()),
                     new Position(2, 2));
             CompletableFuture<Hover> actual = service.hover(hoverParams);
-            assertTrue(actual.cancel(true));
+            actual.cancel(true);
             assertThrows(CancellationException.class, () -> {
-                actual.get();
+                actual.get(1, TimeUnit.SECONDS);
             });
         }
 
         @Test
         void then_no_compiler_errors_are_published() {
-            Mockito.verifyNoInteractions(client);
+            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(correctFregeFile.getUri(),
+                    Collections.emptyList());
+            Mockito.verify(client, timeout(1000)).publishDiagnostics(diagnosticCaptor.capture());
+            assertEquals(expected, diagnosticCaptor.getValue());
         }
 
         @Test
         void when_no_changes_and_did_save_then_no_compiler_errors_are_published() {
+            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(correctFregeFile.getUri(),
+                    Collections.emptyList());
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(correctFregeFile.getUri())));
-            Mockito.verifyNoInteractions(client);
+            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
+            assertEquals(expected, diagnosticCaptor.getValue());
         }
 
         @Test
@@ -218,7 +226,7 @@ class FregeTextDocumentServiceTest {
             service.didChange(params);
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(correctFregeFile.getUri())));
 
-            Mockito.verify(client, timeout(1000)).publishDiagnostics(diagnosticCaptor.capture());
+            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
         }
     }
@@ -275,14 +283,14 @@ class FregeTextDocumentServiceTest {
                     faultyFregeFile.getVersion());
             DidChangeTextDocumentParams params = new DidChangeTextDocumentParams(id,
                     List.of(new TextDocumentContentChangeEvent(correctFregeFileContents)));
-            PublishDiagnosticsParams expectedErrors = new PublishDiagnosticsParams(faultyFregeFile.getUri(),
-                    expectedErrorDiagnostics);
+            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(faultyFregeFile.getUri(),
+                    Collections.emptyList());
 
             service.didChange(params);
             service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(faultyFregeFile.getUri())));
 
-            Mockito.verify(client, after(1000)).publishDiagnostics(diagnosticCaptor.capture());
-            assertEquals(expectedErrors, diagnosticCaptor.getValue());
+            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
+            assertEquals(expected, diagnosticCaptor.getValue());
         }
     }
 }
