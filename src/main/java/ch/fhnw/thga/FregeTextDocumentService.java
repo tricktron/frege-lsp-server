@@ -73,7 +73,7 @@ public class FregeTextDocumentService implements TextDocumentService {
 		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
 		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
 		if (functionSignature.isEmpty()) {
-			return null;
+			return CompletableFuture.completedFuture(null);
 		} else {
 			return CompletableFuture
 					.completedFuture(new Hover(createFregeTypeSignatureCodeBlock(functionSignature.get())));

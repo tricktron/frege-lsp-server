@@ -155,7 +155,7 @@ class FregeTextDocumentServiceTest {
 
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             if (expectedTypeSignature == null) {
-                assertNull(actual);
+                assertNull(actual.get());
             } else {
                 assertEquals(expected.get(), actual.get());
             }
