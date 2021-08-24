@@ -94,6 +94,39 @@ class FregeTextDocumentServiceTest {
     @TestInstance(Lifecycle.PER_CLASS)
     @Nested
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+    class Can_extract_first_word_on_each_line {
+        String firstWordTestFile;
+
+        @BeforeAll
+        void setup() throws Exception {
+            firstWordTestFile = readFileFromTestResources("FirstWordTest.fr");
+        }
+
+        Stream<Arguments> expectedFirstWords() throws Exception {
+            List<String> expectedFirstWords = List.of("module", "", "complete", "", "answerToEverything", "", "square",
+                    "", "a", "b", "c", "ef", "bla");
+            return IntStream.range(0, (int) firstWordTestFile.lines().count())
+                    .mapToObj(i -> arguments(i, expectedFirstWords.get(i)));
+        }
+
+        @Test
+        void given_file_is_empty() {
+            assertEquals("", FregeTextDocumentService.extractFirstWordFromLine("", 0));
+            assertEquals("", FregeTextDocumentService.extractFirstWordFromLine("", 1));
+        }
+
+        @ParameterizedTest(name = "Line = {0} first word = {1}")
+        @MethodSource("expectedFirstWords")
+        @DisplayName("given FirstWordTest.fr file")
+        void given_first_word_test_file(int line, String expected) throws Exception {
+            String actual = FregeTextDocumentService.extractFirstWordFromLine(firstWordTestFile, line);
+            assertEquals(expected, actual);
+        }
+    }
+
+    @TestInstance(Lifecycle.PER_CLASS)
+    @Nested
+    @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     class Given_opened_correct_frege_file {
 
         FregeLanguageServer server;
@@ -120,13 +153,6 @@ class FregeTextDocumentServiceTest {
             service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
         }
 
-        Stream<Arguments> expectedFirstWords() {
-            List<String> expectedFirstWords = List.of("module", "", "complete", "", "answerToEverything", "", "square",
-                    "", "a", "b", "c", "ef", "bla");
-            return IntStream.range(0, (int) firstWordTestFile.lines().count())
-                    .mapToObj(i -> arguments(i, expectedFirstWords.get(i)));
-        }
-
         Stream<Arguments> expectedFunctionSignatures() {
             String[] expectedFunctionSignatures = new String[] { null, null, "a -> (a,String)", null, "Int", null,
                     "Num a => a -> a", null };
@@ -136,14 +162,6 @@ class FregeTextDocumentServiceTest {
                     .mapToObj(line -> new Position(line, random.nextInt(0, lengthOfLines[line] + 1)))
                     .map(pos -> arguments(pos, expectedFunctionSignatures[pos.getLine()]));
 
-        }
-
-        @ParameterizedTest(name = "Line = {0} first word = {1}")
-        @MethodSource("expectedFirstWords")
-        @DisplayName("then can extract first word on each line")
-        void then_can_extract_first_word_on_each_line(int line, String expected) throws Exception {
-            String actual = FregeTextDocumentService.extractFirstWordFromLine(firstWordTestFile, line);
-            assertEquals(expected, actual);
         }
 
         @ParameterizedTest(name = "{0} type signature = {1}")
