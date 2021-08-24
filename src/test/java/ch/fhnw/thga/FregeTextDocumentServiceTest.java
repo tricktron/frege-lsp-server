@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -192,7 +193,7 @@ class FregeTextDocumentServiceTest {
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             actual.cancel(true);
             assertThrows(CancellationException.class, () -> {
-                actual.get();
+                actual.get(1, TimeUnit.SECONDS);
             });
         }
 
