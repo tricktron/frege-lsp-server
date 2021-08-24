@@ -84,13 +84,17 @@ public class FregeTextDocumentService implements TextDocumentService {
 	@Override
 	public CompletableFuture<Hover> hover(HoverParams params) {
 		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
-		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
 		return CompletableFutures.computeAsync(cancel -> {
-			if (functionSignature.isEmpty() || cancel.isCanceled()) {
+			if (cancel.isCanceled()) {
 				return null;
 			} else {
-				return (new Hover(
-						createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
+				Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
+				if (functionSignature.isEmpty()) {
+					return null;
+				} else {
+					return (new Hover(
+							createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
+				}
 			}
 		});
 	}
