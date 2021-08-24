@@ -100,6 +100,7 @@ class FregeTextDocumentServiceTest {
         LanguageClient client;
         FregeTextDocumentService service;
         private TextDocumentItem correctFregeFile;
+        String firstWordTestFile;
 
         @Captor
         ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
@@ -107,6 +108,7 @@ class FregeTextDocumentServiceTest {
         @BeforeAll
         void setup() throws Exception {
             correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
+            firstWordTestFile = readFileFromTestResources("FirstWordTest.fr");
         }
 
         @BeforeEach
@@ -120,8 +122,8 @@ class FregeTextDocumentServiceTest {
 
         Stream<Arguments> expectedFirstWords() {
             List<String> expectedFirstWords = List.of("module", "", "complete", "", "answerToEverything", "", "square",
-                    "");
-            return IntStream.range(0, (int) correctFregeFileContents.lines().count())
+                    "", "a", "b", "c", "ef", "bla");
+            return IntStream.range(0, (int) firstWordTestFile.lines().count())
                     .mapToObj(i -> arguments(i, expectedFirstWords.get(i)));
         }
 
@@ -140,7 +142,7 @@ class FregeTextDocumentServiceTest {
         @MethodSource("expectedFirstWords")
         @DisplayName("then can extract first word on each line")
         void then_can_extract_first_word_on_each_line(int line, String expected) throws Exception {
-            String actual = FregeTextDocumentService.extractFirstWordFromLine(correctFregeFileContents, line);
+            String actual = FregeTextDocumentService.extractFirstWordFromLine(firstWordTestFile, line);
             assertEquals(expected, actual);
         }
 
