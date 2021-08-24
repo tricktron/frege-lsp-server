@@ -24,6 +24,7 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
+import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
 import ch.fhnw.thga.TypeSignature.TArrayList;
@@ -83,8 +84,10 @@ public class FregeTextDocumentService implements TextDocumentService {
 		if (functionSignature.isEmpty()) {
 			return CompletableFuture.completedFuture(null);
 		} else {
-			return CompletableFuture
-					.completedFuture(new Hover(createFregeTypeSignatureCodeBlock(functionSignature.get())));
+			return CompletableFutures.computeAsync(cancel -> {
+				cancel.checkCanceled();
+				return (new Hover(createFregeTypeSignatureCodeBlock(functionSignature.get())));
+			});
 		}
 	}
 
