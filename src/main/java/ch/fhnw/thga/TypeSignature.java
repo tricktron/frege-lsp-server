@@ -162,7 +162,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/TypeSignature.fr",
-  time=1629824380658L, jmajor=11, jminor=-1,
+  time=1630074427326L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.interpreter.FregeInterpreter", "frege.repl.FregeRepl",
     "frege.control.monad.trans.MonadIO", "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase",

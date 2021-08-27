@@ -81,20 +81,23 @@ public class FregeTextDocumentService implements TextDocumentService {
 		return new MarkupContent(MarkupKind.MARKDOWN, String.format("```%s\n%s\n```", FREGE_LANGUAGE_ID, fregeCode));
 	}
 
+	private Hover getFunctionTypeSignatureOnLine(int line) {
+		String functionName = extractFirstWordFromLine(currentOpenFileContents, line);
+		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
+		if (functionSignature.isEmpty()) {
+			return null;
+		} else {
+			return (new Hover(createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
+		}
+	}
+
 	@Override
 	public CompletableFuture<Hover> hover(HoverParams params) {
-		String functionName = extractFirstWordFromLine(currentOpenFileContents, params.getPosition().getLine());
 		return CompletableFutures.computeAsync(cancel -> {
 			if (cancel.isCanceled()) {
 				return null;
 			} else {
-				Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
-				if (functionSignature.isEmpty()) {
-					return null;
-				} else {
-					return (new Hover(
-							createFregeCodeBlock(fregeFunctionTypeSignature(functionName, functionSignature.get()))));
-				}
+				return getFunctionTypeSignatureOnLine(params.getPosition().getLine());
 			}
 		});
 	}
