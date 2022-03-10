@@ -42,11 +42,14 @@ public class FregeTextDocumentService implements TextDocumentService {
 	public static final String FREGE_LANGUAGE_ID = "frege";
 	private final FregeLanguageServer simpleLanguageServer;
 	private String currentOpenFileContents;
+    private List<String> currentOpenFileLines;
 	private Lazy<TReplEnv> replEnv;
 
 	public FregeTextDocumentService(FregeLanguageServer server) {
 		simpleLanguageServer = server;
 		currentOpenFileContents = "";
+        currentOpenFileLines = new ArrayList<>();
+
 		replEnv = performUnsafe(TypeSignature.initialReplEnv.call());
 	}
 
@@ -102,20 +105,59 @@ public class FregeTextDocumentService implements TextDocumentService {
 		});
 	}
 
-	private static Diagnostic mapMessageToDiagnostic(TMessage message) {
+    private String extractTypeErrorExpressionFromCompilerMessage(String compilerMessage)
+    {
+        return compilerMessage.lines().skip(1).findFirst().orElse("");
+    }
+
+    private int findTypeErrorLineIndex(String faultyExpression)
+    {
+        return (int) this.currentOpenFileLines
+            .stream()
+            .takeWhile(line -> !line.contains(faultyExpression))
+            .count();
+    }
+
+    private Range findTypeErrorRange(String typeErrorMessage)
+    {
+        String typeErrorExpression = extractTypeErrorExpressionFromCompilerMessage(typeErrorMessage);
+        Pattern pattern = Pattern.compile(typeErrorExpression);
+        int line = findTypeErrorLineIndex(typeErrorExpression);
+        Matcher matcher = pattern
+            .matcher(this.currentOpenFileLines.get(line));
+        return matcher.find() ? 
+            new Range(
+                new Position(line, matcher.start()),
+                new Position(line, matcher.end()))
+            : null;
+    }
+
+	private Diagnostic mapMessageToDiagnostic(TMessage message)
+    {
+		String compilerMessage = message.mem$text.call();
+        /*if (compilerMessage.contains("type error in expression"))
+        {
+            errorRange = findTypeErrorRange(compilerMessage);
+        }*/
 		int line = message.mem$pos.call().mem$first.mem$line;
 		int col = message.mem$pos.call().mem$first.mem$col;
-		short messageType = message.mem$msgType.call();
-		String compilerMessage = message.mem$text.call();
-		return new Diagnostic(new Range(new Position(line, col), new Position(line, col + 1)), compilerMessage,
-				DiagnosticSeverity.forValue(messageType), "fregeCompiler");
+        Range errorRange = new Range(
+            new Position(line - 1, 0),
+            new Position(line - 1, col)
+        );
+		return new Diagnostic(
+            errorRange,
+            compilerMessage,
+			DiagnosticSeverity.forValue(message.mem$msgType.call()),
+            "fregeCompiler"
+        );
 	}
 
 	private List<Diagnostic> getCompilerDiagnostics(TReplResult result) {
 		if (result.asReplInfo() != null) {
 			ArrayList<TMessage> messages = performUnsafe(TArrayList.fromFregeList(result.asReplInfo().mem1.call()))
 					.call();
-			return messages.stream().map(FregeTextDocumentService::mapMessageToDiagnostic).collect(Collectors.toList());
+			return messages.stream().map(message -> mapMessageToDiagnostic(message)).collect(Collectors.toList());
 		} else {
 			return Collections.emptyList();
 		}
@@ -129,6 +171,7 @@ public class FregeTextDocumentService implements TextDocumentService {
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params) {
 		currentOpenFileContents = params.getTextDocument().getText();
+        currentOpenFileLines = currentOpenFileContents.lines().collect(Collectors.toList());
 		TTuple2<TReplResult, TReplEnv> resEnvTuple = performUnsafe(
 				TypeSignature.evalFregeFile(Thunk.lazy(currentOpenFileContents), replEnv)).call();
 		replEnv = resEnvTuple.mem2;
@@ -139,11 +182,13 @@ public class FregeTextDocumentService implements TextDocumentService {
 	public void didChange(DidChangeTextDocumentParams params) {
 		List<TextDocumentContentChangeEvent> changes = params.getContentChanges();
 		currentOpenFileContents = changes.get(changes.size() - 1).getText();
+        currentOpenFileLines = currentOpenFileContents.lines().collect(Collectors.toList());
 	}
 
 	@Override
 	public void didClose(DidCloseTextDocumentParams params) {
 		currentOpenFileContents = "";
+        currentOpenFileLines.clear();
 	}
 
 	@Override
