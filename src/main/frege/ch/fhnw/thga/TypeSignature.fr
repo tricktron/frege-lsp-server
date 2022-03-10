@@ -18,7 +18,7 @@ data ArrayList a = native java.util.ArrayList where
 initialReplEnv :: IO ReplEnv
 initialReplEnv = do
   replEnv <- ReplEnv.initialState
-  return replEnv.{config <- InterpreterConfig.{compilerFlags = Flags.fromList [WARNINGS, HINTS, INLINE, IDEMODE, IDETOKENS]}}
+  return replEnv.{config <- InterpreterConfig.{compilerFlags = Flags.fromList [WARNINGS, HINTS, INLINE, IDEMODE, IDETOKENS, MAKE]}}
 
 evalFregeFile :: String -> ReplEnv -> IO (ReplResult, ReplEnv)
 evalFregeFile file env = do

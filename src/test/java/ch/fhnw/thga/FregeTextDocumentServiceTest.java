@@ -59,11 +59,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class FregeTextDocumentServiceTest {
-    private static final String CORRECT_FREGE_FILENAME = "CorrectFregeTest.fr";
-    private static final String FAULTY_FREGE_FILENAME = "FaultyFregeTest.fr";
+    private static final String CORRECT_FREGE_FILENAME    = "CorrectFregeTest.fr";
+    private static final String FAULTY_FREGE_FILENAME     = "FaultyFregeTest.fr";
+    private static final String ERROR_SOURCE              = "fregeCompiler";
     private String correctFregeFileContents;
     private String faultyFregeFileContents;
     private List<Diagnostic> expectedErrorDiagnostics;
+    private List<Diagnostic> expectedTypeErrorDiagnostics = List.of(
+        new Diagnostic(
+            createRange(8, 16, 8, 22),
+            "type error in expression\nn = if n < 10 then n else reducedDigitSum $ digitSum n\ntype is : Integer\nexpected: Int",
+            DiagnosticSeverity.Error,
+            ERROR_SOURCE
+            )
+    );
 
     private static final String TEST_RESOURCES_PATH = "src/test/resources";
 
@@ -73,6 +82,12 @@ class FregeTextDocumentServiceTest {
 
     static String readFileFromTestResources(String filename) throws IOException {
         return new String(Files.readAllBytes(getPathFromTestResources(filename)), StandardCharsets.UTF_8);
+    }
+
+    private static final Range createRange(
+        int fromLine, int fromColumn, int toLine, int toColumn)
+    {
+        return new Range(new Position(fromLine, fromColumn), new Position(toLine, toColumn));
     }
 
     static TextDocumentItem readFregeFile(String filename) throws IOException {
@@ -88,9 +103,9 @@ class FregeTextDocumentServiceTest {
         final String expectedCompilerMessage = "String is not an instance of Num";
         final String diagnosticSource = "fregeCompiler";
         expectedErrorDiagnostics = List.of(
-                new Diagnostic(new Range(new Position(8, 11), new Position(8, 12)), expectedCompilerMessage,
+                new Diagnostic(new Range(new Position(7, 0), new Position(7, 11)), expectedCompilerMessage,
                         DiagnosticSeverity.Error, diagnosticSource),
-                (new Diagnostic(new Range(new Position(6, 22), new Position(6, 23)), expectedCompilerMessage,
+                (new Diagnostic(new Range(new Position(5, 0), new Position(5, 22)), expectedCompilerMessage,
                         DiagnosticSeverity.Error, diagnosticSource)));
     }
 

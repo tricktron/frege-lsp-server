@@ -162,7 +162,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/TypeSignature.fr",
-  time=1630074427326L, jmajor=11, jminor=-1,
+  time=1646899729133L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.interpreter.FregeInterpreter", "frege.repl.FregeRepl",
     "frege.control.monad.trans.MonadIO", "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase",
@@ -202,15 +202,15 @@ import frege.test.QuickCheckText;
       sig=8, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=1066, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="getFunctionTypeSignature"), stri="s(uu)",
+      offset=1072, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="getFunctionTypeSignature"), stri="s(uu)",
       sig=11, depth=2, rkind=12
     ),
     @Meta.SymV(
-      offset=1210, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalType"), stri="s(u)",
+      offset=1216, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalType"), stri="s(u)",
       sig=12, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=900, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalFregeFile"), stri="s(uu)",
+      offset=906, name=@Meta.QName(pack="ch.fhnw.thga.TypeSignature", base="evalFregeFile"), stri="s(uu)",
       sig=13, depth=2, rkind=13
     )
   },
@@ -280,151 +280,155 @@ final public static class TArrayList  {
             });
   }
   final public static <𝓐, 𝓢> Func.U<𝓢, java.util.ArrayList<𝓐>> fromFregeList(final Lazy<PreludeBase.TList<𝓐>> arg$1) {
-    return PreludeBase.TST.<𝓢, java.util.ArrayList<𝓐>, java.util.ArrayList<𝓐>>$gt$gt$eq(
-              TArrayList.<𝓐, 𝓢>$new(PreludeBase.TUnit.Unit),
-              (Func.U<java.util.ArrayList<𝓐>, Func.U<𝓢, java.util.ArrayList<𝓐>>>)((
-                final Lazy<java.util.ArrayList<𝓐>> η$18978
-              ) -> Thunk.<Func.U<𝓢, java.util.ArrayList<𝓐>>>shared(
-                        (Lazy<Func.U<𝓢, java.util.ArrayList<𝓐>>>)(() -> TypeSignature.<
-                              𝓐, 𝓢
-                            >go(arg$1.call(), η$18978))
-                      ))
-            );
+    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$19124) -> {
+              final java.util.ArrayList<𝓐> v2056$19108 = TArrayList.<𝓐, 𝓢>$new(PreludeBase.TUnit.Unit)
+              .apply(arg$19124).call();
+              final Func.U<𝓢, java.util.ArrayList<𝓐>> v2057$19109 = TypeSignature.<𝓐, 𝓢>go(
+                    arg$1.call(), Thunk.<java.util.ArrayList<𝓐>>lazy(v2056$19108)
+                  );
+              return Thunk.<java.util.ArrayList<𝓐>>nested(
+                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v2057$19109.apply(
+                                  arg$19124
+                                ))
+                      );
+            });
   }
 }
 final public static Lazy<Func.U<RealWorld, FregeRepl.TReplEnv>> initialReplEnv = Thunk.<
   Func.U<RealWorld, FregeRepl.TReplEnv>
 >shared(
       (Lazy<Func.U<RealWorld, FregeRepl.TReplEnv>>)(() -> {
-            return PreludeBase.TST.<RealWorld, FregeRepl.TReplEnv, FregeRepl.TReplEnv>$gt$gt$eq(
-                      FregeRepl.TReplEnv.initialState.call(),
-                      (Func.U<FregeRepl.TReplEnv, Func.U<RealWorld, FregeRepl.TReplEnv>>)((
-                        final Lazy<FregeRepl.TReplEnv> arg$18979
-                      ) -> {
-                            return Thunk.<Func.U<RealWorld, FregeRepl.TReplEnv>>shared(
-                                      (Lazy<Func.U<RealWorld, FregeRepl.TReplEnv>>)(() -> PreludeMonad.IMonad_ST.<
-                                            RealWorld, FregeRepl.TReplEnv
-                                          >pure(
-                                                Thunk.<FregeRepl.TReplEnv>shared(
-                                                      (Lazy<FregeRepl.TReplEnv>)(() -> FregeRepl.TReplEnv.chg$config(
-                                                                arg$18979.call(),
+            return (Func.U<RealWorld, FregeRepl.TReplEnv>)((final Lazy<RealWorld> arg$19127) -> {
+                      final FregeRepl.TReplEnv v2056$18989 = FregeRepl.TReplEnv.initialState
+                      .call().apply(arg$19127).call();
+                      final Func.U<RealWorld, FregeRepl.TReplEnv> v2057$18990 = PreludeMonad.IMonad_ST.<
+                        RealWorld, FregeRepl.TReplEnv
+                      >pure(
+                            Thunk.<FregeRepl.TReplEnv>shared(
+                                  (Lazy<FregeRepl.TReplEnv>)(() -> FregeRepl.TReplEnv.chg$config(
+                                            v2056$18989,
+                                            (Func.U<FregeInterpreter.TInterpreterConfig, FregeInterpreter.TInterpreterConfig>)((
+                                              final Lazy<FregeInterpreter.TInterpreterConfig> η$19129
+                                            ) -> Thunk.<FregeInterpreter.TInterpreterConfig>nested(
+                                                      (Lazy<Lazy<FregeInterpreter.TInterpreterConfig>>)(() -> PreludeBase.<
+                                                            FregeInterpreter.TInterpreterConfig,
+                                                            FregeInterpreter.TInterpreterConfig, Long
+                                                          >flip(
                                                                 (Func.U<
                                                                   FregeInterpreter.TInterpreterConfig,
-                                                                  FregeInterpreter.TInterpreterConfig
+                                                                  Func.U<Long, FregeInterpreter.TInterpreterConfig>
                                                                 >)((
-                                                                  final Lazy<FregeInterpreter.TInterpreterConfig> η$18980
-                                                                ) -> Thunk.<FregeInterpreter.TInterpreterConfig>nested(
-                                                                          (Lazy<Lazy<FregeInterpreter.TInterpreterConfig>>)(() -> PreludeBase.<
-                                                                                FregeInterpreter.TInterpreterConfig,
-                                                                                FregeInterpreter.TInterpreterConfig, Long
-                                                                              >flip(
-                                                                                    (Func.U<
-                                                                                      FregeInterpreter.TInterpreterConfig,
-                                                                                      Func.U<
-                                                                                        Long,
-                                                                                        FregeInterpreter.TInterpreterConfig
-                                                                                      >
-                                                                                    >)((
-                                                                                      final Lazy<FregeInterpreter.TInterpreterConfig> η$18981
-                                                                                    ) -> (Func.U<
-                                                                                          Long,
-                                                                                          FregeInterpreter.TInterpreterConfig
-                                                                                        >)((
-                                                                                          final Lazy<Long> η$18982
-                                                                                        ) -> Thunk.<
-                                                                                              FregeInterpreter.TInterpreterConfig
-                                                                                            >shared(
-                                                                                                  (Lazy<FregeInterpreter.TInterpreterConfig>)(() -> FregeInterpreter.TInterpreterConfig.upd$compilerFlags(
-                                                                                                            η$18981
-                                                                                                            .call(),
-                                                                                                            η$18982
-                                                                                                          ))
-                                                                                                ))),
-                                                                                    Thunk.<
-                                                                                      Long
-                                                                                    >shared(
-                                                                                          (Lazy<Long>)(() -> Bits.TBitSet.<
-                                                                                                Short
-                                                                                              >fromList(
-                                                                                                    Flags.IEnum_Flag.it,
-                                                                                                    PreludeBase.TList.DCons.<
-                                                                                                      Short
-                                                                                                    >mk(
-                                                                                                          Thunk.<
-                                                                                                            Short
-                                                                                                          >lazy(
-                                                                                                                Flags.TFlag.WARNINGS
-                                                                                                              ),
-                                                                                                          PreludeBase.TList.DCons.<
-                                                                                                            Short
-                                                                                                          >mk(
-                                                                                                                Thunk.<
-                                                                                                                  Short
-                                                                                                                >lazy(
-                                                                                                                      Flags.TFlag.HINTS
-                                                                                                                    ),
-                                                                                                                PreludeBase.TList.DCons.<
-                                                                                                                  Short
-                                                                                                                >mk(
-                                                                                                                      Thunk.<
-                                                                                                                        Short
-                                                                                                                      >lazy(
-                                                                                                                            Flags.TFlag.INLINE
-                                                                                                                          ),
-                                                                                                                      PreludeBase.TList.DCons.<
-                                                                                                                        Short
-                                                                                                                      >mk(
-                                                                                                                            Thunk.<
-                                                                                                                              Short
-                                                                                                                            >lazy(
-                                                                                                                                  Flags.TFlag.IDEMODE
-                                                                                                                                ),
-                                                                                                                            PreludeBase.TList.DCons.<
-                                                                                                                              Short
-                                                                                                                            >mk(
-                                                                                                                                  Thunk.<
-                                                                                                                                    Short
-                                                                                                                                  >lazy(
-                                                                                                                                        Flags.TFlag.IDETOKENS
-                                                                                                                                      ),
-                                                                                                                                  PreludeBase.TList.DList.<
-                                                                                                                                    Short
-                                                                                                                                  >mk()
-                                                                                                                                )
-                                                                                                                          )
-                                                                                                                    )
-                                                                                                              )
-                                                                                                        )
-                                                                                                  ))
-                                                                                        ),
-                                                                                    η$18980
-                                                                                  ))
-                                                                        ))
+                                                                  final Lazy<FregeInterpreter.TInterpreterConfig> η$19130
+                                                                ) -> (Func.U<Long, FregeInterpreter.TInterpreterConfig>)((
+                                                                      final Lazy<Long> η$19131
+                                                                    ) -> Thunk.<FregeInterpreter.TInterpreterConfig>shared(
+                                                                              (Lazy<FregeInterpreter.TInterpreterConfig>)(() -> FregeInterpreter.TInterpreterConfig.upd$compilerFlags(
+                                                                                        η$19130
+                                                                                        .call(),
+                                                                                        η$19131
+                                                                                      ))
+                                                                            ))),
+                                                                Thunk.<Long>shared(
+                                                                      (Lazy<Long>)(() -> Bits.TBitSet.<
+                                                                            Short
+                                                                          >fromList(
+                                                                                Flags.IEnum_Flag.it,
+                                                                                PreludeBase.TList.DCons.<
+                                                                                  Short
+                                                                                >mk(
+                                                                                      Thunk.<
+                                                                                        Short
+                                                                                      >lazy(
+                                                                                            Flags.TFlag.WARNINGS
+                                                                                          ),
+                                                                                      PreludeBase.TList.DCons.<
+                                                                                        Short
+                                                                                      >mk(
+                                                                                            Thunk.<
+                                                                                              Short
+                                                                                            >lazy(
+                                                                                                  Flags.TFlag.HINTS
+                                                                                                ),
+                                                                                            PreludeBase.TList.DCons.<
+                                                                                              Short
+                                                                                            >mk(
+                                                                                                  Thunk.<
+                                                                                                    Short
+                                                                                                  >lazy(
+                                                                                                        Flags.TFlag.INLINE
+                                                                                                      ),
+                                                                                                  PreludeBase.TList.DCons.<
+                                                                                                    Short
+                                                                                                  >mk(
+                                                                                                        Thunk.<
+                                                                                                          Short
+                                                                                                        >lazy(
+                                                                                                              Flags.TFlag.IDEMODE
+                                                                                                            ),
+                                                                                                        PreludeBase.TList.DCons.<
+                                                                                                          Short
+                                                                                                        >mk(
+                                                                                                              Thunk.<
+                                                                                                                Short
+                                                                                                              >lazy(
+                                                                                                                    Flags.TFlag.IDETOKENS
+                                                                                                                  ),
+                                                                                                              PreludeBase.TList.DCons.<
+                                                                                                                Short
+                                                                                                              >mk(
+                                                                                                                    Thunk.<
+                                                                                                                      Short
+                                                                                                                    >lazy(
+                                                                                                                          Flags.TFlag.MAKE
+                                                                                                                        ),
+                                                                                                                    PreludeBase.TList.DList.<
+                                                                                                                      Short
+                                                                                                                    >mk()
+                                                                                                                  )
+                                                                                                            )
+                                                                                                      )
+                                                                                                )
+                                                                                          )
+                                                                                    )
+                                                                              ))
+                                                                    ),
+                                                                η$19129
                                                               ))
-                                                    )
-                                              ))
-                                    );
-                          })
-                    );
+                                                    ))
+                                          ))
+                                )
+                          );
+                      return Thunk.<FregeRepl.TReplEnv>nested(
+                                (Lazy<Lazy<FregeRepl.TReplEnv>>)(() -> v2057$18990.apply(
+                                          arg$19127
+                                        ))
+                              );
+                    });
           })
     );
 final public static <𝓐, 𝓢> Func.U<𝓢, java.util.ArrayList<𝓐>> go(
   final PreludeBase.TList<𝓐> arg$1, final Lazy<java.util.ArrayList<𝓐>> arg$2
 ) {
-  final PreludeBase.TList.DCons<𝓐> $18983 = arg$1.asCons();
-  if ($18983 != null) {
-    final 𝓐 µ$$18812 = $18983.mem1.call();
-    return PreludeMonad.IMonad_ST.<𝓢, Boolean, java.util.ArrayList<𝓐>>$gt$gt(
-              TArrayList.<𝓐, 𝓢>add(arg$2.call(), µ$$18812),
-              Thunk.<Func.U<𝓢, java.util.ArrayList<𝓐>>>shared(
+  final PreludeBase.TList.DCons<𝓐> $19133 = arg$1.asCons();
+  if ($19133 != null) {
+    final 𝓐 µ$$18812 = $19133.mem1.call();
+    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$19135) -> {
+              final boolean v4796$19013 = (boolean)TArrayList.<𝓐, 𝓢>add(arg$2.call(), µ$$18812)
+              .apply(arg$19135).call();
+              final Func.U<𝓢, java.util.ArrayList<𝓐>> v4797$19014 = Thunk.<Func.U<𝓢, java.util.ArrayList<𝓐>>>shared(
                     (Lazy<Func.U<𝓢, java.util.ArrayList<𝓐>>>)(() -> TypeSignature.<𝓐, 𝓢>go(
-                              $18983.mem2.call(), arg$2
+                              $19133.mem2.call(), arg$2
                             ))
-                  )
-            );
+                  ).call();
+              return Thunk.<java.util.ArrayList<𝓐>>nested(
+                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v4797$19014.apply(
+                                  arg$19135
+                                ))
+                      );
+            });
   }
-  final PreludeBase.TList.DList<𝓐> $18985 = arg$1.asList();
-  assert $18985 != null;
+  final PreludeBase.TList.DList<𝓐> $19138 = arg$1.asList();
+  assert $19138 != null;
   return PreludeMonad.IMonad_ST.<𝓢, java.util.ArrayList<𝓐>>pure(arg$2);
 }
 final public static FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>> evalType(
@@ -433,150 +437,84 @@ final public static FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>> e
   return FregeRepl.IMonad_Repl.<FregeRepl.TReplEnv, PreludeBase.TMaybe<String/*<Character>*/>>$gt$gt$eq(
             FregeRepl.TRepl.get,
             (Func.U<FregeRepl.TReplEnv, FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>>)((
-              final Lazy<FregeRepl.TReplEnv> arg$18986
+              final Lazy<FregeRepl.TReplEnv> arg$19139
             ) -> {
                   return Thunk.<FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>>shared(
                             (Lazy<FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>>)(() -> FregeRepl.IMonad_Repl.<
                                   PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/>,
                                   PreludeBase.TMaybe<String/*<Character>*/>
                                 >$gt$gt$eq(
-                                      PreludeBase.<
-                                        FregeRepl.TRepl<
-                                          PreludeBase.TEither<
-                                            PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                          >
-                                        >,
-                                        Func.U<
-                                          RealWorld,
-                                          PreludeBase.TEither<
-                                            PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                          >
-                                        >
-                                      >$(
+                                      FregeRepl.IMonadIO_Repl.<
+                                        PreludeBase.TEither<PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/>
+                                      >liftIO(
                                             (Func.U<
-                                              Func.U<
-                                                RealWorld,
-                                                PreludeBase.TEither<
-                                                  PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                >
-                                              >,
-                                              FregeRepl.TRepl<
-                                                PreludeBase.TEither<
-                                                  PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                >
+                                              RealWorld,
+                                              PreludeBase.TEither<
+                                                PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
                                               >
-                                            >)((
-                                              final Lazy<Func.U<
-                                                RealWorld,
-                                                PreludeBase.TEither<
-                                                  PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                >
-                                              >> η$18987
-                                            ) -> Thunk.<
-                                                  FregeRepl.TRepl<
+                                            >)((final Lazy<RealWorld> arg$19140) -> {
+                                                  final PreludeBase.TTuple2<
+                                                    PreludeBase.TEither<
+                                                      PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
+                                                    >,
+                                                    frege.interpreter.javasupport.InterpreterClassLoader
+                                                  > v4824$19046 = FregeInterpreter.TInterpreter.<
                                                     PreludeBase.TEither<
                                                       PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
                                                     >
-                                                  >
-                                                >shared(
-                                                      (Lazy<FregeRepl.TRepl<
-                                                        PreludeBase.TEither<
-                                                          PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                        >
-                                                      >>)(() -> FregeRepl.IMonadIO_Repl.<
-                                                            PreludeBase.TEither<
-                                                              PreludeBase.TList<FregeInterpreter.TMessage>,
-                                                              String/*<Character>*/
-                                                            >
-                                                          >liftIO(η$18987))
-                                                    )),
-                                            Thunk.<
-                                              Func.U<
-                                                RealWorld,
-                                                PreludeBase.TEither<
-                                                  PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                >
-                                              >
-                                            >shared(
-                                                  (Lazy<Func.U<
+                                                  >run(
+                                                        FregeInterpreter.typeof(arg$1),
+                                                        FregeRepl.TReplEnv.config(arg$19139.call()),
+                                                        Thunk.<frege.interpreter.javasupport.InterpreterClassLoader>lazy(
+                                                              FregeRepl.TReplEnv.state(
+                                                                    arg$19139.call()
+                                                                  )
+                                                            )
+                                                      ).apply(arg$19140).call();
+                                                  final Func.U<
                                                     RealWorld,
                                                     PreludeBase.TEither<
                                                       PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
                                                     >
-                                                  >>)(() -> PreludeMonad.IMonad_ST.<
-                                                        RealWorld,
-                                                        PreludeBase.TTuple2<
+                                                  > v4825$19047 = PreludeMonad.IMonad_ST.<
+                                                    RealWorld,
+                                                    PreludeBase.TEither<
+                                                      PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
+                                                    >
+                                                  >pure(
+                                                        Thunk.<
                                                           PreludeBase.TEither<
                                                             PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                                          >,
-                                                          frege.interpreter.javasupport.InterpreterClassLoader
-                                                        >,
+                                                          >
+                                                        >shared(
+                                                              (Lazy<PreludeBase.TEither<
+                                                                PreludeBase.TList<FregeInterpreter.TMessage>,
+                                                                String/*<Character>*/
+                                                              >>)(() -> PreludeBase.<
+                                                                    PreludeBase.TEither<
+                                                                      PreludeBase.TList<
+                                                                        FregeInterpreter.TMessage
+                                                                      >,
+                                                                      String/*<Character>*/
+                                                                    >,
+                                                                    frege.interpreter.javasupport.InterpreterClassLoader
+                                                                  >fst(v4824$19046))
+                                                            )
+                                                      );
+                                                  return Thunk.<
                                                         PreludeBase.TEither<
                                                           PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
                                                         >
-                                                      >fmap(
-                                                            (Func.U<
-                                                              PreludeBase.TTuple2<
-                                                                PreludeBase.TEither<
-                                                                  PreludeBase.TList<FregeInterpreter.TMessage>,
-                                                                  String/*<Character>*/
-                                                                >,
-                                                                frege.interpreter.javasupport.InterpreterClassLoader
-                                                              >,
-                                                              PreludeBase.TEither<
-                                                                PreludeBase.TList<FregeInterpreter.TMessage>,
-                                                                String/*<Character>*/
-                                                              >
-                                                            >)((
-                                                              final Lazy<PreludeBase.TTuple2<
-                                                                PreludeBase.TEither<
-                                                                  PreludeBase.TList<FregeInterpreter.TMessage>,
-                                                                  String/*<Character>*/
-                                                                >,
-                                                                frege.interpreter.javasupport.InterpreterClassLoader
-                                                              >> η$18988
-                                                            ) -> Thunk.<
-                                                                  PreludeBase.TEither<
-                                                                    PreludeBase.TList<
-                                                                      FregeInterpreter.TMessage
-                                                                    >,
-                                                                    String/*<Character>*/
-                                                                  >
-                                                                >shared(
-                                                                      (Lazy<PreludeBase.TEither<
-                                                                        PreludeBase.TList<
-                                                                          FregeInterpreter.TMessage
-                                                                        >,
-                                                                        String/*<Character>*/
-                                                                      >>)(() -> PreludeBase.<
-                                                                            PreludeBase.TEither<
-                                                                              PreludeBase.TList<
-                                                                                FregeInterpreter.TMessage
-                                                                              >,
-                                                                              String/*<Character>*/
-                                                                            >,
-                                                                            frege.interpreter.javasupport.InterpreterClassLoader
-                                                                          >fst(η$18988.call()))
-                                                                    )),
-                                                            FregeInterpreter.TInterpreter.<
-                                                              PreludeBase.TEither<
-                                                                PreludeBase.TList<FregeInterpreter.TMessage>,
-                                                                String/*<Character>*/
-                                                              >
-                                                            >run(
-                                                                  FregeInterpreter.typeof(
-                                                                        arg$1
-                                                                      ),
-                                                                  FregeRepl.TReplEnv.config(
-                                                                        arg$18986.call()
-                                                                      ),
-                                                                  Thunk.<
-                                                                    frege.interpreter.javasupport.InterpreterClassLoader
-                                                                  >lazy(FregeRepl.TReplEnv.state(arg$18986.call()))
-                                                                )
-                                                          ))
-                                                )
-                                          ).call(),
+                                                      >nested(
+                                                            (Lazy<Lazy<PreludeBase.TEither<
+                                                              PreludeBase.TList<FregeInterpreter.TMessage>,
+                                                              String/*<Character>*/
+                                                            >>>)(() -> v4825$19047.apply(
+                                                                      arg$19140
+                                                                    ))
+                                                          );
+                                                })
+                                          ),
                                       (Func.U<
                                         PreludeBase.TEither<
                                           PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
@@ -585,15 +523,15 @@ final public static FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>> e
                                       >)((
                                         final Lazy<PreludeBase.TEither<
                                           PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                        >> arg$18989
+                                        >> arg$19143
                                       ) -> {
                                             final PreludeBase.TEither<
                                               PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                            > res$18808 = arg$18989.call();
+                                            > res$18808 = arg$19143.call();
                                             final PreludeBase.TEither.DLeft<
                                               PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                            > $18991 = res$18808.asLeft();
-                                            if ($18991 != null) {
+                                            > $19145 = res$18808.asLeft();
+                                            if ($19145 != null) {
                                               return Thunk.<FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>>shared(
                                                         (Lazy<FregeRepl.TRepl<
                                                           PreludeBase.TMaybe<String/*<Character>*/>
@@ -604,33 +542,18 @@ final public static FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>> e
                                             }
                                             final PreludeBase.TEither.DRight<
                                               PreludeBase.TList<FregeInterpreter.TMessage>, String/*<Character>*/
-                                            > $18992 = res$18808.asRight();
-                                            assert $18992 != null;
-                                            return PreludeBase.<
-                                                  FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>,
-                                                  PreludeBase.TMaybe<String/*<Character>*/>
-                                                >$(
-                                                      (Func.U<
-                                                        PreludeBase.TMaybe<String/*<Character>*/>,
-                                                        FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>
-                                                      >)((
-                                                        final Lazy<PreludeBase.TMaybe<
-                                                          String/*<Character>*/
-                                                        >> η$18993
-                                                      ) -> Thunk.<
-                                                            FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>
-                                                          >shared(
-                                                                (Lazy<FregeRepl.TRepl<
-                                                                  PreludeBase.TMaybe<String/*<Character>*/>
-                                                                >>)(() -> FregeRepl.IMonad_Repl.<
-                                                                      PreludeBase.TMaybe<
-                                                                        String/*<Character>*/
-                                                                      >
-                                                                    >pure(η$18993))
-                                                              )),
-                                                      PreludeBase.TMaybe.DJust.<String/*<Character>*/>mk(
-                                                            $18992.mem1
-                                                          )
+                                            > $19146 = res$18808.asRight();
+                                            assert $19146 != null;
+                                            return Thunk.<FregeRepl.TRepl<PreludeBase.TMaybe<String/*<Character>*/>>>shared(
+                                                      (Lazy<FregeRepl.TRepl<
+                                                        PreludeBase.TMaybe<String/*<Character>*/>
+                                                      >>)(() -> FregeRepl.IMonad_Repl.<
+                                                            PreludeBase.TMaybe<String/*<Character>*/>
+                                                          >pure(
+                                                                PreludeBase.TMaybe.DJust.<
+                                                                  String/*<Character>*/
+                                                                >mk($19146.mem1)
+                                                              ))
                                                     );
                                           })
                                     ))
@@ -646,42 +569,21 @@ final public static Lazy<Func.U<
 final public static Func.U<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>> evalFregeFile(
   final Lazy<String/*<Character>*/> arg$1, final Lazy<FregeRepl.TReplEnv> arg$2
 ) {
-  return PreludeBase.TST.<
-        RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>,
-        PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>
-      >$gt$gt$eq(
-            FregeRepl.TRepl.<FregeRepl.TReplResult>run(
-                  PreludeBase.<FregeRepl.TRepl<FregeRepl.TReplResult>, FregeRepl.TCommand>$(
-                        (Func.U<FregeRepl.TCommand, FregeRepl.TRepl<FregeRepl.TReplResult>>)((
-                          final Lazy<FregeRepl.TCommand> η$18994
-                        ) -> Thunk.<FregeRepl.TRepl<FregeRepl.TReplResult>>nested(
-                                  (Lazy<Lazy<FregeRepl.TRepl<FregeRepl.TReplResult>>>)(() -> FregeRepl.eval(
-                                            η$18994.call()
-                                          ))
-                                )),
-                        FregeRepl.TCommand.DEval.mk(arg$1)
-                      ).call(),
-                  arg$2
-                ).call(),
-            (Func.U<
-              PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>,
-              Func.U<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>
-            >)((final Lazy<PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>> arg$18995) -> {
-                  final PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv> $18996 =
-                  arg$18995.call();
-                  return Thunk.<Func.U<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>>shared(
-                            (Lazy<Func.U<
-                              RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>
-                            >>)(() -> PreludeMonad.IMonad_ST.<
-                                  RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>
-                                >pure(
-                                      PreludeBase.TTuple2.<FregeRepl.TReplResult, FregeRepl.TReplEnv>mk(
-                                            $18996.mem1, $18996.mem2
-                                          )
-                                    ))
-                          );
-                })
-          );
+  return (Func.U<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>)((
+        final Lazy<RealWorld> arg$19147
+      ) -> {
+            final PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv> v2056$19079 =
+            FregeRepl.TRepl.<FregeRepl.TReplResult>run(FregeRepl.eval(FregeRepl.TCommand.DEval.mk(arg$1)).call(), arg$2)
+            .call().apply(arg$19147).call();
+            final Func.U<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>> v2057$19080 =
+            PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>pure(
+                  PreludeBase.TTuple2.<FregeRepl.TReplResult, FregeRepl.TReplEnv>mk(v2056$19079.mem1, v2056$19079.mem2)
+                );
+            return Thunk.<PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>nested(
+                      (Lazy<Lazy<PreludeBase.TTuple2<FregeRepl.TReplResult, FregeRepl.TReplEnv>>>)(() -> v2057$19080
+                          .apply(arg$19147))
+                    );
+          });
 }
 
 }
