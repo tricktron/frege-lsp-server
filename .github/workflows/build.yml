@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: tricktron/frege-gradle-plugin
-          ref: v1.0.0-alpha
+          ref: v2.0.1-alpha
           path: frege-gradle-plugin
       - name: Install Frege Gradle Plugin to MavenLocal
         run: |
