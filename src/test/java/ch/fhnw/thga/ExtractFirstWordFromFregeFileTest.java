@@ -1,6 +1,6 @@
 package ch.fhnw.thga;
 
-import static ch.fhnw.thga.FregeTextDocumentService.extractFirstWordFromLine;
+import static ch.fhnw.thga.FregeHoverService.extractFirstWordFromLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

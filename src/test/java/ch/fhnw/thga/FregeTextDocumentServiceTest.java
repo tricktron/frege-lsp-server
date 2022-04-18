@@ -112,7 +112,7 @@ class FregeTextDocumentServiceTest
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             
             CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
-                new Hover(FregeTextDocumentService.createFregeCodeBlock(expectedTypeSignature))
+                new Hover(FregeHoverService.createFregeCodeBlock(expectedTypeSignature))
             );
             if (expectedTypeSignature == null) {
                 assertNull(actual.get());
