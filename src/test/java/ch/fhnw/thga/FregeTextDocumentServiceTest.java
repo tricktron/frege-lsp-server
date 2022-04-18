@@ -50,19 +50,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class FregeTextDocumentServiceTest {
+class FregeTextDocumentServiceTest
+{
     private static final String CORRECT_FREGE_FILENAME    = "CorrectFregeTest.fr";
     private static final String FAULTY_FREGE_FILENAME     = "FaultyFregeTest.fr";
     private static final String ERROR_SOURCE              = "fregeCompiler";
-    private List<Diagnostic> expectedErrorDiagnostics;
-    private List<Diagnostic> expectedTypeErrorDiagnostics = List.of(
-        new Diagnostic(
-            createRange(8, 16, 8, 22),
-            "type error in expression\nn = if n < 10 then n else reducedDigitSum $ digitSum n\ntype is : Integer\nexpected: Int",
-            DiagnosticSeverity.Error,
-            ERROR_SOURCE
-            )
-    );
 
     static Path getPathFromTestResources(String filename) throws InvalidPathException
     {
@@ -276,7 +268,7 @@ class FregeTextDocumentServiceTest {
     class Given_opened_faulty_frege_file
     {
         @Test
-        void should_publish_all_errors_as_diagnostics() throws Exception
+        void should_publish_all_simple_errors_as_diagnostics() throws Exception
         {
             FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
             FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
@@ -297,6 +289,67 @@ class FregeTextDocumentServiceTest {
                     "String is not an instance of Num",
                     DiagnosticSeverity.Error,
                     ERROR_SOURCE)
+            );
+            Mockito
+                .verify(fregeLSPDTO.getClient(), timeout(1000))
+                .publishDiagnostics(diagnosticCaptor.capture());
+            PublishDiagnosticsParams expectedErrors = 
+                new PublishDiagnosticsParams(faultyFregeFile.getUri(), expectedErrorDiagnostics);
+            assertEquals(expectedErrors, diagnosticCaptor.getValue());
+        }
+
+        @Test
+        void should_publish_all_type_errors_as_diagnostics() throws Exception
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem faultyFregeFile = readFileToTextDocumentItem("TypeError.fr");
+            ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor = 
+                ArgumentCaptor.forClass(PublishDiagnosticsParams.class);
+
+            service.didOpen(new DidOpenTextDocumentParams(faultyFregeFile));
+            
+            List<Diagnostic> expectedErrorDiagnostics = List.of(
+                new Diagnostic(
+                    createRange(11, 0, 11, 36),
+                    String.join("\n",
+                        "type error in expression",
+                        "n",
+                        "type is : Integer",
+                        "expected: Int"),
+                    DiagnosticSeverity.Error,
+                    ERROR_SOURCE
+                ),
+                new Diagnostic(
+                    createRange(11, 0, 11, 43),
+                    String.join("\n",
+                        "type error in expression",
+                        "reducedDigitSum $ digitSum n",
+                        "type is : Int",
+                        "expected: Integer"),
+                    DiagnosticSeverity.Error,
+                    ERROR_SOURCE
+                ),
+                new Diagnostic(
+                    createRange(11, 0, 11, 24),
+                    String.join("\n",
+                        "type error in expression",
+                        "n < 10 then n else reducedDigitSum $ digitSum n",
+                        "type is : Integer",
+                        "expected: Int"),
+                    DiagnosticSeverity.Error,
+                    ERROR_SOURCE
+                ),
+                new Diagnostic(
+                    createRange(11, 0, 11, 17),
+                    String.join("\n",
+                        "type error in expression",
+                        "n = if n < 10 then n else reducedDigitSum $ digitSum n",
+                        "type is : Integer",
+                        "expected: Int"),
+                    DiagnosticSeverity.Error,
+                    ERROR_SOURCE
+                )
             );
             Mockito
                 .verify(fregeLSPDTO.getClient(), timeout(1000))

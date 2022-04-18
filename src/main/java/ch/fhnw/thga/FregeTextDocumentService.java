@@ -105,40 +105,9 @@ public class FregeTextDocumentService implements TextDocumentService {
 		});
 	}
 
-    private String extractTypeErrorExpressionFromCompilerMessage(String compilerMessage)
-    {
-        return compilerMessage.lines().skip(1).findFirst().orElse("");
-    }
-
-    private int findTypeErrorLineIndex(String faultyExpression)
-    {
-        return (int) this.currentOpenFileLines
-            .stream()
-            .takeWhile(line -> !line.contains(faultyExpression))
-            .count();
-    }
-
-    private Range findTypeErrorRange(String typeErrorMessage)
-    {
-        String typeErrorExpression = extractTypeErrorExpressionFromCompilerMessage(typeErrorMessage);
-        Pattern pattern = Pattern.compile(typeErrorExpression);
-        int line = findTypeErrorLineIndex(typeErrorExpression);
-        Matcher matcher = pattern
-            .matcher(this.currentOpenFileLines.get(line));
-        return matcher.find() ? 
-            new Range(
-                new Position(line, matcher.start()),
-                new Position(line, matcher.end()))
-            : null;
-    }
-
 	private Diagnostic mapMessageToDiagnostic(TMessage message)
     {
 		String compilerMessage = message.mem$text.call();
-        /*if (compilerMessage.contains("type error in expression"))
-        {
-            errorRange = findTypeErrorRange(compilerMessage);
-        }*/
 		int line = message.mem$pos.call().mem$first.mem$line;
 		int col = message.mem$pos.call().mem$first.mem$col;
         Range errorRange = new Range(
