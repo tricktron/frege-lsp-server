@@ -46,7 +46,7 @@ public class ExtractFirstWordFromFregeFileTest
     @ParameterizedTest(name = "first word = {1} line = {0}")
     @MethodSource("expectedFirstWords")
     @DisplayName("should return first word given FirstWordTest.fr file")
-    void given_first_word_test_file(int line, String expected)
+    void should_return_first_word_given_frege_file(int line, String expected)
     {
         String actual = extractFirstWordFromLine(FIRST_WORD_TEST_FR, line);
         assertEquals(expected, actual);

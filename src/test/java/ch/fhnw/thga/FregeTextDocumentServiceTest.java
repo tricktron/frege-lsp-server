@@ -56,7 +56,6 @@ import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class FregeTextDocumentServiceTest {
     private static final String CORRECT_FREGE_FILENAME    = "CorrectFregeTest.fr";
@@ -74,29 +73,39 @@ class FregeTextDocumentServiceTest {
             )
     );
 
-    private static final String TEST_RESOURCES_PATH = "src/test/resources";
-
-    static Path getPathFromTestResources(String filename) throws InvalidPathException {
-        return Paths.get(String.join("/", TEST_RESOURCES_PATH, filename));
+    static Path getPathFromTestResources(String filename) throws InvalidPathException
+    {
+        return Paths.get(String.join("/", "src/test/resources", filename));
     }
 
-    static String readFileFromTestResources(String filename) throws IOException {
-        return new String(Files.readAllBytes(getPathFromTestResources(filename)), StandardCharsets.UTF_8);
+    static String readFileFromTestResources(String filename) throws IOException
+    {
+        return new String(
+            Files.readAllBytes(getPathFromTestResources(filename)),
+            StandardCharsets.UTF_8);
     }
 
     private static final Range createRange(
         int fromLine, int fromColumn, int toLine, int toColumn)
     {
-        return new Range(new Position(fromLine, fromColumn), new Position(toLine, toColumn));
+        return new Range(
+            new Position(fromLine, fromColumn),
+            new Position(toLine, toColumn)
+        );
     }
 
-    static TextDocumentItem readFregeFile(String filename) throws IOException {
+    static TextDocumentItem readFileToTextDocumentItem(String filename) throws IOException
+    {
         String uri = getPathFromTestResources(filename).toUri().toString();
-        return new TextDocumentItem(uri, FregeTextDocumentService.FREGE_LANGUAGE_ID, 1,
-                readFileFromTestResources(filename));
+        return new TextDocumentItem(
+            uri, 
+            FregeTextDocumentService.FREGE_LANGUAGE_ID,
+            1,
+            readFileFromTestResources(filename)
+        );
     }
 
-    @BeforeAll
+    /*@BeforeAll
     void setup() throws Exception {
         correctFregeFileContents = readFileFromTestResources(CORRECT_FREGE_FILENAME);
         faultyFregeFileContents = readFileFromTestResources(FAULTY_FREGE_FILENAME);
@@ -107,56 +116,34 @@ class FregeTextDocumentServiceTest {
                         DiagnosticSeverity.Error, diagnosticSource),
                 (new Diagnostic(new Range(new Position(5, 0), new Position(5, 22)), expectedCompilerMessage,
                         DiagnosticSeverity.Error, diagnosticSource)));
-    }
+    }*/
 
-    @TestInstance(Lifecycle.PER_CLASS)
     @Nested
+    @TestInstance(Lifecycle.PER_CLASS)
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-    class Given_opened_correct_frege_file {
-
-        FregeLanguageServer server;
-        LanguageClient client;
-        FregeTextDocumentService service;
-        private TextDocumentItem correctFregeFile;
-
-        @Captor
-        ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor;
-
-        @BeforeAll
-        void setup() throws Exception {
-            correctFregeFile = readFregeFile(CORRECT_FREGE_FILENAME);
-        }
-
-        @BeforeEach
-        void init() {
-            server = spy(FregeLanguageServer.class);
-            client = mock(LanguageClient.class);
-            server.connect(client);
-            service = new FregeTextDocumentService(server);
-            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
-        }
-
-        Stream<Arguments> expectedFunctionSignatures() {
-            String[] expectedFunctionSignatures = new String[] { null, null, "complete :: a -> (a,String)", null, "answerToEverything :: Int", null,
-                    "square :: Num a => a -> a", null };
-            int[] lengthOfLines = correctFregeFileContents.lines().mapToInt(line -> line.length()).toArray();
-            ThreadLocalRandom random = ThreadLocalRandom.current();
-            return IntStream.range(0, (int) correctFregeFileContents.lines().count())
-                    .mapToObj(line -> new Position(line, random.nextInt(0, lengthOfLines[line] + 1)))
-                    .map(pos -> arguments(pos, expectedFunctionSignatures[pos.getLine()]));
-
-        }
-
+    class Given_opened_correct_frege_file
+    {
         @ParameterizedTest(name = "{0} type signature = {1}")
-        @MethodSource("expectedFunctionSignatures")
-        @DisplayName("when hovering over function name then returns type signature")
-        void when_hovering_over_function_name_then_returns_type_signature(Position position,
-                String expectedTypeSignature) throws Exception {
-            HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()), position);
-            CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
-                    new Hover(FregeTextDocumentService.createFregeCodeBlock(expectedTypeSignature)));
+        @MethodSource("correctFregeFileTypeSignatures")
+        void should_return_type_signature_when_hovering_over_function_name(
+            Position position,
+            String expectedTypeSignature
+        ) throws Exception
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem correctFregeFile = readFileToTextDocumentItem(CORRECT_FREGE_FILENAME);
+            HoverParams hoverParams = new HoverParams(
+                new TextDocumentIdentifier(correctFregeFile.getUri()),
+                position
+            );
 
+            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
             CompletableFuture<Hover> actual = service.hover(hoverParams);
+            
+            CompletableFuture<Hover> expected = CompletableFuture.completedFuture(
+                new Hover(FregeTextDocumentService.createFregeCodeBlock(expectedTypeSignature))
+            );
             if (expectedTypeSignature == null) {
                 assertNull(actual.get());
             } else {
@@ -164,52 +151,148 @@ class FregeTextDocumentServiceTest {
             }
         }
 
+        Stream<Arguments> correctFregeFileTypeSignatures() throws IOException
+        {
+            String[] expectedFunctionSignatures = new String[]
+            { 
+                null,
+                null, 
+                "complete :: a -> (a,String)", 
+                null, 
+                "answerToEverything :: Int",
+                null,
+                "square :: Num a => a -> a",
+                null
+            };
+            String fregeCode = readFileFromTestResources(CORRECT_FREGE_FILENAME);
+            int[] lengthOfLines = fregeCode
+                .lines()
+                .mapToInt(line -> line.length())
+                .toArray();
+            ThreadLocalRandom random = ThreadLocalRandom.current();
+            return IntStream
+                .range(0, (int) fregeCode.lines().count())
+                .mapToObj(line -> new Position(line, random.nextInt(0, lengthOfLines[line] + 1)))
+                .map(pos -> arguments(pos, expectedFunctionSignatures[pos.getLine()]));
+        }
+
         @Test
-        void supports_cancellation_of_hover() throws Exception {
-            HoverParams hoverParams = new HoverParams(new TextDocumentIdentifier(correctFregeFile.getUri()),
-                    new Position(2, 2));
+        void should_support_cancellation_of_hover() throws Exception
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem correctFregeFile = readFileToTextDocumentItem(CORRECT_FREGE_FILENAME);
+            HoverParams hoverParams = new HoverParams(
+                new TextDocumentIdentifier(correctFregeFile.getUri()),
+                new Position(2, 2)
+            );
+
+            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
             CompletableFuture<Hover> actual = service.hover(hoverParams);
             actual.cancel(true);
+            
             assertThrows(CancellationException.class, () -> {
                 assertNull(actual.get(1, TimeUnit.SECONDS));
             });
         }
 
         @Test
-        void then_no_compiler_errors_are_published() {
-            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(correctFregeFile.getUri(),
-                    Collections.emptyList());
-            Mockito.verify(client, timeout(1000)).publishDiagnostics(diagnosticCaptor.capture());
+        void should_not_publish_any_compiler_errors() throws Exception
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem correctFregeFile = readFileToTextDocumentItem(CORRECT_FREGE_FILENAME);
+            ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor = 
+                ArgumentCaptor.forClass(PublishDiagnosticsParams.class);
+            
+            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
+
+            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(
+                correctFregeFile.getUri(),
+                Collections.emptyList()
+            );
+            Mockito
+                .verify(fregeLSPDTO.getClient(), timeout(1000))
+                .publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expected, diagnosticCaptor.getValue());
         }
 
         @Test
-        void when_no_changes_and_did_save_then_no_compiler_errors_are_published() {
-            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(correctFregeFile.getUri(),
-                    Collections.emptyList());
-            service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(correctFregeFile.getUri())));
-            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
+        void should_not_publish_any_compile_errors_when_no_changes_and_did_save()
+        throws Exception 
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem correctFregeFile = readFileToTextDocumentItem(CORRECT_FREGE_FILENAME);
+            ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor = 
+                ArgumentCaptor.forClass(PublishDiagnosticsParams.class);
+            
+            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
+            service.didSave(new DidSaveTextDocumentParams(
+                    new TextDocumentIdentifier(correctFregeFile.getUri()))
+            );
+            
+            PublishDiagnosticsParams expected = new PublishDiagnosticsParams(
+                correctFregeFile.getUri(),
+                Collections.emptyList()
+            );
+            Mockito
+                .verify(fregeLSPDTO.getClient(), timeout(1000)
+                .times(2))
+                .publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expected, diagnosticCaptor.getValue());
         }
 
         @Test
-        void when_error_changes_and_did_save_then_compiler_errors_are_published() {
-            VersionedTextDocumentIdentifier id = new VersionedTextDocumentIdentifier(correctFregeFile.getUri(),
-                    correctFregeFile.getVersion());
-            DidChangeTextDocumentParams params = new DidChangeTextDocumentParams(id,
-                    List.of(new TextDocumentContentChangeEvent(faultyFregeFileContents)));
-            PublishDiagnosticsParams expectedErrors = new PublishDiagnosticsParams(correctFregeFile.getUri(),
-                    expectedErrorDiagnostics);
+        void should_publish_error_diagnostics_when_error_changes_and_did_save()
+        throws Exception
+        {
+            FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
+            FregeTextDocumentService service = new FregeTextDocumentService(fregeLSPDTO.getServer());
+            TextDocumentItem correctFregeFile = readFileToTextDocumentItem(CORRECT_FREGE_FILENAME);
+            VersionedTextDocumentIdentifier id = new VersionedTextDocumentIdentifier(
+                correctFregeFile.getUri(),
+                correctFregeFile.getVersion()
+            );
+            faultyFregeFileContents = readFileFromTestResources(FAULTY_FREGE_FILENAME);
+            ArgumentCaptor<PublishDiagnosticsParams> diagnosticCaptor = 
+                ArgumentCaptor.forClass(PublishDiagnosticsParams.class);
+            
+            DidChangeTextDocumentParams params = new DidChangeTextDocumentParams(
+                id,
+                List.of(new TextDocumentContentChangeEvent(
+                    readFileFromTestResources(FAULTY_FREGE_FILENAME)))
+            );
 
+            service.didOpen(new DidOpenTextDocumentParams(correctFregeFile));
             service.didChange(params);
-            service.didSave(new DidSaveTextDocumentParams(new TextDocumentIdentifier(correctFregeFile.getUri())));
+            service.didSave(new DidSaveTextDocumentParams(
+                new TextDocumentIdentifier(correctFregeFile.getUri()))
+            );
 
-            Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
+            List<Diagnostic> expectedErrorDiagnostics = List.of(
+                new Diagnostic(
+                    createRange(7, 0, 7, 11),
+                    "String is not an instance of Num",
+                    DiagnosticSeverity.Error,
+                    "fregeCompiler"),
+                new Diagnostic(
+                    createRange(5, 0, 5, 22),
+                    "String is not an instance of Num",
+                    DiagnosticSeverity.Error,
+                    "fregeCompiler")
+            );
+            PublishDiagnosticsParams expectedErrors = 
+                new PublishDiagnosticsParams(correctFregeFile.getUri(), expectedErrorDiagnostics);
+            Mockito
+                .verify(fregeLSPDTO.getClient(), timeout(1000)
+                .times(2))
+                .publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expectedErrors, diagnosticCaptor.getValue());
         }
     }
 
-    @TestInstance(Lifecycle.PER_CLASS)
+    /*@TestInstance(Lifecycle.PER_CLASS)
     @Nested
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     @ExtendWith(MockitoExtension.class)
@@ -225,7 +308,7 @@ class FregeTextDocumentServiceTest {
 
         @BeforeAll
         void setup() throws Exception {
-            faultyFregeFile = readFregeFile(FAULTY_FREGE_FILENAME);
+            faultyFregeFile = readFileToTextDocumentItem(FAULTY_FREGE_FILENAME);
         }
 
         @BeforeEach
@@ -270,5 +353,5 @@ class FregeTextDocumentServiceTest {
             Mockito.verify(client, timeout(1000).times(2)).publishDiagnostics(diagnosticCaptor.capture());
             assertEquals(expected, diagnosticCaptor.getValue());
         }
-    }
+    }*/
 }
