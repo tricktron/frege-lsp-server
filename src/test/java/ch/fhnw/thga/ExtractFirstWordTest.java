@@ -1,6 +1,6 @@
 package ch.fhnw.thga;
 
-import static ch.fhnw.thga.FregeHoverService.extractFirstWordFromLine;
+import static ch.fhnw.thga.ExtractFirstWord.extractFirstWordFromLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-public class ExtractFirstWordFromFregeFileTest
+public class ExtractFirstWordTest
 {
     private static final String NEW_LINE           = System.lineSeparator();
     private static final String FIRST_WORD_TEST_FR = String.join(NEW_LINE,

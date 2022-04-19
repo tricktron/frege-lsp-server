@@ -1,41 +1,23 @@
 package ch.fhnw.thga;
 
-import static frege.prelude.PreludeBase.TST.performUnsafe;
 import static ch.fhnw.thga.FregeTextDocumentService.FREGE_LANGUAGE_ID;
+import static frege.prelude.PreludeBase.TST.performUnsafe;
+
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.MarkupContent;
 import org.eclipse.lsp4j.MarkupKind;
 
 import frege.prelude.PreludeBase.TMaybe;
-import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TMaybe.DJust;
+import frege.prelude.PreludeBase.TTuple2;
 import frege.repl.FregeRepl.TReplEnv;
 import frege.run8.Lazy;
 import frege.run8.Thunk;
 
 final class FregeHoverService
 {
-	private static String findFirstWordFromLine(String line)
-    {
-		Pattern pattern = Pattern.compile("\\b\\w+\\b");
-		Matcher matcher = pattern.matcher(line);
-		return matcher.find() ? matcher.group() : "";
-	}
-
-	static String extractFirstWordFromLine(String fregeFile, int line)
-    {
-		Optional<String> functionName = fregeFile
-            .lines().
-            skip(line)
-            .findFirst()
-			.map(FregeHoverService::findFirstWordFromLine);
-		return functionName.isEmpty() ? "" : functionName.get();
-	}
-
 	private static Optional<String> getFunctionTypeSignature(
         String functionName,
         Lazy<TReplEnv> replEnv)
@@ -75,7 +57,7 @@ final class FregeHoverService
         int line, 
         Lazy<TReplEnv> replEnv)
     {
-		String functionName = extractFirstWordFromLine(fregeCode, line);
+		String functionName = ExtractFirstWord.extractFirstWordFromLine(fregeCode, line);
 		Optional<String> functionSignature = getFunctionTypeSignature(functionName, replEnv);
 		if (functionSignature.isEmpty())
         {
