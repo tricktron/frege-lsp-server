@@ -1,0 +1,2 @@
+module ch.fhnw.thga.Test where
+a = "Hello Frege"

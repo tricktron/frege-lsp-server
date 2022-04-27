@@ -4,6 +4,10 @@ import Interpreter.FregeInterpreter(Interpreter, InterpreterConfig, typeof, Mess
 import Control.monad.trans.MonadIO(liftIO)
 import Repl.FregeRepl(ReplResult, ReplEnv, Repl, Eval, Type, eval)
 import Compiler.enums.Flags
+import Compiler.Main as Compiler hiding (failed)
+import Compiler.common.CompilerOptions (standardGlobal, stdOptions)
+import  Control.Concurrent as C()
+import Test.QuickCheck
 
 data ArrayList a = native java.util.ArrayList where
   native add :: Mutable s (ArrayList a) -> a -> ST s Bool
@@ -35,3 +39,15 @@ evalType expr = do
   case res of
     Left _     -> return Nothing
     Right typ -> return $ Just typ
+
+
+simpleFregeModulePath :: String
+simpleFregeModulePath = 
+    "/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/Test.fr"
+
+fregeCompilerShouldEvaluateFile :: Property
+fregeCompilerShouldEvaluateFile =
+    once $ morallyDubiousIOProperty do
+    mVar <- Compiler.compileFile stdOptions $ Right simpleFregeModulePath
+    actual <- C.MVar.take mVar
+    pure $ actual == True
