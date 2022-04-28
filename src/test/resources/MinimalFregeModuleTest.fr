@@ -1,0 +1,3 @@
+module ch.fhnw.thga.MinimalFregeModuleTest where
+
+myIdentifier = "I am a string constant"

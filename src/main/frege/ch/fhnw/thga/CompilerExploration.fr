@@ -1,0 +1,33 @@
+module ch.fhnw.thga.CompilerExploration where
+
+import Compiler.Main as Compiler hiding (failed, main)
+import Compiler.common.CompilerOptions (standardGlobal, stdOptions)
+import Control.Concurrent as C()
+import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
+import Compiler.types.Global (Global, StIO, liftIO)
+import Control.monad.State (execStateT)
+
+minimalFregeModulePath :: String
+minimalFregeModulePath = 
+    "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/MinimalFregeModuleTest.fr"
+
+fregeCompilerShouldEvaluateFile :: Property
+fregeCompilerShouldEvaluateFile =
+    once $ morallyDubiousIOProperty do
+    mVar <- Compiler.compileFile stdOptions $ Right minimalFregeModulePath
+    actual <- C.MVar.take mVar
+    pure $ actual == True
+
+parseFile :: StIO ()
+parseFile = do
+    parsedState <- lexparse minimalFregeModulePath
+    liftIO $ println $ CharSequence.toString parsedState.sub.code
+
+helper:: Global -> IO Global
+helper = State.execStateT parseFile
+
+main :: IO ()
+main = do
+    g <- standardGlobal
+    helper g
+    pure ()
