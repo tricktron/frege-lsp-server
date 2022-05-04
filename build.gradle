@@ -63,9 +63,9 @@ tasks.register('consoleLauncher', JavaExec)
 
 tasks.withType(Test).configureEach 
 {
-    dependsOn   consoleLauncher
+    useJUnitPlatform{}
     finalizedBy codeCoverageReport
-    exclude     '**/*' // Needed to stop the default junit4 test runner.
+    //exclude     '**/*' // Needed to stop the default junit4 test runner.
                    // We already execute the tests using the junit5 console launcher.
 }
 

@@ -1,15 +1,59 @@
 module ch.fhnw.thga.CompilerExploration where
 
 import Compiler.Main as Compiler hiding (failed, main)
-import Compiler.common.CompilerOptions (standardGlobal, stdOptions)
+import Compiler.common.CompilerOptions (standardGlobal, stdOptions, theClassLoader)
 import Control.Concurrent as C()
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Compiler.types.Global (Global, StIO, liftIO)
-import Control.monad.State (execStateT)
+import Compiler.types.Global (Global, StIO, liftIO, liftStG, Options, Message, getSTT, getST, StG, SubSt, forsome, stio)
+import Control.monad.State
+import frege.compiler.types.Targets public(thisTarget)
+import frege.compiler.enums.Flags
+import frege.system.Environment
+
+lspOptions :: Options
+lspOptions = Options {
+    source       = "-",
+    sourcePath   = [ "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege" ],
+    dir          = "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege",
+    path         = [],
+    prefix       = "",
+    encoding     = Just "UTF-8",
+    tRanges      = [],
+    target       = thisTarget,
+    extending    = Nothing,
+    implementing = [],
+    code         = [],
+    flags        = Flags.fromList
+                 [
+                   WARNINGS,
+                   HINTS,
+                   VERBOSE,
+                   IDETOKENS,
+                   IDEMODE,
+                   TRACE1
+                 ]
+}
+
+compileFregeProject :: [String] -> IO Global
+compileFregeProject rootPath = do
+    initialLoader <- theClassLoader lspOptions
+    initialGlobal <- standardGlobal
+    let lspGlobal  = initialGlobal.{
+        options    = lspOptions, 
+        sub       <- _.{ loader = initialLoader}
+    }
+    (_, global)   <- StateT.run(Compiler.compiler rootPath) lspGlobal
+    return global
+
+compilerErrors :: Global -> [Message]
+compilerErrors g = 
+    if g.sub.numErrors > 0
+        then g.sub.messages
+        else []
 
 minimalFregeModulePath :: String
 minimalFregeModulePath = 
-    "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/MinimalFregeModuleTest.fr"
+     "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/MinimalFregeModuleTest.fr"
 
 fregeCompilerShouldEvaluateFile :: Property
 fregeCompilerShouldEvaluateFile =
@@ -28,6 +72,16 @@ helper = State.execStateT parseFile
 
 main :: IO ()
 main = do
-    g <- standardGlobal
-    helper g
-    pure ()
+    println "Compiling a file without errors"
+    pwd <- getEnv "PWD"
+    let workingFilePath = pwd ++ "/src/test/resources/CorrectFregeTest.fr"
+    goodGlobal <- compileFregeProject [workingFilePath]
+    println "----------------------------------------------------------------------------------------------"
+    println $ CharSequence.toString goodGlobal.sub.code -- why no code, global seems to be not updated at all
+    println "Compiling a file with errors"
+    let badFilePath = pwd ++ "/src/test/resources/src/main/frege/ch/fhnw/thga/FaultyFregeTest.fr"
+    badGlobal <- compileFregeProject [badFilePath]
+    println "after compiling file with errors" -- is not printed why?
+    badGlobal.stderr.println "after compiling file with errors " -- prints
+    badGlobal.stderr.println $ show badGlobal.errors -- why 0 errors, it fails in the type check phase, how to get the errors?
+    badGlobal.stderr.println $ CharSequence.toString badGlobal.sub.code -- global seems to be not updated at all, no code available

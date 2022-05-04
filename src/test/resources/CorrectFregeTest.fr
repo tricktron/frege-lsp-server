@@ -1,4 +1,4 @@
-module ch.fhnw.thga.CorrectFregeTest where
+module CorrectFregeTest where
 
 complete i = (i, "Frege rocks")
 

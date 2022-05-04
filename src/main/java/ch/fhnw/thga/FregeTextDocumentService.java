@@ -2,6 +2,8 @@ package ch.fhnw.thga;
 
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +19,8 @@ import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
+import frege.compiler.types.Global.TGlobal;
+import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.repl.FregeRepl.TReplEnv;
 import frege.repl.FregeRepl.TReplResult;
@@ -68,11 +72,26 @@ public class FregeTextDocumentService implements TextDocumentService
                     replEnv)
                 ).call();
 		replEnv = resEnvTuple.mem2;
-		FregeDiagnosticService.publishCompilerDiagnostics(
+        try {
+            TGlobal global = performUnsafe(
+                CompilerExploration.compileFregeProject(TList.DCons.mk(
+                    Thunk.lazy(new URI(params.getTextDocument().getUri()).getPath()), 
+                    TList.DList.mk()))
+            ).call();
+            FregeDiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.client,
-            resEnvTuple.mem1.call(),
+            global,
             params.getTextDocument().getUri()
         );
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		// FregeDiagnosticService.publishCompilerDiagnostics(
+        //     simpleLanguageServer.client,
+        //     resEnvTuple.mem1.call(),
+        //     params.getTextDocument().getUri()
+        // );
 	}
 
 	@Override

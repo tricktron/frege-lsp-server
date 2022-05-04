@@ -1,4 +1,4 @@
-module ch.fhnw.thga.HelloFrege where
+module TypeError where
 
 import Test.QuickCheck
 

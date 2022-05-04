@@ -1,4 +1,4 @@
-module FaultyFregeTest where
+module ch.fhnw.thga.FaultyFregeTest where
 
 simplyString :: String -> String
 simplyString s = s
