@@ -1,20 +1,37 @@
 module ch.fhnw.thga.CompilerExploration where
 
-import Compiler.Main as Compiler hiding (failed, main)
+import Compiler.Main as Compiler hiding (failed, main, passes, lexparse, runpass)
 import Compiler.common.CompilerOptions (standardGlobal, stdOptions, theClassLoader)
+import  Compiler.common.Errors as E(printErrors, printAndClearErrors)
 import Control.Concurrent as C()
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Compiler.types.Global (Global, StIO, liftIO, liftStG, Options, Message, getSTT, getST, StG, SubSt, forsome, stio)
+import Compiler.types.Global (Global, StIO, liftIO, liftStG, Options, Message, getSTT, getST, changeSTT, StG, SubSt, forsome, stio)
+import  Compiler.passes.Fix()
+import  Compiler.passes.Imp()
+import  Compiler.passes.Enter()
+import  Compiler.passes.Fields()
+import  Compiler.passes.TypeAlias()
+import  Compiler.passes.Transdef()
+import  Compiler.passes.LetUnroll as LU()
+import  Compiler.passes.GlobalLam as GL()
+import  Compiler.passes.Easy as EA()
+import  Compiler.passes.Strict    as SC()
+import  Compiler.GenMeta   as GM()
+import  Compiler.passes.GenCode()
+import  Compiler.passes.Final as FI()
+import  Compiler.Classes()
+import  Compiler.Typecheck as TC()
 import Control.monad.State
 import frege.compiler.types.Targets public(thisTarget)
 import frege.compiler.enums.Flags
 import frege.system.Environment
+import  Compiler.grammar.Lexer as L()
 
 lspOptions :: Options
 lspOptions = Options {
     source       = "-",
-    sourcePath   = [ "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege" ],
-    dir          = "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege",
+    sourcePath   = [ "." ],
+    dir          = ".",
     path         = [],
     prefix       = "",
     encoding     = Just "UTF-8",
@@ -40,7 +57,7 @@ compileFregeProject rootPath = do
     initialGlobal <- standardGlobal
     let lspGlobal  = initialGlobal.{
         options    = lspOptions, 
-        sub       <- _.{ loader = initialLoader}
+        sub       <- SubSt.{ loader = initialLoader, numErrors = 42 }
     }
     (_, global)   <- StateT.run(Compiler.compiler rootPath) lspGlobal
     return global
@@ -70,18 +87,102 @@ parseFile = do
 helper:: Global -> IO Global
 helper = State.execStateT parseFile
 
+passes :: [(StIO (String,Int),String)]
+-- StIO == State.StateT Global.Global IO (String, Int), String)
+passes = [
+    (lexPass,                       "lexer"),
+    (liftStG parsePass,             "parser"),
+    (liftStG Fix.pass,              "join definitions"),
+    (Imp.pass,                      "import packages"),
+    (liftStG (Classes.passI true),  "verify imported instances"),
+    (liftStG Enter.pass,            "enter definitions"),
+    (liftStG Fields.pass,           "field definitions"),
+    (liftStG TypeAlias.pass,        "process type aliases"), 
+    (liftStG derivePass,            "derive and enter instances"),
+    (Transdef.pass,                 "resolve names"),
+    (liftStG Classes.passC,         "verify class definitions"),        -- TRACE6
+    (liftStG $ Classes.passI false, "verify own instances"),            -- TRACE6
+    (liftStG LU.pass,               "simplify lets"),                   -- TRACE7
+    (TC.pass,                       "type check"),                      -- TRACET, TRACEO
+    (liftStG EA.pass,               "simplify expressions"),            -- TRACE9
+    (liftStG GL.pass,               "globalize anonymous lambdas"),     -- TRACE8
+    (liftStG SC.pass,               "strictness analysis"),             -- TRACES
+    (openPrinter,                   "open file"),
+    (GM.genmeta,                    "generate meta data"),   -- none
+    (GenCode.pass,                  "generate java code"),  -- TRACEG
+    (closePrinter,                  "close java file"),
+    (javac,                         "run java compiler"),
+    (liftStG FI.cleanSymtab,        "clean up"),
+    ]
+
+makePasses = drop 2 passes
+
+lexparse :: String -> StIO Global
+lexparse p = do
+    g <- getSTT -- save current state
+    changeSTT _.{options <- _.{source = p}}
+    when (isOn g.options.flags VERBOSE) do
+        liftIO $ stderr.println ("parsing " ++ p)
+    L.pass
+    liftStG parsePass
+    printErrors
+    gc <- switchState g
+    mergeErrors gc
+    return gc
+
+compileFregeFile :: String -> StIO ()
+compileFregeFile path = do
+    --parsedState <- lexparse path
+    run
+
+run :: StIO ()
+run = forsome passes runpass
+
+-- getInfoFromGlobal :: PosInSourceCode -> Global -> InfoResult
+-- reverseLookup :: Global -> PosInSourceCode -> Query dataStructure -> Result
+
+
+
+
+runpass :: (StIO (String, Int), String) -> StIO ()
+runpass (pass, description) = do
+    state <- getSTT
+    when (state.errors == 0) do
+        now   <- liftIO $ System.currentTimeMillis()
+        (itemnm, items) <- pass
+        state <- getSTT
+        later <- liftIO $ System.currentTimeMillis()
+        when (isOff state.options.flags IDEMODE) printAndClearErrors
+        when (length description > 0 && isOn state.options.flags VERBOSE) do
+            liftIO $ do  
+                state.stderr.printf
+                    "%-40.40s  took %7.3fs, %d %s (%d %s/s)"
+                    description
+                    ((later-now+1).float / 1e3f)
+                    items
+                    itemnm
+                    ((Int.long (max 1 items)*1000L) `quot` max 1L (later-now))
+                    itemnm
+                state.stderr.println
+
 main :: IO ()
 main = do
-    println "Compiling a file without errors"
-    pwd <- getEnv "PWD"
-    let workingFilePath = pwd ++ "/src/test/resources/CorrectFregeTest.fr"
-    goodGlobal <- compileFregeProject [workingFilePath]
-    println "----------------------------------------------------------------------------------------------"
-    println $ CharSequence.toString goodGlobal.sub.code -- why no code, global seems to be not updated at all
     println "Compiling a file with errors"
-    let badFilePath = pwd ++ "/src/test/resources/src/main/frege/ch/fhnw/thga/FaultyFregeTest.fr"
-    badGlobal <- compileFregeProject [badFilePath]
-    println "after compiling file with errors" -- is not printed why?
-    badGlobal.stderr.println "after compiling file with errors " -- prints
-    badGlobal.stderr.println $ show badGlobal.errors -- why 0 errors, it fails in the type check phase, how to get the errors?
-    badGlobal.stderr.println $ CharSequence.toString badGlobal.sub.code -- global seems to be not updated at all, no code available
+    initialLoader <- theClassLoader lspOptions
+    initialGlobal <- standardGlobal
+    let badFilePath  = "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege/ch/fhnw/thga/FaultyFregeTest.fr"
+    let goodFilePath = "/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/CorrectFregeTest.fr"
+    let lspGlobal  = initialGlobal.{
+        options    = lspOptions.{source = badFilePath}, 
+        sub       <- SubSt.{ loader = initialLoader }
+    }
+    (res, gl) <- StateT.run (compileFregeFile badFilePath) lspGlobal
+    println $ show (gl.sub.numErrors)
+    println $ CharSequence.toString gl.sub.code
+    --let badFilePath = "/Users/tricktron/github/master/frege-lsp-server/src/test/resources/src/main/frege/ch/fhnw/thga/FaultyFregeTest.fr"
+    --compileFregeFile badFilePath
+    --StateT.run 
+    --println "after compiling file with errors" -- is not printed why?
+    --badGlobal.stderr.println "after compiling file with errors " -- prints
+    --badGlobal.stderr.println $ show badGlobal.errors -- why 0 errors, it fails in the type check phase, how to get the errors?
+    --badGlobal.stderr.println $ CharSequence.toString badGlobal.sub.code -- global seems to be not updated at all, no code available
