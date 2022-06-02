@@ -21,6 +21,22 @@ import frege.repl.FregeRepl.TReplResult;
 
 public class FregeDiagnosticService
 {
+    static Diagnostic getCompilerDiagnostic(String fregeCode)
+    {
+        ArrayList<TMessage> messages = performUnsafe(
+            TArrayList
+            .fromFregeList(result.asReplInfo().mem1.call()))
+			.call();
+        return new Diagnostic(
+            new Range(
+                new Position(2, 9),
+                new Position(2, 10)
+            ),
+            "String is not an instance of Num",
+            DiagnosticSeverity.Error,
+            "compiler"
+        );
+    }
     
 	private static Diagnostic mapMessageToDiagnostic(TMessage message)
     {

@@ -41,7 +41,8 @@ tasks.register('consoleLauncher', JavaExec) {
     outputs.dir reportsDir
     classpath sourceSets.test.runtimeClasspath
     mainClass = 'org.junit.platform.console.ConsoleLauncher'
-    args '--scan-classpath', '--details', 'tree', '--reports-dir', reportsDir.get()
+    args '--disable-banner', '--scan-classpath', '--details', 'tree', '--reports-dir', reportsDir.get()
+
 }
 
 tasks.withType(Test).configureEach {
