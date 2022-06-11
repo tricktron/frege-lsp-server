@@ -40,6 +40,7 @@ import Test.QuickCheck (Property, once, morallyDubiousIOProperty, ==>, Testable)
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
 derive Eq DiagnosticSeverity
+derive Show DiagnosticSeverity
 
 data Position = Position {
     line      :: Int, -- 0 based
@@ -47,6 +48,7 @@ data Position = Position {
 }
 
 derive Eq Position
+derive Show Position
 
 data Range = Range {
     start :: Position,
@@ -54,6 +56,7 @@ data Range = Range {
 }
 
 derive Eq Range
+derive Show Range
 
 data Diagnostic = Diagnostic {
     range    :: Range,
@@ -63,6 +66,7 @@ data Diagnostic = Diagnostic {
 }
 
 derive Eq Diagnostic
+derive Show Diagnostic
 
 instance Show Message where
   show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text
@@ -184,49 +188,50 @@ fregeLSPServerShouldMapCompilerMessgesToDiagnostics = once $ morallyDubiousIOPro
             } 
         ]
     gl <- lspGlobal
+    -- actual = getDummyDiagnostics
     (actual, _) <- StateT.run (getDiagnostics fregeCodeWithError) gl
+    println $ show actual
     pure $ expected == actual
 
-createRangeFromPos :: Global -> Positions.Position -> Range
-createRangeFromPos gl pos = 
-    let 
-        toks = tokens pos gl
-    in
-        tokensToRange toks where
-            -- tokensToRange :: [ Token ] -> Range
-            tokensToRange []  = Range { start = Position 0 0, end = Position 1 0 }
-            tokensToRange tks = 
-                let
-                    startToken = head tks
-                    endToken   = last tks
-                in
-                    Range { start = Position (startToken.line - 1) startToken.col,
-                            end   = Position (endToken.line - 1) (endToken.col + 1)  
-                    }
+createRangeFromPos :: Positions.Position -> StG Range
+createRangeFromPos pos = do
+    gl <- getST
+    toks = tokens pos gl
+    pure $ tokensToRange toks where
+        -- tokensToRange :: [ Token ] -> Range
+        tokensToRange []  = Range { start = Position 0 0, end = Position 1 0 }
+        -- tokensToRange [ x ] =  
+        tokensToRange tks = 
+            let
+                startToken = head tks
+                endToken   = last tks
+            in
+                Range { start = Position (startToken.line - 1) startToken.col,
+                        end   = Position (endToken.line - 1) (endToken.col + 1)  
+                }
 
 
-createDiagnosticFromMessage :: Global -> Message -> Diagnostic
-createDiagnosticFromMessage gl message = Diagnostic 
-    {
-        range = createRangeFromPos gl message.pos,
-        severity = ERROR, 
-        source = "frege compiler", 
-        message = "String is not an instance of num" 
-    }
+createDiagnosticFromMessage :: Message -> StG Diagnostic
+createDiagnosticFromMessage message = do
+    gl <- getST
+    pure $ Diagnostic 
+        {
+            range = State.evalState (createRangeFromPos message.pos) gl,
+            severity = ERROR, 
+            source = "frege compiler", 
+            message = "String is not an instance of num" 
+        }
 
-extractDiagnostics :: Global -> [ Diagnostic ]
-extractDiagnostics global = 
-    let 
-        firstMessage = head global.sub.messages
-    in  
-    [ 
-        createDiagnosticFromMessage global firstMessage
-    ]
+extractDiagnostics :: StG [ Diagnostic ]
+extractDiagnostics = do
+    gl <- getST
+    firstMessage = head gl.sub.messages  
+    pure $ [ State.evalState (createDiagnosticFromMessage firstMessage) gl ]
 
 getDiagnostics :: String -> StIO [ Diagnostic ]
 getDiagnostics fregeCode = do
-    g <- compileFregeFile fregeCode
-    pure $ extractDiagnostics g
+    compileFregeFile fregeCode
+    liftStG extractDiagnostics
 
 getDummyDiagnostics :: [ Diagnostic ]
 getDummyDiagnostics = 
