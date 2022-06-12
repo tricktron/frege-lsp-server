@@ -12,6 +12,7 @@ import  Compiler.passes.Imp()
 import  Compiler.passes.Enter()
 import  Compiler.passes.Fields()
 import  Compiler.passes.TypeAlias()
+import  Compiler.passes.Instances()
 import  Compiler.passes.Transdef()
 import  Compiler.passes.LetUnroll as LU()
 import  Compiler.passes.GlobalLam as GL()
@@ -94,6 +95,25 @@ lspOptions = Options {
                  ]
 }
 
+passes = [
+           (liftStG Fix.pass, "join definitions"),
+           (Imp.pass, "import packages"),
+           (liftStG (Classes.passI true), "verify imported instances"),
+           (liftStG Enter.pass, "enter definitions"),
+           (liftStG Fields.pass, "field definitions"),
+           (liftStG TypeAlias.pass, "process type aliases"), 
+           (liftStG (Instances.pass ()), "derive and enter instances"),
+           (Transdef.pass, "resolve names"),
+            (liftStG Classes.passC,          "verify class definitions"),        -- TRACE6
+            (liftStG $ Classes.passI false,  "verify own instances"),            -- TRACE6
+            (liftStG LU.pass,           "simplify lets"),                   -- TRACE7
+            (TC.pass,                   "type check"),                      -- TRACET, TRACEO
+            (liftStG EA.pass,          "simplify expressions"),            -- TRACE9
+            (liftStG GL.pass,          "globalize anonymous lambdas"),     -- TRACE8
+            (liftStG SC.pass,           "strictness analysis"),             -- TRACES
+            (liftStG FI.cleanSymtab,  "clean up")
+        ]
+
 lspGlobal :: IO Global
 lspGlobal = do
     initialLoader <- theClassLoader lspOptions
@@ -159,7 +179,7 @@ compileFregeFile :: String -> StIO Global
 compileFregeFile fregeCode = do
     lexParseState <- liftStG $ lexParseLSP fregeCode
     StateT.put lexParseState
-    forsome makepasses runpass
+    forsome passes runpass
     g <- getSTT
     return g
 
@@ -174,59 +194,46 @@ posToTokens :: [ Positions.Position ] -> Global -> [ Token ]
 posToTokens [] _ = []
 posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
 
-fregeLSPServerShouldMapCompilerMessgesToDiagnostics :: Property
-fregeLSPServerShouldMapCompilerMessgesToDiagnostics = once $ morallyDubiousIOProperty do
-    fregeCodeWithError = "module FaultyFregeTest where\n\n" ++ "err = 42 + \"42\""
-    expected = 
-        [ 
-            Diagnostic 
-            { 
-                range = Range { start = Position 2 10, end = Position 2 11 }, 
-                severity = ERROR, 
-                source = "frege compiler", 
-                message = "String is not an instance of num" 
-            } 
-        ]
-    gl <- lspGlobal
-    -- actual = getDummyDiagnostics
-    (actual, _) <- StateT.run (getDiagnostics fregeCodeWithError) gl
-    println $ show actual
-    pure $ expected == actual
+tokensToRange :: [ Token ] -> Range
+tokensToRange []     = Range { start = Position 0 0, end = Position 1 0 }
+tokensToRange [ tk ] = Range
+    {
+        start = Position (tk.line - 1) tk.col,
+        end   = Position (tk.line - 1) (tk.col + (length tk.value))
+    }
+tokensToRange tks    = 
+    let
+        startToken = head tks
+        endToken   = last tks
+    in
+    Range 
+    { 
+        start = Position (startToken.line - 1) startToken.col,
+        end   = Position (endToken.line - 1) (endToken.col + 1)  
+    }
 
 createRangeFromPos :: Positions.Position -> StG Range
 createRangeFromPos pos = do
     gl <- getST
     toks = tokens pos gl
-    pure $ tokensToRange toks where
-        -- tokensToRange :: [ Token ] -> Range
-        tokensToRange []  = Range { start = Position 0 0, end = Position 1 0 }
-        -- tokensToRange [ x ] =  
-        tokensToRange tks = 
-            let
-                startToken = head tks
-                endToken   = last tks
-            in
-                Range { start = Position (startToken.line - 1) startToken.col,
-                        end   = Position (endToken.line - 1) (endToken.col + 1)  
-                }
-
+    pure $ tokensToRange toks
 
 createDiagnosticFromMessage :: Message -> StG Diagnostic
 createDiagnosticFromMessage message = do
-    gl <- getST
+    range <- createRangeFromPos message.pos
     pure $ Diagnostic 
         {
-            range = State.evalState (createRangeFromPos message.pos) gl,
+            range = range,
             severity = ERROR, 
             source = "frege compiler", 
-            message = "String is not an instance of num" 
+            message = message.text
         }
 
 extractDiagnostics :: StG [ Diagnostic ]
 extractDiagnostics = do
     gl <- getST
-    firstMessage = head gl.sub.messages  
-    pure $ [ State.evalState (createDiagnosticFromMessage firstMessage) gl ]
+    diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
+    sequence diagnostics
 
 getDiagnostics :: String -> StIO [ Diagnostic ]
 getDiagnostics fregeCode = do
@@ -241,9 +248,65 @@ getDummyDiagnostics =
                 range = Range { start = Position 2 10, end = Position 2 11 }, 
                 severity = ERROR, 
                 source = "frege compiler", 
-                message = "String is not an instance of num" 
+                message = "String is not an instance of num"
         }
     ]
+
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
+    fregeCodeWithoutError = "module CorrectFregeTest where\n\n" ++ "ok = 42 + 42"
+    expected = []
+    gl     <- lspGlobal
+    actual <- evalStateT (getDiagnostics fregeCodeWithoutError) gl
+    pure $ expected == actual
+
+fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics :: Property
+fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
+    fregeCodeWithError = "module FaultyFregeTest where\n\n" ++ "err = 42 + \"42\""
+    expected = 
+        [ 
+            Diagnostic 
+            { 
+                range = Range { start = Position 2 10, end = Position 2 11 }, 
+                severity = ERROR, 
+                source = "frege compiler", 
+                message = "String is not an instance of Num" 
+            } 
+        ]
+    gl     <- lspGlobal
+    actual <- evalStateT (getDiagnostics fregeCodeWithError) gl
+    pure $ expected == actual
+
+fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics :: Property
+fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
+    fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
+    expected = 
+        [ 
+            Diagnostic 
+            { 
+                range = Range { start = Position 5 20, end = Position 5 24 }, 
+                severity = ERROR, 
+                source = "frege compiler", 
+                message = "type error in expression\n\"42\"\ntype is : String\nexpected: [t1]"
+            },
+            Diagnostic 
+            { 
+                range = Range { start = Position 7 11, end = Position 7 12 }, 
+                severity = ERROR, 
+                source = "frege compiler", 
+                message = "String is not an instance of Num" 
+            },
+            Diagnostic 
+            { 
+                range = Range { start = Position 2 8, end = Position 2 10 }, 
+                severity = ERROR, 
+                source = "frege compiler", 
+                message = "last statement in a monadic do block must not\nbe let decls" 
+            }
+        ]
+    gl     <- lspGlobal
+    actual <- evalStateT (getDiagnostics fregeCodeWithErrors) gl
+    pure $ expected == actual
 
 
 main :: IO ()
@@ -254,9 +317,10 @@ main = do
         options  = lspOptions,
         sub     <- SubSt. { loader = initialLoader }
     }
-    let fregeCode     = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr = [ 22.0 ] ++ \"42\"\n\nok = 22 + 55"
+    --let fregeCode     = "module ch.fhnw.thga.FaultyFregeTest where\n\nimport Does.not.Exist\n\nerr2 = [ 22.0 ] ++ \"42\""
+    let fregeCode     = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
     let testFregeCode = "module FaultyFregeTest where\n\n" ++ "err = 42 + \"42\""
-    (res, gl) <- StateT.run (compileFregeFile testFregeCode) lspGlobal
+    (res, gl) <- StateT.run (compileFregeFile fregeCode) lspGlobal
     println $ CharSequence.toString gl.sub.code
     for gl.sub.messages println
     let positions = map (Message.pos) gl.sub.messages
