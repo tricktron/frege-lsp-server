@@ -1,11 +1,11 @@
 module ch.fhnw.thga.fregelspserver.FregeDiagnosticService where
 
-import Compiler.types.Global (StG, StIO, Message, Global, tokens, getST, liftStG)
+import Compiler.types.Global (StG, StIO, Message, Global, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
 import frege.compiler.types.Positions as TokenPositions (Position)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import ch.fhnw.thga.fregelspserver.CompilerHelper (compileFregeFile, lspGlobal)
-import Control.monad.State (evalStateT, execStateT)
+import Control.monad.State (evalStateT, execStateT, evalState)
 
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
@@ -37,6 +37,16 @@ data Diagnostic = Diagnostic {
 
 derive Eq Diagnostic
 derive Show Diagnostic
+
+data ArrayList a = native java.util.ArrayList where
+  native add :: Mutable s (ArrayList a) -> a -> ST s Bool
+  native new :: () -> STMutable s (ArrayList a)
+
+  fromFregeList :: [a] -> STMutable s (ArrayList a)
+  fromFregeList xs = ArrayList.new () >>= go xs where
+    go :: [a] -> Mutable s (ArrayList a) -> STMutable s (ArrayList a)
+    go [] list     = return list
+    go (x:xs) list = ArrayList.add list x >> go xs list
 
 tokensToRange :: [ Token ] -> Range
 tokensToRange []     = Range { start = Position 0 0, end = Position 1 0 }
@@ -79,17 +89,17 @@ extractDiagnostics = do
     diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
     sequence diagnostics
 
-getDiagnostics :: String -> StIO [ Diagnostic ]
-getDiagnostics fregeCode = do
-    compileFregeFile fregeCode
-    liftStG extractDiagnostics
+compileAndGetDiagnostics :: String -> IO [ Diagnostic ]
+compileAndGetDiagnostics fregeCode = do
+    startGlobal <- lspGlobal
+    gl <- execStateT (compileFregeFile fregeCode) startGlobal
+    pure $ evalState (extractDiagnostics) gl
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
     fregeCodeWithoutError = "module CorrectFregeTest where\n\n" ++ "ok = 42 + 42"
     expected = []
-    gl     <- lspGlobal
-    actual <- evalStateT (getDiagnostics fregeCodeWithoutError) gl
+    actual <- compileAndGetDiagnostics fregeCodeWithoutError
     pure $ expected == actual
 
 fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics :: Property
@@ -106,7 +116,7 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
             } 
         ]
     gl     <- lspGlobal
-    actual <- evalStateT (getDiagnostics fregeCodeWithError) gl
+    actual <- compileAndGetDiagnostics fregeCodeWithError
     pure $ expected == actual
 
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics :: Property
@@ -137,7 +147,7 @@ fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubi
             }
         ]
     gl     <- lspGlobal
-    actual <- evalStateT (getDiagnostics fregeCodeWithErrors) gl
+    actual <- compileAndGetDiagnostics fregeCodeWithErrors
     pure $ expected == actual
 
 posToTokens :: [ TokenPositions.Position ] -> Global -> [ Token ]
