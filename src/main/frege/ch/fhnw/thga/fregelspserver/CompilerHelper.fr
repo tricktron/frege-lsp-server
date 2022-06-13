@@ -1,0 +1,150 @@
+module ch.fhnw.thga.fregelspserver.CompilerHelper where
+
+import frege.compiler.types.Targets public(thisTarget)
+import Compiler.types.Global (
+    Global, StIO, Options, Message, StG, SubSt,
+    liftIO, liftStG,getSTT, getST, forsome, stio, changeST
+    )
+import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
+import Control.monad.State
+import frege.compiler.enums.Flags
+import Compiler.passes.Fix()
+import Compiler.passes.Imp()
+import Compiler.passes.Enter()
+import Compiler.passes.Fields()
+import Compiler.passes.TypeAlias()
+import Compiler.passes.Instances()
+import Compiler.passes.Transdef()
+import Compiler.passes.LetUnroll as LU()
+import Compiler.passes.GlobalLam as GL()
+import Compiler.passes.Easy as EA()
+import Compiler.passes.Strict as SC()
+import Compiler.passes.Final as FI()
+import Compiler.Classes()
+import Compiler.Typecheck as TC()
+import Compiler.grammar.Lexer as L()
+import Compiler.grammar.Frege as F()
+import Compiler.enums.Flags
+import Compiler.common.Desugar
+import Compiler.types.Tokens
+import Compiler.enums.TokenID
+import Compiler.types.Packs
+
+import  frege.compiler.types.Positions
+
+instance Show Message where
+  show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text
+
+lspOptions :: Options
+lspOptions = Options 
+    { 
+        source       = "-",
+        sourcePath   = [ "." ],
+        dir          = ".",
+        path         = [],
+        prefix       = "",
+        encoding     = Just "UTF-8",
+        tRanges      = [],
+        target       = thisTarget,
+        extending    = Nothing,
+        implementing = [],
+        code         = [],
+        flags        = Flags.fromList
+                     [
+                       WARNINGS,
+                       HINTS,
+                       VERBOSE,
+                       IDEMODE,
+                       IDETOKENS
+                     ]
+    }
+
+passes = 
+    [
+        (liftStG Fix.pass,              "join definitions"),
+        (Imp.pass,                      "import packages"),
+        (liftStG (Classes.passI true),  "verify imported instances"),
+        (liftStG Enter.pass,            "enter definitions"),
+        (liftStG Fields.pass,           "field definitions"),
+        (liftStG TypeAlias.pass,        "process type aliases"), 
+        (liftStG (Instances.pass ()),   "derive and enter instances"),
+        (Transdef.pass,                 "resolve names"),
+        (liftStG Classes.passC,         "verify class definitions"),        -- TRACE6
+        (liftStG $ Classes.passI false, "verify own instances"),            -- TRACE6
+        (liftStG LU.pass,               "simplify lets"),                   -- TRACE7
+        (TC.pass,                       "type check"),                      -- TRACET, TRACEO
+        (liftStG EA.pass,               "simplify expressions"),            -- TRACE9
+        (liftStG GL.pass,               "globalize anonymous lambdas"),     -- TRACE8
+        (liftStG SC.pass,               "strictness analysis"),             -- TRACES
+        (liftStG FI.cleanSymtab,        "clean up")
+    ]
+
+lspGlobal :: IO Global
+lspGlobal = do
+    initialLoader <- theClassLoader lspOptions
+    initialGlobal <- standardGlobal
+    pure initialGlobal. {
+        options  = lspOptions,
+        sub     <- SubSt. { loader = initialLoader }
+    }
+
+switchState :: Global -> StG Global
+switchState new = do
+    old <- getST
+    StG.put new
+    return old
+
+lexParseLSP :: String -> StG Global
+lexParseLSP fregeCode = do
+    g  <- getST
+    lexPassLSP fregeCode
+    parsePass
+    gc <- switchState g
+    changeST _.{ sub <- _.{ numErrors <- (gc.errors +) } }
+    return gc
+
+lexPassLSP :: String -> StG (String, Int)
+lexPassLSP fregeCode = do
+    tokens <- L.passCS $ CharSequence.fromString fregeCode
+    return ("tokens", length tokens)
+
+parsePass :: StG (String, Int)
+parsePass = do
+    g      <- getST
+    result <- F.pass (filter Token.noComment g.sub.toks.toList)
+    case result of
+        Just (Program.Module (packname, defs, doc)) -> do
+            changeST Global.{
+                sub <-  SubSt.{
+                    thisPack   = Pack.new packname,
+                    sourcedefs = defs,
+                    packageDoc = doc
+                }
+            }
+            when (isOn g.options.flags Flags.IDETOKENS) do
+                changeST Global.{sub <- SubSt.{toks <- arrayFromList . ideClean . toList}}
+            stio ("tokens",  g.sub.toks.length)
+        nothing -> stio ("tokens", g.sub.toks.length)
+    where
+        -- prepare token list for IDE: no inserted semicolons and braces, operator qualifiers
+        ideClean :: [Token] -> [Token]
+        ideClean (t:ts)
+            | t.tokid == COMMENT, t.value=="}" = ideClean ts
+            | t.col   == 0                     = ideClean ts      -- inserted semicolon or brace
+            | otherwise                        = t : ideClean ts
+        ideClean []                            = []
+
+compileFregeFile :: String -> StIO Global
+compileFregeFile fregeCode = do
+    lexParseState <- liftStG $ lexParseLSP fregeCode
+    StateT.put lexParseState
+    forsome passes runpass
+    g <- getSTT
+    return g
+
+runpass :: (StIO (String, Int), String) -> StIO ()
+runpass (pass, description) = do
+    state <- getSTT
+    when (state.errors == 0) do
+        (itemnm, items) <- pass
+        return ()
