@@ -1,8 +1,8 @@
 module ch.fhnw.thga.fregelspserver.FregeDiagnosticService where
 
-import Compiler.types.Global (StG, StIO, Message, Global, tokens, getST, liftStG, liftIO)
+import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
-import frege.compiler.types.Positions as TokenPositions (Position)
+import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import ch.fhnw.thga.fregelspserver.CompilerHelper (compileFregeFile, lspGlobal)
 import Control.monad.State (evalStateT, execStateT, evalState)
@@ -11,6 +11,11 @@ data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
 derive Eq DiagnosticSeverity
 derive Show DiagnosticSeverity
+
+fromCompilerSeverity :: Severity -> DiagnosticSeverity
+fromCompilerSeverity Severity.ERROR   = ERROR
+fromCompilerSeverity Severity.WARNING = WARNING
+fromCompilerSeverity Severity.HINT    = HINT
 
 data Position = Position {
     line      :: Int, -- 0 based
@@ -38,16 +43,6 @@ data Diagnostic = Diagnostic {
 derive Eq Diagnostic
 derive Show Diagnostic
 
-data ArrayList a = native java.util.ArrayList where
-  native add :: Mutable s (ArrayList a) -> a -> ST s Bool
-  native new :: () -> STMutable s (ArrayList a)
-
-  fromFregeList :: [a] -> STMutable s (ArrayList a)
-  fromFregeList xs = ArrayList.new () >>= go xs where
-    go :: [a] -> Mutable s (ArrayList a) -> STMutable s (ArrayList a)
-    go [] list     = return list
-    go (x:xs) list = ArrayList.add list x >> go xs list
-
 tokensToRange :: [ Token ] -> Range
 tokensToRange []     = Range { start = Position 0 0, end = Position 1 0 }
 tokensToRange [ tk ] = Range
@@ -66,7 +61,7 @@ tokensToRange tks    =
         end   = Position (endToken.line - 1) (endToken.col + (length endToken.value))  
     }
 
-createRangeFromPos :: TokenPositions.Position -> StG Range
+createRangeFromPos :: TokenPosition -> StG Range
 createRangeFromPos pos = do
     gl <- getST
     toks = tokens pos gl
@@ -78,7 +73,7 @@ createDiagnosticFromMessage message = do
     pure $ Diagnostic 
         {
             range = range,
-            severity = ERROR, 
+            severity = fromCompilerSeverity message.level, 
             source = "frege compiler", 
             message = message.text
         }
@@ -150,7 +145,7 @@ fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubi
     actual <- compileAndGetDiagnostics fregeCodeWithErrors
     pure $ expected == actual
 
-posToTokens :: [ TokenPositions.Position ] -> Global -> [ Token ]
+posToTokens :: [ TokenPosition ] -> Global -> [ Token ]
 posToTokens [] _ = []
 posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
 

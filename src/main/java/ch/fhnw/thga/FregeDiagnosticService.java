@@ -18,24 +18,15 @@ import org.eclipse.lsp4j.services.LanguageClient;
 import ch.fhnw.thga.TypeSignature.TArrayList;
 import frege.interpreter.FregeInterpreter.TMessage;
 import frege.repl.FregeRepl.TReplResult;
+import frege.run8.Thunk;
+import ch.fhnw.thga.fregelspserver.LSPTypeExploration;
 
 public class FregeDiagnosticService
 {
-    static Diagnostic getCompilerDiagnostic(String fregeCode)
+    static List<Diagnostic> getCompilerDiagnostic(String fregeCode)
     {
-        ArrayList<TMessage> messages = performUnsafe(
-            TArrayList
-            .fromFregeList(result.asReplInfo().mem1.call()))
-			.call();
-        return new Diagnostic(
-            new Range(
-                new Position(2, 9),
-                new Position(2, 10)
-            ),
-            "String is not an instance of Num",
-            DiagnosticSeverity.Error,
-            "compiler"
-        );
+        return performUnsafe(
+            LSPTypeExploration.compileAndGetDiagnosticsLSP(Thunk.lazy(fregeCode))).call();
     }
     
 	private static Diagnostic mapMessageToDiagnostic(TMessage message)

@@ -6,8 +6,7 @@ import Compiler.types.Global (
     liftIO, liftStG,getSTT, getST, forsome, stio, changeST
     )
 import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
-import Control.monad.State
-import frege.compiler.enums.Flags
+import Control.monad.State (StateT)
 import Compiler.passes.Fix()
 import Compiler.passes.Imp()
 import Compiler.passes.Enter()
@@ -29,8 +28,6 @@ import Compiler.common.Desugar
 import Compiler.types.Tokens
 import Compiler.enums.TokenID
 import Compiler.types.Packs
-
-import  frege.compiler.types.Positions
 
 instance Show Message where
   show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text

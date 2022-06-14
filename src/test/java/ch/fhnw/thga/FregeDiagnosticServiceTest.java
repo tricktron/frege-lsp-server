@@ -32,15 +32,16 @@ class FregeDiagnosticServiceTest
             "module ch.fhnw.thga.FaultyFregeTest where",
             "",
             "err = 42 + \"42\"");
-            Diagnostic expectedErrorDiagnostic = new Diagnostic(
-                createRange(2, 9, 2, 10),
-                "String is not an instance of Num",
-                DiagnosticSeverity.Error,
-                "compiler"
+            List<Diagnostic> expectedErrorDiagnostic = List.of(
+                new Diagnostic(
+                    createRange(2, 10, 2, 11),
+                    "String is not an instance of Num",
+                    DiagnosticSeverity.Error,
+                    "frege compiler"
+                )
             );
 
-            Diagnostic actual = FregeDiagnosticService.getCompilerDiagnostic(faultyFregeCode);
-
+            List<Diagnostic> actual = FregeDiagnosticService.getCompilerDiagnostic(faultyFregeCode);
             assertEquals(expectedErrorDiagnostic, actual);
     }
     

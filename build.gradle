@@ -18,6 +18,7 @@ dependencies {
     testRuntimeOnly group: junit5Group, name: 'junit-jupiter-engine', version: junit5Version
     testRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-console', version: junit5Version
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
+    frege group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
     testImplementation group: mockitoGroup, name: 'mockito-core', version: mockitoVersion
     testImplementation group: mockitoGroup, name: 'mockito-junit-jupiter', version: mockitoVersion
