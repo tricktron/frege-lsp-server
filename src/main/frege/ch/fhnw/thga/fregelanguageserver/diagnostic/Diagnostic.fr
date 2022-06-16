@@ -1,10 +1,11 @@
-module ch.fhnw.thga.fregelspserver.FregeDiagnosticService where
+module ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic where
+
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
 
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import ch.fhnw.thga.fregelspserver.CompilerHelper (compileFregeFile, lspGlobal)
 import Control.monad.State (evalStateT, execStateT, evalState)
 
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT

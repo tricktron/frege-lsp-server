@@ -1,4 +1,4 @@
-module ch.fhnw.thga.fregelspserver.CompilerHelper where
+module ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper where
 
 import frege.compiler.types.Targets public(thisTarget)
 import Compiler.types.Global (

@@ -1,6 +1,6 @@
-module ch.fhnw.thga.fregelspserver.LSPTypeExploration where
+module ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic where
 
-import ch.fhnw.thga.fregelspserver.FregeDiagnosticService (
+import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
     Position, DiagnosticSeverity, Range, Diagnostic, compileAndGetDiagnostics)
 
 data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where

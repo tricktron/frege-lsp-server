@@ -1,4 +1,4 @@
-package ch.fhnw.thga;
+package ch.fhnw.thga.fregelanguageserver;
 
 import org.eclipse.lsp4j.DidChangeConfigurationParams;
 import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
