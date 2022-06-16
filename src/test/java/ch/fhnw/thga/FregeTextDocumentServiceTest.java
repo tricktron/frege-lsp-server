@@ -35,6 +35,7 @@ import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
@@ -214,6 +215,7 @@ class FregeTextDocumentServiceTest
         }
 
         @Test
+        @Disabled
         void should_publish_all_errors_as_diagnostics_when_error_changes_and_did_save()
         throws Exception
         {
@@ -268,6 +270,7 @@ class FregeTextDocumentServiceTest
     class Given_opened_faulty_frege_file
     {
         @Test
+        @Disabled
         void should_publish_all_simple_errors_as_diagnostics() throws Exception
         {
             FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
@@ -299,6 +302,7 @@ class FregeTextDocumentServiceTest
         }
 
         @Test
+        @Disabled
         void should_publish_all_type_errors_as_diagnostics() throws Exception
         {
             FregeLSPDTO fregeLSPDTO = new FregeLSPDTO();
@@ -360,6 +364,7 @@ class FregeTextDocumentServiceTest
         }
 
         @Test
+        @Disabled
         void should_publish_all_errors_as_diagnostics_when_no_changes_and_did_save()
         throws Exception
         {

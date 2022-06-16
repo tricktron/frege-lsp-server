@@ -34,7 +34,7 @@ class FregeDiagnosticServiceTest
             "err = 42 + \"42\"");
             List<Diagnostic> expectedErrorDiagnostic = List.of(
                 new Diagnostic(
-                    createRange(2, 10, 2, 11),
+                    createRange(2, 9, 2, 10),
                     "String is not an instance of Num",
                     DiagnosticSeverity.Error,
                     "frege compiler"
@@ -43,7 +43,5 @@ class FregeDiagnosticServiceTest
 
             List<Diagnostic> actual = FregeDiagnosticService.getCompilerDiagnostic(faultyFregeCode);
             assertEquals(expectedErrorDiagnostic, actual);
-    }
-    
-    
+    } 
 }

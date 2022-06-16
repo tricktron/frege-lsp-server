@@ -68,9 +68,9 @@ public class FregeTextDocumentService implements TextDocumentService
                     replEnv)
                 ).call();
 		replEnv = resEnvTuple.mem2;
-		FregeDiagnosticService.publishCompilerDiagnostics(
+		FregeDiagnosticService.publishCompilerDiagnosticsV2(
             simpleLanguageServer.client,
-            resEnvTuple.mem1.call(),
+            currentOpenFileContents,
             params.getTextDocument().getUri()
         );
 	}
@@ -101,9 +101,9 @@ public class FregeTextDocumentService implements TextDocumentService
                     replEnv)
                 ).call();
 		replEnv = resEnvTuple.mem2;
-		FregeDiagnosticService.publishCompilerDiagnostics(
+		FregeDiagnosticService.publishCompilerDiagnosticsV2(
             simpleLanguageServer.client,
-            resEnvTuple.mem1.call(),
+            currentOpenFileContents,
             params.getTextDocument().getUri()
         );
 	}

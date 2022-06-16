@@ -136,7 +136,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelspserver/LSPTypeExploration.fr",
-  time=1655239064151L, jmajor=11, jminor=-1,
+  time=1655242389744L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelspserver.FregeDiagnosticService", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -241,19 +241,19 @@ import frege.test.QuickCheckText;
       pur=true, nativ="org.eclipse.lsp4j.DiagnosticSeverity"
     ),
     @Meta.SymT(
-      offset=1466,
+      offset=1484,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="DiagnosticLSP"), typ=12,
       kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1628,
+          offset=1646,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="DiagnosticLSP", member="fromDiagnostic"
           ),
           stri="s(s)", sig=14, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=1545,
+          offset=1563,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="DiagnosticLSP", member="new"
           ),
@@ -263,25 +263,25 @@ import frege.test.QuickCheckText;
       pur=true, nativ="org.eclipse.lsp4j.Diagnostic"
     ),
     @Meta.SymT(
-      offset=1820, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="ArrayList"),
+      offset=1890, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="ArrayList"),
       typ=17, kind=28, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1934,
+          offset=2004,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="ArrayList", member="new"
           ),
           stri="s(s)", sig=19, nativ="new", depth=1, rkind=9
         ),
         @Meta.SymV(
-          offset=1876,
+          offset=1946,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="ArrayList", member="add"
           ),
           stri="s(ss)", sig=22, nativ="add", depth=2, rkind=9
         ),
         @Meta.SymV(
-          offset=1976,
+          offset=2046,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="ArrayList", member="fromFregeList"
           ),
@@ -293,7 +293,7 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=2240,
+      offset=2310,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelspserver.LSPTypeExploration", base="compileAndGetDiagnosticsLSP"),
       stri="s(u)", sig=25, depth=1, rkind=13
     )

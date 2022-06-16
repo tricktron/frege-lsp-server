@@ -62,6 +62,18 @@ public class FregeDiagnosticService
             .collect(Collectors.toList());
 	}
 
+    static void publishCompilerDiagnosticsV2(
+        LanguageClient client, 
+        String fregeCode,
+        String documentUri)
+    {
+		CompletableFuture.runAsync(() -> 
+        {
+            client.publishDiagnostics(new PublishDiagnosticsParams(
+                documentUri, getCompilerDiagnostic(fregeCode)));
+        });
+	}
+
 	static void publishCompilerDiagnostics(
         LanguageClient client, 
         TReplResult result,
