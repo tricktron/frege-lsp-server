@@ -16,7 +16,7 @@ data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity wh
     fromCompilerSeverity INFORMATION    = information
 
 data PositionLSP = pure native org.eclipse.lsp4j.Position where
-    pure native new               :: Int -> Int -> PositionLSP
+    pure native new :: Int -> Int -> PositionLSP
 
     fromPosition :: Position -> PositionLSP
     fromPosition pos = new pos.line pos.character
@@ -25,20 +25,20 @@ data RangeLSP = pure native org.eclipse.lsp4j.Range where
     pure native new      :: PositionLSP -> PositionLSP -> RangeLSP
 
     fromRange :: Range -> RangeLSP
-    fromRange range = new 
-        (PositionLSP.fromPosition range.start) 
-        (PositionLSP.fromPosition range.end)
+    fromRange Range { start, end } = new 
+        (PositionLSP.fromPosition start) 
+        (PositionLSP.fromPosition end)
 
 data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
     pure native new :: RangeLSP -> String -> DiagnosticSeverityLSP -> String -> DiagnosticLSP
 
     fromDiagnostic :: Diagnostic -> DiagnosticLSP
-    fromDiagnostic d = 
+    fromDiagnostic Diagnostic { range, message, severity, source } = 
         new 
-            (RangeLSP.fromRange d.range) 
-            d.message 
-            (DiagnosticSeverityLSP.fromCompilerSeverity d.severity) 
-            d.source
+            (RangeLSP.fromRange range) 
+            message 
+            (DiagnosticSeverityLSP.fromCompilerSeverity severity) 
+            source
 
 data ArrayList a = native java.util.ArrayList where
   native add :: Mutable s (ArrayList a) -> a -> ST s Bool
