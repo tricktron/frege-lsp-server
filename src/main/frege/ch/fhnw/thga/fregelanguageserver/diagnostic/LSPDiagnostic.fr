@@ -1,0 +1,57 @@
+module ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic where
+
+import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
+    Position, DiagnosticSeverity, Range, Diagnostic, compileAndGetDiagnostics)
+
+data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where
+    pure native error       "org.eclipse.lsp4j.DiagnosticSeverity.Error"       :: DiagnosticSeverityLSP
+    pure native warning     "org.eclipse.lsp4j.DiagnosticSeverity.Warning"     :: DiagnosticSeverityLSP
+    pure native information "org.eclipse.lsp4j.DiagnosticSeverity.Information" :: DiagnosticSeverityLSP
+    pure native hint        "org.eclipse.lsp4j.DiagnosticSeverity.Hint"        :: DiagnosticSeverityLSP
+
+    fromCompilerSeverity :: DiagnosticSeverity -> DiagnosticSeverityLSP
+    fromCompilerSeverity HINT           = hint
+    fromCompilerSeverity WARNING        = warning
+    fromCompilerSeverity ERROR          = error
+    fromCompilerSeverity INFORMATION    = information
+
+data PositionLSP = pure native org.eclipse.lsp4j.Position where
+    pure native new :: Int -> Int -> PositionLSP
+
+    fromPosition :: Position -> PositionLSP
+    fromPosition pos = new pos.line pos.character
+
+data RangeLSP = pure native org.eclipse.lsp4j.Range where
+    pure native new      :: PositionLSP -> PositionLSP -> RangeLSP
+
+    fromRange :: Range -> RangeLSP
+    fromRange Range { start, end } = new 
+        (PositionLSP.fromPosition start) 
+        (PositionLSP.fromPosition end)
+
+data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
+    pure native new :: RangeLSP -> String -> DiagnosticSeverityLSP -> String -> DiagnosticLSP
+
+    fromDiagnostic :: Diagnostic -> DiagnosticLSP
+    fromDiagnostic Diagnostic { range, message, severity, source } = 
+        new 
+            (RangeLSP.fromRange range) 
+            message 
+            (DiagnosticSeverityLSP.fromCompilerSeverity severity) 
+            source
+
+data ArrayList a = native java.util.ArrayList where
+  native add :: Mutable s (ArrayList a) -> a -> ST s Bool
+  native new :: () -> STMutable s (ArrayList a)
+
+  fromFregeList :: [a] -> STMutable s (ArrayList a)
+  fromFregeList xs = ArrayList.new () >>= go xs where
+    go :: [a] -> Mutable s (ArrayList a) -> STMutable s (ArrayList a)
+    go [] list     = return list
+    go (x:xs) list = ArrayList.add list x >> go xs list
+
+compileAndGetDiagnosticsLSP :: String -> IOMutable (ArrayList DiagnosticLSP)
+compileAndGetDiagnosticsLSP fregeCode = do
+    diagnostics <- compileAndGetDiagnostics fregeCode
+    diagnosticsLSP = DiagnosticLSP.fromDiagnostic <$> diagnostics
+    ArrayList.fromFregeList diagnosticsLSP

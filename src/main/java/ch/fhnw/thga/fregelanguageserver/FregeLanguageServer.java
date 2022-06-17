@@ -1,4 +1,4 @@
-package ch.fhnw.thga;
+package ch.fhnw.thga.fregelanguageserver;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -12,47 +12,54 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
-public class FregeLanguageServer implements LanguageServer, LanguageClientAware {
-
+public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
+{
 	private TextDocumentService textService;
 	private WorkspaceService workspaceService;
 	LanguageClient client;
 
-	public FregeLanguageServer() {
-		textService = new FregeTextDocumentService(this);
+	public FregeLanguageServer()
+    {
+		textService      = new FregeTextDocumentService(this);
 		workspaceService = new FregeWorkspaceService();
 	}
 
 	@Override
-	public CompletableFuture<InitializeResult> initialize(InitializeParams params) {
+	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
+    {
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
-		res.getCapabilities().setHoverProvider(true);
+		res.getCapabilities().setHoverProvider(false);
 		return CompletableFuture.supplyAsync(() -> res);
 	}
 
 	@Override
-	public CompletableFuture<Object> shutdown() {
+	public CompletableFuture<Object> shutdown() 
+    {
 		return CompletableFuture.supplyAsync(() -> Boolean.TRUE);
 	}
 
 	@Override
-	public void exit() {
+	public void exit() 
+    {
 		System.exit(0);
 	}
 
 	@Override
-	public TextDocumentService getTextDocumentService() {
+	public TextDocumentService getTextDocumentService() 
+    {
 		return this.textService;
 	}
 
 	@Override
-	public WorkspaceService getWorkspaceService() {
+	public WorkspaceService getWorkspaceService()
+    {
 		return this.workspaceService;
 	}
 
 	@Override
-	public void connect(LanguageClient client) {
+	public void connect(LanguageClient client)
+    {
 		this.client = client;
 	}
 }

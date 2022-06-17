@@ -1,27 +1,17 @@
-package ch.fhnw.thga;
-
-import static frege.prelude.PreludeBase.TST.performUnsafe;
+package ch.fhnw.thga.fregelanguageserver;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.eclipse.lsp4j.DidChangeTextDocumentParams;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
 import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.DidSaveTextDocumentParams;
-import org.eclipse.lsp4j.Hover;
-import org.eclipse.lsp4j.HoverParams;
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
-import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import frege.prelude.PreludeBase.TTuple2;
-import frege.repl.FregeRepl.TReplEnv;
-import frege.repl.FregeRepl.TReplResult;
-import frege.run8.Lazy;
-import frege.run8.Thunk;
+import ch.fhnw.thga.fregelanguageserver.diagnostic.FregeDiagnosticService;
 
 public class FregeTextDocumentService implements TextDocumentService
 {
@@ -29,30 +19,12 @@ public class FregeTextDocumentService implements TextDocumentService
 	private final FregeLanguageServer simpleLanguageServer;
 	private String currentOpenFileContents;
     private List<String> currentOpenFileLines;
-	private Lazy<TReplEnv> replEnv;
 
 	public FregeTextDocumentService(FregeLanguageServer server)
     {
 		simpleLanguageServer    = server;
 		currentOpenFileContents = "";
         currentOpenFileLines    = new ArrayList<>();
-		replEnv = performUnsafe(TypeSignature.initialReplEnv.call());
-	}
-
-	@Override
-	public CompletableFuture<Hover> hover(HoverParams params)
-    {
-		return CompletableFutures.computeAsync(cancel -> 
-        {
-			if (cancel.isCanceled())
-            {
-			    return null;
-			}
-			return FregeHoverService.getFunctionTypeSignatureOnLine(
-                currentOpenFileContents,
-                params.getPosition().getLine(),
-                replEnv);
-		});
 	}
 
 	@Override
@@ -62,15 +34,10 @@ public class FregeTextDocumentService implements TextDocumentService
         currentOpenFileLines    = currentOpenFileContents
             .lines()
             .collect(Collectors.toList());
-		TTuple2<TReplResult, TReplEnv> resEnvTuple = performUnsafe(
-				TypeSignature.evalFregeFile(
-                    Thunk.lazy(currentOpenFileContents),
-                    replEnv)
-                ).call();
-		replEnv = resEnvTuple.mem2;
+
 		FregeDiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.client,
-            resEnvTuple.mem1.call(),
+            currentOpenFileContents,
             params.getTextDocument().getUri()
         );
 	}
@@ -78,7 +45,8 @@ public class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didChange(DidChangeTextDocumentParams params)
     {
-		List<TextDocumentContentChangeEvent> changes = params.getContentChanges();
+		List<TextDocumentContentChangeEvent> changes 
+                                = params.getContentChanges();
 		currentOpenFileContents = changes.get(changes.size() - 1).getText();
         currentOpenFileLines    = currentOpenFileContents
             .lines()
@@ -95,15 +63,9 @@ public class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
     {
-		TTuple2<TReplResult, TReplEnv> resEnvTuple = performUnsafe(
-				TypeSignature.evalFregeFile(
-                    Thunk.lazy(currentOpenFileContents),
-                    replEnv)
-                ).call();
-		replEnv = resEnvTuple.mem2;
 		FregeDiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.client,
-            resEnvTuple.mem1.call(),
+            currentOpenFileContents,
             params.getTextDocument().getUri()
         );
 	}
