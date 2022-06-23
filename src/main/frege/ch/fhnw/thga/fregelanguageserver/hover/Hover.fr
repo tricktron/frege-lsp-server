@@ -1,0 +1,69 @@
+module ch.fhnw.thga.fregelanguageserver.hover.Hover where
+
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
+
+import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
+import Compiler.types.Tokens (Token)
+import  frege.compiler.enums.TokenID
+import frege.compiler.types.Positions (Position TokenPosition)
+import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
+import Control.monad.State (evalStateT, execStateT, evalState)
+import frege.lib.Modules(Y, RTree, walkPath, pack, noPacks)
+import frege.ide.Utilities(Proposal, proposeContent)
+
+
+compileAndGetTypeSignatureOnHover :: String -> Int -> Int -> IO String
+compileAndGetTypeSignatureOnHover fregeCode line col = pure "String"
+
+diagnosticShouldExtractTypeSignatureOnHover :: Property
+diagnosticShouldExtractTypeSignatureOnHover = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module Hover where\n\n" ++ "main = do\n  a = \"Hello\"\nprintln a"
+    expected = "String"
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode 2 2
+    pure $ expected == actual
+
+
+posToTokens :: [ TokenPosition ] -> Global -> [ Token ]
+posToTokens [] _ = []
+posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
+
+backwards :: JArray Token  -> Int -> [Token]
+backwards array index
+    | index > 0 = trans (elemAt array index) : backwards array (pred index)
+    | otherwise = []
+    where 
+        trans ∷ Token → Token
+        trans tok = case tok of
+            Token{tokid=CHAR, value="_"} = tok.{tokid=VARID, value="it"}
+            other = other
+
+initRoot :: String -> IO (Y RTree)
+initRoot path = do
+    return noPacks
+
+magicPNs [] = []
+magicPNs (x:xs)
+    | ("frege":y:ys, fp) <- x,
+        length y > 0,
+        not (head y).isUpperCase
+    = (ctos (Char.toUpperCase (head y)) ++ tail y !: ys, fp) !: x !: magicPNs xs
+    | otherwise = x !: magicPNs xs
+
+main :: IO ()
+main = do
+    lspGlobal     <- lspGlobal
+    let fregeCode = "module HoverTest where\n\n" ++ "me = 42\n\n" ++ "main = do\n  a = \"Hello\"\n  println a"
+    let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
+    gl            <- execStateT (compileFregeFile fregeCode) lspGlobal
+    println $ CharSequence.toString gl.sub.code
+    for (listFromArray gl.sub.toks) println
+    println "finished"
+    root <- initRoot "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/HoverTest.fr"
+    let proposals = proposeContent gl root 45 gl.sub.toks 8
+    additionals <- sequence $ fmap Proposal.additional proposals
+    --let firstProposal = head proposals
+    --additional <- firstProposal.additional
+    --println additional
+    --println additional2
+    for additionals println
+    println "end"

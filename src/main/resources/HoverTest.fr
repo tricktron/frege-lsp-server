@@ -1,0 +1,6 @@
+module HoverTest where
+
+me = 42
+main = do
+    a = "Hello"
+    println a
