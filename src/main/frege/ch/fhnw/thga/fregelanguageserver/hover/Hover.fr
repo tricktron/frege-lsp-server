@@ -2,22 +2,44 @@ module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
 import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
 
-import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
+import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
+import Compiler.types.Types(isPSigma)
+import Compiler.types.Symbols (SymbolT)
+import  Compiler.classes.Nice(nicer)
+import  Compiler.common.Types as TH(instanceHead)
+
+
 import  frege.compiler.enums.TokenID
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import Control.monad.State (evalStateT, execStateT, evalState)
 import frege.lib.Modules(Y, RTree, walkPath, pack, noPacks)
 import frege.ide.Utilities(Proposal, proposeContent)
-
+import frege.compiler.Utilities as U(allourvars)
+import frege.tools.doc.Utilities as DU(docit, docSym, DL, Doc, emitHtml)
+import Compiler.enums.Flags
+import Data.TreeMap as TM(values)
+import Data.List (sortBy)
+import Compiler.types.QNames
+import Compiler.types.SNames
+import Compiler.common.Resolve as R
 
 compileAndGetTypeSignatureOnHover :: String -> Int -> Int -> IO String
-compileAndGetTypeSignatureOnHover fregeCode line col = pure "String"
+compileAndGetTypeSignatureOnHover fregeCode line col = do
+    pure "String"
+
+getTypeOnHover :: Int -> Int -> StG String
+getTypeOnHover line col = do
+    global <- getST
+    token = findToken line col (listFromArray global.sub.toks)
+    sname = tokenToSName token
+    qname = sNameToQName sname
+    pure "String"
 
 diagnosticShouldExtractTypeSignatureOnHover :: Property
 diagnosticShouldExtractTypeSignatureOnHover = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module Hover where\n\n" ++ "main = do\n  a = \"Hello\"\nprintln a"
+    fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
     expected = "String"
     actual <- compileAndGetTypeSignatureOnHover fregeHoverCode 2 2
     pure $ expected == actual
@@ -49,21 +71,155 @@ magicPNs (x:xs)
     = (ctos (Char.toUpperCase (head y)) ++ tail y !: ys, fp) !: x !: magicPNs xs
     | otherwise = x !: magicPNs xs
 
+dcolon = DU.symDcolon
+
+verbose g t
+    | isPSigma t = "?"
+    | otherwise    = t.rho.nicer g
+
+label ∷ Global → SymbolT a → String
+label g SymI{clas,typ} = nicer (instanceHead clas typ.rho) g
+                            -- ++ " " ++ clas.nicer g ++ "  "   ++ verbose g typ
+label g SymV{name,typ} = name.base    ++ dcolon g ++ verbose g typ 
+label g SymD{name,typ} = name.base    ++ dcolon g ++ verbose g typ
+label g SymC{name,tau} = name.base    ++ dcolon g ++ show tau.kind
+label g SymT{name, nativ = Just n, pur}
+    | pur       = name.base ++ dcolon g ++ "immutable native " ++ n
+    | otherwise = name.base ++ dcolon g ++ "mutable native " ++ n            
+label g SymA{name,typ} = name.base    ++ " = " ++ typ.rho.nicer gspecial
+    where 
+        gspecial = g.{options <- _.{flags <- Flags.flagSet SPECIAL}}   
+label g sym
+    | sym.{kind?}      = sym.name.base ++ dcolon g ++ show sym.kind
+    | otherwise        = sym.name.base
+
+signature :: Global -> Token -> String
+signature gl Token { tokid = VARID, value, offset } = 
+    let
+        allSymbols = U.allourvars gl ++ values gl.locals
+        (sym:_) = 
+            [ 
+                s |
+                s@SymV { expr = Just _} <- allSymbols,
+                traceLn ("signature value for: " ++ show s.name.base) || true,
+                s.pos.first.offset == offset 
+            ]
+    in
+        getSymbolType gl sym
+signature gl _ = ""
+
+getSymbolType :: Global -> Symbol -> String
+getSymbolType g SymI{typ} = verbose g typ
+getSymbolType g SymV{typ} = verbose g typ
+getSymbolType g SymD{typ} = verbose g typ
+getSymbolType g SymL{alias} = maybe "" (getSymbolType g) $ g.find alias
+getSymbolType g SymC{name,tau} = show tau.kind
+getSymbolType g SymT{name, nativ = Just n, pur}
+    | pur       = "immutable native " ++ n
+    | otherwise = "mutable native " ++ n
+getSymbolType g sym
+    | sym.{kind?}      = show sym.kind
+    | otherwise        = ""
+
+
+getSymbols :: Global → Symtab → [Symbol]
+getSymbols g tab = (sortBy positionAndName • filter wanted • values) tab
+    where
+        positionAndName a b = case Symbol.pos a <=> Symbol.pos b of
+                                    Eq -> comparing (QName.base • Symbol.name) a b
+                                    ne -> ne
+        wanted :: Symbol -> Bool
+        wanted sym
+            | sym.{alias?}                       = false
+            | Local{} <- sym.name                = false
+            -- sym.vis == Private                = false
+            | sym.name.base ~ ´^(chg|upd|has|let|anon|lc)\$´ = false
+            | otherwise                          = true
+
+findToken :: Int -> Int -> [ Token ] -> Token
+findToken = undefined
+
+tokenToSName :: Token -> SName
+tokenToSName = Simple 
+
+sNameToQName :: SName -> StG [QName]
+sNameToQName sName = do
+  g <- getST
+  qNames <- R.resolve (VName g.thisPack) TokenPosition.null sName
+  return qNames
+
+tokenToQName :: Token -> StG (Maybe IdInfo)
+tokenToQName t = do
+    g <- getST
+    pure $ Global.resolved g t
+
+resolveSymbol2 :: Token -> StG [Symbol]
+resolveSymbol2 token = do
+    global <- getST
+    qNames <- sNameToQName (tokenToSName token)
+    return . catMaybes $ global.find <$> qNames
+
+resolveSymbol :: String -> StG [Symbol]
+resolveSymbol source = do
+                         global <- getST
+                         qNames <- sNameToQName (createSName source)
+                         return . catMaybes $ global.find <$> qNames
+createSName s
+  | Just (Just ns : Just ty : Just id : _) <- s `match` '^(.*)\.(.*)\.(\p{Lu}.*)$' = with2con ns ty id
+  | Just (Just ns : Just ty : Just id : _) <- s `match` '^(.*)\.(.*)\.(.*)$'       = with2var ns ty id
+  | Just (Just ty : Just id : _)           <- s `match` '^(.*)\.(\p{Lu}.*)$'       = with1con ty id
+  | Just (Just ty : Just id : _)           <- s `match` '^(.*)\.(.*)$'             = with1var ty id
+  | s ~ '^\p{Lu}.*$'                                                               = Simple (Token CONID s 1 0 0 [])
+  | otherwise                                                                      = Simple (Token VARID s 1 0 0 [])
+     where with2con ns ty id = With2 (qual ns) (qual ty) (con id)
+           with2var ns ty id = With2 (qual ns) (qual ty) (var id)
+           with1con ty id = With1 (qual ty) (con id)
+           with1var ty id = With1 (qual ty) (var id)
+           qual name = Token QUALIFIER name 1 0 0 []
+           con name = Token CONID name 1 0 0 []
+           var name = Token VARID name 1 0 0 []
+
+match s regex = groups <$> s =~ regex where groups m = [m.group i | i <- [1..groupCount m]]
+pure native groupCount :: MatchResult -> Int
+
+findVariableName fname pos name = R.resolveVName
+
 main :: IO ()
 main = do
     lspGlobal     <- lspGlobal
-    let fregeCode = "module HoverTest where\n\n" ++ "me = 42\n\n" ++ "main = do\n  a = \"Hello\"\n  println a"
+    let fregeCode = "module HoverTest where\n\n" ++ "import frege.compiler.Main(runpass)\n\n" ++ "pass = runpass\n" ++ "me = 42\n\n" ++ "main = do\n  a = \"Hello\"\n  println a"
     let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
     gl            <- execStateT (compileFregeFile fregeCode) lspGlobal
     println $ CharSequence.toString gl.sub.code
-    for (listFromArray gl.sub.toks) println
+    tokens = listFromArray gl.sub.toks
+    for tokens println
     println "finished"
     root <- initRoot "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/HoverTest.fr"
-    let proposals = proposeContent gl root 45 gl.sub.toks 8
-    additionals <- sequence $ fmap Proposal.additional proposals
+    --let proposals = proposeContent gl root 59 gl.sub.toks 11
+    --additionals <- sequence $ fmap Proposal.additional proposals
     --let firstProposal = head proposals
     --additional <- firstProposal.additional
     --println additional
     --println additional2
-    for additionals println
+    --let rules = fmap Proposal.proposal proposals
+    --for rules println
+    --for additionals println
+    --let vars = U.allourvars gl
+    --println $ label gl vars
+    --me = tokens !! 12
+    --println $ signature gl me
+    --let symbols = getSymbols gl gl.thisTab
+    --let symbolTypes = fmap (getSymbolType gl) symbols
+    --for symbolTypes println
+    let printLnToken = tokens !! 24
+    --let printLnSymbol = evalState (resolveSymbol2 printLnToken) gl
+    --let printLnSymbolTypes = fmap (getSymbolType gl) printLnSymbol
+    --for printLnSymbolTypes println
+    let eitherQname = Global.resolved gl printLnToken
+    case eitherQname of
+        Nothing -> println "symbol not found"
+        Just (Right qname) ->
+            case (gl.findit qname) of
+                Nothing -> println "qname not found"
+                Just sym -> println (getSymbolType gl sym)
     println "end"
