@@ -13,7 +13,8 @@ import  Compiler.common.Types as TH(instanceHead)
 import  frege.compiler.enums.TokenID
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Control.monad.State (evalStateT, execStateT, evalState)
+import Control.monad.State (StateT, evalStateT, execStateT, evalState)
+import Control.monad.trans.MonadTrans (lift)
 import frege.lib.Modules(Y, RTree, walkPath, pack, noPacks)
 import frege.ide.Utilities(Proposal, proposeContent)
 import frege.compiler.Utilities as U(allourvars)
@@ -24,24 +25,27 @@ import Data.List (sortBy)
 import Compiler.types.QNames
 import Compiler.types.SNames
 import Compiler.common.Resolve as R
+import Data.List(find)
 
-compileAndGetTypeSignatureOnHover :: String -> Int -> Int -> IO String
+compileAndGetTypeSignatureOnHover :: String -> Int -> Int -> IO (Maybe String)
 compileAndGetTypeSignatureOnHover fregeCode line col = do
-    pure "String"
+    startGlobal <- lspGlobal
+    gl <- execStateT (compileFregeFile fregeCode) startGlobal
+    pure $ evalStateT (getTypeOnHover line col) gl
 
-getTypeOnHover :: Int -> Int -> StG String
+getTypeOnHover :: Int -> Int -> StateT Global Maybe String
 getTypeOnHover line col = do
-    global <- getST
-    token = findToken line col (listFromArray global.sub.toks)
-    sname = tokenToSName token
-    qname = sNameToQName sname
-    pure "String"
+    global <- StateT.get
+    token  <- findToken line col
+    qname  <- tokenToQName token
+    symbol <- findSymbol qname
+    getSymbolType2 symbol
 
-diagnosticShouldExtractTypeSignatureOnHover :: Property
-diagnosticShouldExtractTypeSignatureOnHover = once $ morallyDubiousIOProperty do
+shouldShowVaridTypeSignature :: Property
+shouldShowVaridTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
-    expected = "String"
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode 2 2
+    expected = Just "String"
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode 3 3
     pure $ expected == actual
 
 
@@ -108,6 +112,11 @@ signature gl Token { tokid = VARID, value, offset } =
         getSymbolType gl sym
 signature gl _ = ""
 
+getSymbolType2 :: Symbol -> StateT Global Maybe String
+getSymbolType2 sym = do
+    gl <- StateT.get
+    pure $ getSymbolType gl sym
+
 getSymbolType :: Global -> Symbol -> String
 getSymbolType g SymI{typ} = verbose g typ
 getSymbolType g SymV{typ} = verbose g typ
@@ -136,8 +145,21 @@ getSymbols g tab = (sortBy positionAndName • filter wanted • values) tab
             | sym.name.base ~ ´^(chg|upd|has|let|anon|lc)\$´ = false
             | otherwise                          = true
 
-findToken :: Int -> Int -> [ Token ] -> Token
-findToken = undefined
+findToken :: Int -> Int -> StateT Global Maybe Token
+findToken line col = do
+    gl <- StateT.get
+    tokens = listFromArray gl.sub.toks
+    lift $ find isHoverOverToken tokens where
+        isHoverOverToken :: Token -> Bool
+        isHoverOverToken t = 
+            line == t.line && 
+            col  < (t.col + (length t.value)) &&
+            col >= t.col
+
+findSymbol :: QName -> StateT Global Maybe Symbol
+findSymbol qname = do
+    gl <- StateT.get
+    lift $ Global.find gl qname
 
 tokenToSName :: Token -> SName
 tokenToSName = Simple 
@@ -148,10 +170,11 @@ sNameToQName sName = do
   qNames <- R.resolve (VName g.thisPack) TokenPosition.null sName
   return qNames
 
-tokenToQName :: Token -> StG (Maybe IdInfo)
+tokenToQName :: Token -> StateT Global Maybe QName
 tokenToQName t = do
-    g <- getST
-    pure $ Global.resolved g t
+    g <- StateT.get
+    namespaceOrVariable <- lift $ Global.resolved g t
+    lift $ either (const Nothing) Just namespaceOrVariable
 
 resolveSymbol2 :: Token -> StG [Symbol]
 resolveSymbol2 token = do
@@ -188,11 +211,15 @@ main :: IO ()
 main = do
     lspGlobal     <- lspGlobal
     let fregeCode = "module HoverTest where\n\n" ++ "import frege.compiler.Main(runpass)\n\n" ++ "pass = runpass\n" ++ "me = 42\n\n" ++ "main = do\n  a = \"Hello\"\n  println a"
-    let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
+    let simpleFregeCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
     gl            <- execStateT (compileFregeFile fregeCode) lspGlobal
     println $ CharSequence.toString gl.sub.code
     tokens = listFromArray gl.sub.toks
     for tokens println
+    --let simplyStringToken = findToken 3 36 tokens
+    --case simplyStringToken of
+    --    Nothing -> println "No token found"
+    --    Just t -> println t
     println "finished"
     root <- initRoot "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/HoverTest.fr"
     --let proposals = proposeContent gl root 59 gl.sub.toks 11
@@ -211,14 +238,16 @@ main = do
     --let symbols = getSymbols gl gl.thisTab
     --let symbolTypes = fmap (getSymbolType gl) symbols
     --for symbolTypes println
-    let printLnToken = tokens !! 24
+    let printLnToken = tokens !! 1
     --let printLnSymbol = evalState (resolveSymbol2 printLnToken) gl
     --let printLnSymbolTypes = fmap (getSymbolType gl) printLnSymbol
     --for printLnSymbolTypes println
     let eitherQname = Global.resolved gl printLnToken
     case eitherQname of
         Nothing -> println "symbol not found"
-        Just (Right qname) ->
+        Just (Left _) -> println "no qname found"
+        Just (Right qname) -> do
+            println "symbol found"
             case (gl.findit qname) of
                 Nothing -> println "qname not found"
                 Just sym -> println (getSymbolType gl sym)
