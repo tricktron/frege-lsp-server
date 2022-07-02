@@ -1,6 +1,7 @@
 module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
 import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
+import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (Position)
 
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
@@ -27,16 +28,16 @@ import Compiler.types.SNames
 import Compiler.common.Resolve as R
 import Data.List(find)
 
-compileAndGetTypeSignatureOnHover :: String -> Int -> Int -> IO (Maybe String)
-compileAndGetTypeSignatureOnHover fregeCode line col = do
+compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe String)
+compileAndGetTypeSignatureOnHover fregeCode pos = do
     startGlobal <- lspGlobal
     gl <- execStateT (compileFregeFile fregeCode) startGlobal
-    pure $ evalStateT (getTypeOnHover line col) gl
+    pure $ evalStateT (getTypeOnHover pos) gl
 
-getTypeOnHover :: Int -> Int -> StateT Global Maybe String
-getTypeOnHover line col = do
+getTypeOnHover :: Position -> StateT Global Maybe String
+getTypeOnHover pos = do
     global <- StateT.get
-    token  <- findToken line col
+    token  <- findToken pos
     qname  <- tokenToQName token
     symbol <- findSymbol qname
     getSymbolType2 symbol
@@ -45,7 +46,7 @@ shouldShowVaridTypeSignature :: Property
 shouldShowVaridTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
     expected = Just "String"
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode 3 3
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 3)
     pure $ expected == actual
 
 
@@ -145,16 +146,16 @@ getSymbols g tab = (sortBy positionAndName • filter wanted • values) tab
             | sym.name.base ~ ´^(chg|upd|has|let|anon|lc)\$´ = false
             | otherwise                          = true
 
-findToken :: Int -> Int -> StateT Global Maybe Token
-findToken line col = do
+findToken :: Position -> StateT Global Maybe Token
+findToken pos = do
     gl <- StateT.get
     tokens = listFromArray gl.sub.toks
     lift $ find isHoverOverToken tokens where
         isHoverOverToken :: Token -> Bool
         isHoverOverToken t = 
-            line == t.line && 
-            col  < (t.col + (length t.value)) &&
-            col >= t.col
+            pos.line      == t.line && 
+            pos.character  < (t.col + (length t.value)) &&
+            pos.character >= t.col
 
 findSymbol :: QName -> StateT Global Maybe Symbol
 findSymbol qname = do

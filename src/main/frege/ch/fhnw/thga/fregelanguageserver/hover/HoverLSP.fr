@@ -1,0 +1,13 @@
+module ch.fhnw.thga.fregelanguageserver.hover.HoverLSP where
+
+import ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic (PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.hover.Hover (compileAndGetTypeSignatureOnHover)
+
+data MarkupContentLSP = pure native org.eclipse.lsp4j.MarkupContent where
+    pure native new :: String -> String -> MarkupContentLSP  
+
+
+compileAndGetTypeSignatureOnHoverLSP :: String -> PositionLSP -> IO (Maybe MarkupContentLSP)
+compileAndGetTypeSignatureOnHoverLSP fregeCode posLSP = do
+    typeSignature <- compileAndGetTypeSignatureOnHover fregeCode (PositionLSP.toPosition posLSP)
+    pure $ fmap (MarkupContentLSP.new "markdown") typeSignature

@@ -137,7 +137,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/LSPDiagnostic.fr",
-  time=1655450569721L, jmajor=11, jminor=-1,
+  time=1656694939782L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -150,20 +150,20 @@ import frege.test.QuickCheckText;
   symas={}, symcs={}, symis={},
   symts={
     @Meta.SymT(
-      offset=1217,
+      offset=1427,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="RangeLSP"),
       typ=0, kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1342,
+          offset=1552,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="RangeLSP",
             member="fromRange"
           ),
-          stri="s(s)", sig=2, depth=1, rkind=13
+          stri="s(s(ss))", sig=2, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=1286,
+          offset=1496,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="RangeLSP",
             member="new"
@@ -179,12 +179,12 @@ import frege.test.QuickCheckText;
       typ=3, kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1121,
+          offset=1299,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP",
-            member="fromPosition"
+            member="toPosition"
           ),
-          stri="s(s)", sig=6, depth=1, rkind=13
+          stri="s(u)", sig=5, depth=1, rkind=13
         ),
         @Meta.SymV(
           offset=1069,
@@ -192,7 +192,31 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP",
             member="new"
           ),
-          stri="s(ss)", sig=8, nativ="new", pur=true, depth=2, rkind=9
+          stri="s(ss)", sig=7, nativ="new", pur=true, depth=2, rkind=9
+        ),
+        @Meta.SymV(
+          offset=1204,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP",
+            member="fromPosition"
+          ),
+          stri="s(s)", sig=9, depth=1, rkind=13
+        ),
+        @Meta.SymV(
+          offset=1164,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP",
+            member="getCharacter"
+          ),
+          stri="s(s)", sig=10, nativ="getCharacter", pur=true, depth=1, rkind=9
+        ),
+        @Meta.SymV(
+          offset=1118,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP",
+            member="getLine"
+          ),
+          stri="s(s)", sig=10, nativ="getLine", pur=true, depth=1, rkind=9
         )
       },
       pur=true, nativ="org.eclipse.lsp4j.Position"
@@ -202,7 +226,7 @@ import frege.test.QuickCheckText;
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP"
       ),
-      typ=9, kind=3, cons={}, lnks={},
+      typ=11, kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
           offset=420,
@@ -210,7 +234,7 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP",
             member="warning"
           ),
-          stri="s", sig=9, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Warning", pur=true,
+          stri="s", sig=11, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Warning", pur=true,
           depth=0, rkind=9
         ),
         @Meta.SymV(
@@ -219,7 +243,7 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP",
             member="hint"
           ),
-          stri="s", sig=9, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Hint", pur=true, depth=0,
+          stri="s", sig=11, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Hint", pur=true, depth=0,
           rkind=9
         ),
         @Meta.SymV(
@@ -228,8 +252,8 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP",
             member="error"
           ),
-          stri="s", sig=9, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Error", pur=true, depth=0,
-          rkind=9
+          stri="s", sig=11, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Error", pur=true,
+          depth=0, rkind=9
         ),
         @Meta.SymV(
           offset=721,
@@ -237,7 +261,7 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP",
             member="fromCompilerSeverity"
           ),
-          stri="s(s)", sig=11, depth=1, rkind=13
+          stri="s(s)", sig=13, depth=1, rkind=13
         ),
         @Meta.SymV(
           offset=524,
@@ -245,64 +269,64 @@ import frege.test.QuickCheckText;
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticSeverityLSP",
             member="information"
           ),
-          stri="s", sig=9, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Information", pur=true,
+          stri="s", sig=11, nativ="org.eclipse.lsp4j.DiagnosticSeverity.Information", pur=true,
           depth=0, rkind=9
         )
       },
       pur=true, nativ="org.eclipse.lsp4j.DiagnosticSeverity"
     ),
     @Meta.SymT(
-      offset=1499,
+      offset=1712,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticLSP"),
-      typ=12, kind=3, cons={}, lnks={},
+      typ=14, kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1661,
+          offset=1874,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticLSP",
             member="fromDiagnostic"
           ),
-          stri="s(s)", sig=14, depth=1, rkind=13
+          stri="s(s(ssss))", sig=16, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=1578,
+          offset=1791,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="DiagnosticLSP",
             member="new"
           ),
-          stri="s(ssss)", sig=16, nativ="new", pur=true, depth=4, rkind=9
+          stri="s(ssss)", sig=18, nativ="new", pur=true, depth=4, rkind=9
         )
       },
       pur=true, nativ="org.eclipse.lsp4j.Diagnostic"
     ),
     @Meta.SymT(
-      offset=1905,
+      offset=2156,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="ArrayList"),
-      typ=17, kind=28, cons={}, lnks={},
+      typ=19, kind=28, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=2019,
+          offset=2270,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="ArrayList",
             member="new"
           ),
-          stri="s(s)", sig=19, nativ="new", depth=1, rkind=9
+          stri="s(s)", sig=21, nativ="new", depth=1, rkind=9
         ),
         @Meta.SymV(
-          offset=1961,
+          offset=2212,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="ArrayList",
             member="add"
           ),
-          stri="s(ss)", sig=22, nativ="add", depth=2, rkind=9
+          stri="s(ss)", sig=24, nativ="add", depth=2, rkind=9
         ),
         @Meta.SymV(
-          offset=2061,
+          offset=2312,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="ArrayList",
             member="fromFregeList"
           ),
-          stri="s(u)", sig=24, depth=1, rkind=13
+          stri="s(u)", sig=26, depth=1, rkind=13
         )
       },
       nativ="java.util.ArrayList", gargs={14}
@@ -310,11 +334,11 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=2325,
+      offset=2576,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="compileAndGetDiagnosticsLSP"
       ),
-      stri="s(u)", sig=25, depth=1, rkind=13
+      stri="s(u)", sig=27, depth=1, rkind=13
     )
   },
   symls={},
@@ -383,25 +407,27 @@ import frege.test.QuickCheckText;
   rhos={
     @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=1), @Meta.Rho(sigma=1, rhotau=0),
     @Meta.Rho(rhofun=false, rhotau=2), @Meta.Rho(sigma=3, rhotau=0), @Meta.Rho(sigma=3, rhotau=4),
-    @Meta.Rho(rhofun=false, rhotau=4), @Meta.Rho(sigma=5, rhotau=3), @Meta.Rho(rhofun=false, rhotau=5),
-    @Meta.Rho(sigma=7, rhotau=3), @Meta.Rho(sigma=7, rhotau=9), @Meta.Rho(rhofun=false, rhotau=6),
-    @Meta.Rho(rhofun=false, rhotau=7), @Meta.Rho(sigma=10, rhotau=11), @Meta.Rho(rhofun=false, rhotau=8),
-    @Meta.Rho(rhofun=false, rhotau=9), @Meta.Rho(sigma=13, rhotau=14), @Meta.Rho(rhofun=false, rhotau=12),
-    @Meta.Rho(sigma=15, rhotau=14), @Meta.Rho(sigma=9, rhotau=18), @Meta.Rho(sigma=15, rhotau=19),
-    @Meta.Rho(sigma=0, rhotau=20), @Meta.Rho(rhofun=false, rhotau=15), @Meta.Rho(rhofun=false, rhotau=16),
-    @Meta.Rho(rhofun=false, rhotau=23), @Meta.Rho(sigma=18, rhotau=24), @Meta.Rho(rhofun=false, rhotau=22),
-    @Meta.Rho(rhofun=false, rhotau=14), @Meta.Rho(rhofun=false, rhotau=25), @Meta.Rho(sigma=21, rhotau=28),
-    @Meta.Rho(sigma=20, rhotau=29), @Meta.Rho(rhofun=false, rhotau=27), @Meta.Rho(sigma=23, rhotau=24),
-    @Meta.Rho(rhofun=false, rhotau=34), @Meta.Rho(sigma=15, rhotau=33)
+    @Meta.Rho(rhofun=false, rhotau=4), @Meta.Rho(sigma=3, rhotau=6), @Meta.Rho(rhofun=false, rhotau=5),
+    @Meta.Rho(sigma=6, rhotau=3), @Meta.Rho(sigma=6, rhotau=9), @Meta.Rho(sigma=8, rhotau=3),
+    @Meta.Rho(sigma=3, rhotau=8), @Meta.Rho(rhofun=false, rhotau=6), @Meta.Rho(rhofun=false, rhotau=7),
+    @Meta.Rho(sigma=12, rhotau=13), @Meta.Rho(rhofun=false, rhotau=8), @Meta.Rho(rhofun=false, rhotau=9),
+    @Meta.Rho(sigma=15, rhotau=16), @Meta.Rho(rhofun=false, rhotau=12), @Meta.Rho(sigma=17, rhotau=16),
+    @Meta.Rho(sigma=11, rhotau=20), @Meta.Rho(sigma=17, rhotau=21), @Meta.Rho(sigma=0, rhotau=22),
+    @Meta.Rho(rhofun=false, rhotau=15), @Meta.Rho(rhofun=false, rhotau=16), @Meta.Rho(rhofun=false, rhotau=23),
+    @Meta.Rho(sigma=20, rhotau=26), @Meta.Rho(rhofun=false, rhotau=22), @Meta.Rho(rhofun=false, rhotau=14),
+    @Meta.Rho(rhofun=false, rhotau=25), @Meta.Rho(sigma=23, rhotau=30), @Meta.Rho(sigma=22, rhotau=31),
+    @Meta.Rho(rhofun=false, rhotau=27), @Meta.Rho(sigma=25, rhotau=26), @Meta.Rho(rhofun=false, rhotau=34),
+    @Meta.Rho(sigma=17, rhotau=35)
   },
   sigmas={
     @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=3), @Meta.Sigma(rho=5),
-    @Meta.Sigma(rho=6), @Meta.Sigma(rho=7), @Meta.Sigma(rho=8), @Meta.Sigma(rho=10), @Meta.Sigma(rho=11),
+    @Meta.Sigma(rho=7), @Meta.Sigma(rho=8), @Meta.Sigma(rho=10), @Meta.Sigma(rho=6), @Meta.Sigma(rho=11),
     @Meta.Sigma(rho=12), @Meta.Sigma(rho=13), @Meta.Sigma(rho=14), @Meta.Sigma(rho=15), @Meta.Sigma(rho=16),
-    @Meta.Sigma(rho=17), @Meta.Sigma(rho=21), @Meta.Sigma(bound={"a"}, kinds={3}, rho=22), @Meta.Sigma(rho=23),
-    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=25), @Meta.Sigma(rho=26), @Meta.Sigma(rho=27),
-    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=30), @Meta.Sigma(rho=31),
-    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=32), @Meta.Sigma(rho=34)
+    @Meta.Sigma(rho=17), @Meta.Sigma(rho=18), @Meta.Sigma(rho=19), @Meta.Sigma(rho=23),
+    @Meta.Sigma(bound={"a"}, kinds={3}, rho=24), @Meta.Sigma(rho=25),
+    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=27), @Meta.Sigma(rho=28), @Meta.Sigma(rho=29),
+    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=32), @Meta.Sigma(rho=33),
+    @Meta.Sigma(bound={"a", "s"}, kinds={3, 3}, rho=34), @Meta.Sigma(rho=36)
   },
   exprs={@Meta.Expr()}
 )
@@ -412,12 +438,18 @@ final public class LSPDiagnostic  {
 
 final public static class TRangeLSP  {
   final public static org.eclipse.lsp4j.Range fromRange(final Diagnostic.TRange arg$1) {
-    return new org.eclipse.lsp4j.Range(
-          TPositionLSP.fromPosition(Diagnostic.TRange.start(arg$1)), TPositionLSP.fromPosition(Diagnostic.TRange.end(arg$1))
-        );
+    final Diagnostic.TPosition end$17363 = arg$1.mem$end.call();
+    final Diagnostic.TPosition start$17362 = arg$1.mem$start.call();
+    return new org.eclipse.lsp4j.Range(TPositionLSP.fromPosition(start$17362), TPositionLSP.fromPosition(end$17363));
   }
 }
 final public static class TPositionLSP  {
+  final public static Diagnostic.TPosition toPosition(final Lazy<org.eclipse.lsp4j.Position> arg$1) {
+    return Diagnostic.TPosition.mk(
+              Thunk.<Integer>shared((Lazy<Integer>)(() -> arg$1.call().getLine() + 1)),
+              Thunk.<Integer>shared((Lazy<Integer>)(() -> arg$1.call().getCharacter() + 1))
+            );
+  }
   final public static org.eclipse.lsp4j.Position fromPosition(final Diagnostic.TPosition arg$1) {
     return new org.eclipse.lsp4j.Position(Diagnostic.TPosition.line(arg$1), Diagnostic.TPosition.character(arg$1));
   }
@@ -439,10 +471,13 @@ final public static class TDiagnosticSeverityLSP  {
 }
 final public static class TDiagnosticLSP  {
   final public static org.eclipse.lsp4j.Diagnostic fromDiagnostic(final Diagnostic.TDiagnostic arg$1) {
+    final String/*<Character>*/ message$17365 = arg$1.mem$message.call();
+    final String/*<Character>*/ source$17367 = arg$1.mem$source.call();
+    final short severity$17366 = (short)arg$1.mem$severity.call();
+    final Diagnostic.TRange range$17364 = arg$1.mem$range.call();
     return new org.eclipse.lsp4j.Diagnostic(
-          TRangeLSP.fromRange(Diagnostic.TDiagnostic.range(arg$1)), Diagnostic.TDiagnostic.message(arg$1),
-          TDiagnosticSeverityLSP.fromCompilerSeverity(Diagnostic.TDiagnostic.severity(arg$1)),
-          Diagnostic.TDiagnostic.source(arg$1)
+          TRangeLSP.fromRange(range$17364), message$17365, TDiagnosticSeverityLSP.fromCompilerSeverity(severity$17366),
+          source$17367
         );
   }
 }
@@ -460,15 +495,15 @@ final public static class TArrayList  {
             });
   }
   final public static <𝓐, 𝓢> Func.U<𝓢, java.util.ArrayList<𝓐>> fromFregeList(final Lazy<PreludeBase.TList<𝓐>> arg$1) {
-    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$17528) -> {
-              final java.util.ArrayList<𝓐> v2056$17512 = TArrayList.<𝓐, 𝓢>$new(PreludeBase.TUnit.Unit)
-              .apply(arg$17528).call();
-              final Func.U<𝓢, java.util.ArrayList<𝓐>> v2057$17513 = LSPDiagnostic.<𝓐, 𝓢>go(
-                    arg$1.call(), Thunk.<java.util.ArrayList<𝓐>>lazy(v2056$17512)
+    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$17542) -> {
+              final java.util.ArrayList<𝓐> v2056$17520 = TArrayList.<𝓐, 𝓢>$new(PreludeBase.TUnit.Unit)
+              .apply(arg$17542).call();
+              final Func.U<𝓢, java.util.ArrayList<𝓐>> v2057$17521 = LSPDiagnostic.<𝓐, 𝓢>go(
+                    arg$1.call(), Thunk.<java.util.ArrayList<𝓐>>lazy(v2056$17520)
                   );
               return Thunk.<java.util.ArrayList<𝓐>>nested(
-                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v2057$17513.apply(
-                                  arg$17528
+                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v2057$17521.apply(
+                                  arg$17542
                                 ))
                       );
             });
@@ -477,55 +512,55 @@ final public static class TArrayList  {
 final public static <𝓐, 𝓢> Func.U<𝓢, java.util.ArrayList<𝓐>> go(
   final PreludeBase.TList<𝓐> arg$1, final Lazy<java.util.ArrayList<𝓐>> arg$2
 ) {
-  final PreludeBase.TList.DCons<𝓐> $17531 = arg$1.asCons();
-  if ($17531 != null) {
-    final 𝓐 µ$$17372 = $17531.mem1.call();
-    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$17533) -> {
-              final boolean v4796$17466 = (boolean)TArrayList.<𝓐, 𝓢>add(arg$2.call(), µ$$17372)
-              .apply(arg$17533).call();
-              final Func.U<𝓢, java.util.ArrayList<𝓐>> v4797$17467 = Thunk.<Func.U<𝓢, java.util.ArrayList<𝓐>>>shared(
+  final PreludeBase.TList.DCons<𝓐> $17545 = arg$1.asCons();
+  if ($17545 != null) {
+    final 𝓐 µ$$17380 = $17545.mem1.call();
+    return (Func.U<𝓢, java.util.ArrayList<𝓐>>)((final Lazy<𝓢> arg$17547) -> {
+              final boolean v4796$17474 = (boolean)TArrayList.<𝓐, 𝓢>add(arg$2.call(), µ$$17380)
+              .apply(arg$17547).call();
+              final Func.U<𝓢, java.util.ArrayList<𝓐>> v4797$17475 = Thunk.<Func.U<𝓢, java.util.ArrayList<𝓐>>>shared(
                     (Lazy<Func.U<𝓢, java.util.ArrayList<𝓐>>>)(() -> LSPDiagnostic.<𝓐, 𝓢>go(
-                              $17531.mem2.call(), arg$2
+                              $17545.mem2.call(), arg$2
                             ))
                   ).call();
               return Thunk.<java.util.ArrayList<𝓐>>nested(
-                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v4797$17467.apply(
-                                  arg$17533
+                        (Lazy<Lazy<java.util.ArrayList<𝓐>>>)(() -> v4797$17475.apply(
+                                  arg$17547
                                 ))
                       );
             });
   }
-  final PreludeBase.TList.DList<𝓐> $17536 = arg$1.asList();
-  assert $17536 != null;
+  final PreludeBase.TList.DList<𝓐> $17550 = arg$1.asList();
+  assert $17550 != null;
   return PreludeMonad.IMonad_ST.<𝓢, java.util.ArrayList<𝓐>>pure(arg$2);
 }
 final public static Func.U<RealWorld, java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>> compileAndGetDiagnosticsLSP(
   final Lazy<String/*<Character>*/> arg$1
 ) {
-  return (Func.U<RealWorld, java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>>)((final Lazy<RealWorld> arg$17537) -> {
-            final PreludeBase.TList<Diagnostic.TDiagnostic> v2056$17490 = Diagnostic.compileAndGetDiagnostics(
+  return (Func.U<RealWorld, java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>>)((final Lazy<RealWorld> arg$17551) -> {
+            final PreludeBase.TList<Diagnostic.TDiagnostic> v2056$17498 = Diagnostic.compileAndGetDiagnostics(
                   arg$1
-                ).apply(arg$17537).call();
-            final Func.U<RealWorld, java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>> v2057$17491 =
+                ).apply(arg$17551).call();
+            final Func.U<RealWorld, java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>> v2057$17499 =
             TArrayList.<org.eclipse.lsp4j.Diagnostic, RealWorld>fromFregeList(
                   Thunk.<PreludeBase.TList<org.eclipse.lsp4j.Diagnostic>>shared(
                         (Lazy<PreludeBase.TList<org.eclipse.lsp4j.Diagnostic>>)(() -> PreludeMonad.IFunctor_$lbrack$rbrack.<
                               Diagnostic.TDiagnostic, org.eclipse.lsp4j.Diagnostic
                             >fmap(
                                   (Func.U<Diagnostic.TDiagnostic, org.eclipse.lsp4j.Diagnostic>)((
-                                    final Lazy<Diagnostic.TDiagnostic> η$17539
+                                    final Lazy<Diagnostic.TDiagnostic> η$17553
                                   ) -> Thunk.<org.eclipse.lsp4j.Diagnostic>shared(
                                             (Lazy<org.eclipse.lsp4j.Diagnostic>)(() -> TDiagnosticLSP.fromDiagnostic(
-                                                      η$17539.call()
+                                                      η$17553.call()
                                                     ))
                                           )),
-                                  v2056$17490
+                                  v2056$17498
                                 ))
                       )
                 );
             return Thunk.<java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>>nested(
-                      (Lazy<Lazy<java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>>>)(() -> v2057$17491
-                          .apply(arg$17537))
+                      (Lazy<Lazy<java.util.ArrayList<org.eclipse.lsp4j.Diagnostic>>>)(() -> v2057$17499
+                          .apply(arg$17551))
                     );
           });
 }

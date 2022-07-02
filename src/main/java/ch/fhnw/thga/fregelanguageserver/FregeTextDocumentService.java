@@ -34,7 +34,7 @@ public class FregeTextDocumentService implements TextDocumentService
     @Override
 	public CompletableFuture<Hover> hover(HoverParams params)
     {
-        return HoverService.hover(params);
+        return HoverService.hover(params, currentOpenFileContents);
     }
 
 	@Override

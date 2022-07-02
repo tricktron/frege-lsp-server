@@ -17,9 +17,14 @@ data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity wh
 
 data PositionLSP = pure native org.eclipse.lsp4j.Position where
     pure native new :: Int -> Int -> PositionLSP
+    pure native getLine :: PositionLSP -> Int
+    pure native getCharacter :: PositionLSP -> Int
 
     fromPosition :: Position -> PositionLSP
     fromPosition pos = new pos.line pos.character
+
+    toPosition :: PositionLSP -> Position
+    toPosition posLSP = Position ((getLine posLSP) + 1) ((getCharacter posLSP) + 1)
 
 data RangeLSP = pure native org.eclipse.lsp4j.Range where
     pure native new      :: PositionLSP -> PositionLSP -> RangeLSP
