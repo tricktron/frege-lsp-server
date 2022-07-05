@@ -25,12 +25,12 @@ public class HoverService
                 return null;
             }
             
-            TMaybe<MarkupContent> content = performUnsafe(
+            TMaybe<Hover> hover = performUnsafe(
                 HoverLSP.compileAndGetTypeSignatureOnHoverLSP(
                     Thunk.lazy(fregeCode), 
                     Thunk.lazy(params.getPosition())).call()).call();
-            if (Maybe.isNothing(content)) return null;
-            return new Hover(content.asJust().mem1.call());
+            if (Maybe.isNothing(hover)) return null;
+            return hover.asJust().mem1.call();
         });
     }
 }

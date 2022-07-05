@@ -152,7 +152,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/HoverLSP.fr",
-  time=1656694940566L, jmajor=11, jminor=-1,
+  time=1657030861534L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.hover.Hover", "ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic",
     "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
@@ -166,55 +166,119 @@ import frege.test.QuickCheckText;
   symas={}, symcs={}, symis={},
   symts={
     @Meta.SymT(
-      offset=235,
-      name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupContentLSP"), typ=0,
+      offset=387,
+      name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupKindLSP"), typ=0,
       kind=4, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=320,
+          offset=533,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupKindLSP", member="markdown"
+          ),
+          stri="s", sig=1, nativ="org.eclipse.lsp4j.MarkupKind.MARKDOWN", depth=0, rkind=9
+        ),
+        @Meta.SymV(
+          offset=461,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupKindLSP", member="plaintext"
+          ),
+          stri="s", sig=1, nativ="org.eclipse.lsp4j.MarkupKind.PLAINTEXT", depth=0, rkind=9
+        )
+      },
+      pur=true, nativ="org.eclipse.lsp4j.MarkupKind"
+    ),
+    @Meta.SymT(
+      offset=252,
+      name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupContentLSP"), typ=2,
+      kind=4, cons={}, lnks={},
+      funs={
+        @Meta.SymV(
+          offset=337,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupContentLSP", member="new"
           ),
-          stri="s(ss)", sig=2, nativ="new", pur=true, depth=2, rkind=9
+          stri="s(ss)", sig=3, nativ="new", pur=true, depth=2, rkind=9
         )
       },
       pur=true, nativ="org.eclipse.lsp4j.MarkupContent"
+    ),
+    @Meta.SymT(
+      offset=600, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="HoverLSP"),
+      typ=4, kind=4, cons={}, lnks={},
+      funs={
+        @Meta.SymV(
+          offset=722,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="HoverLSP", member="hoverToHoverLSP"
+          ),
+          stri="s(s(ss))", sig=6, depth=1, rkind=13
+        ),
+        @Meta.SymV(
+          offset=669,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="HoverLSP", member="new"
+          ),
+          stri="s(ss)", sig=8, nativ="new", pur=true, depth=2, rkind=9
+        )
+      },
+      pur=true, nativ="org.eclipse.lsp4j.Hover"
     )
   },
   symvs={
     @Meta.SymV(
-      offset=368,
+      offset=941,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="compileAndGetTypeSignatureOnHoverLSP"
       ),
-      stri="s(uu)", sig=4, depth=2, rkind=13
+      stri="s(uu)", sig=10, depth=2, rkind=13
     )
   },
   symls={},
   taus={
     @Meta.Tau(
       kind=2, suba=0,
-      tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupContentLSP")}
+      tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupKindLSP")}
     ),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="StringJ")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Char")}),
     @Meta.Tau(kind=0, suba=1, subb=2), @Meta.Tau(kind=9),
     @Meta.Tau(
       kind=2, suba=0,
+      tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="MarkupContentLSP")}
+    ),
+    @Meta.Tau(
+      kind=2, suba=0,
+      tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.HoverLSP", base="HoverLSP")}
+    ),
+    @Meta.Tau(
+      kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover")}
+    ),
+    @Meta.Tau(
+      kind=2, suba=0,
+      tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="RangeLSP")}
+    ),
+    @Meta.Tau(
+      kind=2, suba=0,
       tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic", base="PositionLSP")}
     ),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="ST")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="RealWorld")}),
-    @Meta.Tau(kind=0, suba=6, subb=7),
+    @Meta.Tau(kind=0, suba=10, subb=11),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Maybe")}),
-    @Meta.Tau(kind=0, suba=9, subb=0), @Meta.Tau(kind=0, suba=8, subb=10)
+    @Meta.Tau(kind=0, suba=13, subb=6), @Meta.Tau(kind=0, suba=12, subb=14)
   },
   rhos={
-    @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=3), @Meta.Rho(sigma=1, rhotau=0),
-    @Meta.Rho(sigma=1, rhotau=2), @Meta.Rho(rhofun=false, rhotau=5), @Meta.Rho(rhofun=false, rhotau=11),
-    @Meta.Rho(sigma=3, rhotau=5), @Meta.Rho(sigma=1, rhotau=6)
+    @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=3), @Meta.Rho(rhofun=false, rhotau=5),
+    @Meta.Rho(sigma=1, rhotau=2), @Meta.Rho(sigma=1, rhotau=3), @Meta.Rho(rhofun=false, rhotau=6),
+    @Meta.Rho(rhofun=false, rhotau=7), @Meta.Rho(sigma=5, rhotau=5), @Meta.Rho(rhofun=false, rhotau=8),
+    @Meta.Rho(sigma=7, rhotau=5), @Meta.Rho(sigma=2, rhotau=9), @Meta.Rho(rhofun=false, rhotau=9),
+    @Meta.Rho(rhofun=false, rhotau=15), @Meta.Rho(sigma=9, rhotau=12), @Meta.Rho(sigma=1, rhotau=13)
   },
-  sigmas={@Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=3), @Meta.Sigma(rho=4), @Meta.Sigma(rho=7)},
+  sigmas={
+    @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=4), @Meta.Sigma(rho=5),
+    @Meta.Sigma(rho=6), @Meta.Sigma(rho=7), @Meta.Sigma(rho=8), @Meta.Sigma(rho=10), @Meta.Sigma(rho=11),
+    @Meta.Sigma(rho=14)
+  },
   exprs={@Meta.Expr()}
 )
 final public class HoverLSP  {
@@ -222,39 +286,50 @@ final public class HoverLSP  {
 
 
 
-
-final public static Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>> compileAndGetTypeSignatureOnHoverLSP(
+final public static class THoverLSP  {
+  final public static org.eclipse.lsp4j.Hover hoverToHoverLSP(final Hover.THover arg$1) {
+    final Hover.TFregeCodeBlock content$18209 = arg$1.mem$content.call();
+    final Diagnostic.TRange range$18208 = arg$1.mem$range.call();
+    return new org.eclipse.lsp4j.Hover(
+          new org.eclipse.lsp4j.MarkupContent(
+            org.eclipse.lsp4j.MarkupKind.MARKDOWN, Hover.IShow_FregeCodeBlock.show(content$18209)
+          ),
+          LSPDiagnostic.TRangeLSP.fromRange(range$18208)
+        );
+  }
+}
+final public static Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>> compileAndGetTypeSignatureOnHoverLSP(
   final Lazy<String/*<Character>*/> arg$1, final Lazy<org.eclipse.lsp4j.Position> arg$2
 ) {
-  return (Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>)((final Lazy<RealWorld> arg$18192) -> {
-            final PreludeBase.TMaybe<String/*<Character>*/> v2056$18171 = Hover.compileAndGetTypeSignatureOnHover(
+  return (Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>)((final Lazy<RealWorld> arg$18275) -> {
+            final PreludeBase.TMaybe<Hover.THover> v2056$18252 = Hover.compileAndGetTypeSignatureOnHover(
                   arg$1,
                   Thunk.<Diagnostic.TPosition>shared(
                         (Lazy<Diagnostic.TPosition>)(() -> LSPDiagnostic.TPositionLSP.toPosition(
                                   arg$2
                                 ))
                       )
-                ).apply(arg$18192).call();
-            final Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>> v2057$18172 =
-            PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>pure(
-                  Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>shared(
-                        (Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>)(() -> Maybe.IFunctor_Maybe.<
-                              String/*<Character>*/, org.eclipse.lsp4j.MarkupContent
+                ).apply(arg$18275).call();
+            final Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>> v2057$18253 =
+            PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>pure(
+                  Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>shared(
+                        (Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>)(() -> Maybe.IFunctor_Maybe.<
+                              Hover.THover, org.eclipse.lsp4j.Hover
                             >fmap(
-                                  (Func.U<String/*<Character>*/, org.eclipse.lsp4j.MarkupContent>)((
-                                    final Lazy<String/*<Character>*/> η$18194
-                                  ) -> Thunk.<org.eclipse.lsp4j.MarkupContent>shared(
-                                            (Lazy<org.eclipse.lsp4j.MarkupContent>)(() -> new org.eclipse.lsp4j.MarkupContent(
-                                                  "markdown", η$18194.call()
-                                                ))
+                                  (Func.U<Hover.THover, org.eclipse.lsp4j.Hover>)((final Lazy<Hover.THover> η$18277) -> Thunk.<
+                                        org.eclipse.lsp4j.Hover
+                                      >shared(
+                                            (Lazy<org.eclipse.lsp4j.Hover>)(() -> THoverLSP.hoverToHoverLSP(
+                                                      η$18277.call()
+                                                    ))
                                           )),
-                                  v2056$18171
+                                  v2056$18252
                                 ))
                       )
                 );
-            return Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>nested(
-                      (Lazy<Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.MarkupContent>>>)(() -> v2057$18172
-                          .apply(arg$18192))
+            return Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>nested(
+                      (Lazy<Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>>)(() -> v2057$18253
+                          .apply(arg$18275))
                     );
           });
 }

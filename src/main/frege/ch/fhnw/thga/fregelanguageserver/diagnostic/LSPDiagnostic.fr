@@ -21,7 +21,7 @@ data PositionLSP = pure native org.eclipse.lsp4j.Position where
     pure native getCharacter :: PositionLSP -> Int
 
     fromPosition :: Position -> PositionLSP
-    fromPosition pos = new pos.line pos.character
+    fromPosition pos = new (pos.line - 1) (pos.character - 1)
 
     toPosition :: PositionLSP -> Position
     toPosition posLSP = Position ((getLine posLSP) + 1) ((getCharacter posLSP) + 1)
