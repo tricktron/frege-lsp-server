@@ -29,7 +29,7 @@ frege
     version       = '3.25.84'
     release       = '3.25alpha'
     mainSourceDir = layout.projectDirectory.dir('src/main/frege')
-    mainModule    = 'ch.fhnw.thga.fregelanguageserver.hover.HoverLSP'
+    mainModule    = 'ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic'
 }
 
 tasks.register('copyCompiledFregeClasses', Copy)

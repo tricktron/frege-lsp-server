@@ -33,8 +33,8 @@ tokensToRange :: [ Token ] -> Range
 tokensToRange []     = Range { start = Position 0 0, end = Position 1 0 }
 tokensToRange [ tk ] = Range
     {
-        start = Position (tk.line - 1) (tk.col - 1),
-        end   = Position (tk.line - 1) ((tk.col - 1) + (length tk.value))
+        start = Position tk.line tk.col,
+        end   = Position tk.line (tk.col + (length tk.value))
     }
 tokensToRange tks    = 
     let
@@ -43,8 +43,8 @@ tokensToRange tks    =
     in
     Range 
     { 
-        start = Position (startToken.line - 1) (startToken.col - 1),
-        end   = Position (endToken.line - 1) ((endToken.col - 1) + (length endToken.value))  
+        start = Position startToken.line startToken.col,
+        end   = Position endToken.line (endToken.col + (length endToken.value))  
     }
 
 createRangeFromPos :: TokenPosition -> StG Range
