@@ -1,11 +1,16 @@
 module ch.fhnw.thga.fregelanguageserver.types.Range where
 
+import Compiler.types.Tokens (Token)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 
 data Range = Range {
     start :: Position,
     end   :: Position -- exclusive end
 }
+
+tokenToRange :: Token -> Range
+tokenToRange Token { line, col, value } = 
+    Range { start = Position line col, end = Position (line) (col + length value) }
 
 derive Eq Range
 derive Show Range

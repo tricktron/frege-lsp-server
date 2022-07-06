@@ -2,7 +2,7 @@ module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
 import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
-import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
 
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
@@ -31,10 +31,6 @@ data Hover = Hover {
 derive Eq Hover
 derive Show Hover
 
-tokenToRange :: Token -> Range
-tokenToRange Token { line, col, value } = 
-    Range { start = Position line col, end = Position (line) (col + length value) }
-
 getSymbolType:: Symbol -> StateT Global Maybe String
 getSymbolType sym = do
     gl <- StateT.get
@@ -53,7 +49,7 @@ findToken pos = do
 
 findSymbol :: QName -> StateT Global Maybe Symbol
 findSymbol qname = do
-    gl :: Global <- StateT.get
+    gl  <- StateT.get
     lift $ Global.find gl qname
 
 tokenToQName :: Token -> StateT Global Maybe QName
