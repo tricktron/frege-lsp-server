@@ -6,7 +6,6 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.HoverParams;
-import org.eclipse.lsp4j.MarkupContent;
 import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 
 import frege.prelude.Maybe;

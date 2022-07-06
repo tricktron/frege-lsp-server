@@ -1,7 +1,8 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic where
 
 import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
-
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
 import frege.compiler.types.Positions (Position TokenPosition)
@@ -17,22 +18,6 @@ fromCompilerSeverity :: Severity -> DiagnosticSeverity
 fromCompilerSeverity Severity.ERROR   = ERROR
 fromCompilerSeverity Severity.WARNING = WARNING
 fromCompilerSeverity Severity.HINT    = HINT
-
-data Position = Position {
-    line      :: Int, -- 0 based
-    character :: Int, -- 0 based character offset of a line
-}
-
-derive Eq Position
-derive Show Position
-
-data Range = Range {
-    start :: Position,
-    end   :: Position -- exclusive end
-}
-
-derive Eq Range
-derive Show Range
 
 data Diagnostic = Diagnostic {
     range    :: Range,

@@ -1,6 +1,7 @@
 module ch.fhnw.thga.fregelanguageserver.hover.HoverLSP where
 
-import ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic (PositionLSP, RangeLSP)
+import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
 import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, compileAndGetTypeSignatureOnHover)
 
 data MarkupContentLSP = pure native org.eclipse.lsp4j.MarkupContent where
@@ -23,3 +24,5 @@ compileAndGetTypeSignatureOnHoverLSP :: String -> PositionLSP -> IO (Maybe Hover
 compileAndGetTypeSignatureOnHoverLSP fregeCode posLSP = do
     hover <- compileAndGetTypeSignatureOnHover fregeCode (PositionLSP.toPosition posLSP)
     pure $ fmap HoverLSP.hoverToHoverLSP hover
+
+main = println "hello"

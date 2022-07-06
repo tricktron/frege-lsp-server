@@ -1,17 +1,18 @@
 module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
 import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
-import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (Position, Range)
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
 
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import Control.monad.State (StateT, evalStateT, execStateT, evalState)
 import Control.monad.trans.MonadTrans (lift)
-import frege.ide.Utilities(label)
+import frege.ide.Utilities (label)
 import Data.List (sortBy)
-import Compiler.types.QNames(QName)
-import Data.List(find)
+import Compiler.types.QNames (QName)
+import Data.List (find)
 
 newtype FregeCodeBlock = FregeCodeBlock {
     code :: String

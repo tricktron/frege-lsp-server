@@ -1,0 +1,11 @@
+module ch.fhnw.thga.fregelanguageserver.types.Range where
+
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+
+data Range = Range {
+    start :: Position,
+    end   :: Position -- exclusive end
+}
+
+derive Eq Range
+derive Show Range

@@ -1,7 +1,12 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic where
 
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
 import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
-    Position, DiagnosticSeverity, Range, Diagnostic, compileAndGetDiagnostics)
+    DiagnosticSeverity, Diagnostic, compileAndGetDiagnostics)
+
+import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
 
 data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where
     pure native error       "org.eclipse.lsp4j.DiagnosticSeverity.Error"       :: DiagnosticSeverityLSP
@@ -14,25 +19,6 @@ data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity wh
     fromCompilerSeverity WARNING        = warning
     fromCompilerSeverity ERROR          = error
     fromCompilerSeverity INFORMATION    = information
-
-data PositionLSP = pure native org.eclipse.lsp4j.Position where
-    pure native new :: Int -> Int -> PositionLSP
-    pure native getLine :: PositionLSP -> Int
-    pure native getCharacter :: PositionLSP -> Int
-
-    fromPosition :: Position -> PositionLSP
-    fromPosition pos = new (pos.line - 1) (pos.character - 1)
-
-    toPosition :: PositionLSP -> Position
-    toPosition posLSP = Position ((getLine posLSP) + 1) ((getCharacter posLSP) + 1)
-
-data RangeLSP = pure native org.eclipse.lsp4j.Range where
-    pure native new      :: PositionLSP -> PositionLSP -> RangeLSP
-
-    fromRange :: Range -> RangeLSP
-    fromRange Range { start, end } = new 
-        (PositionLSP.fromPosition start) 
-        (PositionLSP.fromPosition end)
 
 data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
     pure native new :: RangeLSP -> String -> DiagnosticSeverityLSP -> String -> DiagnosticLSP
