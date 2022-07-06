@@ -5,38 +5,22 @@ import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (Position, Range)
 
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
 import Compiler.types.Tokens (Token)
-import Compiler.types.Types(isPSigma)
-import Compiler.types.Symbols (SymbolT)
-import  Compiler.classes.Nice(nicer)
-import  Compiler.common.Types as TH(instanceHead)
-
-
-import  frege.compiler.enums.TokenID
-import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import Control.monad.State (StateT, evalStateT, execStateT, evalState)
 import Control.monad.trans.MonadTrans (lift)
-import frege.lib.Modules(Y, RTree, walkPath, pack, noPacks)
-import frege.ide.Utilities(Proposal, proposeContent)
-import frege.compiler.Utilities as U(allourvars)
-import frege.tools.doc.Utilities as DU(docit, docSym, DL, Doc, emitHtml)
-import Compiler.enums.Flags
-import Data.TreeMap as TM(values)
+import frege.ide.Utilities(label)
 import Data.List (sortBy)
-import Compiler.types.QNames
-import Compiler.types.SNames
-import Compiler.common.Resolve as R
+import Compiler.types.QNames(QName)
 import Data.List(find)
 
-data FregeCodeBlock = FregeCodeBlock {
-    tokenValue :: String,
-    tokenType  :: String
+newtype FregeCodeBlock = FregeCodeBlock {
+    code :: String
 }
 
 derive Eq FregeCodeBlock
 instance Show FregeCodeBlock where
-    show FregeCodeBlock { tokenValue, tokenType } = 
-        "```frege\n" ++ tokenValue ++ " :: " ++ tokenType ++ "\n```"
+    show FregeCodeBlock { code } = 
+        "```frege\n" ++ code ++ "\n```"
 
 data Hover = Hover {
     range   :: Range,
@@ -46,189 +30,14 @@ data Hover = Hover {
 derive Eq Hover
 derive Show Hover
 
-compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe Hover)
-compileAndGetTypeSignatureOnHover fregeCode pos = do
-    startGlobal <- lspGlobal
-    gl          <- execStateT (compileFregeFile fregeCode) startGlobal
-    pure         $ evalStateT (getTypeOnHover pos) gl
-
 tokenToRange :: Token -> Range
 tokenToRange Token { line, col, value } = 
     Range { start = Position line col, end = Position (line) (col + length value) }
 
-getTypeOnHover :: Position -> StateT Global Maybe Hover
-getTypeOnHover pos = do
-    global     <- StateT.get
-    token      <- findToken pos
-    qname      <- tokenToQName token
-    symbol     <- findSymbol qname
-    symbolType <- getSymbolType2 symbol
-    pure        $ Hover { 
-        range   = tokenToRange token, 
-        content = FregeCodeBlock token.value symbolType 
-    }
-
-shouldShowLocalVaridTypeSignature :: Property
-shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
-    expected = Just Hover { 
-        range   = Range { start = Position 3 1, end = Position 3 13 },
-        content = FregeCodeBlock "simplyString"  "String"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 3)
-    pure    $ expected == actual
-
-shouldShowImportedVaridTypeSignature :: Property
-shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n" ++ "main = println \"Hello\""
-    expected = Just Hover { 
-        range   = Range { start = Position 3 8, end = Position 3 15 },
-        content = FregeCodeBlock "println" "Show 𝖆 => 𝖆 -> IO ()"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 9)
-    pure    $ expected == actual
-
-shouldShowLocalConidTypeSignature :: Property
-shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-        ++ "data MyMaybe a = MyNothing | MyJust a\n"
-    expected = Just Hover { 
-        range   = Range { start = Position 3 6, end = Position 3 13 },
-        content = FregeCodeBlock "MyMaybe" "*->*"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 7)
-    pure    $ expected == actual
-
-shouldShowImportedConidTypeSignature :: Property
-shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-        ++ "import frege.data.Maybe(Maybe)"
-    expected = Just Hover { 
-        range   = Range { start = Position 3 25, end = Position 3 30 },
-        content = FregeCodeBlock "Maybe" "*->*"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 27)
-    pure    $ expected == actual
-
-shouldShowLocalConidDataConstructor :: Property
-shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-        ++ "data MyMaybe a = MyNothing | MyJust a\n"
-        ++ "res = MyJust 42"
-    expected = Just Hover { 
-        range   = Range { start = Position 4 7, end = Position 4 13 },
-        content = FregeCodeBlock "MyJust" "a -> MyMaybe a"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 8)
-    pure    $ expected == actual
-
-shouldShowImportedConidDataConstructor :: Property
-shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-        ++ "import frege.data.Maybe(Maybe, Just)\n"
-        ++ "res = Just 42"
-    expected = Just Hover { 
-        range   = Range { start = Position 4 7, end = Position 4 11 },
-        content = FregeCodeBlock "Just" "a -> Maybe a"
-    }
-    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 10)
-    pure    $ expected == actual
-
-posToTokens :: [ TokenPosition ] -> Global -> [ Token ]
-posToTokens [] _ = []
-posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
-
-backwards :: JArray Token  -> Int -> [Token]
-backwards array index
-    | index > 0 = trans (elemAt array index) : backwards array (pred index)
-    | otherwise = []
-    where 
-        trans ∷ Token → Token
-        trans tok = case tok of
-            Token{tokid=CHAR, value="_"} = tok.{tokid=VARID, value="it"}
-            other = other
-
-initRoot :: String -> IO (Y RTree)
-initRoot path = do
-    return noPacks
-
-magicPNs [] = []
-magicPNs (x:xs)
-    | ("frege":y:ys, fp) <- x,
-        length y > 0,
-        not (head y).isUpperCase
-    = (ctos (Char.toUpperCase (head y)) ++ tail y !: ys, fp) !: x !: magicPNs xs
-    | otherwise = x !: magicPNs xs
-
-dcolon = DU.symDcolon
-
-verbose g t
-    | isPSigma t = "?"
-    | otherwise    = t.rho.nicer g
-
-label ∷ Global → SymbolT a → String
-label g SymI{clas,typ} = nicer (instanceHead clas typ.rho) g
-                            -- ++ " " ++ clas.nicer g ++ "  "   ++ verbose g typ
-label g SymV{name,typ} = name.base    ++ dcolon g ++ verbose g typ 
-label g SymD{name,typ} = name.base    ++ dcolon g ++ verbose g typ
-label g SymC{name,tau} = name.base    ++ dcolon g ++ show tau.kind
-label g SymT{name, nativ = Just n, pur}
-    | pur       = name.base ++ dcolon g ++ "immutable native " ++ n
-    | otherwise = name.base ++ dcolon g ++ "mutable native " ++ n            
-label g SymA{name,typ} = name.base    ++ " = " ++ typ.rho.nicer gspecial
-    where 
-        gspecial = g.{options <- _.{flags <- Flags.flagSet SPECIAL}}   
-label g sym
-    | sym.{kind?}      = sym.name.base ++ dcolon g ++ show sym.kind
-    | otherwise        = sym.name.base
-
-signature :: Global -> Token -> String
-signature gl Token { tokid = VARID, value, offset } = 
-    let
-        allSymbols = U.allourvars gl ++ values gl.locals
-        (sym:_) = 
-            [ 
-                s |
-                s@SymV { expr = Just _} <- allSymbols,
-                traceLn ("signature value for: " ++ show s.name.base) || true,
-                s.pos.first.offset == offset 
-            ]
-    in
-        getSymbolType gl sym
-signature gl _ = ""
-
-getSymbolType2 :: Symbol -> StateT Global Maybe String
-getSymbolType2 sym = do
+getSymbolType:: Symbol -> StateT Global Maybe String
+getSymbolType sym = do
     gl <- StateT.get
-    pure $ getSymbolType gl sym
-
-getSymbolType :: Global -> Symbol -> String
-getSymbolType g SymI{typ} = verbose g typ
-getSymbolType g SymV{typ} = verbose g typ
-getSymbolType g SymD{typ} = verbose g typ
-getSymbolType g SymL{alias} = maybe "" (getSymbolType g) $ g.find alias
-getSymbolType g SymC{name,tau} = show tau.kind
-getSymbolType g SymT{name, nativ = Just n, pur}
-    | pur       = "immutable native " ++ n
-    | otherwise = "mutable native " ++ n
-getSymbolType g sym
-    | sym.{kind?}      = show sym.kind
-    | otherwise        = ""
-
-
-getSymbols :: Global → Symtab → [Symbol]
-getSymbols g tab = (sortBy positionAndName • filter wanted • values) tab
-    where
-        positionAndName a b = case Symbol.pos a <=> Symbol.pos b of
-                                    Eq -> comparing (QName.base • Symbol.name) a b
-                                    ne -> ne
-        wanted :: Symbol -> Bool
-        wanted sym
-            | sym.{alias?}                       = false
-            | Local{} <- sym.name                = false
-            -- sym.vis == Private                = false
-            | sym.name.base ~ ´^(chg|upd|has|let|anon|lc)\$´ = false
-            | otherwise                          = true
+    pure $ label gl sym
 
 findToken :: Position -> StateT Global Maybe Token
 findToken pos = do
@@ -243,17 +52,8 @@ findToken pos = do
 
 findSymbol :: QName -> StateT Global Maybe Symbol
 findSymbol qname = do
-    gl <- StateT.get
+    gl :: Global <- StateT.get
     lift $ Global.find gl qname
-
-tokenToSName :: Token -> SName
-tokenToSName = Simple 
-
-sNameToQName :: SName -> StG [QName]
-sNameToQName sName = do
-  g <- getST
-  qNames <- R.resolve (VName g.thisPack) TokenPosition.null sName
-  return qNames
 
 tokenToQName :: Token -> StateT Global Maybe QName
 tokenToQName t = do
@@ -261,83 +61,104 @@ tokenToQName t = do
     namespaceOrVariable <- lift $ Global.resolved g t
     lift $ either (const Nothing) Just namespaceOrVariable
 
-resolveSymbol2 :: Token -> StG [Symbol]
-resolveSymbol2 token = do
-    global <- getST
-    qNames <- sNameToQName (tokenToSName token)
-    return . catMaybes $ global.find <$> qNames
+compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe Hover)
+compileAndGetTypeSignatureOnHover fregeCode pos = do
+    startGlobal <- lspGlobal
+    gl          <- execStateT (compileFregeFile fregeCode) startGlobal
+    pure         $ evalStateT (getTypeOnHover pos) gl
 
-resolveSymbol :: String -> StG [Symbol]
-resolveSymbol source = do
-                         global <- getST
-                         qNames <- sNameToQName (createSName source)
-                         return . catMaybes $ global.find <$> qNames
-createSName s
-  | Just (Just ns : Just ty : Just id : _) <- s `match` '^(.*)\.(.*)\.(\p{Lu}.*)$' = with2con ns ty id
-  | Just (Just ns : Just ty : Just id : _) <- s `match` '^(.*)\.(.*)\.(.*)$'       = with2var ns ty id
-  | Just (Just ty : Just id : _)           <- s `match` '^(.*)\.(\p{Lu}.*)$'       = with1con ty id
-  | Just (Just ty : Just id : _)           <- s `match` '^(.*)\.(.*)$'             = with1var ty id
-  | s ~ '^\p{Lu}.*$'                                                               = Simple (Token CONID s 1 0 0 [])
-  | otherwise                                                                      = Simple (Token VARID s 1 0 0 [])
-     where with2con ns ty id = With2 (qual ns) (qual ty) (con id)
-           with2var ns ty id = With2 (qual ns) (qual ty) (var id)
-           with1con ty id = With1 (qual ty) (con id)
-           with1var ty id = With1 (qual ty) (var id)
-           qual name = Token QUALIFIER name 1 0 0 []
-           con name = Token CONID name 1 0 0 []
-           var name = Token VARID name 1 0 0 []
+getTypeOnHover :: Position -> StateT Global Maybe Hover
+getTypeOnHover pos = do
+    global     <- StateT.get
+    token      <- findToken pos
+    qname      <- tokenToQName token
+    symbol     <- findSymbol qname
+    symbolType <- getSymbolType symbol
+    pure        $ Hover { 
+        range   = tokenToRange token, 
+        content = FregeCodeBlock symbolType
+    }
 
-match s regex = groups <$> s =~ regex where groups m = [m.group i | i <- [1..groupCount m]]
-pure native groupCount :: MatchResult -> Int
+shouldShowLocalVaridTypeSignature :: Property
+shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
+    expected = Just Hover { 
+        range   = Range { start = Position 3 1, end = Position 3 13 },
+        content = FregeCodeBlock "simplyString :: String"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 3)
+    pure    $ expected == actual
 
-findVariableName fname pos name = R.resolveVName
+shouldShowImportedVaridTypeSignature :: Property
+shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n" ++ "main = println \"Hello\""
+    expected = Just Hover { 
+        range   = Range { start = Position 3 8, end = Position 3 15 },
+        content = FregeCodeBlock "println :: Show 𝖆 => 𝖆 -> IO ()"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 9)
+    pure    $ expected == actual
+
+shouldShowLocalConidTypeSignature :: Property
+shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "data MyMaybe a = MyNothing | MyJust a\n"
+    expected = Just Hover { 
+        range   = Range { start = Position 3 6, end = Position 3 13 },
+        content = FregeCodeBlock "MyMaybe :: *->*"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 7)
+    pure    $ expected == actual
+
+shouldShowImportedConidTypeSignature :: Property
+shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "import frege.data.Maybe(Maybe)"
+    expected = Just Hover { 
+        range   = Range { start = Position 3 25, end = Position 3 30 },
+        content = FregeCodeBlock "Maybe :: *->*"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 27)
+    pure    $ expected == actual
+
+shouldShowLocalConidDataConstructor :: Property
+shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "data MyMaybe a = MyNothing | MyJust a\n"
+        ++ "res = MyJust 42"
+    expected = Just Hover { 
+        range   = Range { start = Position 4 7, end = Position 4 13 },
+        content = FregeCodeBlock "MyJust :: a -> MyMaybe a"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 8)
+    pure    $ expected == actual
+
+shouldShowImportedConidDataConstructor :: Property
+shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "import frege.data.Maybe(Maybe, Just)\n"
+        ++ "res = Just 42"
+    expected = Just Hover { 
+        range   = Range { start = Position 4 7, end = Position 4 11 },
+        content = FregeCodeBlock "Just :: a -> Maybe a"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 10)
+    pure    $ expected == actual
 
 main :: IO ()
 main = do
     lspGlobal     <- lspGlobal
-    let fregeCode = "module HoverTest where\n\n" ++ "import frege.compiler.Main(runpass)\n\n" ++ "pass = runpass\n" ++ "me = 42\n\n" ++ "main = do\n  a = \"Hello\"\n  println a"
+    let fregeCode = "module HoverTest where\n\n" 
+            ++ "import frege.compiler.Main(runpass)\n\n"
+            ++ "pass = runpass\n" ++ "me = 42\n\n"
+            ++ "main = do\n  a = \"Hello\"\n  println a"
     let simpleFregeCode = "module HoverTest where\n\n" 
             ++ "data MyMaybe a = MyNothing | MyJust a\n"
             ++ "res = MyJust 42"
-    gl            <- execStateT (compileFregeFile simpleFregeCode) lspGlobal
+    gl            <- execStateT (compileFregeFile fregeCode) lspGlobal
     println $ CharSequence.toString gl.sub.code
     tokens = listFromArray gl.sub.toks
     for tokens println
-    --let simplyStringToken = findToken 3 36 tokens
-    --case simplyStringToken of
-    --    Nothing -> println "No token found"
-    --    Just t -> println t
-    println "finished"
-    root <- initRoot "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/HoverTest.fr"
-    --let proposals = proposeContent gl root 59 gl.sub.toks 11
-    --additionals <- sequence $ fmap Proposal.additional proposals
-    --let firstProposal = head proposals
-    --additional <- firstProposal.additional
-    --println additional
-    --println additional2
-    --let rules = fmap Proposal.proposal proposals
-    --for rules println
-    --for additionals println
-    --let vars = U.allourvars gl
-    --println $ label gl vars
-    --me = tokens !! 12
-    --println $ signature gl me
-    --let symbols = getSymbols gl gl.thisTab
-    --let symbolTypes = fmap (getSymbolType gl) symbols
-    --for symbolTypes println
-    let printLnToken = tokens !! 1
-    --let printLnSymbol = evalState (resolveSymbol2 printLnToken) gl
-    --let printLnSymbolTypes = fmap (getSymbolType gl) printLnSymbol
-    --for printLnSymbolTypes println
-    let eitherQname = Global.resolved gl printLnToken
-    case eitherQname of
-        Nothing -> println "symbol not found"
-        Just (Left _) -> println "no qname found"
-        Just (Right qname) -> do
-            println "symbol found"
-            case (gl.findit qname) of
-                Nothing -> println "qname not found"
-                Just sym -> println (getSymbolType gl sym)
-    hover <- compileAndGetTypeSignatureOnHover simpleFregeCode (Position 3 18)
+    hover <- compileAndGetTypeSignatureOnHover fregeCode (Position 5 9)
     println hover
     println "end"

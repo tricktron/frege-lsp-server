@@ -152,7 +152,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/HoverLSP.fr",
-  time=1657030861534L, jmajor=11, jminor=-1,
+  time=1657086513586L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.hover.Hover", "ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic",
     "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
@@ -288,48 +288,48 @@ final public class HoverLSP  {
 
 final public static class THoverLSP  {
   final public static org.eclipse.lsp4j.Hover hoverToHoverLSP(final Hover.THover arg$1) {
-    final Hover.TFregeCodeBlock content$18209 = arg$1.mem$content.call();
-    final Diagnostic.TRange range$18208 = arg$1.mem$range.call();
+    final String/*<Character>*/ content$18190 = arg$1.mem$content.call();
+    final Diagnostic.TRange range$18189 = arg$1.mem$range.call();
     return new org.eclipse.lsp4j.Hover(
           new org.eclipse.lsp4j.MarkupContent(
-            org.eclipse.lsp4j.MarkupKind.MARKDOWN, Hover.IShow_FregeCodeBlock.show(content$18209)
+            org.eclipse.lsp4j.MarkupKind.MARKDOWN, Hover.IShow_FregeCodeBlock.show(content$18190)
           ),
-          LSPDiagnostic.TRangeLSP.fromRange(range$18208)
+          LSPDiagnostic.TRangeLSP.fromRange(range$18189)
         );
   }
 }
 final public static Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>> compileAndGetTypeSignatureOnHoverLSP(
   final Lazy<String/*<Character>*/> arg$1, final Lazy<org.eclipse.lsp4j.Position> arg$2
 ) {
-  return (Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>)((final Lazy<RealWorld> arg$18275) -> {
-            final PreludeBase.TMaybe<Hover.THover> v2056$18252 = Hover.compileAndGetTypeSignatureOnHover(
+  return (Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>)((final Lazy<RealWorld> arg$18256) -> {
+            final PreludeBase.TMaybe<Hover.THover> v2056$18233 = Hover.compileAndGetTypeSignatureOnHover(
                   arg$1,
                   Thunk.<Diagnostic.TPosition>shared(
                         (Lazy<Diagnostic.TPosition>)(() -> LSPDiagnostic.TPositionLSP.toPosition(
                                   arg$2
                                 ))
                       )
-                ).apply(arg$18275).call();
-            final Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>> v2057$18253 =
+                ).apply(arg$18256).call();
+            final Func.U<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>> v2057$18234 =
             PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>pure(
                   Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>shared(
                         (Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>)(() -> Maybe.IFunctor_Maybe.<
                               Hover.THover, org.eclipse.lsp4j.Hover
                             >fmap(
-                                  (Func.U<Hover.THover, org.eclipse.lsp4j.Hover>)((final Lazy<Hover.THover> η$18277) -> Thunk.<
+                                  (Func.U<Hover.THover, org.eclipse.lsp4j.Hover>)((final Lazy<Hover.THover> η$18258) -> Thunk.<
                                         org.eclipse.lsp4j.Hover
                                       >shared(
                                             (Lazy<org.eclipse.lsp4j.Hover>)(() -> THoverLSP.hoverToHoverLSP(
-                                                      η$18277.call()
+                                                      η$18258.call()
                                                     ))
                                           )),
-                                  v2056$18252
+                                  v2056$18233
                                 ))
                       )
                 );
             return Thunk.<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>nested(
-                      (Lazy<Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>>)(() -> v2057$18253
-                          .apply(arg$18275))
+                      (Lazy<Lazy<PreludeBase.TMaybe<org.eclipse.lsp4j.Hover>>>)(() -> v2057$18234
+                          .apply(arg$18256))
                     );
           });
 }

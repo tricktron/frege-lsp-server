@@ -150,7 +150,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/Hover.fr",
-  time=1657030860846L, jmajor=11, jminor=-1,
+  time=1657086513077L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper", "frege.tools.doc.Utilities",
     "ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", "frege.compiler.enums.Flags",
@@ -172,46 +172,46 @@ import frege.test.QuickCheckText;
   symas={}, symcs={},
   symis={
     @Meta.SymI(
-      offset=1655, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover"),
+      offset=1561, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsPrec"
           ),
           stri="s(uss)", sig=3, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsub"
           ),
           stri="s(s)", sig=4, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showChars"
           ),
           stri="s(s)", sig=5, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
         ),
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="display"
           ),
           stri="s(s)", sig=4, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="show"
           ),
           stri="s(s)", sig=4, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showList"
           ),
@@ -220,47 +220,47 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1405,
+      offset=1357,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsPrec"
           ),
           stri="s(uss)", sig=9, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsub"
           ),
           stri="s(s)", sig=10, depth=1, rkind=13, doc="inherited from 'Show.showsub'"
         ),
         @Meta.SymV(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showChars"
           ),
           stri="s(s)", sig=11, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
         ),
         @Meta.SymV(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="display"
           ),
           stri="s(s)", sig=10, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=1444,
+          offset=1396,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="show"
           ),
-          stri="s(s(ss))", sig=10, depth=1, rkind=13
+          stri="s(s(s))", sig=10, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showList"
           ),
@@ -269,26 +269,26 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1380,
+      offset=1332,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=1380,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="hashCode"
           ),
           stri="s(s)", sig=14, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1380,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="!="
           ),
           stri="s(ss)", sig=15, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=1380,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="=="
           ),
@@ -297,23 +297,23 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1639, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover"),
+      offset=1545, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="hashCode"
           ),
           stri="s(s)", sig=16, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="!="),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="=="),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="Function generated for derived instance.", op=96
         )
@@ -322,22 +322,22 @@ import frege.test.QuickCheckText;
   },
   symts={
     @Meta.SymT(
-      offset=1568, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"), typ=0,
+      offset=1474, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"), typ=0,
       kind=12,
       cons={
         @Meta.SymD(
-          offset=1576,
+          offset=1482,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="Hover"),
           cid=0, typ=19,
           fields={
-            @Meta.Field(name="range", offset=1588, sigma=18, strict=false),
-            @Meta.Field(name="content", offset=1610, sigma=8, strict=false)
+            @Meta.Field(name="range", offset=1494, sigma=18, strict=false),
+            @Meta.Field(name="content", offset=1516, sigma=8, strict=false)
           }
         )
       },
       lnks={
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showsPrec"
           ),
@@ -346,7 +346,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showChars"
           ),
@@ -355,14 +355,14 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="show"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="show"
           )
         ),
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showList"
           ),
@@ -371,14 +371,14 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showsub"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsub"
           )
         ),
         @Meta.SymL(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="hashCode"
           ),
@@ -387,73 +387,73 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1655,
+          offset=1561,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="display"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="display"
           )
         ),
         @Meta.SymL(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="!="),
           alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="!=")
         ),
         @Meta.SymL(
-          offset=1639,
+          offset=1545,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="=="),
           alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="==")
         )
       },
       funs={
         @Meta.SymV(
-          offset=1589,
+          offset=1495,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="upd$range"
           ),
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @range@"
         ),
         @Meta.SymV(
-          offset=1611,
+          offset=1517,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="upd$content"
           ),
           stri="s(su)", sig=21, depth=2, rkind=13, doc="update field @content@"
         ),
         @Meta.SymV(
-          offset=1611,
+          offset=1517,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="has$content"
           ),
           stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @content@"
         ),
         @Meta.SymV(
-          offset=1589,
+          offset=1495,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="has$range"
           ),
           stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @range@"
         ),
         @Meta.SymV(
-          offset=1589,
+          offset=1495,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="chg$range"
           ),
           stri="s(su)", sig=25, depth=2, rkind=13, doc="change field @range@"
         ),
         @Meta.SymV(
-          offset=1611,
+          offset=1517,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="chg$content"
           ),
           stri="s(su)", sig=27, depth=2, rkind=13, doc="change field @content@"
         ),
         @Meta.SymV(
-          offset=1611,
+          offset=1517,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="content"),
           stri="s(s)", sig=28, depth=1, rkind=13, doc="access field @content@"
         ),
         @Meta.SymV(
-          offset=1589,
+          offset=1495,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="range"),
           stri="s(s)", sig=29, depth=1, rkind=13, doc="access field @range@"
         )
@@ -461,24 +461,20 @@ import frege.test.QuickCheckText;
       prod=true
     ),
     @Meta.SymT(
-      offset=1292, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
+      offset=1276, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
       typ=8, kind=12,
       cons={
         @Meta.SymD(
-          offset=1309,
+          offset=1293,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="FregeCodeBlock"
           ),
-          cid=0, typ=30,
-          fields={
-            @Meta.Field(name="tokenValue", offset=1330, sigma=2, strict=false),
-            @Meta.Field(name="tokenType", offset=1356, sigma=2, strict=false)
-          }
+          cid=0, typ=30, fields={@Meta.Field(name="code", offset=1314, sigma=2, strict=false)}
         )
       },
       lnks={
         @Meta.SymL(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showsPrec"
           ),
@@ -487,16 +483,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1405,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showsub"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsub"
-          )
-        ),
-        @Meta.SymL(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showChars"
           ),
@@ -505,25 +492,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1444,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="show"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="show"
-          )
-        ),
-        @Meta.SymL(
-          offset=1380,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="hashCode"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="hashCode"
-          )
-        ),
-        @Meta.SymL(
-          offset=1405,
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showList"
           ),
@@ -532,7 +501,25 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1405,
+          offset=1357,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showsub"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsub"
+          )
+        ),
+        @Meta.SymL(
+          offset=1332,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="hashCode"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="hashCode"
+          )
+        ),
+        @Meta.SymL(
+          offset=1357,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="display"
           ),
@@ -541,7 +528,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1380,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="!="
           ),
@@ -550,202 +537,131 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1380,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="=="
           ),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="=="
           )
+        ),
+        @Meta.SymL(
+          offset=1396,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="show"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="show"
+          )
         )
       },
       funs={
         @Meta.SymV(
-          offset=1331,
+          offset=1315,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="upd$tokenValue"
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="upd$code"
           ),
-          stri="s(su)", sig=31, depth=2, rkind=13, doc="update field @tokenValue@"
+          stri="s(su)", sig=31, depth=2, rkind=13, doc="update field @code@"
         ),
         @Meta.SymV(
-          offset=1331,
+          offset=1315,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="tokenValue"
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="has$code"
           ),
-          stri="s(s)", sig=10, depth=1, rkind=13, doc="access field @tokenValue@"
+          stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @code@"
         ),
         @Meta.SymV(
-          offset=1357,
+          offset=1315,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="upd$tokenType"
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="chg$code"
           ),
-          stri="s(su)", sig=31, depth=2, rkind=13, doc="update field @tokenType@"
+          stri="s(su)", sig=33, depth=2, rkind=13, doc="change field @code@"
         ),
         @Meta.SymV(
-          offset=1357,
+          offset=1315,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="tokenType"
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="code"
           ),
-          stri="s(s)", sig=10, depth=1, rkind=13, doc="access field @tokenType@"
-        ),
-        @Meta.SymV(
-          offset=1331,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="has$tokenValue"
-          ),
-          stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @tokenValue@"
-        ),
-        @Meta.SymV(
-          offset=1331,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="chg$tokenValue"
-          ),
-          stri="s(su)", sig=33, depth=2, rkind=13, doc="change field @tokenValue@"
-        ),
-        @Meta.SymV(
-          offset=1357,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="chg$tokenType"
-          ),
-          stri="s(su)", sig=33, depth=2, rkind=13, doc="change field @tokenType@"
-        ),
-        @Meta.SymV(
-          offset=1357,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="has$tokenType"
-          ),
-          stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @tokenType@"
+          stri="s(s)", sig=10, depth=1, rkind=13, doc="access field @code@"
         )
       },
-      prod=true
+      prod=true, newt=true
     )
   },
   symvs={
     @Meta.SymV(
-      offset=4357, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="verbose"), stri="s(us)",
-      sig=36, depth=2, rkind=13
+      offset=2670, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToQName"),
+      stri="s(u)", sig=35, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=7767, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToQName"),
-      stri="s(u)", sig=38, depth=1, rkind=13
+      offset=1864, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToRange"),
+      stri="s(s(uuuuuu))", sig=36, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1958, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToRange"),
-      stri="s(s(uuuuuu))", sig=39, depth=1, rkind=13
+      offset=3244,
+      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalVaridTypeSignature"),
+      stri="u", sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=7555, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToSName"),
-      stri="s(s)", sig=40, depth=1, rkind=13
+      offset=5182,
+      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalConidDataConstructor"),
+      stri="u", sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=5270, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="signature"),
-      stri="s(us)", sig=41, depth=2, rkind=12
+      offset=5713,
+      name=@Meta.QName(
+        pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedConidDataConstructor"
+      ),
+      stri="u", sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2973,
+      offset=4696,
+      name=@Meta.QName(
+        pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedConidTypeSignature"
+      ),
+      stri="u", sig=37, depth=0, rkind=8
+    ),
+    @Meta.SymV(
+      offset=3717,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedVaridTypeSignature"
       ),
-      stri="u", sig=42, depth=0, rkind=8
+      stri="u", sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2500,
-      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalVaridTypeSignature"),
-      stri="u", sig=42, depth=0, rkind=8
+      offset=4207,
+      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalConidTypeSignature"),
+      stri="u", sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=7610, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="sNameToQName"),
-      stri="s(s)", sig=44, depth=1, rkind=13
+      offset=6244, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="main"), stri="u",
+      sig=38, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=8155, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="resolveSymbol"),
-      stri="s(s)", sig=45, depth=1, rkind=13
+      offset=2875, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getTypeOnHover"),
+      stri="s(u)", sig=40, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=7972, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="resolveSymbol2"),
-      stri="s(s)", sig=46, depth=1, rkind=13
+      offset=2023, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbolType"),
+      stri="s(u)", sig=42, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=3551, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="posToTokens"),
-      stri="s(su)", sig=48, depth=2, rkind=45
+      offset=2145, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findToken"), stri="s(u)",
+      sig=43, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=9442, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="match"), stri="s(ss)",
-      sig=50, depth=2, rkind=13
-    ),
-    @Meta.SymV(
-      offset=4098, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="magicPNs"), stri="s(s)",
-      sig=52, depth=1, rkind=45
-    ),
-    @Meta.SymV(
-      offset=9630, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="main"), stri="u",
-      sig=53, depth=0, rkind=8
-    ),
-    @Meta.SymV(
-      offset=4428, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="label"), stri="s(us)",
-      sig=55, depth=2, rkind=13
-    ),
-    @Meta.SymV(
-      offset=4024, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="initRoot"), stri="s(u)",
-      sig=56, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=9546, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="groupCount"),
-      stri="s(s)", sig=58, nativ="groupCount", pur=true, depth=1, rkind=9
-    ),
-    @Meta.SymV(
-      offset=6377, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbols"),
-      stri="s(uu)", sig=60, depth=2, rkind=13
-    ),
-    @Meta.SymV(
-      offset=5867, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbolType"),
-      stri="s(us)", sig=62, depth=2, rkind=44
-    ),
-    @Meta.SymV(
-      offset=5734, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbolType2"),
-      stri="s(u)", sig=63, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=2117, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getTypeOnHover"),
-      stri="s(u)", sig=65, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=9580, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findVariableName"),
-      stri="s(uuuuus)", sig=70, depth=6, rkind=13
-    ),
-    @Meta.SymV(
-      offset=7429, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findSymbol"),
-      stri="s(u)", sig=72, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=7046, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findToken"), stri="s(u)",
-      sig=73, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=8400, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="createSName"),
-      stri="s(s)", sig=74, depth=1, rkind=13
-    ),
-    @Meta.SymV(
-      offset=1674,
+      offset=1580,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="compileAndGetTypeSignatureOnHover"),
-      stri="s(uu)", sig=75, depth=2, rkind=13
-    ),
-    @Meta.SymV(
-      offset=3687, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="backwards"),
-      stri="s(us)", sig=77, depth=2, rkind=45
+      stri="s(uu)", sig=44, depth=2, rkind=13
     )
   },
   symls={
     @Meta.SymL(
-      offset=4334, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="dcolon"),
-      alias=@Meta.QName(pack="frege.tools.doc.Utilities", base="symDcolon")
-    ),
-    @Meta.SymL(
-      offset=1576, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"),
+      offset=1482, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"),
       alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="Hover")
     ),
     @Meta.SymL(
-      offset=1309, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
+      offset=1293, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="FregeCodeBlock"
       )
@@ -775,51 +691,30 @@ import frege.test.QuickCheckText;
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="->")}),
     @Meta.Tau(kind=0, suba=14, subb=11), @Meta.Tau(kind=0, suba=15, subb=11), @Meta.Tau(kind=0, suba=14, subb=8),
     @Meta.Tau(kind=0, suba=17, subb=8), @Meta.Tau(kind=0, suba=14, subb=4), @Meta.Tau(kind=0, suba=19, subb=4),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Global", base="Global")}),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Types", base="SigmaT")}),
-    @Meta.Tau(kind=0, suba=22, subb=13),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Tokens", base="Token")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.control.monad.State", base="StateT")}),
-    @Meta.Tau(kind=0, suba=25, subb=21),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Global", base="Global")}),
+    @Meta.Tau(kind=0, suba=22, subb=23),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Maybe")}),
-    @Meta.Tau(kind=0, suba=26, subb=27),
+    @Meta.Tau(kind=0, suba=24, subb=25),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.QNames", base="QName")}),
-    @Meta.Tau(kind=0, suba=28, subb=29),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.SNames", base="SName")}),
+    @Meta.Tau(kind=0, suba=26, subb=27),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.test.QuickCheckGen", base="Gen")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.test.QuickCheckProperty", base="Prop")}),
-    @Meta.Tau(kind=0, suba=32, subb=33),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.control.monad.State", base="State")}),
-    @Meta.Tau(kind=0, suba=35, subb=21), @Meta.Tau(kind=0, suba=5, subb=29), @Meta.Tau(kind=0, suba=36, subb=37),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Symbols", base="SymbolT")}),
-    @Meta.Tau(kind=0, suba=39, subb=21), @Meta.Tau(kind=0, suba=5, subb=40), @Meta.Tau(kind=0, suba=36, subb=41),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Positions", base="Position")}),
-    @Meta.Tau(kind=0, suba=5, subb=43), @Meta.Tau(kind=0, suba=5, subb=24),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.java.util.Regex", base="Regex")}),
-    @Meta.Tau(kind=0, suba=27, subb=4), @Meta.Tau(kind=0, suba=5, subb=47), @Meta.Tau(kind=0, suba=27, subb=48),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="(,)")}),
-    @Meta.Tau(kind=0, suba=5, subb=4), @Meta.Tau(kind=0, suba=50, subb=51), @Meta.Tau(kind=0, suba=52, subb=13),
-    @Meta.Tau(kind=0, suba=5, subb=53),
+    @Meta.Tau(kind=0, suba=29, subb=30),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="ST")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="RealWorld")}),
-    @Meta.Tau(kind=0, suba=55, subb=56),
+    @Meta.Tau(kind=0, suba=32, subb=33),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="()")}),
-    @Meta.Tau(kind=0, suba=57, subb=58), @Meta.Tau(suba=12, tvar="a"), @Meta.Tau(kind=0, suba=39, subb=60),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.lib.Modules", base="Y")}),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.lib.Modules", base="RTree")}),
-    @Meta.Tau(kind=0, suba=62, subb=63), @Meta.Tau(kind=0, suba=57, subb=64),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.java.util.Regex", base="MatchResult")}),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.data.TreeMap", base="TreeMap")}),
-    @Meta.Tau(kind=0, suba=67, subb=4), @Meta.Tau(kind=0, suba=68, subb=40), @Meta.Tau(kind=0, suba=28, subb=4),
+    @Meta.Tau(kind=0, suba=34, subb=35),
     @Meta.Tau(
       kind=2, suba=0,
       tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Position")}
     ),
-    @Meta.Tau(kind=0, suba=28, subb=0), @Meta.Tau(suba=12, tvar="β"), @Meta.Tau(suba=12, tvar="γ"),
-    @Meta.Tau(kind=0, suba=19, subb=29), @Meta.Tau(kind=0, suba=36, subb=29), @Meta.Tau(kind=0, suba=28, subb=40),
-    @Meta.Tau(kind=0, suba=28, subb=24), @Meta.Tau(kind=0, suba=27, subb=0), @Meta.Tau(kind=0, suba=57, subb=79),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeArrays", base="JArray")}),
-    @Meta.Tau(kind=0, suba=81, subb=24)
+    @Meta.Tau(kind=0, suba=26, subb=0),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Symbols", base="SymbolT")}),
+    @Meta.Tau(kind=0, suba=39, subb=23), @Meta.Tau(kind=0, suba=26, subb=4), @Meta.Tau(kind=0, suba=26, subb=21),
+    @Meta.Tau(kind=0, suba=25, subb=0), @Meta.Tau(kind=0, suba=34, subb=43)
   },
   rhos={
     @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=1), @Meta.Rho(rhofun=false, rhotau=4),
@@ -836,39 +731,13 @@ import frege.test.QuickCheckText;
     @Meta.Rho(rhofun=false, rhotau=16), @Meta.Rho(sigma=24, rhotau=0), @Meta.Rho(sigma=0, rhotau=34),
     @Meta.Rho(rhofun=false, rhotau=18), @Meta.Rho(sigma=26, rhotau=0), @Meta.Rho(sigma=0, rhotau=37),
     @Meta.Rho(sigma=0, rhotau=11), @Meta.Rho(sigma=0, rhotau=25), @Meta.Rho(sigma=2, rhotau=11),
-    @Meta.Rho(sigma=2, rhotau=41), @Meta.Rho(sigma=8, rhotau=41), @Meta.Rho(rhofun=false, rhotau=20),
-    @Meta.Rho(sigma=32, rhotau=11), @Meta.Rho(sigma=8, rhotau=45), @Meta.Rho(rhofun=false, rhotau=21),
-    @Meta.Rho(rhofun=false, rhotau=23), @Meta.Rho(sigma=35, rhotau=2),
-    @Meta.Rho(
-      cont={
-        @Meta.Context(clas=@Meta.QName(kind=0, pack="frege.compiler.classes.Nice", base="Nice"), tau=13),
-        @Meta.Context(clas=@Meta.QName(kind=0, pack="frege.compiler.classes.QNameMatcher", base="QNameMatcher"), tau=13)
-      },
-      sigma=34, rhotau=49
-    ),
-    @Meta.Rho(rhofun=false, rhotau=24), @Meta.Rho(rhofun=false, rhotau=30), @Meta.Rho(sigma=37, rhotau=52),
-    @Meta.Rho(sigma=37, rhotau=25), @Meta.Rho(rhofun=false, rhotau=31), @Meta.Rho(sigma=37, rhotau=55),
-    @Meta.Rho(sigma=37, rhotau=2), @Meta.Rho(sigma=34, rhotau=57), @Meta.Rho(rhofun=false, rhotau=34),
-    @Meta.Rho(rhofun=false, rhotau=38), @Meta.Rho(sigma=43, rhotau=60), @Meta.Rho(rhofun=false, rhotau=42),
-    @Meta.Rho(sigma=2, rhotau=62), @Meta.Rho(sigma=37, rhotau=62), @Meta.Rho(rhofun=false, rhotau=44),
-    @Meta.Rho(rhofun=false, rhotau=45), @Meta.Rho(sigma=34, rhotau=66), @Meta.Rho(sigma=47, rhotau=67),
-    @Meta.Rho(rhofun=false, rhotau=46), @Meta.Rho(rhofun=false, rhotau=49), @Meta.Rho(sigma=49, rhotau=70),
-    @Meta.Rho(sigma=2, rhotau=71), @Meta.Rho(rhofun=false, rhotau=54), @Meta.Rho(sigma=51, rhotau=73),
-    @Meta.Rho(rhofun=false, rhotau=59), @Meta.Rho(rhofun=false, rhotau=61), @Meta.Rho(sigma=54, rhotau=2),
-    @Meta.Rho(sigma=34, rhotau=77), @Meta.Rho(rhofun=false, rhotau=65), @Meta.Rho(sigma=2, rhotau=79),
-    @Meta.Rho(rhofun=false, rhotau=66), @Meta.Rho(sigma=57, rhotau=1), @Meta.Rho(rhofun=false, rhotau=69),
-    @Meta.Rho(rhofun=false, rhotau=41), @Meta.Rho(sigma=59, rhotau=84), @Meta.Rho(sigma=34, rhotau=85),
-    @Meta.Rho(rhofun=false, rhotau=40), @Meta.Rho(sigma=61, rhotau=2), @Meta.Rho(sigma=34, rhotau=88),
-    @Meta.Rho(rhofun=false, rhotau=70), @Meta.Rho(sigma=61, rhotau=90), @Meta.Rho(rhofun=false, rhotau=71),
-    @Meta.Rho(rhofun=false, rhotau=72), @Meta.Rho(sigma=64, rhotau=93), @Meta.Rho(rhofun=false, rhotau=73),
-    @Meta.Rho(rhofun=false, rhotau=74), @Meta.Rho(rhofun=false, rhotau=75), @Meta.Rho(rhofun=false, rhotau=43),
-    @Meta.Rho(rhofun=false, rhotau=76), @Meta.Rho(sigma=43, rhotau=99), @Meta.Rho(sigma=69, rhotau=100),
-    @Meta.Rho(sigma=68, rhotau=101), @Meta.Rho(sigma=67, rhotau=102), @Meta.Rho(sigma=66, rhotau=103),
-    @Meta.Rho(sigma=22, rhotau=104), @Meta.Rho(rhofun=false, rhotau=29), @Meta.Rho(rhofun=false, rhotau=77),
-    @Meta.Rho(sigma=71, rhotau=107), @Meta.Rho(rhofun=false, rhotau=78), @Meta.Rho(sigma=64, rhotau=109),
-    @Meta.Rho(sigma=2, rhotau=55), @Meta.Rho(rhofun=false, rhotau=80), @Meta.Rho(sigma=64, rhotau=112),
-    @Meta.Rho(sigma=2, rhotau=113), @Meta.Rho(rhofun=false, rhotau=82), @Meta.Rho(sigma=1, rhotau=66),
-    @Meta.Rho(sigma=76, rhotau=116)
+    @Meta.Rho(sigma=8, rhotau=41), @Meta.Rho(rhofun=false, rhotau=20), @Meta.Rho(sigma=32, rhotau=11),
+    @Meta.Rho(sigma=8, rhotau=44), @Meta.Rho(rhofun=false, rhotau=21), @Meta.Rho(rhofun=false, rhotau=28),
+    @Meta.Rho(sigma=34, rhotau=47), @Meta.Rho(sigma=34, rhotau=25), @Meta.Rho(rhofun=false, rhotau=31),
+    @Meta.Rho(rhofun=false, rhotau=36), @Meta.Rho(rhofun=false, rhotau=37), @Meta.Rho(rhofun=false, rhotau=38),
+    @Meta.Rho(sigma=39, rhotau=53), @Meta.Rho(rhofun=false, rhotau=40), @Meta.Rho(rhofun=false, rhotau=41),
+    @Meta.Rho(sigma=41, rhotau=56), @Meta.Rho(rhofun=false, rhotau=42), @Meta.Rho(sigma=39, rhotau=58),
+    @Meta.Rho(rhofun=false, rhotau=44), @Meta.Rho(sigma=39, rhotau=60), @Meta.Rho(sigma=2, rhotau=61)
   },
   sigmas={
     @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=5), @Meta.Sigma(rho=6),
@@ -877,18 +746,10 @@ import frege.test.QuickCheckText;
     @Meta.Sigma(rho=21), @Meta.Sigma(rho=22), @Meta.Sigma(rho=24), @Meta.Sigma(rho=25), @Meta.Sigma(rho=27),
     @Meta.Sigma(rho=29), @Meta.Sigma(rho=30), @Meta.Sigma(rho=31), @Meta.Sigma(bound={"α"}, kinds={12}, rho=32),
     @Meta.Sigma(rho=33), @Meta.Sigma(rho=35), @Meta.Sigma(rho=36), @Meta.Sigma(rho=38), @Meta.Sigma(rho=39),
-    @Meta.Sigma(rho=40), @Meta.Sigma(rho=42), @Meta.Sigma(rho=43), @Meta.Sigma(rho=44), @Meta.Sigma(rho=46),
-    @Meta.Sigma(rho=47), @Meta.Sigma(rho=48), @Meta.Sigma(bound={"α"}, kinds={12}, rho=50), @Meta.Sigma(rho=51),
-    @Meta.Sigma(rho=53), @Meta.Sigma(rho=54), @Meta.Sigma(rho=56), @Meta.Sigma(rho=58), @Meta.Sigma(rho=59),
-    @Meta.Sigma(rho=55), @Meta.Sigma(rho=61), @Meta.Sigma(rho=63), @Meta.Sigma(rho=64), @Meta.Sigma(rho=65),
-    @Meta.Sigma(rho=68), @Meta.Sigma(rho=69), @Meta.Sigma(rho=72), @Meta.Sigma(rho=73),
-    @Meta.Sigma(bound={"α"}, kinds={12}, rho=74), @Meta.Sigma(rho=75), @Meta.Sigma(rho=76),
-    @Meta.Sigma(bound={"a"}, kinds={12}, rho=78), @Meta.Sigma(rho=80), @Meta.Sigma(rho=81), @Meta.Sigma(rho=82),
-    @Meta.Sigma(rho=83), @Meta.Sigma(rho=86), @Meta.Sigma(rho=87), @Meta.Sigma(rho=89), @Meta.Sigma(rho=91),
-    @Meta.Sigma(rho=92), @Meta.Sigma(rho=94), @Meta.Sigma(rho=95), @Meta.Sigma(rho=96), @Meta.Sigma(rho=97),
-    @Meta.Sigma(rho=98), @Meta.Sigma(bound={"α", "β", "γ"}, kinds={12, 12, 12}, rho=105), @Meta.Sigma(rho=106),
-    @Meta.Sigma(rho=108), @Meta.Sigma(rho=110), @Meta.Sigma(rho=111), @Meta.Sigma(rho=114), @Meta.Sigma(rho=115),
-    @Meta.Sigma(rho=117)
+    @Meta.Sigma(rho=40), @Meta.Sigma(rho=41), @Meta.Sigma(rho=42), @Meta.Sigma(rho=43), @Meta.Sigma(rho=45),
+    @Meta.Sigma(rho=46), @Meta.Sigma(rho=48), @Meta.Sigma(rho=49), @Meta.Sigma(rho=50), @Meta.Sigma(rho=51),
+    @Meta.Sigma(rho=52), @Meta.Sigma(rho=54), @Meta.Sigma(rho=55), @Meta.Sigma(rho=57), @Meta.Sigma(rho=59),
+    @Meta.Sigma(rho=62)
   },
   exprs={@Meta.Expr()}
 )
@@ -927,10 +788,10 @@ final public static class IShow_Hover implements PreludeText.CShow<THover> {
     return IShow_Hover.show(arg$2) + arg$3;
   }
   final public static String/*<Character>*/ showsub(final THover arg$1) {
-    final TFregeCodeBlock a2$18843 = arg$1.mem$content.call();
-    final Diagnostic.TRange a1$18842 = arg$1.mem$range.call();
-    return ("(" + (((("Hover" + " ") + Diagnostic.IShow_Range.showsub(a1$18842)) + " ") + IShow_FregeCodeBlock.showsub(
-              a2$18843
+    final String/*<Character>*/ a2$18503 = arg$1.mem$content.call();
+    final Diagnostic.TRange a1$18502 = arg$1.mem$range.call();
+    return ("(" + (((("Hover" + " ") + Diagnostic.IShow_Range.showsub(a1$18502)) + " ") + IShow_FregeCodeBlock.showsub(
+              a2$18503
             ))) + ")";
   }
   final public static PreludeBase.TList<Character> showChars(final THover arg$1) {
@@ -940,101 +801,100 @@ final public static class IShow_Hover implements PreludeText.CShow<THover> {
     return IShow_Hover.show(arg$1);
   }
   final public static String/*<Character>*/ show(final THover arg$1) {
-    final TFregeCodeBlock a2$18840 = arg$1.mem$content.call();
-    final Diagnostic.TRange a1$18839 = arg$1.mem$range.call();
-    return ((("Hover" + " ") + Diagnostic.IShow_Range.showsub(a1$18839)) + " ") + IShow_FregeCodeBlock.showsub(
-              a2$18840
+    final String/*<Character>*/ a2$18500 = arg$1.mem$content.call();
+    final Diagnostic.TRange a1$18499 = arg$1.mem$range.call();
+    return ((("Hover" + " ") + Diagnostic.IShow_Range.showsub(a1$18499)) + " ") + IShow_FregeCodeBlock.showsub(
+              a2$18500
             );
   }
   final public static String/*<Character>*/ showList(final PreludeBase.TList<THover> arg$1, final String/*<Character>*/ arg$2) {
     return "[" + (PreludeText.joined(
               Thunk.<String/*<Character>*/>lazy(", "),
               PreludeList.<String/*<Character>*/, THover>map(
-                    (Func.U<THover, String/*<Character>*/>)((final Lazy<THover> η$21972) -> Thunk.<
+                    (Func.U<THover, String/*<Character>*/>)((final Lazy<THover> η$20504) -> Thunk.<
                           String/*<Character>*/
-                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Hover.show(η$21972.call())))),
+                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Hover.show(η$20504.call())))),
                     arg$1
                   )
             ).call() + ("]" + arg$2));
   }
 }
-final public static class IShow_FregeCodeBlock implements PreludeText.CShow<TFregeCodeBlock> {
+final public static class IShow_FregeCodeBlock implements PreludeText.CShow<String/*<Character>*/> {
   public IShow_FregeCodeBlock() {}
   final public static IShow_FregeCodeBlock it = new IShow_FregeCodeBlock();
   @Override final public String/*<Character>*/ ƒshowsPrec(
-    final Lazy<Integer> arg$1, final Lazy<TFregeCodeBlock> arg$2, final Lazy<String/*<Character>*/> arg$3
+    final Lazy<Integer> arg$1, final Lazy<String/*<Character>*/> arg$2, final Lazy<String/*<Character>*/> arg$3
   ) {
     return IShow_FregeCodeBlock.showsPrec(arg$1, arg$2.call(), arg$3.call());
   }
-  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<TFregeCodeBlock> arg$1) {
+  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<String/*<Character>*/> arg$1) {
     return IShow_FregeCodeBlock.showsub(arg$1.call());
   }
-  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<TFregeCodeBlock> arg$1) {
+  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<String/*<Character>*/> arg$1) {
     return IShow_FregeCodeBlock.showChars(arg$1.call());
   }
-  @Override final public String/*<Character>*/ ƒdisplay(final Lazy<TFregeCodeBlock> arg$1) {
+  @Override final public String/*<Character>*/ ƒdisplay(final Lazy<String/*<Character>*/> arg$1) {
     return IShow_FregeCodeBlock.display(arg$1.call());
   }
-  @Override final public String/*<Character>*/ ƒshow(final Lazy<TFregeCodeBlock> arg$1) {
+  @Override final public String/*<Character>*/ ƒshow(final Lazy<String/*<Character>*/> arg$1) {
     return IShow_FregeCodeBlock.show(arg$1.call());
   }
   @Override final public String/*<Character>*/ ƒshowList(
-    final Lazy<PreludeBase.TList<TFregeCodeBlock>> arg$1, final Lazy<String/*<Character>*/> arg$2
+    final Lazy<PreludeBase.TList<String/*<Character>*/>> arg$1, final Lazy<String/*<Character>*/> arg$2
   ) {
     return IShow_FregeCodeBlock.showList(arg$1.call(), arg$2.call());
   }
   final public static String/*<Character>*/ showsPrec(
-    final Lazy<Integer> arg$1, final TFregeCodeBlock arg$2, final String/*<Character>*/ arg$3
+    final Lazy<Integer> arg$1, final String/*<Character>*/ arg$2, final String/*<Character>*/ arg$3
   ) {
     return IShow_FregeCodeBlock.show(arg$2) + arg$3;
   }
-  final public static String/*<Character>*/ showsub(final TFregeCodeBlock arg$1) {
+  final public static String/*<Character>*/ showsub(final String/*<Character>*/ arg$1) {
     return IShow_FregeCodeBlock.show(arg$1);
   }
-  final public static PreludeBase.TList<Character> showChars(final TFregeCodeBlock arg$1) {
+  final public static PreludeBase.TList<Character> showChars(final String/*<Character>*/ arg$1) {
     return PreludeList.IListView_StringJ.<Character>toList(IShow_FregeCodeBlock.show(arg$1));
   }
-  final public static String/*<Character>*/ display(final TFregeCodeBlock arg$1) {
+  final public static String/*<Character>*/ display(final String/*<Character>*/ arg$1) {
     return IShow_FregeCodeBlock.show(arg$1);
   }
-  final public static String/*<Character>*/ show(final TFregeCodeBlock arg$1) {
-    final String/*<Character>*/ tokenType$18828 = arg$1.mem$tokenType.call();
-    final String/*<Character>*/ tokenValue$18827 = arg$1.mem$tokenValue.call();
-    return "```frege\n" + (tokenValue$18827 + (" :: " + (tokenType$18828 + "\n```")));
+  final public static String/*<Character>*/ show(final String/*<Character>*/ arg$1) {
+    return "```frege\n" + (arg$1 + "\n```");
   }
   final public static String/*<Character>*/ showList(
-    final PreludeBase.TList<TFregeCodeBlock> arg$1, final String/*<Character>*/ arg$2
+    final PreludeBase.TList<String/*<Character>*/> arg$1, final String/*<Character>*/ arg$2
   ) {
     return "[" + (PreludeText.joined(
               Thunk.<String/*<Character>*/>lazy(", "),
-              PreludeList.<String/*<Character>*/, TFregeCodeBlock>map(
-                    (Func.U<TFregeCodeBlock, String/*<Character>*/>)((final Lazy<TFregeCodeBlock> η$21984) -> Thunk.<
-                          String/*<Character>*/
-                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_FregeCodeBlock.show(η$21984.call())))),
+              PreludeList.<String/*<Character>*/, String/*<Character>*/>map(
+                    (Func.U<String/*<Character>*/, String/*<Character>*/>)((
+                      final Lazy<String/*<Character>*/> η$20514
+                    ) -> Thunk.<String/*<Character>*/>shared(
+                              (Lazy<String/*<Character>*/>)(() -> IShow_FregeCodeBlock.show(
+                                        η$20514.call()
+                                      ))
+                            )),
                     arg$1
                   )
             ).call() + ("]" + arg$2));
   }
 }
-final public static class IEq_FregeCodeBlock implements PreludeBase.CEq<TFregeCodeBlock> {
+final public static class IEq_FregeCodeBlock implements PreludeBase.CEq<String/*<Character>*/> {
   public IEq_FregeCodeBlock() {}
   final public static IEq_FregeCodeBlock it = new IEq_FregeCodeBlock();
-  @Override final public int ƒhashCode(final Lazy<TFregeCodeBlock> arg$1) {
+  @Override final public int ƒhashCode(final Lazy<String/*<Character>*/> arg$1) {
     return IEq_FregeCodeBlock.hashCode(arg$1.call());
   }
-  @Override final public boolean ƒ$excl$eq(final Lazy<TFregeCodeBlock> arg$1, final Lazy<TFregeCodeBlock> arg$2) {
+  @Override final public boolean ƒ$excl$eq(final Lazy<String/*<Character>*/> arg$1, final Lazy<String/*<Character>*/> arg$2) {
     return IEq_FregeCodeBlock.$excl$eq(arg$1.call(), arg$2.call());
   }
-  @Override final public boolean ƒ$eq$eq(final Lazy<TFregeCodeBlock> arg$1, final Lazy<TFregeCodeBlock> arg$2) {
+  @Override final public boolean ƒ$eq$eq(final Lazy<String/*<Character>*/> arg$1, final Lazy<String/*<Character>*/> arg$2) {
     return IEq_FregeCodeBlock.$eq$eq(arg$1.call(), arg$2.call());
   }
-  final public static int hashCode(final TFregeCodeBlock arg$1) {
-    final String/*<Character>*/ a2$18826 = arg$1.mem$tokenType.call();
-    final String/*<Character>*/ a1$18825 = arg$1.mem$tokenValue.call();
-    return (31 * ((31 * ((31 * 1) + RunTM.constructor(arg$1))) + a1$18825.hashCode())) + a2$18826
-        .hashCode();
+  final public static int hashCode(final String/*<Character>*/ arg$1) {
+    return (31 * ((31 * 1) + RunTM.constructor(arg$1))) + arg$1.hashCode();
   }
-  final public static boolean $excl$eq(final TFregeCodeBlock arg$1, final TFregeCodeBlock arg$2) {
+  final public static boolean $excl$eq(final String/*<Character>*/ arg$1, final String/*<Character>*/ arg$2) {
     if (IEq_FregeCodeBlock.$eq$eq(arg$1, arg$2)) {
       return false;
     }
@@ -1042,12 +902,8 @@ final public static class IEq_FregeCodeBlock implements PreludeBase.CEq<TFregeCo
       return true;
     }
   }
-  final public static boolean $eq$eq(final TFregeCodeBlock arg$1, final TFregeCodeBlock arg$2) {
-    final String/*<Character>*/ µ$$19069 = arg$1.mem$tokenType.call();
-    final String/*<Character>*/ µ$$19068 = arg$1.mem$tokenValue.call();
-    final String/*<Character>*/ µ$$19071 = arg$2.mem$tokenType.call();
-    final String/*<Character>*/ µ$$19070 = arg$2.mem$tokenValue.call();
-    return µ$$19068.equals(µ$$19070) && µ$$19069.equals(µ$$19071);
+  final public static boolean $eq$eq(final String/*<Character>*/ arg$1, final String/*<Character>*/ arg$2) {
+    return arg$1.equals(arg$2);
   }
 }
 final public static class IEq_Hover implements PreludeBase.CEq<THover> {
@@ -1063,11 +919,11 @@ final public static class IEq_Hover implements PreludeBase.CEq<THover> {
     return IEq_Hover.$eq$eq(arg$1.call(), arg$2.call());
   }
   final public static int hashCode(final THover arg$1) {
-    final TFregeCodeBlock a2$18837 = arg$1.mem$content.call();
-    final Diagnostic.TRange a1$18836 = arg$1.mem$range.call();
+    final String/*<Character>*/ a2$18497 = arg$1.mem$content.call();
+    final Diagnostic.TRange a1$18496 = arg$1.mem$range.call();
     return (31 * ((31 * ((31 * 1) + RunTM.constructor(arg$1))) + Diagnostic.IEq_Range.hashCode(
-              a1$18836
-            ))) + IEq_FregeCodeBlock.hashCode(a2$18837);
+              a1$18496
+            ))) + IEq_FregeCodeBlock.hashCode(a2$18497);
   }
   final public static boolean $excl$eq(final THover arg$1, final THover arg$2) {
     if (IEq_Hover.$eq$eq(arg$1, arg$2)) {
@@ -1078,28 +934,28 @@ final public static class IEq_Hover implements PreludeBase.CEq<THover> {
     }
   }
   final public static boolean $eq$eq(final THover arg$1, final THover arg$2) {
-    final TFregeCodeBlock µ$$19073 = arg$1.mem$content.call();
-    final Diagnostic.TRange µ$$19072 = arg$1.mem$range.call();
-    final TFregeCodeBlock µ$$19075 = arg$2.mem$content.call();
-    final Diagnostic.TRange µ$$19074 = arg$2.mem$range.call();
-    return Diagnostic.IEq_Range.$eq$eq(µ$$19072, µ$$19074) && IEq_FregeCodeBlock.$eq$eq(
-              µ$$19073, µ$$19075
+    final String/*<Character>*/ µ$$18567 = arg$1.mem$content.call();
+    final Diagnostic.TRange µ$$18566 = arg$1.mem$range.call();
+    final String/*<Character>*/ µ$$18569 = arg$2.mem$content.call();
+    final Diagnostic.TRange µ$$18568 = arg$2.mem$range.call();
+    return Diagnostic.IEq_Range.$eq$eq(µ$$18566, µ$$18568) && IEq_FregeCodeBlock.$eq$eq(
+              µ$$18567, µ$$18569
             );
   }
 }
 final public static class THover implements frege.runtime.Value, Lazy<THover> {
-  private THover(final Lazy<Diagnostic.TRange> arg$1, final Lazy<TFregeCodeBlock> arg$2) {
+  private THover(final Lazy<Diagnostic.TRange> arg$1, final Lazy<String/*<Character>*/> arg$2) {
     mem$range = Thunk.<Diagnostic.TRange>shared(arg$1);
-    mem$content = Thunk.<TFregeCodeBlock>shared(arg$2);
+    mem$content = Thunk.<String/*<Character>*/>shared(arg$2);
   }
   final public int constructor() {
     return 0;
   }
-  final public static THover mk(final Lazy<Diagnostic.TRange> arg$1, final Lazy<TFregeCodeBlock> arg$2) {
+  final public static THover mk(final Lazy<Diagnostic.TRange> arg$1, final Lazy<String/*<Character>*/> arg$2) {
     return new THover(arg$1, arg$2);
   }
   final public Lazy<Diagnostic.TRange> mem$range  ;
-  final public Lazy<TFregeCodeBlock> mem$content  ;
+  final public Lazy<String/*<Character>*/> mem$content  ;
   final public THover call() {
     return this;
   }
@@ -1115,7 +971,7 @@ final public static class THover implements frege.runtime.Value, Lazy<THover> {
   final public static THover upd$range(final THover arg$1, final Lazy<Diagnostic.TRange> arg$2) {
     return THover.mk(arg$2, arg$1.mem$content);
   }
-  final public static THover upd$content(final THover arg$1, final Lazy<TFregeCodeBlock> arg$2) {
+  final public static THover upd$content(final THover arg$1, final Lazy<String/*<Character>*/> arg$2) {
     return THover.mk(arg$1.mem$range, arg$2);
   }
   final public static <α> boolean has$content(final Lazy<α> arg$1) {
@@ -1130,121 +986,42 @@ final public static class THover implements frege.runtime.Value, Lazy<THover> {
               arg$1.mem$content
             );
   }
-  final public static THover chg$content(final THover arg$1, final Lazy<Func.U<TFregeCodeBlock, TFregeCodeBlock>> arg$2) {
+  final public static THover chg$content(
+    final THover arg$1, final Lazy<Func.U<String/*<Character>*/, String/*<Character>*/>> arg$2
+  ) {
     return THover.mk(
               arg$1.mem$range,
-              Thunk.<TFregeCodeBlock>nested((Lazy<Lazy<TFregeCodeBlock>>)(() -> arg$2.call().apply(arg$1.mem$content)))
-            );
-  }
-  final public static TFregeCodeBlock content(final THover arg$1) {
-    final TFregeCodeBlock a2$18449 = arg$1.mem$content.call();
-    return a2$18449;
-  }
-  final public static Diagnostic.TRange range(final THover arg$1) {
-    final Diagnostic.TRange a1$18460 = arg$1.mem$range.call();
-    return a1$18460;
-  }
-}
-final public static class TFregeCodeBlock implements frege.runtime.Value, Lazy<TFregeCodeBlock> {
-  private TFregeCodeBlock(final Lazy<String/*<Character>*/> arg$1, final Lazy<String/*<Character>*/> arg$2) {
-    mem$tokenValue = Thunk.<String/*<Character>*/>shared(arg$1);
-    mem$tokenType = Thunk.<String/*<Character>*/>shared(arg$2);
-  }
-  final public int constructor() {
-    return 0;
-  }
-  final public static TFregeCodeBlock mk(final Lazy<String/*<Character>*/> arg$1, final Lazy<String/*<Character>*/> arg$2) {
-    return new TFregeCodeBlock(arg$1, arg$2);
-  }
-  final public Lazy<String/*<Character>*/> mem$tokenValue  ;
-  final public Lazy<String/*<Character>*/> mem$tokenType  ;
-  final public TFregeCodeBlock call() {
-    return this;
-  }
-  final public boolean isShared() {
-    return true;
-  }
-  final public Thunk<TFregeCodeBlock> asThunk() {
-    return null;
-  }
-  @SuppressWarnings("unchecked") final public TFregeCodeBlock simsalabim() {
-    return (TFregeCodeBlock)this;
-  }
-  final public static TFregeCodeBlock upd$tokenValue(final TFregeCodeBlock arg$1, final Lazy<String/*<Character>*/> arg$2) {
-    return TFregeCodeBlock.mk(arg$2, arg$1.mem$tokenType);
-  }
-  final public static String/*<Character>*/ tokenValue(final TFregeCodeBlock arg$1) {
-    final String/*<Character>*/ a1$18436 = arg$1.mem$tokenValue.call();
-    return a1$18436;
-  }
-  final public static TFregeCodeBlock upd$tokenType(final TFregeCodeBlock arg$1, final Lazy<String/*<Character>*/> arg$2) {
-    return TFregeCodeBlock.mk(arg$1.mem$tokenValue, arg$2);
-  }
-  final public static String/*<Character>*/ tokenType(final TFregeCodeBlock arg$1) {
-    final String/*<Character>*/ a2$18425 = arg$1.mem$tokenType.call();
-    return a2$18425;
-  }
-  final public static <α> boolean has$tokenValue(final Lazy<α> arg$1) {
-    return true;
-  }
-  final public static TFregeCodeBlock chg$tokenValue(
-    final TFregeCodeBlock arg$1, final Lazy<Func.U<String/*<Character>*/, String/*<Character>*/>> arg$2
-  ) {
-    return TFregeCodeBlock.mk(
               Thunk.<String/*<Character>*/>nested(
-                    (Lazy<Lazy<String/*<Character>*/>>)(() -> arg$2.call().apply(arg$1.mem$tokenValue))
-                  ),
-              arg$1.mem$tokenType
-            );
-  }
-  final public static TFregeCodeBlock chg$tokenType(
-    final TFregeCodeBlock arg$1, final Lazy<Func.U<String/*<Character>*/, String/*<Character>*/>> arg$2
-  ) {
-    return TFregeCodeBlock.mk(
-              arg$1.mem$tokenValue,
-              Thunk.<String/*<Character>*/>nested(
-                    (Lazy<Lazy<String/*<Character>*/>>)(() -> arg$2.call().apply(arg$1.mem$tokenType))
+                    (Lazy<Lazy<String/*<Character>*/>>)(() -> arg$2.call().apply(arg$1.mem$content))
                   )
             );
   }
-  final public static <α> boolean has$tokenType(final Lazy<α> arg$1) {
+  final public static String/*<Character>*/ content(final THover arg$1) {
+    final String/*<Character>*/ a2$18408 = arg$1.mem$content.call();
+    return a2$18408;
+  }
+  final public static Diagnostic.TRange range(final THover arg$1) {
+    final Diagnostic.TRange a1$18419 = arg$1.mem$range.call();
+    return a1$18419;
+  }
+}
+public static abstract class TFregeCodeBlock  {
+  final public static String/*<Character>*/ upd$code(
+    final String/*<Character>*/ arg$1, final Lazy<String/*<Character>*/> arg$2
+  ) {
+    return arg$2.call();
+  }
+  final public static <α> boolean has$code(final Lazy<α> arg$1) {
     return true;
   }
-}
-final public static boolean wanted(final Symbols.TSymbolT<Global.TGlobal> arg$1) {
-  if (Symbols.TSymbolT.<Global.TGlobal>has$alias(arg$1)) {
-    return false;
+  final public static String/*<Character>*/ chg$code(
+    final String/*<Character>*/ arg$1, final Lazy<Func.U<String/*<Character>*/, String/*<Character>*/>> arg$2
+  ) {
+    return arg$2.call().apply(Thunk.<String/*<Character>*/>lazy(arg$1)).call();
   }
-  final QNames.TQName $22011 = Symbols.TSymbolT.<Global.TGlobal>name(arg$1);
-  final QNames.TQName.DLocal $22012 = $22011.asLocal();
-  if ($22012 != null) {
-    return false;
+  final public static String/*<Character>*/ code(final String/*<Character>*/ arg$1) {
+    return arg$1;
   }
-  if (frege.runtime.Regex9.find(QNames.TQName.base(Symbols.TSymbolT.<Global.TGlobal>name(arg$1)), Hover.K.rgx22013)) {
-    return false;
-  }
-  return true;
-}
-final public static <α> String/*<Character>*/ verbose(
-  final Nice.CNice<α> ctx$1, final QNameMatcher.CQNameMatcher<α> ctx$2, final Lazy<Global.TGlobal> arg$1,
-  final frege.compiler.types.Types.TSigmaT<α> arg$2
-) {
-  if (frege.compiler.types.Types.<α>isPSigma(arg$2)) {
-    return "?";
-  }
-  return Nicer.INice_RhoT.<α>nicer(ctx$1, ctx$2, frege.compiler.types.Types.TSigmaT.<α>rho(arg$2), arg$1.call());
-}
-final public static Tokens.TToken trans(final Tokens.TToken arg$1) {
-  final String/*<Character>*/ $22014 = arg$1.mem$value;
-  if ("_".equals($22014)) {
-    if (arg$1.mem$tokid == TokenID.TTokenID.CHAR) {
-      return Tokens.TToken.upd$value(Tokens.TToken.upd$tokid(arg$1, TokenID.TTokenID.VARID), "it");
-    }
-  }
-  return arg$1;
-}
-final public static SNames.TSName tokenToSName(final Tokens.TToken arg$1) {
-  return SNames.TSName.DSimple.mk(arg$1);
 }
 final public static Diagnostic.TRange tokenToRange(final Tokens.TToken arg$1) {
   return Diagnostic.TRange.mk(
@@ -1260,12 +1037,12 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
 ) {
   return State.TStateT.<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.TQName>mk(
             (Func.U<Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>>)((
-              final Lazy<Global.TGlobal> arg$22015
+              final Lazy<Global.TGlobal> arg$20533
             ) -> {
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$20747 =
-                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$22015, arg$22015)
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$19526 =
+                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$20533, arg$20533)
                   .call();
-                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, PreludeBase.TEither<Short, QNames.TQName>> $22017 =
+                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, PreludeBase.TEither<Short, QNames.TQName>> $20535 =
                   State.IMonadTrans_StateT.<
                     Global.TGlobal, PreludeBase.TEither<Short, QNames.TQName>, PreludeBase.TMaybe<?>
                   >lift(
@@ -1276,7 +1053,7 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
                                   >)Thunk.<PreludeBase.TMaybe<PreludeBase.TEither<Short, QNames.TQName>>>shared(
                                         (Lazy<PreludeBase.TMaybe<
                                           PreludeBase.TEither<Short, QNames.TQName>
-                                        >>)(() -> Global.TGlobal.resolved(v2895$20747.mem1.call(), arg$1))
+                                        >>)(() -> Global.TGlobal.resolved(v2895$19526.mem1.call(), arg$1))
                                       ).call())
                             )
                       );
@@ -1285,22 +1062,22 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
                     Kind.U<
                       PreludeBase.TMaybe<?>, PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal>
                     >
-                  > v7734$20776 = $22017.mem$run;
+                  > v7734$19555 = $20535.mem$run;
                   final PreludeBase.TMaybe<
                     PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal>
-                  > $22019 = RunTM.<
+                  > $20537 = RunTM.<
                     Func.U<
                       Global.TGlobal,
                       PreludeBase.TMaybe<PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal>>
                     >
-                  >cast(v7734$20776).apply(v2895$20747.mem2).call();
+                  >cast(v7734$19555).apply(v2895$19526.mem2).call();
                   final PreludeBase.TMaybe.DJust<
                     PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal>
-                  > $22020 = $22019.asJust();
-                  if ($22020 != null) {
-                    final PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal> v2895$20808 =
-                    $22020.mem1.call();
-                    final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.TQName> $22024 =
+                  > $20538 = $20537.asJust();
+                  if ($20538 != null) {
+                    final PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal> v2895$19587 =
+                    $20538.mem1.call();
+                    final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.TQName> $20542 =
                     State.IMonadTrans_StateT.<Global.TGlobal, QNames.TQName, PreludeBase.TMaybe<?>>lift(
                           Maybe.IMonad_Maybe.it,
                           Thunk.<Kind.U<PreludeBase.TMaybe<?>, QNames.TQName>>shared(
@@ -1311,29 +1088,29 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
                                                 PreludeBase.TMaybe<QNames.TQName>, Short, QNames.TQName
                                               >either(
                                                     (Func.U<Short, PreludeBase.TMaybe<QNames.TQName>>)((
-                                                      final Lazy<Short> η$22022
+                                                      final Lazy<Short> η$20540
                                                     ) -> Thunk.<PreludeBase.TMaybe<QNames.TQName>>shared(
                                                               (Lazy<PreludeBase.TMaybe<
                                                                 QNames.TQName
                                                               >>)(() -> PreludeBase.<
                                                                     Short, PreludeBase.TMaybe<QNames.TQName>
                                                                   >$const(
-                                                                        PreludeBase.TMaybe.DNothing.<QNames.TQName>mk(), η$22022
+                                                                        PreludeBase.TMaybe.DNothing.<QNames.TQName>mk(), η$20540
                                                                       ))
                                                             )),
                                                     (Func.U<QNames.TQName, PreludeBase.TMaybe<QNames.TQName>>)((
-                                                      final Lazy<QNames.TQName> η$22023
+                                                      final Lazy<QNames.TQName> η$20541
                                                     ) -> PreludeBase.TMaybe.DJust.<QNames.TQName>mk(
-                                                              η$22023
+                                                              η$20541
                                                             )),
-                                                    v2895$20808.mem1.call()
+                                                    v2895$19587.mem1.call()
                                                   ))
                                         ).call())
                               )
                         );
                     final Func.U<
                       Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>
-                    > v7739$20781 = $22024.mem$run;
+                    > v7739$19560 = $20542.mem$run;
                     return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>>shared(
                               (Lazy<Kind.U<
                                 PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>
@@ -1347,14 +1124,14 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
                                                 Global.TGlobal,
                                                 PreludeBase.TMaybe<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>
                                               >
-                                            >cast(v7739$20781).apply(v2895$20808.mem2))
+                                            >cast(v7739$19560).apply(v2895$19587.mem2))
                                       ).call())
                             );
                   }
                   final PreludeBase.TMaybe.DNothing<
                     PreludeBase.TTuple2<PreludeBase.TEither<Short, QNames.TQName>, Global.TGlobal>
-                  > $22026 = $22019.asNothing();
-                  assert $22026 != null;
+                  > $20544 = $20537.asNothing();
+                  assert $20544 != null;
                   return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>>lazy(
                             (Kind.U<
                               PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>
@@ -1363,761 +1140,23 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.
                 })
           );
 }
-final public static State.TState<Global.TGlobal, PreludeBase.TList<QNames.TQName>> sNameToQName(
-  final SNames.TSName arg$1
-) {
-  return State.TState.<Global.TGlobal, PreludeBase.TList<QNames.TQName>>mk(
-            (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$22027
-            ) -> {
-                  final State.TState<Global.TGlobal, PreludeBase.TList<QNames.TQName>> $22029 =
-                  Resolve.resolve(
-                        (Func.U<String/*<Character>*/, QNames.TQName>)((
-                          final Lazy<String/*<Character>*/> η$22028
-                        ) -> QNames.TQName.DVName.mk(Global.TGlobal.thisPack(arg$22027.call()), η$22028.call())),
-                        Positions.TPosition.$null, arg$1
-                      );
-                  final Func.U<
-                    Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal>
-                  > v7688$21005 = $22029.mem$fun;
-                  final PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal> $22031 =
-                  v7688$21005.apply(arg$22027).call();
-                  final PreludeBase.TList<QNames.TQName> v7691$21008 = $22031.mem1.call();
-                  return PreludeBase.TTuple2.<PreludeBase.TList<QNames.TQName>, Global.TGlobal>mk(
-                            v7691$21008, $22031.mem2
-                          );
-                })
-          );
-}
-final public static State.TState<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>> resolveSymbol2(
-  final Tokens.TToken arg$1
-) {
-  return State.TState.<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>mk(
-            (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$22033
-            ) -> {
-                  final State.TState<Global.TGlobal, PreludeBase.TList<QNames.TQName>> $22034 =
-                  Hover.sNameToQName(Hover.tokenToSName(arg$1));
-                  final Func.U<
-                    Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal>
-                  > v7688$21157 = $22034.mem$fun;
-                  final PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal> $22036 =
-                  v7688$21157.apply(arg$22033).call();
-                  final State.TState<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>> $22038 =
-                  State.IMonad_State.<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>pure(
-                        Maybe.<Symbols.TSymbolT<Global.TGlobal>, PreludeBase.TList<?>>catMaybes(
-                              PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
-                              Thunk.<Kind.U<PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>>>shared(
-                                    (Lazy<Kind.U<
-                                      PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                    >>)(() -> (Kind.U<
-                                          PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                        >)Thunk.<PreludeBase.TList<PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>>>shared(
-                                              (Lazy<PreludeBase.TList<
-                                                PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                              >>)(() -> PreludeMonad.IFunctor_$lbrack$rbrack.<
-                                                    QNames.TQName, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                  >fmap(
-                                                        (Func.U<
-                                                          QNames.TQName, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                        >)((final Lazy<QNames.TQName> η$22037) -> Thunk.<
-                                                              PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                            >nested(
-                                                                  (Lazy<Lazy<PreludeBase.TMaybe<
-                                                                    Symbols.TSymbolT<Global.TGlobal>
-                                                                  >>>)(() -> Global.TGlobal.find(
-                                                                            arg$22033.call(), η$22037.call()
-                                                                          ))
-                                                                )),
-                                                        $22036.mem1.call()
-                                                      ))
-                                            ).call())
-                                  )
-                            )
-                      );
-                  final Func.U<
-                    Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>
-                  > v7693$21162 = $22038.mem$fun;
-                  return Thunk.<PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>>nested(
-                            (Lazy<Lazy<PreludeBase.TTuple2<
-                              PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal
-                            >>>)(() -> v7693$21162.apply($22036.mem2))
-                          );
-                })
-          );
-}
-final public static PreludeBase.TList<Tokens.TToken> posToTokens(
-  final PreludeBase.TList<Positions.TPosition> arg$1, final Lazy<Global.TGlobal> arg$2
-) {
-  final PreludeBase.TList.DCons<Positions.TPosition> $22040 = arg$1.asCons();
-  if ($22040 != null) {
-    final Positions.TPosition µ$$18919 = $22040.mem1.call();
-    return PreludeList.IListMonoid_$lbrack$rbrack.<Tokens.TToken>$plus$plus(
-              Global.tokens(µ$$18919, arg$2),
-              Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
-                    (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> Hover.posToTokens($22040.mem2.call(), arg$2))
-                  )
-            );
-  }
-  final PreludeBase.TList.DList<Positions.TPosition> $22042 = arg$1.asList();
-  assert $22042 != null;
-  return PreludeBase.TList.DList.<Tokens.TToken>mk();
-}
-final public static <α> PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>> magicPNs(
-  final PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>> arg$1
-) {
-  final PreludeBase.TList.DList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>> $22043 =
-  arg$1.asList();
-  if ($22043 != null) {
-    return PreludeBase.TList.DList.<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>mk();
-  }
-  final PreludeBase.TList.DCons<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>> $22044 =
-  arg$1.asCons();
-  assert $22044 != null;
-  final PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α> x$18511 = $22044.mem1
-  .call();
-  final PreludeBase.TList<String/*<Character>*/> $22046 = x$18511.mem1.call();
-  final PreludeBase.TList.DCons<String/*<Character>*/> $22047 = $22046.asCons();
-  if ($22047 != null) {
-    final PreludeBase.TList<String/*<Character>*/> $22048 = $22047.mem2.call();
-    final PreludeBase.TList.DCons<String/*<Character>*/> $22049 = $22048.asCons();
-    if ($22049 != null) {
-      final String/*<Character>*/ y$18513 = $22049.mem1.call();
-      final String/*<Character>*/ $22051 = $22047.mem1.call();
-      if ("frege".equals($22051)) {
-        if (y$18513.length() > 0) {
-          if (! Character.isUpperCase((char)PreludeList.IListView_StringJ.<Character>head(y$18513).call())) {
-            return PreludeBase.<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>$excl$colon(
-                      PreludeBase.TTuple2.<PreludeBase.TList<String/*<Character>*/>, α>mk(
-                            Thunk.<PreludeBase.TList<String/*<Character>*/>>shared(
-                                  (Lazy<PreludeBase.TList<String/*<Character>*/>>)(() -> PreludeBase.<
-                                        String/*<Character>*/
-                                      >$excl$colon(
-                                            Character.toString(
-                                                  Character.toUpperCase(
-                                                        (char)PreludeList.IListView_StringJ.<
-                                                          Character
-                                                        >head(y$18513).call()
-                                                      )
-                                                ) + PreludeList.IListView_StringJ.<Character>tail(
-                                                  y$18513
-                                                ).call(),
-                                            $22049.mem2
-                                          ))
-                                ),
-                            x$18511.mem2
-                          ),
-                      Thunk.<PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>>shared(
-                            (Lazy<PreludeBase.TList<
-                              PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>
-                            >>)(() -> PreludeBase.<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>$excl$colon(
-                                      x$18511,
-                                      Thunk.<
-                                        PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>
-                                      >shared(
-                                            (Lazy<PreludeBase.TList<
-                                              PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>
-                                            >>)(() -> Hover.<α>magicPNs($22044.mem2.call()))
-                                          )
-                                    ))
-                          )
-                    );
-          }
-        }
-      }
-    }
-  }
-  return PreludeBase.<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>$excl$colon(
-            x$18511,
-            Thunk.<PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>>shared(
-                  (Lazy<PreludeBase.TList<PreludeBase.TTuple2<PreludeBase.TList<String/*<Character>*/>, α>>>)(() -> Hover.<
-                        α
-                      >magicPNs($22044.mem2.call()))
-                )
-          );
-}
-final public static <𝓐> String/*<Character>*/ label(final Lazy<Global.TGlobal> arg$1, final Symbols.TSymbolT<𝓐> arg$2) {
-  final Symbols.TSymbolT.DSymA<𝓐> $22052 = arg$2.asSymA();
-  if ($22052 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$18927 = $22052.mem$typ;
-    final QNames.TQName µ$$18925 = $22052.mem$name;
-    return QNames.TQName.base(µ$$18925) + (" = " + Nicer.INice_RhoT.<QNames.TQName>nicer(
-              Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it,
-              frege.compiler.types.Types.TSigmaT.<QNames.TQName>rho(µ$$18927),
-              Global.TGlobal.chg$options(
-                    arg$1.call(),
-                    (Func.U<Global.TOptions, Global.TOptions>)((final Lazy<Global.TOptions> arg$22055) -> {
-                          final Global.TOptions in$18598 = arg$22055.call();
-                          return Thunk.<Global.TOptions>shared(
-                                    (Lazy<Global.TOptions>)(() -> Global.TOptions.chg$flags(
-                                              in$18598,
-                                              (Func.U<Long, Long>)((final Lazy<Long> η$22057) -> Thunk.<
-                                                    Long
-                                                  >shared(
-                                                        (Lazy<Long>)(() -> Flags.<Short>flagSet(
-                                                                  Flags.IEnum_Flag.it, Flags.TFlag.SPECIAL,
-                                                                  (long)η$22057.call()
-                                                                ))
-                                                      ))
-                                            ))
-                                  );
-                        })
-                  )
-            ));
-  }
-  final Symbols.TSymbolT.DSymC<𝓐> $22058 = arg$2.asSymC();
-  if ($22058 != null) {
-    final frege.compiler.types.Types.TTauT<QNames.TQName> µ$$18934 = $22058.mem$tau;
-    final QNames.TQName µ$$18933 = $22058.mem$name;
-    return QNames.TQName.base(µ$$18933) + (frege.tools.doc.Utilities.symDcolon(
-              arg$1.call()
-            ) + frege.compiler.types.Types.IShow_KindT.<QNames.TQName>show(
-              frege.compiler.types.Types.TTauT.<QNames.TQName>kind(µ$$18934)
-            ));
-  }
-  final Symbols.TSymbolT.DSymD<𝓐> $22061 = arg$2.asSymD();
-  if ($22061 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$18944 = $22061.mem$typ;
-    final QNames.TQName µ$$18942 = $22061.mem$name;
-    return QNames.TQName.base(µ$$18942) + (frege.tools.doc.Utilities.symDcolon(arg$1.call()) + Hover.<
-          QNames.TQName
-        >verbose(Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it, arg$1, µ$$18944));
-  }
-  final Symbols.TSymbolT.DSymI<𝓐> $22064 = arg$2.asSymI();
-  if ($22064 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$18954 = $22064.mem$typ;
-    final QNames.TQName µ$$18953 = $22064.mem$clas;
-    return Nicer.INice_RhoT.<QNames.TQName>nicer(
-              Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it,
-              Types.instanceHead(µ$$18953, frege.compiler.types.Types.TSigmaT.<QNames.TQName>rho(µ$$18954)), arg$1.call()
-            );
-  }
-  final Symbols.TSymbolT.DSymT<𝓐> $22067 = arg$2.asSymT();
-  if ($22067 != null) {
-    final boolean µ$$18968 = $22067.mem$pur;
-    final PreludeBase.TMaybe<String/*<Character>*/> µ$$18964 = $22067.mem$nativ;
-    final QNames.TQName µ$$18960 = $22067.mem$name;
-    final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22071 = µ$$18964.asJust();
-    if ($22071 != null) {
-      final String/*<Character>*/ µ$$18970 = $22071.mem1.call();
-      if (µ$$18968) {
-        return QNames.TQName.base(µ$$18960) + (frege.tools.doc.Utilities.symDcolon(
-                  arg$1.call()
-                ) + ("immutable native " + µ$$18970));
-      }
-      return QNames.TQName.base(µ$$18960) + (frege.tools.doc.Utilities.symDcolon(
-                arg$1.call()
-              ) + ("mutable native " + µ$$18970));
-    }
-  }
-  final Symbols.TSymbolT.DSymV<𝓐> $22073 = arg$2.asSymV();
-  if ($22073 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$18976 = $22073.mem$typ;
-    final QNames.TQName µ$$18975 = $22073.mem$name;
-    return QNames.TQName.base(µ$$18975) + (frege.tools.doc.Utilities.symDcolon(arg$1.call()) + Hover.<
-          QNames.TQName
-        >verbose(Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it, arg$1, µ$$18976));
-  }
-  if (Symbols.TSymbolT.<𝓐>has$kind(arg$2)) {
-    return QNames.TQName.base(Symbols.TSymbolT.<𝓐>name(arg$2)) + (frege.tools.doc.Utilities.symDcolon(
-              arg$1.call()
-            ) + frege.compiler.types.Types.IShow_KindT.<QNames.TQName>show(Symbols.TSymbolT.<𝓐>kind(arg$2)));
-  }
-  return QNames.TQName.base(Symbols.TSymbolT.<𝓐>name(arg$2));
-}
-final public static Func.U<RealWorld, Modules.TY<Modules.TRTree<?>>> initRoot(final Lazy<String/*<Character>*/> arg$1) {
-  return PreludeMonad.IMonad_ST.<RealWorld, Modules.TY<Modules.TRTree<?>>>pure(Modules.noPacks);
-}
-final public static PreludeBase.TMaybe<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> match(
-  final String/*<Character>*/ arg$1, final java.util.regex.Pattern arg$2
-) {
-  final class Let$22076  {
-    final Let$22076 let$22076 = this;
-    final public PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> groups$18798(
-      final java.util.regex.MatchResult arg$3
-    ) {
-      final class Let$22077  {
-        final Let$22077 let$22077 = this;
-        final public PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $lc1002$18800(
-          final PreludeBase.TList<Integer> arg$4
-        ) {
-          final PreludeBase.TList.DCons<Integer> $22078 = arg$4.asCons();
-          if ($22078 != null) {
-            final int i$18802 = (int)$22078.mem1.call();
-            return PreludeBase.<PreludeBase.TMaybe<String/*<Character>*/>>$excl$colon(
-                      Regex.TMatchResult.group(arg$3, i$18802),
-                      Thunk.<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>shared(
-                            (Lazy<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>)(() -> let$22077
-                                .$lc1002$18800($22078.mem2.call()))
-                          )
-                    );
-          }
-          final PreludeBase.TList.DList<Integer> $22080 = arg$4.asList();
-          assert $22080 != null;
-          return PreludeBase.TList.DList.<PreludeBase.TMaybe<String/*<Character>*/>>mk();
-        }
-      }
-      final Let$22077 let$22077 = new Let$22077();
-      return let$22077.$lc1002$18800(PreludeBase.IEnum_Int.enumFromTo(1, arg$3.groupCount()));
-    }
-  }
-  final Let$22076 let$22076 = new Let$22076();
-  return Maybe.IFunctor_Maybe.<java.util.regex.MatchResult, PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>fmap(
-            (Func.U<java.util.regex.MatchResult, PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>)((
-              final Lazy<java.util.regex.MatchResult> η$22081
-            ) -> Thunk.<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>shared(
-                      (Lazy<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>>)(() -> let$22076
-                          .groups$18798(η$22081.call()))
-                    )),
-            PreludeBase._toMaybe(frege.runtime.Regex9.findResult(arg$1, arg$2))
-          );
-}
-final public static PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> getSymbols(
-  final Lazy<Global.TGlobal> arg$1, final Lazy<TreeMap.TTreeMap<String/*<Character>*/, Symbols.TSymbolT<Global.TGlobal>>> arg$2
-) {
-  final class Let$22082  {
-    final Let$22082 let$22082 = this;
-    final public short positionAndName$18726(
-      final Symbols.TSymbolT<Global.TGlobal> arg$3, final Symbols.TSymbolT<Global.TGlobal> arg$4
-    ) {
-      final short $22083 = Positions.IOrd_Position.$lt$eq$gt(
-            Symbols.TSymbolT.<Global.TGlobal>pos(arg$3), Symbols.TSymbolT.<Global.TGlobal>pos(arg$4)
-          );
-      if ($22083 == PreludeBase.TOrdering.Eq) {
-        return PreludeBase.<Symbols.TSymbolT<Global.TGlobal>, String/*<Character>*/>comparing(
-                  PreludeBase.IOrd_String.it,
-                  (Func.U<Symbols.TSymbolT<Global.TGlobal>, String/*<Character>*/>)((
-                    final Lazy<Symbols.TSymbolT<Global.TGlobal>> arg$22084
-                  ) -> {
-                        final Symbols.TSymbolT<Global.TGlobal> v2338$21398 = arg$22084
-                        .call();
-                        return Thunk.<String/*<Character>*/>shared(
-                                  (Lazy<String/*<Character>*/>)(() -> QNames.TQName.base(
-                                            Symbols.TSymbolT.<Global.TGlobal>name(v2338$21398)
-                                          ))
-                                );
-                      }),
-                  arg$3, arg$4
-                );
-      }
-      return $22083;
-    }
-  }
-  final Let$22082 let$22082 = new Let$22082();
-  return List.<Symbols.TSymbolT<Global.TGlobal>, PreludeBase.TList<?>>sortBy(
-            PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
-            (Func.U<Symbols.TSymbolT<Global.TGlobal>, Func.U<Symbols.TSymbolT<Global.TGlobal>, Short>>)((
-              final Lazy<Symbols.TSymbolT<Global.TGlobal>> η$22086
-            ) -> (Func.U<Symbols.TSymbolT<Global.TGlobal>, Short>)((
-                  final Lazy<Symbols.TSymbolT<Global.TGlobal>> η$22087
-                ) -> Thunk.<Short>shared(
-                          (Lazy<Short>)(() -> let$22082.positionAndName$18726(η$22086.call(), η$22087.call()))
-                        ))),
-            Thunk.<Kind.U<PreludeBase.TList<?>, Symbols.TSymbolT<Global.TGlobal>>>shared(
-                  (Lazy<Kind.U<PreludeBase.TList<?>, Symbols.TSymbolT<Global.TGlobal>>>)(() -> (Kind.U<
-                        PreludeBase.TList<?>, Symbols.TSymbolT<Global.TGlobal>
-                      >)Thunk.<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>shared(
-                            (Lazy<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>)(() -> PreludeList.<
-                                  Symbols.TSymbolT<Global.TGlobal>
-                                >filter(
-                                      (Func.U<Symbols.TSymbolT<Global.TGlobal>, Boolean>)((
-                                        final Lazy<Symbols.TSymbolT<Global.TGlobal>> η$22088
-                                      ) -> Thunk.<Boolean>shared((Lazy<Boolean>)(() -> Hover.wanted(η$22088.call())))),
-                                      TreeMap.<String/*<Character>*/, Symbols.TSymbolT<Global.TGlobal>>values(
-                                            arg$2.call()
-                                          ).call()
-                                    ))
-                          ).call())
-                )
-          );
-}
-final public static Lazy<String/*<Character>*/> getSymbolType(
-  final Lazy<Global.TGlobal> arg$1, final Symbols.TSymbolT<Global.TGlobal> arg$2
-) {
-  final Symbols.TSymbolT.DSymC<Global.TGlobal> $22089 = arg$2.asSymC();
-  if ($22089 != null) {
-    final frege.compiler.types.Types.TTauT<QNames.TQName> µ$$19001 = $22089.mem$tau;
-    return Thunk.<String/*<Character>*/>shared(
-              (Lazy<String/*<Character>*/>)(() -> frege.compiler.types.Types.IShow_KindT.<
-                    QNames.TQName
-                  >show(frege.compiler.types.Types.TTauT.<QNames.TQName>kind(µ$$19001)))
-            );
-  }
-  final Symbols.TSymbolT.DSymD<Global.TGlobal> $22091 = arg$2.asSymD();
-  if ($22091 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$19011 = $22091.mem$typ;
-    return Thunk.<String/*<Character>*/>shared(
-              (Lazy<String/*<Character>*/>)(() -> Hover.<QNames.TQName>verbose(
-                        Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it, arg$1, µ$$19011
-                      ))
-            );
-  }
-  final Symbols.TSymbolT.DSymI<Global.TGlobal> $22093 = arg$2.asSymI();
-  if ($22093 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$19021 = $22093.mem$typ;
-    return Thunk.<String/*<Character>*/>shared(
-              (Lazy<String/*<Character>*/>)(() -> Hover.<QNames.TQName>verbose(
-                        Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it, arg$1, µ$$19021
-                      ))
-            );
-  }
-  final Symbols.TSymbolT.DSymL<Global.TGlobal> $22095 = arg$2.asSymL();
-  if ($22095 != null) {
-    final QNames.TQName µ$$19027 = $22095.mem$alias;
-    return PreludeBase.<String/*<Character>*/, Symbols.TSymbolT<Global.TGlobal>>maybe(
-              Thunk.<String/*<Character>*/>lazy(""),
-              (Func.U<Symbols.TSymbolT<Global.TGlobal>, String/*<Character>*/>)((
-                final Lazy<Symbols.TSymbolT<Global.TGlobal>> η$22097
-              ) -> Thunk.<String/*<Character>*/>nested(
-                        (Lazy<Lazy<String/*<Character>*/>>)(() -> Hover.getSymbolType(
-                                  arg$1, η$22097.call()
-                                ))
-                      )),
-              Global.TGlobal.find(arg$1.call(), µ$$19027).call()
-            );
-  }
-  final Symbols.TSymbolT.DSymT<Global.TGlobal> $22098 = arg$2.asSymT();
-  if ($22098 != null) {
-    final boolean µ$$19040 = $22098.mem$pur;
-    final PreludeBase.TMaybe<String/*<Character>*/> µ$$19036 = $22098.mem$nativ;
-    final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22101 = µ$$19036.asJust();
-    if ($22101 != null) {
-      final String/*<Character>*/ µ$$19042 = $22101.mem1.call();
-      if (µ$$19040) {
-        return Thunk.<String/*<Character>*/>shared((Lazy<String/*<Character>*/>)(() -> "immutable native " + µ$$19042));
-      }
-      return Thunk.<String/*<Character>*/>shared((Lazy<String/*<Character>*/>)(() -> "mutable native " + µ$$19042));
-    }
-  }
-  final Symbols.TSymbolT.DSymV<Global.TGlobal> $22103 = arg$2.asSymV();
-  if ($22103 != null) {
-    final frege.compiler.types.Types.TSigmaT<QNames.TQName> µ$$19048 = $22103.mem$typ;
-    return Thunk.<String/*<Character>*/>shared(
-              (Lazy<String/*<Character>*/>)(() -> Hover.<QNames.TQName>verbose(
-                        Nice.INice_QName.it, QNameMatcher.IQNameMatcher_QName.it, arg$1, µ$$19048
-                      ))
-            );
-  }
-  if (Symbols.TSymbolT.<Global.TGlobal>has$kind(arg$2)) {
-    return Thunk.<String/*<Character>*/>shared(
-              (Lazy<String/*<Character>*/>)(() -> frege.compiler.types.Types.IShow_KindT.<
-                    QNames.TQName
-                  >show(Symbols.TSymbolT.<Global.TGlobal>kind(arg$2)))
-            );
-  }
-  return Thunk.<String/*<Character>*/>lazy("");
-}
-final public static Lazy<String/*<Character>*/> signature(final Lazy<Global.TGlobal> arg$1, final Tokens.TToken arg$2) {
-  final short µ$$18912 = arg$2.mem$tokid;
-  if (µ$$18912 == TokenID.TTokenID.VARID) {
-    final PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> allSymbols$18610 = PreludeList.IListMonoid_$lbrack$rbrack.<
-      Symbols.TSymbolT<Global.TGlobal>
-    >$plus$plus(
-          Utilities.allourvars(arg$1).call(),
-          Thunk.<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>nested(
-                (Lazy<Lazy<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>>)(() -> TreeMap.<
-                      Integer, Symbols.TSymbolT<Global.TGlobal>
-                    >values(Global.TGlobal.locals(arg$1.call())))
-              )
-        );
-    final Lazy<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>> gen$5441$18611 = Thunk.<
-      PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>
-    >shared(
-          (Lazy<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>)(() -> {
-                final class Let$22107  {
-                  final Let$22107 let$22107 = this;
-                  final public PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> $lc999$18614(
-                    PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> arg$3
-                  ) {
-                    tailrecursion: while (true) {
-                      final PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> arg$3f =
-                      arg$3;
-                      final PreludeBase.TList.DCons<Symbols.TSymbolT<Global.TGlobal>> $22108 =
-                      arg$3f.asCons();
-                      if ($22108 != null) {
-                        final Symbols.TSymbolT<Global.TGlobal> s$18616 = $22108.mem1.call();
-                        final Symbols.TSymbolT.DSymV<Global.TGlobal> $22110 = s$18616
-                        .asSymV();
-                        if ($22110 != null) {
-                          final PreludeBase.TMaybe<State.TState<Global.TGlobal, Expression.TExprT>> $22111 =
-                          $22110.mem$expr;
-                          final PreludeBase.TMaybe.DJust<State.TState<Global.TGlobal, Expression.TExprT>> $22112 =
-                          $22111.asJust();
-                          if ($22112 != null) {
-                            if (
-                              (boolean)Prelude.traceLn(
-                                    "signature value for: " + frege.runtime.Runtime.quoteStr(
-                                          QNames.TQName.base(Symbols.TSymbolT.<Global.TGlobal>name(s$18616))
-                                        )
-                                  ).call() || true
-                            ) {
-                              if (
-                                Tokens.TToken.offset(
-                                      Positions.TPosition.first(Symbols.TSymbolT.<Global.TGlobal>pos(s$18616))
-                                    ) == arg$2.mem$offset
-                              ) {
-                                return PreludeBase.<Symbols.TSymbolT<Global.TGlobal>>$excl$colon(
-                                          s$18616,
-                                          Thunk.<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>shared(
-                                                (Lazy<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>)(() -> let$22107
-                                                    .$lc999$18614($22108.mem2.call()))
-                                              )
-                                        );
-                              }
-                              else {
-                                arg$3 = $22108.mem2.call();
-                                continue tailrecursion;
-                              }
-                            }
-                            else {
-                              arg$3 = $22108.mem2.call();
-                              continue tailrecursion;
-                            }
-                          }
-                        }
-                      }
-                      final PreludeBase.TList.DList<Symbols.TSymbolT<Global.TGlobal>> $22113 =
-                      arg$3f.asList();
-                      if ($22113 != null) {
-                        return PreludeBase.TList.DList.<Symbols.TSymbolT<Global.TGlobal>>mk();
-                      }
-                      final PreludeBase.TList.DCons<Symbols.TSymbolT<Global.TGlobal>> $22114 =
-                      arg$3f.asCons();
-                      assert $22114 != null;
-                      final PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> $xs1000$18638 =
-                      $22114.mem2.call();
-                      arg$3 = $xs1000$18638;
-                      continue tailrecursion;
-                    }
-                  }
-                }
-                final Let$22107 let$22107 = new Let$22107();
-                return let$22107.$lc999$18614(allSymbols$18610);
-              })
-        );
-    final Lazy<Symbols.TSymbolT<Global.TGlobal>> sym$18612 = Thunk.<Symbols.TSymbolT<Global.TGlobal>>shared(
-          (Lazy<Symbols.TSymbolT<Global.TGlobal>>)(() -> {
-                final PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>> $22116 = gen$5441$18611
-                .call();
-                final PreludeBase.TList.DCons<Symbols.TSymbolT<Global.TGlobal>> $22117 =
-                $22116.asCons();
-                if ($22117 != null) {
-                  final Symbols.TSymbolT<Global.TGlobal> sym$18639 = $22117.mem1.call();
-                  return sym$18639;
-                }
-                throw new frege.runtime.NoMatch("signature", 145, $22116);
-              })
-        );
-    return Hover.getSymbolType(arg$1, sym$18612.call());
-  }
-  return Thunk.<String/*<Character>*/>lazy("");
-}
-final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWorld, Short>>shared(
-      (Lazy<Func.U<RealWorld, Short>>)(() -> {
-            return (Func.U<RealWorld, Short>)((final Lazy<RealWorld> arg$22119) -> {
-                      final Global.TGlobal v2056$21206 = CompilerHelper.lspGlobal.call()
-                      .apply(arg$22119).call();
-                      final Func.U<RealWorld, Global.TGlobal> v2053$21225 = Func.<RealWorld, Global.TGlobal>coerceU(
-                            State.<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>execStateT(
-                                  PreludeMonad.IMonad_ST.<RealWorld>mk(),
-                                  Thunk.<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>>shared(
-                                        (Lazy<State.TStateT<
-                                          Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal
-                                        >>)(() -> CompilerHelper.compileFregeFile(
-                                                  Thunk.<String/*<Character>*/>shared(
-                                                        (Lazy<String/*
-                                                          <Character>
-                                                        */>)(() -> "module HoverTest where\n\n" + "simplyString = \"Hello\"")
-                                                      )
-                                                ))
-                                      ),
-                                  v2056$21206
-                                )
-                          );
-                      final Global.TGlobal v2056$21228 = v2053$21225.apply(arg$22119)
-                      .call();
-                      final Lazy<PreludeBase.TList<Tokens.TToken>> tokens$18811 = Thunk.<
-                        PreludeBase.TList<Tokens.TToken>
-                      >shared(
-                            (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> Tokens.IArrayElement_Token.listFromArray(
-                                      Global.TSubSt.toks(Global.TGlobal.sub(v2056$21228))
-                                    ))
-                          );
-                      final Func.U<RealWorld, Short> v4793$21250 = Prelude.<String/*<Character>*/>println(
-                            PreludeText.IShow_String.it, Global.TSubSt.code(Global.TGlobal.sub(v2056$21228)).toString()
-                          );
-                      final short v4796$21252 = (short)v4793$21250.apply(arg$22119).call();
-                      final Func.U<RealWorld, Short> v4797$21253 = ((Func.U<RealWorld, Short>)((
-                        final Lazy<RealWorld> arg$22147
-                      ) -> {
-                            final short v4796$21283 = (short)Func.<RealWorld, Short>coerceU(
-                                  PreludeMonad.<Func.U<RealWorld, ?>, Tokens.TToken, Short, PreludeBase.TList<?>>$for(
-                                        PreludeMonad.IMonad_ST.<RealWorld>mk(),
-                                        PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
-                                        Thunk.<Kind.U<PreludeBase.TList<?>, Tokens.TToken>>shared(
-                                              (Lazy<Kind.U<PreludeBase.TList<?>, Tokens.TToken>>)(() -> (Kind.U<
-                                                    PreludeBase.TList<?>, Tokens.TToken
-                                                  >)tokens$18811.call())
-                                            ),
-                                        (Func.U<Tokens.TToken, Kind.U<Func.U<RealWorld, ?>, Short>>)((
-                                          final Lazy<Tokens.TToken> η$22146
-                                        ) -> Thunk.<Kind.U<Func.U<RealWorld, ?>, Short>>shared(
-                                                  (Lazy<Kind.U<Func.U<RealWorld, ?>, Short>>)(() -> (Kind.U<
-                                                        Func.U<RealWorld, ?>, Short
-                                                      >)Thunk.<Func.U<RealWorld, Short>>shared(
-                                                            (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
-                                                                  Tokens.TToken
-                                                                >println(Tokens.IShow_Token.it, η$22146.call()))
-                                                          ).call())
-                                                ))
-                                      )
-                                ).apply(arg$22147).call();
-                            final Func.U<RealWorld, Short> v4797$21284 = ((Func.U<RealWorld, Short>)((
-                              final Lazy<RealWorld> arg$22143
-                            ) -> {
-                                  final short v4796$21307 = (short)Prelude.<String/*<Character>*/>println(
-                                        PreludeText.IShow_String.it, "finished"
-                                      ).apply(arg$22143).call();
-                                  final Func.U<RealWorld, Short> v4797$21308 = ((Func.U<
-                                    RealWorld, Short
-                                  >)((final Lazy<RealWorld> arg$22123) -> {
-                                        final Modules.TY<Modules.TRTree<?>> v2056$21329 =
-                                        Hover.initRoot(
-                                              Thunk.<String/*<Character>*/>lazy(
-                                                    "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/HoverTest.fr"
-                                                  )
-                                            ).apply(arg$22123).call();
-                                        final Lazy<Func.U<RealWorld, Short>> tmp$21392 =
-                                        Thunk.<Func.U<RealWorld, Short>>shared(
-                                              (Lazy<Func.U<RealWorld, Short>>)(() -> {
-                                                    final PreludeBase.TMaybe<PreludeBase.TEither<Short, QNames.TQName>> $22125 =
-                                                    Global.TGlobal.resolved(
-                                                          v2056$21228,
-                                                          Thunk.<Tokens.TToken>shared(
-                                                                (Lazy<Tokens.TToken>)(() -> PreludeList.<
-                                                                      Tokens.TToken
-                                                                    >$excl$excl(tokens$18811.call(), 1))
-                                                              )
-                                                        );
-                                                    final PreludeBase.TMaybe.DNothing<
-                                                      PreludeBase.TEither<Short, QNames.TQName>
-                                                    > $22126 = $22125.asNothing();
-                                                    if ($22126 != null) {
-                                                      return Prelude.<String/*<Character>*/>println(
-                                                                PreludeText.IShow_String.it, "symbol not found"
-                                                              );
-                                                    }
-                                                    final PreludeBase.TMaybe.DJust<
-                                                      PreludeBase.TEither<Short, QNames.TQName>
-                                                    > $22127 = $22125.asJust();
-                                                    if ($22127 != null) {
-                                                      final PreludeBase.TEither<Short, QNames.TQName> $22128 =
-                                                      $22127.mem1.call();
-                                                      final PreludeBase.TEither.DLeft<
-                                                        Short, QNames.TQName
-                                                      > $22129 = $22128.asLeft();
-                                                      if ($22129 != null) {
-                                                        return Prelude.<String/*<Character>*/>println(
-                                                                  PreludeText.IShow_String.it, "no qname found"
-                                                                );
-                                                      }
-                                                    }
-                                                    final PreludeBase.TMaybe.DJust<
-                                                      PreludeBase.TEither<Short, QNames.TQName>
-                                                    > $22130 = $22125.asJust();
-                                                    assert $22130 != null;
-                                                    final PreludeBase.TEither<Short, QNames.TQName> $22131 =
-                                                    $22130.mem1.call();
-                                                    final PreludeBase.TEither.DRight<Short, QNames.TQName> $22132 =
-                                                    $22131.asRight();
-                                                    assert $22132 != null;
-                                                    final Lazy<Func.U<RealWorld, Short>> tmp$21391 =
-                                                    Thunk.<Func.U<RealWorld, Short>>shared(
-                                                          (Lazy<Func.U<RealWorld, Short>>)(() -> {
-                                                                final PreludeBase.TMaybe<
-                                                                  Symbols.TSymbolT<Global.TGlobal>
-                                                                > $22133 = Global.TGlobal.findit(
-                                                                      v2056$21228, $22132.mem1.call()
-                                                                    ).call();
-                                                                final PreludeBase.TMaybe.DNothing<
-                                                                  Symbols.TSymbolT<Global.TGlobal>
-                                                                > $22134 = $22133.asNothing();
-                                                                if ($22134 != null) {
-                                                                  return Prelude.<String/*<Character>*/>println(
-                                                                            PreludeText.IShow_String.it, "qname not found"
-                                                                          );
-                                                                }
-                                                                final PreludeBase.TMaybe.DJust<
-                                                                  Symbols.TSymbolT<Global.TGlobal>
-                                                                > $22135 = $22133.asJust();
-                                                                assert $22135 != null;
-                                                                final Symbols.TSymbolT<
-                                                                  Global.TGlobal
-                                                                > sym$18817 = $22135.mem1
-                                                                .call();
-                                                                return Prelude.<String/*<Character>*/>println(
-                                                                          PreludeText.IShow_String.it,
-                                                                          Hover.getSymbolType(
-                                                                                v2056$21228, sym$18817
-                                                                              ).call()
-                                                                        );
-                                                              })
-                                                        );
-                                                    return (Func.U<RealWorld, Short>)((
-                                                          final Lazy<RealWorld> arg$22137
-                                                        ) -> {
-                                                              final short v4796$21377 =
-                                                              (short)Prelude.<String/*<Character>*/>println(
-                                                                    PreludeText.IShow_String.it, "symbol found"
-                                                                  ).apply(arg$22137).call();
-                                                              final Func.U<RealWorld, Short> v4797$21378 =
-                                                              tmp$21391.call();
-                                                              return Thunk.<Short>nested(
-                                                                        (Lazy<Lazy<Short>>)(() -> v4797$21378
-                                                                            .apply(arg$22137))
-                                                                      );
-                                                            });
-                                                  })
-                                            );
-                                        final Func.U<RealWorld, Short> v4793$21351 = tmp$21392
-                                        .call();
-                                        final short v4796$21353 = (short)v4793$21351.apply(
-                                              arg$22123
-                                            ).call();
-                                        final Func.U<RealWorld, Short> v4797$21354 = Thunk.<
-                                          Func.U<RealWorld, Short>
-                                        >shared(
-                                              (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
-                                                    String/*<Character>*/
-                                                  >println(PreludeText.IShow_String.it, "end"))
-                                            ).call();
-                                        return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$21354.apply(arg$22123)));
-                                      })).call();
-                                  return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$21308.apply(arg$22143)));
-                                })).call();
-                            return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$21284.apply(arg$22147)));
-                          })).call();
-                      return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$21253.apply(arg$22119)));
-                    });
-          })
-    );
-final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> getSymbolType2(
+final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> getSymbolType(
   final Lazy<Symbols.TSymbolT<Global.TGlobal>> arg$1
 ) {
   return State.TStateT.<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/>mk(
             (Func.U<
               Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>
-            >)((final Lazy<Global.TGlobal> arg$22153) -> {
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$21474 =
-                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$22153, arg$22153)
+            >)((final Lazy<Global.TGlobal> arg$20545) -> {
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$20250 =
+                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$20545, arg$20545)
                   .call();
-                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> $22155 =
+                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> $20547 =
                   State.IMonad_StateT.<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/>pure(
-                        Maybe.IMonad_Maybe.it, Hover.getSymbolType(v2895$21474.mem1, arg$1.call()).call()
+                        Maybe.IMonad_Maybe.it, frege.ide.Utilities.<Global.TGlobal>label(v2895$20250.mem1, arg$1.call())
                       );
                   final Func.U<
                     Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>
-                  > v7739$21447 = $22155.mem$run;
+                  > v7739$20223 = $20547.mem$run;
                   return Thunk.<
                         Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>
                       >shared(
@@ -2133,24 +1172,18 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/
                                               Global.TGlobal,
                                               PreludeBase.TMaybe<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>
                                             >
-                                          >cast(v7739$21447).apply(v2895$21474.mem2))
+                                          >cast(v7739$20223).apply(v2895$20250.mem2))
                                     ).call())
                           );
                 })
           );
 }
-final public static <α, β, γ> State.TState<Global.TGlobal, QNames.TQName> findVariableName(
-  final Lazy<α> arg$1, final Lazy<β> arg$2, final Lazy<γ> arg$3, final Lazy<Func.U<String/*<Character>*/, QNames.TQName>> arg$4,
-  final Lazy<Positions.TPosition> arg$5, final SNames.TSName arg$6
-) {
-  return Resolve.resolveVName(arg$4, arg$5, arg$6);
-}
 final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken> findToken(
   final Lazy<Diagnostic.TPosition> arg$1
 ) {
-  final class Let$22157  {
-    final Let$22157 let$22157 = this;
-    final public boolean isHoverOverToken$18738(final Tokens.TToken arg$2) {
+  final class Let$20549  {
+    final Let$20549 let$20549 = this;
+    final public boolean isHoverOverToken$18443(final Tokens.TToken arg$2) {
       return (Diagnostic.TPosition.line(arg$1.call()) == Tokens.TToken.line(arg$2)) && ((Diagnostic.TPosition.character(
                 arg$1.call()
               ) < (Tokens.TToken.col(arg$2) + Tokens.TToken.value(arg$2).length())) && (Diagnostic.TPosition.character(
@@ -2158,15 +1191,15 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.
               ) >= Tokens.TToken.col(arg$2)));
     }
   }
-  final Let$22157 let$22157 = new Let$22157();
+  final Let$20549 let$20549 = new Let$20549();
   return State.TStateT.<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken>mk(
             (Func.U<Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>>)((
-              final Lazy<Global.TGlobal> arg$22158
+              final Lazy<Global.TGlobal> arg$20550
             ) -> {
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$21854 =
-                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$22158, arg$22158)
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$20386 =
+                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$20550, arg$20550)
                   .call();
-                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken> $22161 =
+                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken> $20553 =
                   State.IMonadTrans_StateT.<Global.TGlobal, Tokens.TToken, PreludeBase.TMaybe<?>>lift(
                         Maybe.IMonad_Maybe.it,
                         Thunk.<Kind.U<PreludeBase.TMaybe<?>, Tokens.TToken>>shared(
@@ -2177,11 +1210,11 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.
                                               Tokens.TToken
                                             >find(
                                                   (Func.U<Tokens.TToken, Boolean>)((
-                                                    final Lazy<Tokens.TToken> η$22160
+                                                    final Lazy<Tokens.TToken> η$20552
                                                   ) -> Thunk.<Boolean>shared(
-                                                            (Lazy<Boolean>)(() -> let$22157
-                                                                .isHoverOverToken$18738(
-                                                                      η$22160.call()
+                                                            (Lazy<Boolean>)(() -> let$20549
+                                                                .isHoverOverToken$18443(
+                                                                      η$20552.call()
                                                                     ))
                                                           )),
                                                   Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
@@ -2190,7 +1223,7 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.
                                                         >>)(() -> Tokens.IArrayElement_Token.listFromArray(
                                                                   Global.TSubSt.toks(
                                                                         Global.TGlobal.sub(
-                                                                              v2895$21854.mem1
+                                                                              v2895$20386.mem1
                                                                               .call()
                                                                             )
                                                                       )
@@ -2202,7 +1235,7 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.
                       );
                   final Func.U<
                     Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>
-                  > v7739$21827 = $22161.mem$run;
+                  > v7739$20359 = $20553.mem$run;
                   return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>>shared(
                             (Lazy<Kind.U<
                               PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>
@@ -2216,7 +1249,7 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.
                                               Global.TGlobal,
                                               PreludeBase.TMaybe<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>
                                             >
-                                          >cast(v7739$21827).apply(v2895$21854.mem2))
+                                          >cast(v7739$20359).apply(v2895$20386.mem2))
                                     ).call())
                           );
                 })
@@ -2229,11 +1262,11 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols
             (Func.U<
               Global.TGlobal,
               Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>>
-            >)((final Lazy<Global.TGlobal> arg$22163) -> {
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$21786 =
-                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$22163, arg$22163)
+            >)((final Lazy<Global.TGlobal> arg$20555) -> {
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$20318 =
+                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$20555, arg$20555)
                   .call();
-                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols.TSymbolT<Global.TGlobal>> $22165 =
+                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols.TSymbolT<Global.TGlobal>> $20557 =
                   State.IMonadTrans_StateT.<Global.TGlobal, Symbols.TSymbolT<Global.TGlobal>, PreludeBase.TMaybe<?>>lift(
                         Maybe.IMonad_Maybe.it,
                         Thunk.<Kind.U<PreludeBase.TMaybe<?>, Symbols.TSymbolT<Global.TGlobal>>>shared(
@@ -2242,14 +1275,14 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols
                                   >)Thunk.<PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>>nested(
                                         (Lazy<Lazy<PreludeBase.TMaybe<
                                           Symbols.TSymbolT<Global.TGlobal>
-                                        >>>)(() -> Global.TGlobal.find(v2895$21786.mem1.call(), arg$1.call()))
+                                        >>>)(() -> Global.TGlobal.find(v2895$20318.mem1.call(), arg$1.call()))
                                       ).call())
                             )
                       );
                   final Func.U<
                     Global.TGlobal,
                     Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>>
-                  > v7739$21759 = $22165.mem$run;
+                  > v7739$20291 = $20557.mem$run;
                   return Thunk.<
                         Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>>
                       >shared(
@@ -2269,7 +1302,7 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols
                                                 PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>
                                               >
                                             >
-                                          >cast(v7739$21759).apply(v2895$21786.mem2))
+                                          >cast(v7739$20291).apply(v2895$20318.mem2))
                                     ).call())
                           );
                 })
@@ -2280,91 +1313,88 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover>
 ) {
   return State.TStateT.<Global.TGlobal, PreludeBase.TMaybe<?>, THover>mk(
             (Func.U<Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>)((
-              final Lazy<Global.TGlobal> arg$22167
+              final Lazy<Global.TGlobal> arg$20559
             ) -> {
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$21542 =
-                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$22167, arg$22167)
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2895$20006 =
+                  PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(arg$20559, arg$20559)
                   .call();
-                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken> $22169 =
+                  final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Tokens.TToken> $20561 =
                   Hover.findToken(arg$1);
                   final Func.U<
                     Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>
-                  > v7734$21571 = $22169.mem$run;
-                  final PreludeBase.TMaybe<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $22171 =
+                  > v7734$20035 = $20561.mem$run;
+                  final PreludeBase.TMaybe<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $20563 =
                   RunTM.<Func.U<Global.TGlobal, PreludeBase.TMaybe<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>>>>cast(
-                        v7734$21571
-                      ).apply(v2895$21542.mem2).call();
-                  final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $22172 =
-                  $22171.asJust();
-                  if ($22172 != null) {
-                    final PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal> v2895$21603 =
-                    $22172.mem1.call();
-                    final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.TQName> $22174 =
-                    Hover.tokenToQName(v2895$21603.mem1);
+                        v7734$20035
+                      ).apply(v2895$20006.mem2).call();
+                  final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $20564 =
+                  $20563.asJust();
+                  if ($20564 != null) {
+                    final PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal> v2895$20067 =
+                    $20564.mem1.call();
+                    final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, QNames.TQName> $20566 =
+                    Hover.tokenToQName(v2895$20067.mem1);
                     final Func.U<
                       Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>
-                    > v7734$21615 = $22174.mem$run;
-                    final PreludeBase.TMaybe<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $22176 =
+                    > v7734$20079 = $20566.mem$run;
+                    final PreludeBase.TMaybe<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $20568 =
                     RunTM.<Func.U<Global.TGlobal, PreludeBase.TMaybe<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>>>>cast(
-                          v7734$21615
-                        ).apply(v2895$21603.mem2).call();
-                    final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $22177 =
-                    $22176.asJust();
-                    if ($22177 != null) {
-                      final PreludeBase.TTuple2<QNames.TQName, Global.TGlobal> v2895$21647 =
-                      $22177.mem1.call();
-                      final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols.TSymbolT<Global.TGlobal>> $22179 =
-                      Hover.findSymbol(v2895$21647.mem1);
+                          v7734$20079
+                        ).apply(v2895$20067.mem2).call();
+                    final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $20569 =
+                    $20568.asJust();
+                    if ($20569 != null) {
+                      final PreludeBase.TTuple2<QNames.TQName, Global.TGlobal> v2895$20111 =
+                      $20569.mem1.call();
+                      final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, Symbols.TSymbolT<Global.TGlobal>> $20571 =
+                      Hover.findSymbol(v2895$20111.mem1);
                       final Func.U<
                         Global.TGlobal,
                         Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>>
-                      > v7734$21659 = $22179.mem$run;
-                      final PreludeBase.TMaybe<PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>> $22181 =
+                      > v7734$20123 = $20571.mem$run;
+                      final PreludeBase.TMaybe<PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>> $20573 =
                       RunTM.<
                         Func.U<
                           Global.TGlobal,
                           PreludeBase.TMaybe<PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>>
                         >
-                      >cast(v7734$21659).apply(v2895$21647.mem2).call();
+                      >cast(v7734$20123).apply(v2895$20111.mem2).call();
                       final PreludeBase.TMaybe.DJust<
                         PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>
-                      > $22182 = $22181.asJust();
-                      if ($22182 != null) {
-                        final PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal> v2895$21691 =
-                        $22182.mem1.call();
-                        final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> $22184 =
-                        Hover.getSymbolType2(v2895$21691.mem1);
+                      > $20574 = $20573.asJust();
+                      if ($20574 != null) {
+                        final PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal> v2895$20155 =
+                        $20574.mem1.call();
+                        final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, String/*<Character>*/> $20576 =
+                        Hover.getSymbolType(v2895$20155.mem1);
                         final Func.U<
                           Global.TGlobal,
                           Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>
-                        > v7734$21703 = $22184.mem$run;
-                        final PreludeBase.TMaybe<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $22186 =
+                        > v7734$20167 = $20576.mem$run;
+                        final PreludeBase.TMaybe<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $20578 =
                         RunTM.<
                           Func.U<Global.TGlobal, PreludeBase.TMaybe<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>>>
-                        >cast(v7734$21703).apply(v2895$21691.mem2).call();
-                        final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $22187 =
-                        $22186.asJust();
-                        if ($22187 != null) {
-                          final PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal> v2895$21735 =
-                          $22187.mem1.call();
-                          final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover> $22189 =
+                        >cast(v7734$20167).apply(v2895$20155.mem2).call();
+                        final PreludeBase.TMaybe.DJust<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $20579 =
+                        $20578.asJust();
+                        if ($20579 != null) {
+                          final PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal> v2895$20199 =
+                          $20579.mem1.call();
+                          final State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover> $20581 =
                           State.IMonad_StateT.<Global.TGlobal, PreludeBase.TMaybe<?>, THover>pure(
                                 Maybe.IMonad_Maybe.it,
                                 THover.mk(
                                       Thunk.<Diagnostic.TRange>shared(
                                             (Lazy<Diagnostic.TRange>)(() -> Hover.tokenToRange(
-                                                      v2895$21603.mem1.call()
+                                                      v2895$20067.mem1.call()
                                                     ))
                                           ),
-                                      TFregeCodeBlock.mk(
-                                            Thunk.<String/*<Character>*/>lazy(Tokens.TToken.value(v2895$21603.mem1.call())),
-                                            v2895$21735.mem1
-                                          )
+                                      v2895$20199.mem1
                                     )
                               );
                           final Func.U<
                             Global.TGlobal, Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>
-                          > v7739$21708 = $22189.mem$run;
+                          > v7739$20172 = $20581.mem$run;
                           return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>shared(
                                     (Lazy<Kind.U<
                                       PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>
@@ -2378,13 +1408,13 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover>
                                                       Global.TGlobal,
                                                       PreludeBase.TMaybe<PreludeBase.TTuple2<THover, Global.TGlobal>>
                                                     >
-                                                  >cast(v7739$21708).apply(v2895$21735.mem2))
+                                                  >cast(v7739$20172).apply(v2895$20199.mem2))
                                             ).call())
                                   );
                         }
-                        final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $22191 =
-                        $22186.asNothing();
-                        assert $22191 != null;
+                        final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<String/*<Character>*/, Global.TGlobal>> $20583 =
+                        $20578.asNothing();
+                        assert $20583 != null;
                         return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>lazy(
                                   (Kind.U<
                                     PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>
@@ -2393,26 +1423,26 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover>
                       }
                       final PreludeBase.TMaybe.DNothing<
                         PreludeBase.TTuple2<Symbols.TSymbolT<Global.TGlobal>, Global.TGlobal>
-                      > $22192 = $22181.asNothing();
-                      assert $22192 != null;
+                      > $20584 = $20573.asNothing();
+                      assert $20584 != null;
                       return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>lazy(
                                 (Kind.U<
                                   PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>
                                 >)PreludeBase.TMaybe.DNothing.<PreludeBase.TTuple2<THover, Global.TGlobal>>mk()
                               );
                     }
-                    final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $22193 =
-                    $22176.asNothing();
-                    assert $22193 != null;
+                    final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<QNames.TQName, Global.TGlobal>> $20585 =
+                    $20568.asNothing();
+                    assert $20585 != null;
                     return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>lazy(
                               (Kind.U<
                                 PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>
                               >)PreludeBase.TMaybe.DNothing.<PreludeBase.TTuple2<THover, Global.TGlobal>>mk()
                             );
                   }
-                  final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $22194 =
-                  $22171.asNothing();
-                  assert $22194 != null;
+                  final PreludeBase.TMaybe.DNothing<PreludeBase.TTuple2<Tokens.TToken, Global.TGlobal>> $20586 =
+                  $20563.asNothing();
+                  assert $20586 != null;
                   return Thunk.<Kind.U<PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>>>lazy(
                             (Kind.U<
                               PreludeBase.TMaybe<?>, PreludeBase.TTuple2<THover, Global.TGlobal>
@@ -2421,247 +1451,13 @@ final public static State.TStateT<Global.TGlobal, PreludeBase.TMaybe<?>, THover>
                 })
           );
 }
-final public static SNames.TSName createSName(final String/*<Character>*/ arg$1) {
-  final class Let$22195  {
-    final Let$22195 let$22195 = this;
-    final public Tokens.TToken var$18763(final String/*<Character>*/ arg$2) {
-      return Tokens.TToken.mk(TokenID.TTokenID.VARID, arg$2, 1, 0, 0, PreludeBase.TList.DList.<Tokens.TToken>mk());
-    }
-    final public Tokens.TToken con$18762(final String/*<Character>*/ arg$2) {
-      return Tokens.TToken.mk(TokenID.TTokenID.CONID, arg$2, 1, 0, 0, PreludeBase.TList.DList.<Tokens.TToken>mk());
-    }
-    final public Tokens.TToken qual$18761(final String/*<Character>*/ arg$2) {
-      return Tokens.TToken.mk(TokenID.TTokenID.QUALIFIER, arg$2, 1, 0, 0, PreludeBase.TList.DList.<Tokens.TToken>mk());
-    }
-    final public SNames.TSName with1var$18760(final String/*<Character>*/ arg$2, final String/*<Character>*/ arg$3) {
-      return SNames.TSName.DWith1.mk(let$22195.qual$18761(arg$2), let$22195.var$18763(arg$3));
-    }
-    final public SNames.TSName with1con$18759(final String/*<Character>*/ arg$2, final String/*<Character>*/ arg$3) {
-      return SNames.TSName.DWith1.mk(let$22195.qual$18761(arg$2), let$22195.con$18762(arg$3));
-    }
-    final public SNames.TSName with2var$18758(
-      final String/*<Character>*/ arg$2, final String/*<Character>*/ arg$3, final String/*<Character>*/ arg$4
-    ) {
-      return SNames.TSName.DWith2.mk(let$22195.qual$18761(arg$2), let$22195.qual$18761(arg$3), let$22195.var$18763(arg$4));
-    }
-    final public SNames.TSName with2con$18757(
-      final String/*<Character>*/ arg$2, final String/*<Character>*/ arg$3, final String/*<Character>*/ arg$4
-    ) {
-      return SNames.TSName.DWith2.mk(let$22195.qual$18761(arg$2), let$22195.qual$18761(arg$3), let$22195.con$18762(arg$4));
-    }
-  }
-  final Let$22195 let$22195 = new Let$22195();
-  final PreludeBase.TMaybe<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22197 =
-  Hover.match(arg$1, Hover.K.rgx22196);
-  final PreludeBase.TMaybe.DJust<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22198 =
-  $22197.asJust();
-  if ($22198 != null) {
-    final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22199 = $22198.mem1
-    .call();
-    final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22200 =
-    $22199.asCons();
-    if ($22200 != null) {
-      final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22201 = $22200.mem2
-      .call();
-      final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22202 =
-      $22201.asCons();
-      if ($22202 != null) {
-        final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22203 = $22202.mem2
-        .call();
-        final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22204 =
-        $22203.asCons();
-        if ($22204 != null) {
-          final PreludeBase.TMaybe<String/*<Character>*/> $22205 = $22204.mem1.call();
-          final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22206 = $22205.asJust();
-          if ($22206 != null) {
-            final String/*<Character>*/ id$18779 = $22206.mem1.call();
-            final PreludeBase.TMaybe<String/*<Character>*/> $22208 = $22202.mem1.call();
-            final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22209 = $22208.asJust();
-            if ($22209 != null) {
-              final String/*<Character>*/ ty$18778 = $22209.mem1.call();
-              final PreludeBase.TMaybe<String/*<Character>*/> $22211 = $22200.mem1.call();
-              final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22212 = $22211.asJust();
-              if ($22212 != null) {
-                final String/*<Character>*/ ns$18777 = $22212.mem1.call();
-                return let$22195.with2con$18757(ns$18777, ty$18778, id$18779);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  final PreludeBase.TMaybe<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22215 =
-  Hover.match(arg$1, Hover.K.rgx22214);
-  final PreludeBase.TMaybe.DJust<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22216 =
-  $22215.asJust();
-  if ($22216 != null) {
-    final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22217 = $22216.mem1
-    .call();
-    final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22218 =
-    $22217.asCons();
-    if ($22218 != null) {
-      final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22219 = $22218.mem2
-      .call();
-      final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22220 =
-      $22219.asCons();
-      if ($22220 != null) {
-        final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22221 = $22220.mem2
-        .call();
-        final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22222 =
-        $22221.asCons();
-        if ($22222 != null) {
-          final PreludeBase.TMaybe<String/*<Character>*/> $22223 = $22222.mem1.call();
-          final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22224 = $22223.asJust();
-          if ($22224 != null) {
-            final String/*<Character>*/ id$18784 = $22224.mem1.call();
-            final PreludeBase.TMaybe<String/*<Character>*/> $22226 = $22220.mem1.call();
-            final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22227 = $22226.asJust();
-            if ($22227 != null) {
-              final String/*<Character>*/ ty$18783 = $22227.mem1.call();
-              final PreludeBase.TMaybe<String/*<Character>*/> $22229 = $22218.mem1.call();
-              final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22230 = $22229.asJust();
-              if ($22230 != null) {
-                final String/*<Character>*/ ns$18782 = $22230.mem1.call();
-                return let$22195.with2var$18758(ns$18782, ty$18783, id$18784);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  final PreludeBase.TMaybe<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22233 =
-  Hover.match(arg$1, Hover.K.rgx22232);
-  final PreludeBase.TMaybe.DJust<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22234 =
-  $22233.asJust();
-  if ($22234 != null) {
-    final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22235 = $22234.mem1
-    .call();
-    final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22236 =
-    $22235.asCons();
-    if ($22236 != null) {
-      final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22237 = $22236.mem2
-      .call();
-      final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22238 =
-      $22237.asCons();
-      if ($22238 != null) {
-        final PreludeBase.TMaybe<String/*<Character>*/> $22239 = $22238.mem1.call();
-        final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22240 = $22239.asJust();
-        if ($22240 != null) {
-          final String/*<Character>*/ id$18788 = $22240.mem1.call();
-          final PreludeBase.TMaybe<String/*<Character>*/> $22242 = $22236.mem1.call();
-          final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22243 = $22242.asJust();
-          if ($22243 != null) {
-            final String/*<Character>*/ ty$18787 = $22243.mem1.call();
-            return let$22195.with1con$18759(ty$18787, id$18788);
-          }
-        }
-      }
-    }
-  }
-  final PreludeBase.TMaybe<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22246 =
-  Hover.match(arg$1, Hover.K.rgx22245);
-  final PreludeBase.TMaybe.DJust<PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>>> $22247 =
-  $22246.asJust();
-  if ($22247 != null) {
-    final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22248 = $22247.mem1
-    .call();
-    final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22249 =
-    $22248.asCons();
-    if ($22249 != null) {
-      final PreludeBase.TList<PreludeBase.TMaybe<String/*<Character>*/>> $22250 = $22249.mem2
-      .call();
-      final PreludeBase.TList.DCons<PreludeBase.TMaybe<String/*<Character>*/>> $22251 =
-      $22250.asCons();
-      if ($22251 != null) {
-        final PreludeBase.TMaybe<String/*<Character>*/> $22252 = $22251.mem1.call();
-        final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22253 = $22252.asJust();
-        if ($22253 != null) {
-          final String/*<Character>*/ id$18792 = $22253.mem1.call();
-          final PreludeBase.TMaybe<String/*<Character>*/> $22255 = $22249.mem1.call();
-          final PreludeBase.TMaybe.DJust<String/*<Character>*/> $22256 = $22255.asJust();
-          if ($22256 != null) {
-            final String/*<Character>*/ ty$18791 = $22256.mem1.call();
-            return let$22195.with1var$18760(ty$18791, id$18792);
-          }
-        }
-      }
-    }
-  }
-  if (frege.runtime.Regex9.find(arg$1, Hover.K.rgx22258)) {
-    return SNames.TSName.DSimple.mk(
-              Tokens.TToken.mk(TokenID.TTokenID.CONID, arg$1, 1, 0, 0, PreludeBase.TList.DList.<Tokens.TToken>mk())
-            );
-  }
-  return SNames.TSName.DSimple.mk(
-            Tokens.TToken.mk(TokenID.TTokenID.VARID, arg$1, 1, 0, 0, PreludeBase.TList.DList.<Tokens.TToken>mk())
-          );
-}
-final public static State.TState<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>> resolveSymbol(
-  final String/*<Character>*/ arg$1
-) {
-  return State.TState.<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>mk(
-            (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$22259
-            ) -> {
-                  final State.TState<Global.TGlobal, PreludeBase.TList<QNames.TQName>> $22260 =
-                  Hover.sNameToQName(Hover.createSName(arg$1));
-                  final Func.U<
-                    Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal>
-                  > v7688$21077 = $22260.mem$fun;
-                  final PreludeBase.TTuple2<PreludeBase.TList<QNames.TQName>, Global.TGlobal> $22262 =
-                  v7688$21077.apply(arg$22259).call();
-                  final State.TState<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>> $22264 =
-                  State.IMonad_State.<Global.TGlobal, PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>>pure(
-                        Maybe.<Symbols.TSymbolT<Global.TGlobal>, PreludeBase.TList<?>>catMaybes(
-                              PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
-                              Thunk.<Kind.U<PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>>>shared(
-                                    (Lazy<Kind.U<
-                                      PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                    >>)(() -> (Kind.U<
-                                          PreludeBase.TList<?>, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                        >)Thunk.<PreludeBase.TList<PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>>>shared(
-                                              (Lazy<PreludeBase.TList<
-                                                PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                              >>)(() -> PreludeMonad.IFunctor_$lbrack$rbrack.<
-                                                    QNames.TQName, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                  >fmap(
-                                                        (Func.U<
-                                                          QNames.TQName, PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                        >)((final Lazy<QNames.TQName> η$22263) -> Thunk.<
-                                                              PreludeBase.TMaybe<Symbols.TSymbolT<Global.TGlobal>>
-                                                            >nested(
-                                                                  (Lazy<Lazy<PreludeBase.TMaybe<
-                                                                    Symbols.TSymbolT<Global.TGlobal>
-                                                                  >>>)(() -> Global.TGlobal.find(
-                                                                            arg$22259.call(), η$22263.call()
-                                                                          ))
-                                                                )),
-                                                        $22262.mem1.call()
-                                                      ))
-                                            ).call())
-                                  )
-                            )
-                      );
-                  final Func.U<
-                    Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>
-                  > v7693$21082 = $22264.mem$fun;
-                  return Thunk.<PreludeBase.TTuple2<PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal>>nested(
-                            (Lazy<Lazy<PreludeBase.TTuple2<
-                              PreludeBase.TList<Symbols.TSymbolT<Global.TGlobal>>, Global.TGlobal
-                            >>>)(() -> v7693$21082.apply($22262.mem2))
-                          );
-                })
-          );
-}
 final public static Func.U<RealWorld, PreludeBase.TMaybe<THover>> compileAndGetTypeSignatureOnHover(
   final Lazy<String/*<Character>*/> arg$1, final Lazy<Diagnostic.TPosition> arg$2
 ) {
-  return (Func.U<RealWorld, PreludeBase.TMaybe<THover>>)((final Lazy<RealWorld> arg$22266) -> {
-            final Global.TGlobal v2056$21892 = CompilerHelper.lspGlobal.call().apply(arg$22266)
+  return (Func.U<RealWorld, PreludeBase.TMaybe<THover>>)((final Lazy<RealWorld> arg$20587) -> {
+            final Global.TGlobal v2056$20424 = CompilerHelper.lspGlobal.call().apply(arg$20587)
             .call();
-            final Func.U<RealWorld, Global.TGlobal> v2053$21911 = Func.<RealWorld, Global.TGlobal>coerceU(
+            final Func.U<RealWorld, Global.TGlobal> v2053$20443 = Func.<RealWorld, Global.TGlobal>coerceU(
                   State.<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>execStateT(
                         PreludeMonad.IMonad_ST.<RealWorld>mk(),
                         Thunk.<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>>shared(
@@ -2669,11 +1465,11 @@ final public static Func.U<RealWorld, PreludeBase.TMaybe<THover>> compileAndGetT
                                 Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal
                               >>)(() -> CompilerHelper.compileFregeFile(arg$1))
                             ),
-                        v2056$21892
+                        v2056$20424
                       )
                 );
-            final Global.TGlobal v2056$21914 = v2053$21911.apply(arg$22266).call();
-            final Func.U<RealWorld, PreludeBase.TMaybe<THover>> v2057$21915 = PreludeMonad.IMonad_ST.<
+            final Global.TGlobal v2056$20446 = v2053$20443.apply(arg$20587).call();
+            final Func.U<RealWorld, PreludeBase.TMaybe<THover>> v2057$20447 = PreludeMonad.IMonad_ST.<
               RealWorld, PreludeBase.TMaybe<THover>
             >pure(
                   Thunk.<PreludeBase.TMaybe<THover>>shared(
@@ -2690,15 +1486,15 @@ final public static Func.U<RealWorld, PreludeBase.TMaybe<THover>> compileAndGetT
                                                                   arg$2
                                                                 ))
                                                       ),
-                                                  v2056$21914
+                                                  v2056$20446
                                                 ))
                                       ).call()
                                 ))
                       )
                 );
             return Thunk.<PreludeBase.TMaybe<THover>>nested(
-                      (Lazy<Lazy<PreludeBase.TMaybe<THover>>>)(() -> v2057$21915.apply(
-                                arg$22266
+                      (Lazy<Lazy<PreludeBase.TMaybe<THover>>>)(() -> v2057$20447.apply(
+                                arg$20587
                               ))
                     );
           });
@@ -2716,8 +1512,8 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$22271) -> {
-                                            final PreludeBase.TMaybe<THover> v2056$20943 =
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20592) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19622 =
                                             Hover.compileAndGetTypeSignatureOnHover(
                                                   Thunk.<String/*<Character>*/>shared(
                                                         (Lazy<String/*
@@ -2725,8 +1521,8 @@ final public static Lazy<QuickCheckGen.TGen<
                                                         */>)(() -> "module HoverTest where\n\n" + "simplyString = \"Hello\"")
                                                       ),
                                                   Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(3))
-                                                ).apply(arg$22271).call();
-                                            final Func.U<RealWorld, Boolean> v2057$20944 =
+                                                ).apply(arg$20592).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19623 =
                                             PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
                                                   Thunk.<Boolean>shared(
                                                         (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
@@ -2763,35 +1559,176 @@ final public static Lazy<QuickCheckGen.TGen<
                                                                                               )
                                                                                         )
                                                                                   ),
-                                                                              TFregeCodeBlock.mk(
-                                                                                    Thunk.<
-                                                                                      String/*
-                                                                                        <
-                                                                                          Character
-                                                                                        >
-                                                                                      */
-                                                                                    >lazy(
-                                                                                          "simplyString"
-                                                                                        ),
-                                                                                    Thunk.<
-                                                                                      String/*
-                                                                                        <
-                                                                                          Character
-                                                                                        >
-                                                                                      */
-                                                                                    >lazy(
-                                                                                          "String"
-                                                                                        )
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "simplyString :: String"
                                                                                   )
                                                                             )
                                                                       ),
-                                                                  v2056$20943
+                                                                  v2056$19622
                                                                 ))
                                                       )
                                                 );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$20944
-                                                          .apply(arg$22271))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19623
+                                                          .apply(arg$20592))
+                                                    );
+                                          })
+                                    ))
+                          )
+                    );
+          })
+    );
+final public static Lazy<QuickCheckGen.TGen<
+  QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+>> shouldShowLocalConidTypeSignature = Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+      (Lazy<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>)(() -> {
+            return QuickCheckProperty.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>once(
+                      new QuickCheckProperty.ITestable_Gen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>(
+                        QuickCheckProperty.ITestable_Prop.it
+                      ),
+                      Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+                            (Lazy<QuickCheckGen.TGen<
+                              QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+                            >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
+                                      QuickCheckProperty.ITestable_Bool.it,
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20595) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19802 =
+                                            Hover.compileAndGetTypeSignatureOnHover(
+                                                  Thunk.<String/*<Character>*/>shared(
+                                                        (Lazy<String/*
+                                                          <Character>
+                                                        */>)(() -> "module HoverTest where\n\n" + "data MyMaybe a = MyNothing | MyJust a\n")
+                                                      ),
+                                                  Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(7))
+                                                ).apply(arg$20595).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19803 =
+                                            PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
+                                                  Thunk.<Boolean>shared(
+                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
+                                                              THover
+                                                            >$eq$eq(
+                                                                  IEq_Hover.it,
+                                                                  PreludeBase.TMaybe.DJust.<
+                                                                    THover
+                                                                  >mk(
+                                                                        THover.mk(
+                                                                              Diagnostic.TRange.mk(
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                6
+                                                                                              )
+                                                                                        ),
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                13
+                                                                                              )
+                                                                                        )
+                                                                                  ),
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "MyMaybe :: *->*"
+                                                                                  )
+                                                                            )
+                                                                      ),
+                                                                  v2056$19802
+                                                                ))
+                                                      )
+                                                );
+                                            return Thunk.<Boolean>nested(
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19803
+                                                          .apply(arg$20595))
+                                                    );
+                                          })
+                                    ))
+                          )
+                    );
+          })
+    );
+final public static Lazy<QuickCheckGen.TGen<
+  QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+>> shouldShowLocalConidDataConstructor = Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+      (Lazy<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>)(() -> {
+            return QuickCheckProperty.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>once(
+                      new QuickCheckProperty.ITestable_Gen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>(
+                        QuickCheckProperty.ITestable_Prop.it
+                      ),
+                      Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+                            (Lazy<QuickCheckGen.TGen<
+                              QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+                            >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
+                                      QuickCheckProperty.ITestable_Bool.it,
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20598) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19658 =
+                                            Hover.compileAndGetTypeSignatureOnHover(
+                                                  Thunk.<String/*<Character>*/>shared(
+                                                        (Lazy<String/*
+                                                          <Character>
+                                                        */>)(() -> "module HoverTest where\n\n" + ("data MyMaybe a = MyNothing | MyJust a\n" + "res = MyJust 42"))
+                                                      ),
+                                                  Diagnostic.TPosition.mk(Thunk.<Integer>lazy(4), Thunk.<Integer>lazy(8))
+                                                ).apply(arg$20598).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19659 =
+                                            PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
+                                                  Thunk.<Boolean>shared(
+                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
+                                                              THover
+                                                            >$eq$eq(
+                                                                  IEq_Hover.it,
+                                                                  PreludeBase.TMaybe.DJust.<
+                                                                    THover
+                                                                  >mk(
+                                                                        THover.mk(
+                                                                              Diagnostic.TRange.mk(
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                4
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                7
+                                                                                              )
+                                                                                        ),
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                4
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                13
+                                                                                              )
+                                                                                        )
+                                                                                  ),
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "MyJust :: a -> MyMaybe a"
+                                                                                  )
+                                                                            )
+                                                                      ),
+                                                                  v2056$19658
+                                                                ))
+                                                      )
+                                                );
+                                            return Thunk.<Boolean>nested(
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19659
+                                                          .apply(arg$20598))
                                                     );
                                           })
                                     ))
@@ -2805,20 +1742,6 @@ final public static Lazy<QuickCheckGen.TGen<
   QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>
 >shared(
       (Lazy<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>)(() -> {
-            final Lazy<PreludeBase.TMaybe<THover>> expected$18491 = PreludeBase.TMaybe.DJust.<
-              THover
-            >mk(
-                  THover.mk(
-                        Diagnostic.TRange.mk(
-                              Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(8)),
-                              Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(15))
-                            ),
-                        TFregeCodeBlock.mk(
-                              Thunk.<String/*<Character>*/>lazy("println"),
-                              Thunk.<String/*<Character>*/>lazy("Show 𝖆 ⇒ 𝖆 → IO ()")
-                            )
-                      )
-                );
             return QuickCheckProperty.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>once(
                       new QuickCheckProperty.ITestable_Gen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>(
                         QuickCheckProperty.ITestable_Prop.it
@@ -2828,8 +1751,8 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$22274) -> {
-                                            final PreludeBase.TMaybe<THover> v2056$20845 =
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20601) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19766 =
                                             Hover.compileAndGetTypeSignatureOnHover(
                                                   Thunk.<String/*<Character>*/>shared(
                                                         (Lazy<String/*
@@ -2837,49 +1760,56 @@ final public static Lazy<QuickCheckGen.TGen<
                                                         */>)(() -> "module HoverTest where\n\n" + "main = println \"Hello\"")
                                                       ),
                                                   Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(9))
-                                                ).apply(arg$22274).call();
-                                            final Func.U<RealWorld, Short> v4793$20867 =
-                                            Prelude.<String/*<Character>*/>println(
-                                                  PreludeText.IShow_String.it,
-                                                  "actual = " + PreludeText.IShow_Maybe.<
-                                                    THover
-                                                  >show(IShow_Hover.it, v2056$20845)
-                                                );
-                                            final short v4796$20869 = (short)v4793$20867
-                                            .apply(arg$22274).call();
-                                            final Func.U<RealWorld, Boolean> v4797$20870 =
-                                            ((Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$22276) -> {
-                                                  final short v4796$20900 = (short)Prelude.<
-                                                    String/*<Character>*/
-                                                  >println(
-                                                        PreludeText.IShow_String.it,
-                                                        "expected = " + PreludeText.IShow_Maybe.<
-                                                          THover
-                                                        >show(IShow_Hover.it, expected$18491.call())
-                                                      ).apply(arg$22276).call();
-                                                  final Func.U<RealWorld, Boolean> v4797$20901 =
-                                                  Thunk.<Func.U<RealWorld, Boolean>>shared(
-                                                        (Lazy<Func.U<RealWorld, Boolean>>)(() -> PreludeMonad.IMonad_ST.<
-                                                              RealWorld, Boolean
-                                                            >pure(
-                                                                  Thunk.<Boolean>shared(
-                                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
-                                                                              THover
-                                                                            >$eq$eq(
-                                                                                  IEq_Hover.it, expected$18491.call(),
-                                                                                  v2056$20845
-                                                                                ))
-                                                                      )
+                                                ).apply(arg$20601).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19767 =
+                                            PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
+                                                  Thunk.<Boolean>shared(
+                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
+                                                              THover
+                                                            >$eq$eq(
+                                                                  IEq_Hover.it,
+                                                                  PreludeBase.TMaybe.DJust.<
+                                                                    THover
+                                                                  >mk(
+                                                                        THover.mk(
+                                                                              Diagnostic.TRange.mk(
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                8
+                                                                                              )
+                                                                                        ),
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                15
+                                                                                              )
+                                                                                        )
+                                                                                  ),
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "println :: Show 𝖆 => 𝖆 -> IO ()"
+                                                                                  )
+                                                                            )
+                                                                      ),
+                                                                  v2056$19766
                                                                 ))
-                                                      ).call();
-                                                  return Thunk.<Boolean>nested(
-                                                            (Lazy<Lazy<Boolean>>)(() -> v4797$20901
-                                                                .apply(arg$22276))
-                                                          );
-                                                })).call();
+                                                      )
+                                                );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v4797$20870
-                                                          .apply(arg$22274))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19767
+                                                          .apply(arg$20601))
                                                     );
                                           })
                                     ))
@@ -2887,37 +1817,253 @@ final public static Lazy<QuickCheckGen.TGen<
                     );
           })
     );
-final public static PreludeBase.TList<Tokens.TToken> backwards(final Lazy<Tokens.TToken[]> arg$1, final int arg$2) {
-  if (arg$2 > 0) {
-    return PreludeBase.TList.DCons.<Tokens.TToken>mk(
-              Thunk.<Tokens.TToken>shared((Lazy<Tokens.TToken>)(() -> Hover.trans(arg$1.call()[arg$2]))),
-              Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
-                    (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> Hover.backwards(arg$1, PreludeBase.IEnum_Int.pred(arg$2)))
-                  )
-            );
-  }
-  return PreludeBase.TList.DList.<Tokens.TToken>mk();
-}
-public static class K  {
-  final public static java.util.regex.Pattern rgx22245 = java.util.regex.Pattern.compile(
-        "^(.*)\\.(.*)$", 448
-      );
-  final public static java.util.regex.Pattern rgx22214 = java.util.regex.Pattern.compile(
-        "^(.*)\\.(.*)\\.(.*)$", 448
-      );
-  final public static java.util.regex.Pattern rgx22196 = java.util.regex.Pattern.compile(
-        "^(.*)\\.(.*)\\.(\\p{Lu}.*)$", 448
-      );
-  final public static java.util.regex.Pattern rgx22232 = java.util.regex.Pattern.compile(
-        "^(.*)\\.(\\p{Lu}.*)$", 448
-      );
-  final public static java.util.regex.Pattern rgx22013 = java.util.regex.Pattern.compile(
-        "^(chg|upd|has|let|anon|lc)\\$", 448
-      );
-  final public static java.util.regex.Pattern rgx22258 = java.util.regex.Pattern.compile(
-        "^\\p{Lu}.*$", 448
-      );
-}
+final public static Lazy<QuickCheckGen.TGen<
+  QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+>> shouldShowImportedConidTypeSignature = Thunk.<
+  QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>
+>shared(
+      (Lazy<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>)(() -> {
+            return QuickCheckProperty.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>once(
+                      new QuickCheckProperty.ITestable_Gen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>(
+                        QuickCheckProperty.ITestable_Prop.it
+                      ),
+                      Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+                            (Lazy<QuickCheckGen.TGen<
+                              QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+                            >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
+                                      QuickCheckProperty.ITestable_Bool.it,
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20604) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19730 =
+                                            Hover.compileAndGetTypeSignatureOnHover(
+                                                  Thunk.<String/*<Character>*/>shared(
+                                                        (Lazy<String/*
+                                                          <Character>
+                                                        */>)(() -> "module HoverTest where\n\n" + "import frege.data.Maybe(Maybe)")
+                                                      ),
+                                                  Diagnostic.TPosition.mk(Thunk.<Integer>lazy(3), Thunk.<Integer>lazy(27))
+                                                ).apply(arg$20604).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19731 =
+                                            PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
+                                                  Thunk.<Boolean>shared(
+                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
+                                                              THover
+                                                            >$eq$eq(
+                                                                  IEq_Hover.it,
+                                                                  PreludeBase.TMaybe.DJust.<
+                                                                    THover
+                                                                  >mk(
+                                                                        THover.mk(
+                                                                              Diagnostic.TRange.mk(
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                25
+                                                                                              )
+                                                                                        ),
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                3
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                30
+                                                                                              )
+                                                                                        )
+                                                                                  ),
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "Maybe :: *->*"
+                                                                                  )
+                                                                            )
+                                                                      ),
+                                                                  v2056$19730
+                                                                ))
+                                                      )
+                                                );
+                                            return Thunk.<Boolean>nested(
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19731
+                                                          .apply(arg$20604))
+                                                    );
+                                          })
+                                    ))
+                          )
+                    );
+          })
+    );
+final public static Lazy<QuickCheckGen.TGen<
+  QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+>> shouldShowImportedConidDataConstructor = Thunk.<
+  QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>
+>shared(
+      (Lazy<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>)(() -> {
+            return QuickCheckProperty.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>once(
+                      new QuickCheckProperty.ITestable_Gen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>(
+                        QuickCheckProperty.ITestable_Prop.it
+                      ),
+                      Thunk.<QuickCheckGen.TGen<QuickCheckProperty.TRose<QuickCheckProperty.TResult>>>shared(
+                            (Lazy<QuickCheckGen.TGen<
+                              QuickCheckProperty.TRose<QuickCheckProperty.TResult>
+                            >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
+                                      QuickCheckProperty.ITestable_Bool.it,
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$20607) -> {
+                                            final PreludeBase.TMaybe<THover> v2056$19694 =
+                                            Hover.compileAndGetTypeSignatureOnHover(
+                                                  Thunk.<String/*<Character>*/>shared(
+                                                        (Lazy<String/*
+                                                          <Character>
+                                                        */>)(() -> "module HoverTest where\n\n" + ("import frege.data.Maybe(Maybe, Just)\n" + "res = Just 42"))
+                                                      ),
+                                                  Diagnostic.TPosition.mk(Thunk.<Integer>lazy(4), Thunk.<Integer>lazy(10))
+                                                ).apply(arg$20607).call();
+                                            final Func.U<RealWorld, Boolean> v2057$19695 =
+                                            PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
+                                                  Thunk.<Boolean>shared(
+                                                        (Lazy<Boolean>)(() -> Maybe.IEq_Maybe.<
+                                                              THover
+                                                            >$eq$eq(
+                                                                  IEq_Hover.it,
+                                                                  PreludeBase.TMaybe.DJust.<
+                                                                    THover
+                                                                  >mk(
+                                                                        THover.mk(
+                                                                              Diagnostic.TRange.mk(
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                4
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                7
+                                                                                              )
+                                                                                        ),
+                                                                                    Diagnostic.TPosition.mk(
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                4
+                                                                                              ),
+                                                                                          Thunk.<
+                                                                                            Integer
+                                                                                          >lazy(
+                                                                                                11
+                                                                                              )
+                                                                                        )
+                                                                                  ),
+                                                                              Thunk.<String/*<Character>*/>lazy(
+                                                                                    "Just :: a -> Maybe a"
+                                                                                  )
+                                                                            )
+                                                                      ),
+                                                                  v2056$19694
+                                                                ))
+                                                      )
+                                                );
+                                            return Thunk.<Boolean>nested(
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$19695
+                                                          .apply(arg$20607))
+                                                    );
+                                          })
+                                    ))
+                          )
+                    );
+          })
+    );
+final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWorld, Short>>shared(
+      (Lazy<Func.U<RealWorld, Short>>)(() -> {
+            return (Func.U<RealWorld, Short>)((final Lazy<RealWorld> arg$20610) -> {
+                      final Global.TGlobal v2056$19831 = CompilerHelper.lspGlobal.call()
+                      .apply(arg$20610).call();
+                      final Lazy<String/*<Character>*/> fregeCode$18477 = Thunk.<String/*<Character>*/>shared(
+                            (Lazy<String/*
+                              <Character>
+                            */>)(() -> "module HoverTest where\n\n" + ("import frege.compiler.Main(runpass)\n\n" + ("pass = runpass\n" + ("me = 42\n\n" + "main = do\n  a = \"Hello\"\n  println a"))))
+                          );
+                      final Func.U<RealWorld, Global.TGlobal> v2053$19850 = Func.<RealWorld, Global.TGlobal>coerceU(
+                            State.<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>execStateT(
+                                  PreludeMonad.IMonad_ST.<RealWorld>mk(),
+                                  Thunk.<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>>shared(
+                                        (Lazy<State.TStateT<
+                                          Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal
+                                        >>)(() -> CompilerHelper.compileFregeFile(fregeCode$18477))
+                                      ),
+                                  v2056$19831
+                                )
+                          );
+                      final Global.TGlobal v2056$19853 = v2053$19850.apply(arg$20610)
+                      .call();
+                      final Func.U<RealWorld, Short> v4793$19875 = Prelude.<String/*<Character>*/>println(
+                            PreludeText.IShow_String.it, Global.TSubSt.code(Global.TGlobal.sub(v2056$19853)).toString()
+                          );
+                      final short v4796$19877 = (short)v4793$19875.apply(arg$20610).call();
+                      final Func.U<RealWorld, Short> v4797$19878 = ((Func.U<RealWorld, Short>)((
+                        final Lazy<RealWorld> arg$20620
+                      ) -> {
+                            final short v4796$19908 = (short)Func.<RealWorld, Short>coerceU(
+                                  PreludeMonad.<Func.U<RealWorld, ?>, Tokens.TToken, Short, PreludeBase.TList<?>>$for(
+                                        PreludeMonad.IMonad_ST.<RealWorld>mk(),
+                                        PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
+                                        Thunk.<Kind.U<PreludeBase.TList<?>, Tokens.TToken>>shared(
+                                              (Lazy<Kind.U<PreludeBase.TList<?>, Tokens.TToken>>)(() -> (Kind.U<
+                                                    PreludeBase.TList<?>, Tokens.TToken
+                                                  >)Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
+                                                        (Lazy<PreludeBase.TList<
+                                                          Tokens.TToken
+                                                        >>)(() -> Tokens.IArrayElement_Token.listFromArray(
+                                                                  Global.TSubSt.toks(Global.TGlobal.sub(v2056$19853))
+                                                                ))
+                                                      ).call())
+                                            ),
+                                        (Func.U<Tokens.TToken, Kind.U<Func.U<RealWorld, ?>, Short>>)((
+                                          final Lazy<Tokens.TToken> η$20619
+                                        ) -> Thunk.<Kind.U<Func.U<RealWorld, ?>, Short>>shared(
+                                                  (Lazy<Kind.U<Func.U<RealWorld, ?>, Short>>)(() -> (Kind.U<
+                                                        Func.U<RealWorld, ?>, Short
+                                                      >)Thunk.<Func.U<RealWorld, Short>>shared(
+                                                            (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
+                                                                  Tokens.TToken
+                                                                >println(Tokens.IShow_Token.it, η$20619.call()))
+                                                          ).call())
+                                                ))
+                                      )
+                                ).apply(arg$20620).call();
+                            final Func.U<RealWorld, Short> v4797$19909 = ((Func.U<RealWorld, Short>)((
+                              final Lazy<RealWorld> arg$20614
+                            ) -> {
+                                  final PreludeBase.TMaybe<THover> v2056$19930 = Hover.compileAndGetTypeSignatureOnHover(
+                                        fregeCode$18477, Diagnostic.TPosition.mk(Thunk.<Integer>lazy(5), Thunk.<Integer>lazy(9))
+                                      ).apply(arg$20614).call();
+                                  final Func.U<RealWorld, Short> v4793$19952 = Prelude.<
+                                    PreludeBase.TMaybe<THover>
+                                  >println(new PreludeText.IShow_Maybe<THover>(IShow_Hover.it), v2056$19930);
+                                  final short v4796$19954 = (short)v4793$19952.apply(arg$20614)
+                                  .call();
+                                  final Func.U<RealWorld, Short> v4797$19955 = Thunk.<
+                                    Func.U<RealWorld, Short>
+                                  >shared(
+                                        (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
+                                              String/*<Character>*/
+                                            >println(PreludeText.IShow_String.it, "end"))
+                                      ).call();
+                                  return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$19955.apply(arg$20614)));
+                                })).call();
+                            return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$19909.apply(arg$20620)));
+                          })).call();
+                      return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$19878.apply(arg$20610)));
+                    });
+          })
+    );
+
   public static void main(final java.lang.String[] argv) {
     try {
       frege.run.RunTM.argv = argv;
