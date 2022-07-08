@@ -1,6 +1,6 @@
 plugins {
     id 'application'
-    id 'ch.fhnw.thga.frege' version '2.0.1-alpha'
+    id 'ch.fhnw.thga.frege' version '4.0.1-alpha'
 }
 
 repositories {
@@ -29,7 +29,11 @@ frege
     version       = '3.25.84'
     release       = '3.25alpha'
     mainSourceDir = layout.projectDirectory.dir('src/main/frege')
-    mainModule    = 'ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic'
+    testModules   = 
+    [
+        'ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic',
+        'ch.fhnw.thga.fregelanguageserver.hover.Hover'
+    ]
 }
 
 tasks.register('copyCompiledFregeClasses', Copy)

@@ -36,7 +36,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/lsp4j/PositionLSP4J.fr",
-  time=1657090226212L, jmajor=11, jminor=-1,
+  time=1657103704716L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.types.Position", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -54,7 +54,7 @@ import frege.prelude.PreludeText;
       kind=3, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=456,
+          offset=470,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", base="PositionLSP",
             member="toPosition"
@@ -70,7 +70,7 @@ import frege.prelude.PreludeText;
           stri="s(ss)", sig=3, nativ="new", pur=true, depth=2, rkind=9
         ),
         @Meta.SymV(
-          offset=349,
+          offset=363,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", base="PositionLSP",
             member="fromPosition"
@@ -78,7 +78,7 @@ import frege.prelude.PreludeText;
           stri="s(s)", sig=5, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=309,
+          offset=323,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", base="PositionLSP",
             member="getCharacter"
@@ -86,7 +86,7 @@ import frege.prelude.PreludeText;
           stri="s(s)", sig=6, nativ="getCharacter", pur=true, depth=1, rkind=9
         ),
         @Meta.SymV(
-          offset=263,
+          offset=272,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", base="PositionLSP",
             member="getLine"

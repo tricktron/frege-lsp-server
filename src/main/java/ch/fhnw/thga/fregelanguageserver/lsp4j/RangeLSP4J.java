@@ -20,6 +20,8 @@ import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J;
 import ch.fhnw.thga.fregelanguageserver.types.Position;
 import ch.fhnw.thga.fregelanguageserver.types.Range;
 import frege.Prelude;
+import frege.compiler.enums.TokenID;
+import frege.compiler.types.Tokens;
 import frege.control.Category;
 import frege.control.Semigroupoid;
 import frege.java.IO;
@@ -38,7 +40,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/lsp4j/RangeLSP4J.fr",
-  time=1657090226428L, jmajor=11, jminor=-1,
+  time=1657103704956L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -102,10 +104,10 @@ final public class RangeLSP4J  {
 
 final public static class TRangeLSP  {
   final public static org.eclipse.lsp4j.Range fromRange(final Range.TRange arg$1) {
-    final Position.TPosition end$7683 = arg$1.mem$end.call();
-    final Position.TPosition start$7682 = arg$1.mem$start.call();
+    final Position.TPosition end$8081 = arg$1.mem$end.call();
+    final Position.TPosition start$8080 = arg$1.mem$start.call();
     return new org.eclipse.lsp4j.Range(
-          PositionLSP4J.TPositionLSP.fromPosition(start$7682), PositionLSP4J.TPositionLSP.fromPosition(end$7683)
+          PositionLSP4J.TPositionLSP.fromPosition(start$8080), PositionLSP4J.TPositionLSP.fromPosition(end$8081)
         );
   }
 }
