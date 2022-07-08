@@ -141,7 +141,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/DiagnosticLSP.fr",
-  time=1657289975898L, jmajor=11, jminor=-1,
+  time=1657294193398L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", "ch.fhnw.thga.fregelanguageserver.types.Position",
     "ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", "frege.Prelude", "frege.prelude.PreludeArrays",
@@ -210,12 +210,12 @@ import frege.test.QuickCheckText;
       pur=true, nativ="org.eclipse.lsp4j.DiagnosticSeverity"
     ),
     @Meta.SymT(
-      offset=1246,
+      offset=1253,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="DiagnosticLSP"),
       typ=3, kind=2, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1408,
+          offset=1415,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="DiagnosticLSP",
             member="fromDiagnostic"
@@ -223,7 +223,7 @@ import frege.test.QuickCheckText;
           stri="s(s(ssss))", sig=5, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=1325,
+          offset=1332,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="DiagnosticLSP",
             member="new"
@@ -234,12 +234,12 @@ import frege.test.QuickCheckText;
       pur=true, nativ="org.eclipse.lsp4j.Diagnostic"
     ),
     @Meta.SymT(
-      offset=1690,
+      offset=1696,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="ArrayList"),
       typ=9, kind=24, cons={}, lnks={},
       funs={
         @Meta.SymV(
-          offset=1804,
+          offset=1810,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="ArrayList",
             member="new"
@@ -247,7 +247,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=11, nativ="new", depth=1, rkind=9
         ),
         @Meta.SymV(
-          offset=1746,
+          offset=1752,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="ArrayList",
             member="add"
@@ -255,7 +255,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=14, nativ="add", depth=2, rkind=9
         ),
         @Meta.SymV(
-          offset=1846,
+          offset=1852,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="ArrayList",
             member="fromFregeList"
@@ -268,7 +268,7 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=2110,
+      offset=2116,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP", base="compileAndGetDiagnosticsLSP"
       ),
@@ -354,7 +354,7 @@ final public class DiagnosticLSP  {
 final public static class TDiagnosticSeverityLSP  {
   final public static org.eclipse.lsp4j.DiagnosticSeverity fromCompilerSeverity(final short arg$1) {
     if (arg$1 == Diagnostic.TDiagnosticSeverity.HINT) {
-      return org.eclipse.lsp4j.DiagnosticSeverity.Hint;
+      return org.eclipse.lsp4j.DiagnosticSeverity.Information;
     }
     if (arg$1 == Diagnostic.TDiagnosticSeverity.WARNING) {
       return org.eclipse.lsp4j.DiagnosticSeverity.Warning;
@@ -368,13 +368,13 @@ final public static class TDiagnosticSeverityLSP  {
 }
 final public static class TDiagnosticLSP  {
   final public static org.eclipse.lsp4j.Diagnostic fromDiagnostic(final Diagnostic.TDiagnostic arg$1) {
-    final String/*<Character>*/ message$17364 = arg$1.mem$message.call();
-    final String/*<Character>*/ source$17366 = arg$1.mem$source.call();
-    final short severity$17365 = (short)arg$1.mem$severity.call();
+    final String/*<Character>*/ message$17366 = arg$1.mem$message.call();
+    final String/*<Character>*/ source$17365 = arg$1.mem$source.call();
+    final short severity$17364 = (short)arg$1.mem$severity.call();
     final Range.TRange range$17363 = arg$1.mem$range.call();
     return new org.eclipse.lsp4j.Diagnostic(
-          RangeLSP4J.TRangeLSP.fromRange(range$17363), message$17364,
-          TDiagnosticSeverityLSP.fromCompilerSeverity(severity$17365), source$17366
+          RangeLSP4J.TRangeLSP.fromRange(range$17363), message$17366,
+          TDiagnosticSeverityLSP.fromCompilerSeverity(severity$17364), source$17365
         );
   }
 }

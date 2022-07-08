@@ -15,7 +15,7 @@ data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity wh
     pure native hint        "org.eclipse.lsp4j.DiagnosticSeverity.Hint"        :: DiagnosticSeverityLSP
 
     fromCompilerSeverity :: DiagnosticSeverity -> DiagnosticSeverityLSP
-    fromCompilerSeverity HINT           = hint
+    fromCompilerSeverity HINT           = information
     fromCompilerSeverity WARNING        = warning
     fromCompilerSeverity ERROR          = error
     fromCompilerSeverity INFORMATION    = information
@@ -24,7 +24,7 @@ data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
     pure native new :: RangeLSP -> String -> DiagnosticSeverityLSP -> String -> DiagnosticLSP
 
     fromDiagnostic :: Diagnostic -> DiagnosticLSP
-    fromDiagnostic Diagnostic { range, message, severity, source } = 
+    fromDiagnostic Diagnostic { range,severity, source, message } = 
         new 
             (RangeLSP.fromRange range) 
             message 

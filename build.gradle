@@ -38,6 +38,7 @@ frege
 
 tasks.register('copyCompiledFregeClasses', Copy)
 {
+    dependsOn    compileFrege
     from         compileFrege.fregeOutputDir
     include      '**/*.java'
     into         layout.projectDirectory.dir('src/main/java')
@@ -47,12 +48,12 @@ tasks.register('copyCompiledFregeClasses', Copy)
 compileJava.configure
 {
     options.encoding = 'UTF-8'
-    dependsOn          compileFrege, copyCompiledFregeClasses
+    dependsOn          copyCompiledFregeClasses
 }
 
 test.dependsOn 'testFrege'
 
 tasks.withType(Jar).configureEach
 {
-    dependsOn check
+    dependsOn copyCompiledFregeClasses, check
 }
