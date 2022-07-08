@@ -1,4 +1,4 @@
-module ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic where
+module ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP where
 
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
@@ -43,6 +43,6 @@ data ArrayList a = native java.util.ArrayList where
 
 compileAndGetDiagnosticsLSP :: String -> IOMutable (ArrayList DiagnosticLSP)
 compileAndGetDiagnosticsLSP fregeCode = do
-    diagnostics <- compileAndGetDiagnostics fregeCode
+    diagnostics   <- compileAndGetDiagnostics fregeCode
     diagnosticsLSP = DiagnosticLSP.fromDiagnostic <$> diagnostics
     ArrayList.fromFregeList diagnosticsLSP

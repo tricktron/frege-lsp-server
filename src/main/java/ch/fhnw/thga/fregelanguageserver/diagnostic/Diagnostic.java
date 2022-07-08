@@ -138,7 +138,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/Diagnostic.fr",
-  time=1657287844335L, jmajor=11, jminor=-1,
+  time=1657290025655L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper", "frege.compiler.types.Global",
     "ch.fhnw.thga.fregelanguageserver.types.Position", "frege.compiler.types.Positions", "frege.Prelude",
@@ -736,11 +736,11 @@ import frege.test.QuickCheckText;
       stri="s(s)", sig=34, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=4901, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
+      offset=5024, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
       stri="s(su)", sig=37, depth=2, rkind=45
     ),
     @Meta.SymV(
-      offset=5037, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
+      offset=5165, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
       stri="u", sig=38, depth=0, rkind=8
     ),
     @Meta.SymV(
@@ -749,7 +749,7 @@ import frege.test.QuickCheckText;
       stri="s(s)", sig=40, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2805,
+      offset=2877,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics"
@@ -757,7 +757,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=3557,
+      offset=3648,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics"
@@ -765,7 +765,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2456,
+      offset=2484,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray"
@@ -773,12 +773,12 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2049,
+      offset=2052,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="extractDiagnostics"),
       stri="s", sig=42, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=1701,
+      offset=1702,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="createDiagnosticFromMessage"
       ),
@@ -790,7 +790,7 @@ import frege.test.QuickCheckText;
       stri="s(s)", sig=46, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2223,
+      offset=2234,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="compileAndGetDiagnostics"),
       stri="s(u)", sig=47, depth=1, rkind=13
     )

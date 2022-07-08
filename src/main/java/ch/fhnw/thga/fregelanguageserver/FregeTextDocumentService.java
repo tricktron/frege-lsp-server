@@ -14,7 +14,7 @@ import org.eclipse.lsp4j.HoverParams;
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import ch.fhnw.thga.fregelanguageserver.diagnostic.FregeDiagnosticService;
+import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticService;
 import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 
 public class FregeTextDocumentService implements TextDocumentService
@@ -45,7 +45,7 @@ public class FregeTextDocumentService implements TextDocumentService
             .lines()
             .collect(Collectors.toList());
 
-		FregeDiagnosticService.publishCompilerDiagnostics(
+		DiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.client,
             currentOpenFileContents,
             params.getTextDocument().getUri()
@@ -73,7 +73,7 @@ public class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
     {
-		FregeDiagnosticService.publishCompilerDiagnostics(
+		DiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.client,
             currentOpenFileContents,
             params.getTextDocument().getUri()
