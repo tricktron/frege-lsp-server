@@ -1,6 +1,6 @@
 plugins {
     id 'application'
-    id 'ch.fhnw.thga.frege' version '4.0.1-alpha'
+    id 'ch.fhnw.thga.frege' version '4.1.0-alpha'
 }
 
 repositories {
@@ -39,10 +39,9 @@ frege
 tasks.register('copyCompiledFregeClasses', Copy)
 {
     dependsOn    compileFrege
-    from         compileFrege.fregeOutputDir
+    from         frege.outputDir
     include      '**/*.java'
     into         layout.projectDirectory.dir('src/main/java')
-    mustRunAfter compileFrege
 }
 
 compileJava.configure
@@ -51,7 +50,7 @@ compileJava.configure
     dependsOn          copyCompiledFregeClasses
 }
 
-test.dependsOn 'testFrege'
+check.dependsOn 'testFrege'
 
 tasks.withType(Jar).configureEach
 {
