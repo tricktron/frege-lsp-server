@@ -11,12 +11,12 @@ import org.eclipse.lsp4j.services.LanguageClient;
 
 import frege.run8.Thunk;
 
-public class FregeDiagnosticService
+public class DiagnosticService
 {
     private static List<Diagnostic> getCompilerDiagnostics(String fregeCode)
     {
         return performUnsafe(
-            LSPDiagnostic.compileAndGetDiagnosticsLSP(Thunk.lazy(fregeCode))).call();
+            DiagnosticLSP.compileAndGetDiagnosticsLSP(Thunk.lazy(fregeCode))).call();
     }
 
     public static void publishCompilerDiagnostics(

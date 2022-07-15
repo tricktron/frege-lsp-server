@@ -29,7 +29,7 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
     {
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
-		res.getCapabilities().setHoverProvider(false);
+		res.getCapabilities().setHoverProvider(true);
 		return CompletableFuture.supplyAsync(() -> res);
 	}
 

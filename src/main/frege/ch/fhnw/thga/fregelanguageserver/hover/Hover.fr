@@ -1,0 +1,161 @@
+module ch.fhnw.thga.fregelanguageserver.hover.Hover where
+
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
+
+import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
+import Compiler.types.Tokens (Token)
+import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
+import Control.monad.State (StateT, evalStateT, execStateT, evalState)
+import Control.monad.trans.MonadTrans (lift)
+import frege.ide.Utilities (label)
+import Data.List (sortBy)
+import Compiler.types.QNames (QName)
+import Data.List (find)
+
+newtype FregeCodeBlock = FregeCodeBlock {
+    code :: String
+}
+
+derive Eq FregeCodeBlock
+instance Show FregeCodeBlock where
+    show FregeCodeBlock { code } = 
+        "```frege\n" ++ code ++ "\n```"
+
+data Hover = Hover {
+    range   :: Range,
+    content :: FregeCodeBlock
+}
+
+derive Eq Hover
+derive Show Hover
+
+getSymbolType:: Symbol -> StateT Global Maybe String
+getSymbolType sym = do
+    gl <- StateT.get
+    pure $ label gl sym
+
+findToken :: Position -> StateT Global Maybe Token
+findToken pos = do
+    gl <- StateT.get
+    tokens = listFromArray gl.sub.toks
+    lift $ find isHoverOverToken tokens where
+        isHoverOverToken :: Token -> Bool
+        isHoverOverToken t = 
+            pos.line      == t.line && 
+            pos.character  < (t.col + (length t.value)) &&
+            pos.character >= t.col
+
+findSymbol :: QName -> StateT Global Maybe Symbol
+findSymbol qname = do
+    gl  <- StateT.get
+    lift $ Global.find gl qname
+
+tokenToQName :: Token -> StateT Global Maybe QName
+tokenToQName t = do
+    g <- StateT.get
+    namespaceOrVariable <- lift $ Global.resolved g t
+    lift $ either (const Nothing) Just namespaceOrVariable
+
+compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe Hover)
+compileAndGetTypeSignatureOnHover fregeCode pos = do
+    startGlobal <- lspGlobal
+    gl          <- execStateT (compileFregeFile fregeCode) startGlobal
+    pure         $ evalStateT (getTypeOnHover pos) gl
+
+getTypeOnHover :: Position -> StateT Global Maybe Hover
+getTypeOnHover pos = do
+    global     <- StateT.get
+    token      <- findToken pos
+    qname      <- tokenToQName token
+    symbol     <- findSymbol qname
+    symbolType <- getSymbolType symbol
+    pure        $ Hover { 
+        range   = tokenToRange token, 
+        content = FregeCodeBlock symbolType
+    }
+
+shouldShowLocalVaridTypeSignature :: Property
+shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
+    expected = Just Hover { 
+        range   = Range { start = Position 3 1, end = Position 3 13 },
+        content = FregeCodeBlock "simplyString :: String"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 3)
+    pure    $ expected == actual
+
+shouldShowImportedVaridTypeSignature :: Property
+shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n" ++ "main = println \"Hello\""
+    expected = Just Hover { 
+        range   = Range { start = Position 3 8, end = Position 3 15 },
+        content = FregeCodeBlock "println :: Show 𝖆 => 𝖆 -> IO ()"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 9)
+    pure    $ expected == actual
+
+shouldShowLocalConidTypeSignature :: Property
+shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "data MyMaybe a = MyNothing | MyJust a\n"
+    expected = Just Hover { 
+        range   = Range { start = Position 3 6, end = Position 3 13 },
+        content = FregeCodeBlock "MyMaybe :: *->*"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 7)
+    pure    $ expected == actual
+
+shouldShowImportedConidTypeSignature :: Property
+shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "import frege.data.Maybe(Maybe)"
+    expected = Just Hover { 
+        range   = Range { start = Position 3 25, end = Position 3 30 },
+        content = FregeCodeBlock "Maybe :: *->*"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 3 27)
+    pure    $ expected == actual
+
+shouldShowLocalConidDataConstructor :: Property
+shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "data MyMaybe a = MyNothing | MyJust a\n"
+        ++ "res = MyJust 42"
+    expected = Just Hover { 
+        range   = Range { start = Position 4 7, end = Position 4 13 },
+        content = FregeCodeBlock "MyJust :: a -> MyMaybe a"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 8)
+    pure    $ expected == actual
+
+shouldShowImportedConidDataConstructor :: Property
+shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
+    fregeHoverCode = "module HoverTest where\n\n"
+        ++ "import frege.data.Maybe(Maybe, Just)\n"
+        ++ "res = Just 42"
+    expected = Just Hover { 
+        range   = Range { start = Position 4 7, end = Position 4 11 },
+        content = FregeCodeBlock "Just :: a -> Maybe a"
+    }
+    actual <- compileAndGetTypeSignatureOnHover fregeHoverCode (Position 4 10)
+    pure    $ expected == actual
+
+main :: IO ()
+main = do
+    lspGlobal     <- lspGlobal
+    let fregeCode = "module HoverTest where\n\n" 
+            ++ "import frege.compiler.Main(runpass)\n\n"
+            ++ "pass = runpass\n" ++ "me = 42\n\n"
+            ++ "main = do\n  a = \"Hello\"\n  println a"
+    let simpleFregeCode = "module HoverTest where\n\n" 
+            ++ "data MyMaybe a = MyNothing | MyJust a\n"
+            ++ "res = MyJust 42"
+    gl            <- execStateT (compileFregeFile fregeCode) lspGlobal
+    println $ CharSequence.toString gl.sub.code
+    tokens = listFromArray gl.sub.toks
+    for tokens println
+    hover <- compileAndGetTypeSignatureOnHover fregeCode (Position 5 9)
+    println hover
+    println "end"

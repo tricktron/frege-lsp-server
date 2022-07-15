@@ -1,0 +1,14 @@
+module ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J where
+
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+
+data PositionLSP = pure native org.eclipse.lsp4j.Position where
+    pure native new          :: Int -> Int -> PositionLSP
+    pure native getLine      :: PositionLSP -> Int
+    pure native getCharacter :: PositionLSP -> Int
+
+    fromPosition :: Position -> PositionLSP
+    fromPosition pos = new (pos.line - 1) (pos.character - 1)
+
+    toPosition :: PositionLSP -> Position
+    toPosition posLSP = Position ((getLine posLSP) + 1) ((getCharacter posLSP) + 1)

@@ -124,7 +124,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compiler/CompilerHelper.fr",
-  time=1655469096053L, jmajor=11, jminor=-1,
+  time=1657911865336L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.Classes", "frege.compiler.common.CompilerOptions", "frege.compiler.common.Desugar",
     "frege.compiler.passes.Easy", "frege.compiler.passes.Enter", "frege.compiler.grammar.Frege",

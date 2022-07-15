@@ -1,0 +1,9 @@
+module ch.fhnw.thga.fregelanguageserver.types.Position where
+
+data Position = Position {
+    line      :: Int, -- 1 based
+    character :: Int  -- 1 based character offset of a line
+}
+
+derive Eq Position
+derive Show Position

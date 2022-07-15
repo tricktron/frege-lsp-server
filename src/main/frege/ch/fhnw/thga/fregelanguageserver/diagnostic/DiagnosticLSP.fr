@@ -1,7 +1,12 @@
-module ch.fhnw.thga.fregelanguageserver.diagnostic.LSPDiagnostic where
+module ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP where
 
+import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
 import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
-    Position, DiagnosticSeverity, Range, Diagnostic, compileAndGetDiagnostics)
+    DiagnosticSeverity, Diagnostic, compileAndGetDiagnostics)
+
+import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
 
 data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where
     pure native error       "org.eclipse.lsp4j.DiagnosticSeverity.Error"       :: DiagnosticSeverityLSP
@@ -10,30 +15,16 @@ data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity wh
     pure native hint        "org.eclipse.lsp4j.DiagnosticSeverity.Hint"        :: DiagnosticSeverityLSP
 
     fromCompilerSeverity :: DiagnosticSeverity -> DiagnosticSeverityLSP
-    fromCompilerSeverity HINT           = hint
+    fromCompilerSeverity HINT           = information
     fromCompilerSeverity WARNING        = warning
     fromCompilerSeverity ERROR          = error
     fromCompilerSeverity INFORMATION    = information
-
-data PositionLSP = pure native org.eclipse.lsp4j.Position where
-    pure native new :: Int -> Int -> PositionLSP
-
-    fromPosition :: Position -> PositionLSP
-    fromPosition pos = new pos.line pos.character
-
-data RangeLSP = pure native org.eclipse.lsp4j.Range where
-    pure native new      :: PositionLSP -> PositionLSP -> RangeLSP
-
-    fromRange :: Range -> RangeLSP
-    fromRange Range { start, end } = new 
-        (PositionLSP.fromPosition start) 
-        (PositionLSP.fromPosition end)
 
 data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
     pure native new :: RangeLSP -> String -> DiagnosticSeverityLSP -> String -> DiagnosticLSP
 
     fromDiagnostic :: Diagnostic -> DiagnosticLSP
-    fromDiagnostic Diagnostic { range, message, severity, source } = 
+    fromDiagnostic Diagnostic { range,severity, source, message } = 
         new 
             (RangeLSP.fromRange range) 
             message 
@@ -52,6 +43,6 @@ data ArrayList a = native java.util.ArrayList where
 
 compileAndGetDiagnosticsLSP :: String -> IOMutable (ArrayList DiagnosticLSP)
 compileAndGetDiagnosticsLSP fregeCode = do
-    diagnostics <- compileAndGetDiagnostics fregeCode
+    diagnostics   <- compileAndGetDiagnostics fregeCode
     diagnosticsLSP = DiagnosticLSP.fromDiagnostic <$> diagnostics
     ArrayList.fromFregeList diagnosticsLSP
