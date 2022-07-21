@@ -387,6 +387,41 @@ final public static State.TState<Global.TGlobal, Global.TGlobal> switchState(fin
                 })
           );
 }
+final public static Lazy<Global.TOptions> standardLSPOptions = Thunk.<Global.TOptions>shared(
+      (Lazy<Global.TOptions>)(() -> {
+            return Global.TOptions.mk(
+                      "-",
+                      PreludeBase.TList.DCons.<String/*<Character>*/>mk(
+                            Thunk.<String/*<Character>*/>lazy("."), PreludeBase.TList.DList.<String/*<Character>*/>mk()
+                          ),
+                      (long)Bits.TBitSet.<Short>fromList(
+                            Flags.IEnum_Flag.it,
+                            PreludeBase.TList.DCons.<Short>mk(
+                                  Thunk.<Short>lazy(Flags.TFlag.WARNINGS),
+                                  PreludeBase.TList.DCons.<Short>mk(
+                                        Thunk.<Short>lazy(Flags.TFlag.HINTS),
+                                        PreludeBase.TList.DCons.<Short>mk(
+                                              Thunk.<Short>lazy(Flags.TFlag.VERBOSE),
+                                              PreludeBase.TList.DCons.<Short>mk(
+                                                    Thunk.<Short>lazy(Flags.TFlag.IDEMODE),
+                                                    PreludeBase.TList.DCons.<Short>mk(
+                                                          Thunk.<Short>lazy(Flags.TFlag.IDETOKENS),
+                                                          PreludeBase.TList.DList.<Short>mk()
+                                                        )
+                                                  )
+                                            )
+                                      )
+                                )
+                          ),
+                      ".", PreludeBase.TList.DList.<String/*<Character>*/>mk(), "",
+                      PreludeBase.TMaybe.DJust.<String/*<Character>*/>mk(Thunk.<String/*<Character>*/>lazy("UTF-8")),
+                      PreludeBase.TList.DList.<PreludeBase.TTuple2<Integer, Integer>>mk(), Targets.thisTarget.call(),
+                      PreludeBase.TMaybe.DNothing.<frege.compiler.types.Types.TSigmaT<QNames.TQName>>mk(),
+                      PreludeBase.TList.DList.<frege.compiler.types.Types.TSigmaT<QNames.TQName>>mk(),
+                      PreludeBase.TList.DList.<Tokens.TToken>mk()
+                    );
+          })
+    );
 final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> runpass(
   final PreludeBase.TTuple2<
     State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, PreludeBase.TTuple2<String/*<Character>*/, Integer>>,
