@@ -1,6 +1,6 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic where
 
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, standardLSPGlobal)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
@@ -68,7 +68,7 @@ extractDiagnostics = do
 
 compileAndGetDiagnostics :: String -> IO [ Diagnostic ]
 compileAndGetDiagnostics fregeCode = do
-    startGlobal <- lspGlobal
+    startGlobal <- standardLSPGlobal
     gl          <- execStateT (compileFregeFile fregeCode) startGlobal
     pure         $ evalState (extractDiagnostics) gl
 
@@ -92,7 +92,7 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
                 message  = "Could not import module frege.does.not.Exist\n(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
             } 
         ]
-    gl     <- lspGlobal
+    gl     <- standardLSPGlobal
     actual <- compileAndGetDiagnostics fregeCodeWithError
     pure    $ expected == actual
 
@@ -123,7 +123,7 @@ fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubi
                 message  = "last statement in a monadic do block must not\nbe let decls" 
             }
         ]
-    gl     <- lspGlobal
+    gl     <- standardLSPGlobal
     actual <- compileAndGetDiagnostics fregeCodeWithErrors
     pure    $ expected == actual
 
@@ -133,7 +133,7 @@ posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
 
 main :: IO ()
 main = do
-    lspGlobal          <- lspGlobal
+    lspGlobal          <- standardLSPGlobal
     let fregeCode       = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\"\n\n"
     let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
     gl                 <- execStateT (compileFregeFile trickyFregeCode) lspGlobal

@@ -32,8 +32,8 @@ import Compiler.types.Packs
 instance Show Message where
   show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text
 
-lspOptions :: Options
-lspOptions = Options 
+standardLSPOptions :: Options
+standardLSPOptions = Options 
     { 
         source       = "-",
         sourcePath   = [ "." ],
@@ -76,14 +76,17 @@ passes =
         (liftStG FI.cleanSymtab,        "clean up")
     ]
 
-lspGlobal :: IO Global
-lspGlobal = do
-    initialLoader <- theClassLoader lspOptions
+createLSPGlobal :: Options -> IO Global
+createLSPGlobal opts = do
+    initialLoader <- theClassLoader opts
     initialGlobal <- standardGlobal
     pure initialGlobal. {
-        options  = lspOptions,
+        options  = opts,
         sub     <- SubSt. { loader = initialLoader }
     }
+
+standardLSPGlobal :: IO Global
+standardLSPGlobal = createLSPGlobal standardLSPOptions
 
 switchState :: Global -> StG Global
 switchState new = do

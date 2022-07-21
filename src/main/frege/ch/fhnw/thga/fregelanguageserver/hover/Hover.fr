@@ -1,6 +1,6 @@
 module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, lspGlobal)
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, standardLSPGlobal)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
 
@@ -60,7 +60,7 @@ tokenToQName t = do
 
 compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe Hover)
 compileAndGetTypeSignatureOnHover fregeCode pos = do
-    startGlobal <- lspGlobal
+    startGlobal <- standardLSPGlobal
     gl          <- execStateT (compileFregeFile fregeCode) startGlobal
     pure         $ evalStateT (getTypeOnHover pos) gl
 
@@ -144,7 +144,7 @@ shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
 
 main :: IO ()
 main = do
-    lspGlobal     <- lspGlobal
+    lspGlobal     <- standardLSPGlobal
     let fregeCode = "module HoverTest where\n\n" 
             ++ "import frege.compiler.Main(runpass)\n\n"
             ++ "pass = runpass\n" ++ "me = 42\n\n"

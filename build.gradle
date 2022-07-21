@@ -5,13 +5,15 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
 }
 
 dependencies {
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     frege          group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
-
+    implementation "org.gradle:gradle-tooling-api:$gradleVersion"
+    runtimeOnly    'org.slf4j:slf4j-simple:1.7.10'
 }
 
 application {
