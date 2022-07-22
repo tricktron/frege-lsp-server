@@ -2,7 +2,6 @@ module ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP where
 
 import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
     DiagnosticSeverity, Diagnostic, compileAndGetDiagnostics)
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper(standardLSPGlobal)
 
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
 

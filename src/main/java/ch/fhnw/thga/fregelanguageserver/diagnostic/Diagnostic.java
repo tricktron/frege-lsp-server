@@ -947,14 +947,14 @@ final public static class IShow_Diagnostic implements PreludeText.CShow<TDiagnos
     return IShow_Diagnostic.showChars(arg$1.call());
   }
   final public static String/*<Character>*/ showsub(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a4$17476 = arg$1.mem$message.call();
-    final String/*<Character>*/ a3$17475 = arg$1.mem$source.call();
-    final short a2$17474 = (short)arg$1.mem$severity.call();
-    final Range.TRange a1$17473 = arg$1.mem$range.call();
-    return ("(" + (((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17473)) + " ") + IShow_DiagnosticSeverity.showsub(
-              a2$17474
-            )) + " ") + PreludeText.IShow_String.showsub(a3$17475)) + " ") + PreludeText.IShow_String.showsub(
-              a4$17476
+    final String/*<Character>*/ a4$17474 = arg$1.mem$message.call();
+    final String/*<Character>*/ a3$17473 = arg$1.mem$source.call();
+    final short a2$17472 = (short)arg$1.mem$severity.call();
+    final Range.TRange a1$17471 = arg$1.mem$range.call();
+    return ("(" + (((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17471)) + " ") + IShow_DiagnosticSeverity.showsub(
+              a2$17472
+            )) + " ") + PreludeText.IShow_String.showsub(a3$17473)) + " ") + PreludeText.IShow_String.showsub(
+              a4$17474
             ))) + ")";
   }
   final public static String/*<Character>*/ showList(
@@ -987,6 +987,28 @@ final public static class IShow_Diagnostic implements PreludeText.CShow<TDiagnos
               a2$17469
             )) + " ") + PreludeText.IShow_String.showsub(a3$17470)) + " ") + PreludeText.IShow_String.showsub(
               a4$17471
+            );
+  }
+  final public static PreludeBase.TList<Character> showChars(final TDiagnostic arg$1) {
+    return PreludeList.IListView_StringJ.<Character>toList(IShow_Diagnostic.show(arg$1));
+  }
+  final public static String/*<Character>*/ showsPrec(
+    final Lazy<Integer> arg$1, final TDiagnostic arg$2, final String/*<Character>*/ arg$3
+  ) {
+    return IShow_Diagnostic.show(arg$2) + arg$3;
+  }
+  final public static String/*<Character>*/ display(final TDiagnostic arg$1) {
+    return IShow_Diagnostic.show(arg$1);
+  }
+  final public static String/*<Character>*/ show(final TDiagnostic arg$1) {
+    final String/*<Character>*/ a4$17469 = arg$1.mem$message.call();
+    final String/*<Character>*/ a3$17468 = arg$1.mem$source.call();
+    final short a2$17467 = (short)arg$1.mem$severity.call();
+    final Range.TRange a1$17466 = arg$1.mem$range.call();
+    return ((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17466)) + " ") + IShow_DiagnosticSeverity.showsub(
+              a2$17467
+            )) + " ") + PreludeText.IShow_String.showsub(a3$17468)) + " ") + PreludeText.IShow_String.showsub(
+              a4$17469
             );
   }
   final public static PreludeBase.TList<Character> showChars(final TDiagnostic arg$1) {
@@ -1315,7 +1337,7 @@ final public static PreludeBase.TList<Tokens.TToken> posToTokens(
   if ($18723 != null) {
     final Positions.TPosition µ$$17531 = $18723.mem1.call();
     return PreludeList.IListMonoid_$lbrack$rbrack.<Tokens.TToken>$plus$plus(
-              Global.tokens(µ$$17533, arg$2),
+              Global.tokens(µ$$17531, arg$2),
               Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
                     (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> Diagnostic.posToTokens(
                               $18723.mem2.call(), arg$2
