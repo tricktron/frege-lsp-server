@@ -406,7 +406,12 @@ final public static Lazy<Global.TOptions> standardLSPOptions = Thunk.<Global.TOp
                                                     Thunk.<Short>lazy(Flags.TFlag.IDEMODE),
                                                     PreludeBase.TList.DCons.<Short>mk(
                                                           Thunk.<Short>lazy(Flags.TFlag.IDETOKENS),
-                                                          PreludeBase.TList.DList.<Short>mk()
+                                                          PreludeBase.TList.DCons.<Short>mk(
+                                                                Thunk.<Short>lazy(Flags.TFlag.MAKE),
+                                                                PreludeBase.TList.DList.<
+                                                                  Short
+                                                                >mk()
+                                                              )
                                                         )
                                                   )
                                             )
