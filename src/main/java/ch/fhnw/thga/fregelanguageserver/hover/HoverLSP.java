@@ -15,7 +15,9 @@ import frege.run.Kind;
 import frege.run.RunTM;
 import frege.runtime.Meta;
 import frege.runtime.Phantom.RealWorld;
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions;
 import ch.fhnw.thga.fregelanguageserver.hover.Hover;
 import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J;
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J;
@@ -154,7 +156,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/HoverLSP.fr",
-  time=1658496591058L, jmajor=11, jminor=-1,
+  time=1658516066746L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.hover.Hover", "ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J",
     "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",

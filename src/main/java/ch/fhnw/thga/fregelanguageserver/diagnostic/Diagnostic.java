@@ -16,7 +16,9 @@ import frege.run.Kind;
 import frege.run.RunTM;
 import frege.runtime.Meta;
 import frege.runtime.Phantom.RealWorld;
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions;
 import ch.fhnw.thga.fregelanguageserver.types.Position;
 import ch.fhnw.thga.fregelanguageserver.types.Range;
 import frege.Prelude;
@@ -138,9 +140,10 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/Diagnostic.fr",
-  time=1658496590394L, jmajor=11, jminor=-1,
+  time=1658516066148L, jmajor=11, jminor=-1,
   imps={
-    "ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper", "frege.compiler.types.Global",
+    "ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor",
+    "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal", "frege.compiler.types.Global",
     "ch.fhnw.thga.fregelanguageserver.types.Position", "frege.compiler.types.Positions", "frege.Prelude",
     "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
     "frege.prelude.PreludeIO", "frege.prelude.PreludeList", "frege.prelude.PreludeMonad", "frege.prelude.PreludeText",
@@ -148,151 +151,149 @@ import frege.test.QuickCheckText;
     "frege.control.monad.State", "frege.compiler.types.Tokens"
   },
   nmss={
-    "CompilerHelper", "Global", "Position", "Positions", "Prelude", "PreludeArrays", "PreludeBase",
-    "PreludeDecimal", "PreludeIO", "PreludeList", "PreludeMonad", "PreludeText", "QuickCheck",
-    "Range", "Regexp", "State", "Tokens"
+    "CompileExecutor", "CompileGlobal", "Global", "Position", "Positions", "Prelude", "PreludeArrays",
+    "PreludeBase", "PreludeDecimal", "PreludeIO", "PreludeList", "PreludeMonad", "PreludeText",
+    "QuickCheck", "Range", "Regexp", "State", "Tokens"
   },
   symas={}, symcs={},
   symis={
     @Meta.SymI(
-      offset=1133,
+      offset=1182,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=1133,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
-            member="showsPrec"
-          ),
-          stri="s(uss)", sig=3, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
-        ),
-        @Meta.SymV(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showsub"
           ),
-          stri="s(s)", sig=4, depth=1, rkind=13, doc="Function generated for derived instance."
+          stri="s(s)", sig=1, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1133,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
-            member="showChars"
-          ),
-          stri="s(s)", sig=5, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
-        ),
-        @Meta.SymV(
-          offset=1133,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
-            member="display"
-          ),
-          stri="s(s)", sig=4, depth=1, rkind=13, doc="inherited from 'Show.display'"
-        ),
-        @Meta.SymV(
-          offset=1133,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
-            member="show"
-          ),
-          stri="s(s)", sig=4, depth=1, rkind=13, doc="Function generated for derived instance."
-        ),
-        @Meta.SymV(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showList"
           ),
-          stri="s(ss)", sig=7, depth=2, rkind=13, doc="inherited from 'Show.showList'"
+          stri="s(ss)", sig=4, depth=2, rkind=13, doc="inherited from 'Show.showList'"
+        ),
+        @Meta.SymV(
+          offset=1182,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
+            member="showsPrec"
+          ),
+          stri="s(uss)", sig=6, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
+        ),
+        @Meta.SymV(
+          offset=1182,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
+            member="display"
+          ),
+          stri="s(s)", sig=1, depth=1, rkind=13, doc="inherited from 'Show.display'"
+        ),
+        @Meta.SymV(
+          offset=1182,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
+            member="show"
+          ),
+          stri="s(s)", sig=1, depth=1, rkind=13, doc="Function generated for derived instance."
+        ),
+        @Meta.SymV(
+          offset=1182,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
+            member="showChars"
+          ),
+          stri="s(s)", sig=7, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
         )
       }
     ),
     @Meta.SymI(
-      offset=745,
+      offset=794,
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity"
       ),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="showsPrec"
-          ),
-          stri="s(uss)", sig=9, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
-        ),
-        @Meta.SymV(
-          offset=745,
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showsub"
           ),
-          stri="s(s)", sig=10, depth=1, rkind=13, doc="Function generated for derived instance."
+          stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="showChars"
-          ),
-          stri="s(s)", sig=11, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
-        ),
-        @Meta.SymV(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="display"
-          ),
-          stri="s(s)", sig=10, depth=1, rkind=13, doc="inherited from 'Show.display'"
-        ),
-        @Meta.SymV(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="show"
-          ),
-          stri="s(s)", sig=10, depth=1, rkind=13, doc="Function generated for derived instance."
-        ),
-        @Meta.SymV(
-          offset=745,
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showList"
           ),
-          stri="s(ss)", sig=13, depth=2, rkind=13, doc="inherited from 'Show.showList'"
+          stri="s(ss)", sig=11, depth=2, rkind=13, doc="inherited from 'Show.showList'"
+        ),
+        @Meta.SymV(
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="showsPrec"
+          ),
+          stri="s(uss)", sig=12, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
+        ),
+        @Meta.SymV(
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="display"
+          ),
+          stri="s(s)", sig=9, depth=1, rkind=13, doc="inherited from 'Show.display'"
+        ),
+        @Meta.SymV(
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="show"
+          ),
+          stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
+        ),
+        @Meta.SymV(
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="showChars"
+          ),
+          stri="s(s)", sig=13, depth=1, rkind=13, doc="inherited from 'Show.showChars'"
         )
       }
     ),
     @Meta.SymI(
-      offset=716,
-      name=@Meta.QName(
-        kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity"
-      ),
-      clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=8, lnks={},
+      offset=1161,
+      name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic"),
+      clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=716,
+          offset=1161,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="hashCode"
           ),
           stri="s(s)", sig=14, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=716,
+          offset=1161,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="!="
           ),
           stri="s(ss)", sig=15, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=716,
+          offset=1161,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="=="
           ),
           stri="s(ss)", sig=15, depth=2, rkind=13, doc="Function generated for derived instance.", op=96
@@ -300,30 +301,32 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1112,
-      name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic"),
-      clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=0, lnks={},
+      offset=765,
+      name=@Meta.QName(
+        kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity"
+      ),
+      clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=1112,
+          offset=765,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="hashCode"
           ),
           stri="s(s)", sig=16, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1112,
+          offset=765,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="!="
           ),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=1112,
+          offset=765,
           name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="=="
           ),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="Function generated for derived instance.", op=96
@@ -333,28 +336,28 @@ import frege.test.QuickCheckText;
   },
   symts={
     @Meta.SymT(
-      offset=977,
+      offset=1026,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"), typ=0,
       kind=12,
       cons={
         @Meta.SymD(
-          offset=990,
+          offset=1039,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="Diagnostic"
           ),
           cid=0, typ=19,
           fields={
-            @Meta.Field(name="range", offset=1007, sigma=18, strict=false),
-            @Meta.Field(name="severity", offset=1030, sigma=8, strict=false),
-            @Meta.Field(name="source", offset=1066, sigma=2, strict=false),
-            @Meta.Field(name="message", offset=1090, sigma=2, strict=false)
+            @Meta.Field(name="range", offset=1056, sigma=18, strict=false),
+            @Meta.Field(name="severity", offset=1079, sigma=8, strict=false),
+            @Meta.Field(name="source", offset=1115, sigma=3, strict=false),
+            @Meta.Field(name="message", offset=1139, sigma=3, strict=false)
           }
         )
       },
       lnks={
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showsPrec"
@@ -365,7 +368,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showChars"
@@ -376,7 +379,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showList"
@@ -387,7 +390,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="show"
@@ -398,7 +401,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showsub"
@@ -409,7 +412,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1112,
+          offset=1161,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="hashCode"
@@ -420,7 +423,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1133,
+          offset=1182,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="display"
@@ -431,7 +434,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1112,
+          offset=1161,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="!="
@@ -442,7 +445,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1112,
+          offset=1161,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="=="
@@ -455,7 +458,7 @@ import frege.test.QuickCheckText;
       },
       funs={
         @Meta.SymV(
-          offset=1067,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$source"
@@ -463,7 +466,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @source@"
         ),
         @Meta.SymV(
-          offset=1008,
+          offset=1057,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$range"
@@ -471,7 +474,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=21, depth=2, rkind=13, doc="update field @range@"
         ),
         @Meta.SymV(
-          offset=1031,
+          offset=1080,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$severity"
@@ -479,15 +482,15 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=22, depth=2, rkind=13, doc="update field @severity@"
         ),
         @Meta.SymV(
-          offset=1067,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="source"
           ),
-          stri="s(s)", sig=4, depth=1, rkind=13, doc="access field @source@"
+          stri="s(s)", sig=1, depth=1, rkind=13, doc="access field @source@"
         ),
         @Meta.SymV(
-          offset=1091,
+          offset=1140,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$message"
@@ -495,7 +498,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @message@"
         ),
         @Meta.SymV(
-          offset=1008,
+          offset=1057,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="range"
@@ -503,7 +506,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=23, depth=1, rkind=13, doc="access field @range@"
         ),
         @Meta.SymV(
-          offset=1031,
+          offset=1080,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="severity"
@@ -511,7 +514,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=24, depth=1, rkind=13, doc="access field @severity@"
         ),
         @Meta.SymV(
-          offset=1067,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$source"
@@ -519,7 +522,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @source@"
         ),
         @Meta.SymV(
-          offset=1008,
+          offset=1057,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$range"
@@ -527,7 +530,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @range@"
         ),
         @Meta.SymV(
-          offset=1031,
+          offset=1080,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$severity"
@@ -535,7 +538,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @severity@"
         ),
         @Meta.SymV(
-          offset=1031,
+          offset=1080,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$severity"
@@ -543,7 +546,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=28, depth=2, rkind=13, doc="change field @severity@"
         ),
         @Meta.SymV(
-          offset=1067,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$source"
@@ -551,7 +554,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="change field @source@"
         ),
         @Meta.SymV(
-          offset=1091,
+          offset=1140,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$message"
@@ -559,7 +562,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="change field @message@"
         ),
         @Meta.SymV(
-          offset=1008,
+          offset=1057,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$range"
@@ -567,7 +570,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=32, depth=2, rkind=13, doc="change field @range@"
         ),
         @Meta.SymV(
-          offset=1091,
+          offset=1140,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$message"
@@ -575,25 +578,25 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @message@"
         ),
         @Meta.SymV(
-          offset=1091,
+          offset=1140,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="message"
           ),
-          stri="s(s)", sig=4, depth=1, rkind=13, doc="access field @message@"
+          stri="s(s)", sig=1, depth=1, rkind=13, doc="access field @message@"
         )
       },
       prod=true
     ),
     @Meta.SymT(
-      offset=657,
+      offset=706,
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity"
       ),
       typ=8, kind=12,
       cons={
         @Meta.SymD(
-          offset=686,
+          offset=735,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="WARNING"
@@ -601,7 +604,7 @@ import frege.test.QuickCheckText;
           cid=1, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=710,
+          offset=759,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="HINT"
@@ -609,7 +612,7 @@ import frege.test.QuickCheckText;
           cid=3, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=678,
+          offset=727,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="ERROR"
@@ -617,7 +620,7 @@ import frege.test.QuickCheckText;
           cid=0, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=696,
+          offset=745,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="INFORMATION"
@@ -627,18 +630,7 @@ import frege.test.QuickCheckText;
       },
       lnks={
         @Meta.SymL(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
-            member="showsPrec"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="showsPrec"
-          )
-        ),
-        @Meta.SymL(
-          offset=745,
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showsub"
@@ -649,29 +641,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
-            member="showChars"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="showChars"
-          )
-        ),
-        @Meta.SymL(
-          offset=745,
-          name=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
-            member="show"
-          ),
-          alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
-            member="show"
-          )
-        ),
-        @Meta.SymL(
-          offset=745,
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showList"
@@ -682,7 +652,40 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=745,
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
+            member="showChars"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="showChars"
+          )
+        ),
+        @Meta.SymL(
+          offset=794,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
+            member="showsPrec"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="showsPrec"
+          )
+        ),
+        @Meta.SymL(
+          offset=765,
+          name=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
+            member="hashCode"
+          ),
+          alias=@Meta.QName(
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
+            member="hashCode"
+          )
+        ),
+        @Meta.SymL(
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="display"
@@ -693,7 +696,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=716,
+          offset=765,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="!="
@@ -704,7 +707,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=716,
+          offset=765,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="=="
@@ -715,14 +718,14 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=716,
+          offset=794,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
-            member="hashCode"
+            member="show"
           ),
           alias=@Meta.QName(
-            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
-            member="hashCode"
+            kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
+            member="show"
           )
         )
       },
@@ -731,25 +734,25 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=1157,
+      offset=1206,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="tokensToRange"),
       stri="s(s)", sig=34, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=5012, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
+      offset=5073, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
       stri="s(su)", sig=37, depth=2, rkind=45
     ),
     @Meta.SymV(
-      offset=5153, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
+      offset=5214, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
       stri="u", sig=38, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=777,
+      offset=826,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="fromCompilerSeverity"),
       stri="s(s)", sig=40, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2849,
+      offset=2902,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics"
@@ -757,7 +760,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=3628,
+      offset=3685,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics"
@@ -765,7 +768,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2456,
+      offset=2509,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray"
@@ -773,57 +776,57 @@ import frege.test.QuickCheckText;
       stri="u", sig=41, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2069,
+      offset=2118,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="extractDiagnostics"),
       stri="s", sig=42, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=1719,
+      offset=1768,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="createDiagnosticFromMessage"
       ),
       stri="s(s)", sig=44, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1569,
+      offset=1618,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="createRangeFromPos"),
       stri="s(s)", sig=46, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2251,
+      offset=2300,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="compileAndGetDiagnostics"),
       stri="s(u)", sig=47, depth=1, rkind=13
     )
   },
   symls={
     @Meta.SymL(
-      offset=686, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="WARNING"),
+      offset=735, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="WARNING"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
         member="WARNING"
       )
     ),
     @Meta.SymL(
-      offset=710, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="HINT"),
-      alias=@Meta.QName(
-        kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity", member="HINT"
-      )
-    ),
-    @Meta.SymL(
-      offset=696, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="INFORMATION"),
+      offset=745, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="INFORMATION"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
         member="INFORMATION"
       )
     ),
     @Meta.SymL(
-      offset=678, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="ERROR"),
+      offset=759, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="HINT"),
+      alias=@Meta.QName(
+        kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity", member="HINT"
+      )
+    ),
+    @Meta.SymL(
+      offset=727, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="ERROR"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity", member="ERROR"
       )
     ),
     @Meta.SymL(
-      offset=990, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"),
+      offset=1039, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic", member="Diagnostic"
       )
@@ -834,31 +837,32 @@ import frege.test.QuickCheckText;
       kind=2, suba=0,
       tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic")}
     ),
-    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Int")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="StringJ")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Char")}),
-    @Meta.Tau(kind=0, suba=2, subb=3),
+    @Meta.Tau(kind=0, suba=1, subb=2),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="[]")}),
-    @Meta.Tau(kind=0, suba=5, subb=3), @Meta.Tau(kind=0, suba=5, subb=0),
+    @Meta.Tau(kind=0, suba=4, subb=0),
+    @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Int")}),
+    @Meta.Tau(kind=0, suba=4, subb=2),
     @Meta.Tau(
       kind=2, suba=0,
       tcon={
         @Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity")
       }
     ),
-    @Meta.Tau(kind=0, suba=5, subb=8),
+    @Meta.Tau(kind=0, suba=4, subb=8),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Bool")}),
     @Meta.Tau(
       kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.types.Range", base="Range")}
     ),
     @Meta.Tau(kind=9), @Meta.Tau(suba=12, tvar="α"),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="->")}),
-    @Meta.Tau(kind=0, suba=14, subb=8), @Meta.Tau(kind=0, suba=15, subb=8), @Meta.Tau(kind=0, suba=14, subb=4),
-    @Meta.Tau(kind=0, suba=17, subb=4), @Meta.Tau(kind=0, suba=14, subb=11), @Meta.Tau(kind=0, suba=19, subb=11),
+    @Meta.Tau(kind=0, suba=14, subb=8), @Meta.Tau(kind=0, suba=15, subb=8), @Meta.Tau(kind=0, suba=14, subb=3),
+    @Meta.Tau(kind=0, suba=17, subb=3), @Meta.Tau(kind=0, suba=14, subb=11), @Meta.Tau(kind=0, suba=19, subb=11),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Tokens", base="Token")}),
-    @Meta.Tau(kind=0, suba=5, subb=21),
+    @Meta.Tau(kind=0, suba=4, subb=21),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Positions", base="Position")}),
-    @Meta.Tau(kind=0, suba=5, subb=23),
+    @Meta.Tau(kind=0, suba=4, subb=23),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Global", base="Global")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="ST")}),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="RealWorld")}),
@@ -870,21 +874,21 @@ import frege.test.QuickCheckText;
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.test.QuickCheckProperty", base="Prop")}),
     @Meta.Tau(kind=0, suba=32, subb=33),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.control.monad.State", base="State")}),
-    @Meta.Tau(kind=0, suba=35, subb=25), @Meta.Tau(kind=0, suba=36, subb=7),
+    @Meta.Tau(kind=0, suba=35, subb=25), @Meta.Tau(kind=0, suba=36, subb=5),
     @Meta.Tau(kind=2, suba=0, tcon={@Meta.QName(kind=0, pack="frege.compiler.types.Global", base="Message")}),
-    @Meta.Tau(kind=0, suba=36, subb=0), @Meta.Tau(kind=0, suba=36, subb=11), @Meta.Tau(kind=0, suba=28, subb=7)
+    @Meta.Tau(kind=0, suba=36, subb=0), @Meta.Tau(kind=0, suba=36, subb=11), @Meta.Tau(kind=0, suba=28, subb=5)
   },
   rhos={
-    @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=1), @Meta.Rho(rhofun=false, rhotau=4),
-    @Meta.Rho(sigma=2, rhotau=2), @Meta.Rho(sigma=0, rhotau=3), @Meta.Rho(sigma=1, rhotau=4),
-    @Meta.Rho(sigma=0, rhotau=2), @Meta.Rho(rhofun=false, rhotau=6), @Meta.Rho(sigma=0, rhotau=7),
-    @Meta.Rho(rhofun=false, rhotau=7), @Meta.Rho(sigma=6, rhotau=3), @Meta.Rho(rhofun=false, rhotau=8),
-    @Meta.Rho(sigma=8, rhotau=3), @Meta.Rho(sigma=1, rhotau=12), @Meta.Rho(sigma=8, rhotau=2),
-    @Meta.Rho(sigma=8, rhotau=7), @Meta.Rho(rhofun=false, rhotau=9), @Meta.Rho(sigma=12, rhotau=3),
-    @Meta.Rho(sigma=8, rhotau=1), @Meta.Rho(rhofun=false, rhotau=10), @Meta.Rho(sigma=8, rhotau=19),
-    @Meta.Rho(sigma=8, rhotau=20), @Meta.Rho(sigma=0, rhotau=1), @Meta.Rho(sigma=0, rhotau=19),
-    @Meta.Rho(sigma=0, rhotau=23), @Meta.Rho(rhofun=false, rhotau=11), @Meta.Rho(sigma=2, rhotau=0),
-    @Meta.Rho(sigma=2, rhotau=26), @Meta.Rho(sigma=8, rhotau=27), @Meta.Rho(sigma=18, rhotau=28),
+    @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=3), @Meta.Rho(sigma=0, rhotau=1),
+    @Meta.Rho(rhofun=false, rhotau=5), @Meta.Rho(sigma=3, rhotau=1), @Meta.Rho(sigma=2, rhotau=4),
+    @Meta.Rho(rhofun=false, rhotau=6), @Meta.Rho(sigma=0, rhotau=4), @Meta.Rho(sigma=5, rhotau=7),
+    @Meta.Rho(rhofun=false, rhotau=7), @Meta.Rho(sigma=0, rhotau=9), @Meta.Rho(rhofun=false, rhotau=8),
+    @Meta.Rho(sigma=8, rhotau=1), @Meta.Rho(rhofun=false, rhotau=9), @Meta.Rho(sigma=10, rhotau=4),
+    @Meta.Rho(sigma=8, rhotau=4), @Meta.Rho(sigma=5, rhotau=15), @Meta.Rho(sigma=8, rhotau=9),
+    @Meta.Rho(sigma=0, rhotau=6), @Meta.Rho(rhofun=false, rhotau=10), @Meta.Rho(sigma=0, rhotau=19),
+    @Meta.Rho(sigma=0, rhotau=20), @Meta.Rho(sigma=8, rhotau=6), @Meta.Rho(sigma=8, rhotau=19),
+    @Meta.Rho(sigma=8, rhotau=23), @Meta.Rho(rhofun=false, rhotau=11), @Meta.Rho(sigma=3, rhotau=0),
+    @Meta.Rho(sigma=3, rhotau=26), @Meta.Rho(sigma=8, rhotau=27), @Meta.Rho(sigma=18, rhotau=28),
     @Meta.Rho(sigma=0, rhotau=26), @Meta.Rho(sigma=18, rhotau=0), @Meta.Rho(sigma=0, rhotau=31),
     @Meta.Rho(sigma=8, rhotau=0), @Meta.Rho(sigma=0, rhotau=33), @Meta.Rho(sigma=0, rhotau=25),
     @Meta.Rho(sigma=0, rhotau=11), @Meta.Rho(rhofun=false, rhotau=13), @Meta.Rho(sigma=25, rhotau=19),
@@ -897,12 +901,12 @@ import frege.test.QuickCheckText;
     @Meta.Rho(rhofun=false, rhotau=34), @Meta.Rho(rhofun=false, rhotau=37), @Meta.Rho(rhofun=false, rhotau=38),
     @Meta.Rho(rhofun=false, rhotau=39), @Meta.Rho(sigma=43, rhotau=60), @Meta.Rho(rhofun=false, rhotau=23),
     @Meta.Rho(rhofun=false, rhotau=40), @Meta.Rho(sigma=45, rhotau=63), @Meta.Rho(rhofun=false, rhotau=41),
-    @Meta.Rho(sigma=2, rhotau=65)
+    @Meta.Rho(sigma=3, rhotau=65)
   },
   sigmas={
-    @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=5), @Meta.Sigma(rho=6),
-    @Meta.Sigma(rho=8), @Meta.Sigma(rho=9), @Meta.Sigma(rho=10), @Meta.Sigma(rho=11), @Meta.Sigma(rho=13),
-    @Meta.Sigma(rho=14), @Meta.Sigma(rho=15), @Meta.Sigma(rho=16), @Meta.Sigma(rho=17), @Meta.Sigma(rho=18),
+    @Meta.Sigma(rho=0), @Meta.Sigma(rho=2), @Meta.Sigma(rho=3), @Meta.Sigma(rho=1), @Meta.Sigma(rho=5),
+    @Meta.Sigma(rho=6), @Meta.Sigma(rho=8), @Meta.Sigma(rho=10), @Meta.Sigma(rho=11), @Meta.Sigma(rho=12),
+    @Meta.Sigma(rho=13), @Meta.Sigma(rho=14), @Meta.Sigma(rho=16), @Meta.Sigma(rho=17), @Meta.Sigma(rho=18),
     @Meta.Sigma(rho=21), @Meta.Sigma(rho=22), @Meta.Sigma(rho=24), @Meta.Sigma(rho=25), @Meta.Sigma(rho=29),
     @Meta.Sigma(rho=30), @Meta.Sigma(rho=32), @Meta.Sigma(rho=34), @Meta.Sigma(rho=35), @Meta.Sigma(rho=36),
     @Meta.Sigma(rho=37), @Meta.Sigma(bound={"α"}, kinds={12}, rho=38), @Meta.Sigma(rho=39), @Meta.Sigma(rho=41),
@@ -920,16 +924,18 @@ final public class Diagnostic  {
 final public static class IShow_Diagnostic implements PreludeText.CShow<TDiagnostic> {
   public IShow_Diagnostic() {}
   final public static IShow_Diagnostic it = new IShow_Diagnostic();
+  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<TDiagnostic> arg$1) {
+    return IShow_Diagnostic.showsub(arg$1.call());
+  }
+  @Override final public String/*<Character>*/ ƒshowList(
+    final Lazy<PreludeBase.TList<TDiagnostic>> arg$1, final Lazy<String/*<Character>*/> arg$2
+  ) {
+    return IShow_Diagnostic.showList(arg$1.call(), arg$2.call());
+  }
   @Override final public String/*<Character>*/ ƒshowsPrec(
     final Lazy<Integer> arg$1, final Lazy<TDiagnostic> arg$2, final Lazy<String/*<Character>*/> arg$3
   ) {
     return IShow_Diagnostic.showsPrec(arg$1, arg$2.call(), arg$3.call());
-  }
-  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<TDiagnostic> arg$1) {
-    return IShow_Diagnostic.showsub(arg$1.call());
-  }
-  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<TDiagnostic> arg$1) {
-    return IShow_Diagnostic.showChars(arg$1.call());
   }
   @Override final public String/*<Character>*/ ƒdisplay(final Lazy<TDiagnostic> arg$1) {
     return IShow_Diagnostic.display(arg$1.call());
@@ -937,43 +943,19 @@ final public static class IShow_Diagnostic implements PreludeText.CShow<TDiagnos
   @Override final public String/*<Character>*/ ƒshow(final Lazy<TDiagnostic> arg$1) {
     return IShow_Diagnostic.show(arg$1.call());
   }
-  @Override final public String/*<Character>*/ ƒshowList(
-    final Lazy<PreludeBase.TList<TDiagnostic>> arg$1, final Lazy<String/*<Character>*/> arg$2
-  ) {
-    return IShow_Diagnostic.showList(arg$1.call(), arg$2.call());
-  }
-  final public static String/*<Character>*/ showsPrec(
-    final Lazy<Integer> arg$1, final TDiagnostic arg$2, final String/*<Character>*/ arg$3
-  ) {
-    return IShow_Diagnostic.show(arg$2) + arg$3;
+  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<TDiagnostic> arg$1) {
+    return IShow_Diagnostic.showChars(arg$1.call());
   }
   final public static String/*<Character>*/ showsub(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a4$17476 = arg$1.mem$message.call();
-    final String/*<Character>*/ a3$17475 = arg$1.mem$source.call();
-    final short a2$17474 = (short)arg$1.mem$severity.call();
-    final Range.TRange a1$17473 = arg$1.mem$range.call();
-    return ("(" + (((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17473)) + " ") + IShow_DiagnosticSeverity.showsub(
-              a2$17474
-            )) + " ") + PreludeText.IShow_String.showsub(a3$17475)) + " ") + PreludeText.IShow_String.showsub(
-              a4$17476
+    final String/*<Character>*/ a4$17474 = arg$1.mem$message.call();
+    final String/*<Character>*/ a3$17473 = arg$1.mem$source.call();
+    final short a2$17472 = (short)arg$1.mem$severity.call();
+    final Range.TRange a1$17471 = arg$1.mem$range.call();
+    return ("(" + (((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17471)) + " ") + IShow_DiagnosticSeverity.showsub(
+              a2$17472
+            )) + " ") + PreludeText.IShow_String.showsub(a3$17473)) + " ") + PreludeText.IShow_String.showsub(
+              a4$17474
             ))) + ")";
-  }
-  final public static PreludeBase.TList<Character> showChars(final TDiagnostic arg$1) {
-    return PreludeList.IListView_StringJ.<Character>toList(IShow_Diagnostic.show(arg$1));
-  }
-  final public static String/*<Character>*/ display(final TDiagnostic arg$1) {
-    return IShow_Diagnostic.show(arg$1);
-  }
-  final public static String/*<Character>*/ show(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a4$17471 = arg$1.mem$message.call();
-    final String/*<Character>*/ a3$17470 = arg$1.mem$source.call();
-    final short a2$17469 = (short)arg$1.mem$severity.call();
-    final Range.TRange a1$17468 = arg$1.mem$range.call();
-    return ((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17468)) + " ") + IShow_DiagnosticSeverity.showsub(
-              a2$17469
-            )) + " ") + PreludeText.IShow_String.showsub(a3$17470)) + " ") + PreludeText.IShow_String.showsub(
-              a4$17471
-            );
   }
   final public static String/*<Character>*/ showList(
     final PreludeBase.TList<TDiagnostic> arg$1, final String/*<Character>*/ arg$2
@@ -981,27 +963,51 @@ final public static class IShow_Diagnostic implements PreludeText.CShow<TDiagnos
     return "[" + (PreludeText.joined(
               Thunk.<String/*<Character>*/>lazy(", "),
               PreludeList.<String/*<Character>*/, TDiagnostic>map(
-                    (Func.U<TDiagnostic, String/*<Character>*/>)((final Lazy<TDiagnostic> η$18714) -> Thunk.<
+                    (Func.U<TDiagnostic, String/*<Character>*/>)((final Lazy<TDiagnostic> η$18677) -> Thunk.<
                           String/*<Character>*/
-                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Diagnostic.show(η$18714.call())))),
+                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Diagnostic.show(η$18677.call())))),
                     arg$1
                   )
             ).call() + ("]" + arg$2));
+  }
+  final public static String/*<Character>*/ showsPrec(
+    final Lazy<Integer> arg$1, final TDiagnostic arg$2, final String/*<Character>*/ arg$3
+  ) {
+    return IShow_Diagnostic.show(arg$2) + arg$3;
+  }
+  final public static String/*<Character>*/ display(final TDiagnostic arg$1) {
+    return IShow_Diagnostic.show(arg$1);
+  }
+  final public static String/*<Character>*/ show(final TDiagnostic arg$1) {
+    final String/*<Character>*/ a4$17469 = arg$1.mem$message.call();
+    final String/*<Character>*/ a3$17468 = arg$1.mem$source.call();
+    final short a2$17467 = (short)arg$1.mem$severity.call();
+    final Range.TRange a1$17466 = arg$1.mem$range.call();
+    return ((((((("Diagnostic" + " ") + Range.IShow_Range.showsub(a1$17466)) + " ") + IShow_DiagnosticSeverity.showsub(
+              a2$17467
+            )) + " ") + PreludeText.IShow_String.showsub(a3$17468)) + " ") + PreludeText.IShow_String.showsub(
+              a4$17469
+            );
+  }
+  final public static PreludeBase.TList<Character> showChars(final TDiagnostic arg$1) {
+    return PreludeList.IListView_StringJ.<Character>toList(IShow_Diagnostic.show(arg$1));
   }
 }
 final public static class IShow_DiagnosticSeverity implements PreludeText.CShow<Short> {
   public IShow_DiagnosticSeverity() {}
   final public static IShow_DiagnosticSeverity it = new IShow_DiagnosticSeverity();
+  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<Short> arg$1) {
+    return IShow_DiagnosticSeverity.showsub((short)arg$1.call());
+  }
+  @Override final public String/*<Character>*/ ƒshowList(
+    final Lazy<PreludeBase.TList<Short>> arg$1, final Lazy<String/*<Character>*/> arg$2
+  ) {
+    return IShow_DiagnosticSeverity.showList(arg$1.call(), arg$2.call());
+  }
   @Override final public String/*<Character>*/ ƒshowsPrec(
     final Lazy<Integer> arg$1, final Lazy<Short> arg$2, final Lazy<String/*<Character>*/> arg$3
   ) {
     return IShow_DiagnosticSeverity.showsPrec(arg$1, (short)arg$2.call(), arg$3.call());
-  }
-  @Override final public String/*<Character>*/ ƒshowsub(final Lazy<Short> arg$1) {
-    return IShow_DiagnosticSeverity.showsub((short)arg$1.call());
-  }
-  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<Short> arg$1) {
-    return IShow_DiagnosticSeverity.showChars((short)arg$1.call());
   }
   @Override final public String/*<Character>*/ ƒdisplay(final Lazy<Short> arg$1) {
     return IShow_DiagnosticSeverity.display((short)arg$1.call());
@@ -1009,15 +1015,8 @@ final public static class IShow_DiagnosticSeverity implements PreludeText.CShow<
   @Override final public String/*<Character>*/ ƒshow(final Lazy<Short> arg$1) {
     return IShow_DiagnosticSeverity.show((short)arg$1.call());
   }
-  @Override final public String/*<Character>*/ ƒshowList(
-    final Lazy<PreludeBase.TList<Short>> arg$1, final Lazy<String/*<Character>*/> arg$2
-  ) {
-    return IShow_DiagnosticSeverity.showList(arg$1.call(), arg$2.call());
-  }
-  final public static String/*<Character>*/ showsPrec(
-    final Lazy<Integer> arg$1, final short arg$2, final String/*<Character>*/ arg$3
-  ) {
-    return IShow_DiagnosticSeverity.show(arg$2) + arg$3;
+  @Override final public PreludeBase.TList<Character> ƒshowChars(final Lazy<Short> arg$1) {
+    return IShow_DiagnosticSeverity.showChars((short)arg$1.call());
   }
   final public static String/*<Character>*/ showsub(final short arg$1) {
     if (arg$1 == TDiagnosticSeverity.ERROR) {
@@ -1032,8 +1031,21 @@ final public static class IShow_DiagnosticSeverity implements PreludeText.CShow<
     assert arg$1 == TDiagnosticSeverity.HINT;
     return "HINT";
   }
-  final public static PreludeBase.TList<Character> showChars(final short arg$1) {
-    return PreludeList.IListView_StringJ.<Character>toList(IShow_DiagnosticSeverity.show(arg$1));
+  final public static String/*<Character>*/ showList(final PreludeBase.TList<Short> arg$1, final String/*<Character>*/ arg$2) {
+    return "[" + (PreludeText.joined(
+              Thunk.<String/*<Character>*/>lazy(", "),
+              PreludeList.<String/*<Character>*/, Short>map(
+                    (Func.U<Short, String/*<Character>*/>)((final Lazy<Short> η$18691) -> Thunk.<
+                          String/*<Character>*/
+                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_DiagnosticSeverity.show((short)η$18691.call())))),
+                    arg$1
+                  )
+            ).call() + ("]" + arg$2));
+  }
+  final public static String/*<Character>*/ showsPrec(
+    final Lazy<Integer> arg$1, final short arg$2, final String/*<Character>*/ arg$3
+  ) {
+    return IShow_DiagnosticSeverity.show(arg$2) + arg$3;
   }
   final public static String/*<Character>*/ display(final short arg$1) {
     return IShow_DiagnosticSeverity.show(arg$1);
@@ -1051,16 +1063,52 @@ final public static class IShow_DiagnosticSeverity implements PreludeText.CShow<
     assert arg$1 == TDiagnosticSeverity.HINT;
     return "HINT";
   }
-  final public static String/*<Character>*/ showList(final PreludeBase.TList<Short> arg$1, final String/*<Character>*/ arg$2) {
-    return "[" + (PreludeText.joined(
-              Thunk.<String/*<Character>*/>lazy(", "),
-              PreludeList.<String/*<Character>*/, Short>map(
-                    (Func.U<Short, String/*<Character>*/>)((final Lazy<Short> η$18724) -> Thunk.<
-                          String/*<Character>*/
-                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_DiagnosticSeverity.show((short)η$18724.call())))),
-                    arg$1
-                  )
-            ).call() + ("]" + arg$2));
+  final public static PreludeBase.TList<Character> showChars(final short arg$1) {
+    return PreludeList.IListView_StringJ.<Character>toList(IShow_DiagnosticSeverity.show(arg$1));
+  }
+}
+final public static class IEq_Diagnostic implements PreludeBase.CEq<TDiagnostic> {
+  public IEq_Diagnostic() {}
+  final public static IEq_Diagnostic it = new IEq_Diagnostic();
+  @Override final public int ƒhashCode(final Lazy<TDiagnostic> arg$1) {
+    return IEq_Diagnostic.hashCode(arg$1.call());
+  }
+  @Override final public boolean ƒ$excl$eq(final Lazy<TDiagnostic> arg$1, final Lazy<TDiagnostic> arg$2) {
+    return IEq_Diagnostic.$excl$eq(arg$1.call(), arg$2.call());
+  }
+  @Override final public boolean ƒ$eq$eq(final Lazy<TDiagnostic> arg$1, final Lazy<TDiagnostic> arg$2) {
+    return IEq_Diagnostic.$eq$eq(arg$1.call(), arg$2.call());
+  }
+  final public static int hashCode(final TDiagnostic arg$1) {
+    final String/*<Character>*/ a4$17464 = arg$1.mem$message.call();
+    final String/*<Character>*/ a3$17463 = arg$1.mem$source.call();
+    final short a2$17462 = (short)arg$1.mem$severity.call();
+    final Range.TRange a1$17461 = arg$1.mem$range.call();
+    return (31 * ((31 * ((31 * ((31 * ((31 * 1) + RunTM.constructor(arg$1))) + Range.IEq_Range.hashCode(
+              a1$17461
+            ))) + IEq_DiagnosticSeverity.hashCode(a2$17462))) + a3$17463.hashCode())) + a4$17464
+        .hashCode();
+  }
+  final public static boolean $excl$eq(final TDiagnostic arg$1, final TDiagnostic arg$2) {
+    if (IEq_Diagnostic.$eq$eq(arg$1, arg$2)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  final public static boolean $eq$eq(final TDiagnostic arg$1, final TDiagnostic arg$2) {
+    final String/*<Character>*/ µ$$17536 = arg$1.mem$message.call();
+    final String/*<Character>*/ µ$$17535 = arg$1.mem$source.call();
+    final short µ$$17534 = (short)arg$1.mem$severity.call();
+    final Range.TRange µ$$17533 = arg$1.mem$range.call();
+    final String/*<Character>*/ µ$$17540 = arg$2.mem$message.call();
+    final String/*<Character>*/ µ$$17539 = arg$2.mem$source.call();
+    final short µ$$17538 = (short)arg$2.mem$severity.call();
+    final Range.TRange µ$$17537 = arg$2.mem$range.call();
+    return Range.IEq_Range.$eq$eq(µ$$17533, µ$$17537) && (IEq_DiagnosticSeverity.$eq$eq(
+              µ$$17534, µ$$17538
+            ) && (µ$$17535.equals(µ$$17539) && µ$$17536.equals(µ$$17540)));
   }
 }
 final public static class IEq_DiagnosticSeverity implements PreludeBase.CEq<Short> {
@@ -1103,50 +1151,6 @@ final public static class IEq_DiagnosticSeverity implements PreludeBase.CEq<Shor
     else {
       return false;
     }
-  }
-}
-final public static class IEq_Diagnostic implements PreludeBase.CEq<TDiagnostic> {
-  public IEq_Diagnostic() {}
-  final public static IEq_Diagnostic it = new IEq_Diagnostic();
-  @Override final public int ƒhashCode(final Lazy<TDiagnostic> arg$1) {
-    return IEq_Diagnostic.hashCode(arg$1.call());
-  }
-  @Override final public boolean ƒ$excl$eq(final Lazy<TDiagnostic> arg$1, final Lazy<TDiagnostic> arg$2) {
-    return IEq_Diagnostic.$excl$eq(arg$1.call(), arg$2.call());
-  }
-  @Override final public boolean ƒ$eq$eq(final Lazy<TDiagnostic> arg$1, final Lazy<TDiagnostic> arg$2) {
-    return IEq_Diagnostic.$eq$eq(arg$1.call(), arg$2.call());
-  }
-  final public static int hashCode(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a4$17466 = arg$1.mem$message.call();
-    final String/*<Character>*/ a3$17465 = arg$1.mem$source.call();
-    final short a2$17464 = (short)arg$1.mem$severity.call();
-    final Range.TRange a1$17463 = arg$1.mem$range.call();
-    return (31 * ((31 * ((31 * ((31 * ((31 * 1) + RunTM.constructor(arg$1))) + Range.IEq_Range.hashCode(
-              a1$17463
-            ))) + IEq_DiagnosticSeverity.hashCode(a2$17464))) + a3$17465.hashCode())) + a4$17466
-        .hashCode();
-  }
-  final public static boolean $excl$eq(final TDiagnostic arg$1, final TDiagnostic arg$2) {
-    if (IEq_Diagnostic.$eq$eq(arg$1, arg$2)) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-  final public static boolean $eq$eq(final TDiagnostic arg$1, final TDiagnostic arg$2) {
-    final String/*<Character>*/ µ$$17538 = arg$1.mem$message.call();
-    final String/*<Character>*/ µ$$17537 = arg$1.mem$source.call();
-    final short µ$$17536 = (short)arg$1.mem$severity.call();
-    final Range.TRange µ$$17535 = arg$1.mem$range.call();
-    final String/*<Character>*/ µ$$17542 = arg$2.mem$message.call();
-    final String/*<Character>*/ µ$$17541 = arg$2.mem$source.call();
-    final short µ$$17540 = (short)arg$2.mem$severity.call();
-    final Range.TRange µ$$17539 = arg$2.mem$range.call();
-    return Range.IEq_Range.$eq$eq(µ$$17535, µ$$17539) && (IEq_DiagnosticSeverity.$eq$eq(
-              µ$$17536, µ$$17540
-            ) && (µ$$17537.equals(µ$$17541) && µ$$17538.equals(µ$$17542)));
   }
 }
 final public static class TDiagnostic implements frege.runtime.Value, Lazy<TDiagnostic> {
@@ -1194,19 +1198,19 @@ final public static class TDiagnostic implements frege.runtime.Value, Lazy<TDiag
     return TDiagnostic.mk(arg$1.mem$range, arg$2, arg$1.mem$source, arg$1.mem$message);
   }
   final public static String/*<Character>*/ source(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a3$17395 = arg$1.mem$source.call();
-    return a3$17395;
+    final String/*<Character>*/ a3$17394 = arg$1.mem$source.call();
+    return a3$17394;
   }
   final public static TDiagnostic upd$message(final TDiagnostic arg$1, final Lazy<String/*<Character>*/> arg$2) {
     return TDiagnostic.mk(arg$1.mem$range, arg$1.mem$severity, arg$1.mem$source, arg$2);
   }
   final public static Range.TRange range(final TDiagnostic arg$1) {
-    final Range.TRange a1$17357 = arg$1.mem$range.call();
-    return a1$17357;
+    final Range.TRange a1$17356 = arg$1.mem$range.call();
+    return a1$17356;
   }
   final public static short severity(final TDiagnostic arg$1) {
-    final short a2$17376 = (short)arg$1.mem$severity.call();
-    return a2$17376;
+    final short a2$17375 = (short)arg$1.mem$severity.call();
+    return a2$17375;
   }
   final public static <α> boolean has$source(final Lazy<α> arg$1) {
     return true;
@@ -1254,8 +1258,8 @@ final public static class TDiagnostic implements frege.runtime.Value, Lazy<TDiag
     return true;
   }
   final public static String/*<Character>*/ message(final TDiagnostic arg$1) {
-    final String/*<Character>*/ a4$17342 = arg$1.mem$message.call();
-    return a4$17342;
+    final String/*<Character>*/ a4$17341 = arg$1.mem$message.call();
+    return a4$17341;
   }
 }
 final public static class TDiagnosticSeverity  {
@@ -1265,40 +1269,40 @@ final public static class TDiagnosticSeverity  {
   final public static short INFORMATION = 2;
 }
 final public static Range.TRange tokensToRange(final PreludeBase.TList<Tokens.TToken> arg$1) {
-  final PreludeBase.TList.DList<Tokens.TToken> $18751 = arg$1.asList();
-  if ($18751 != null) {
+  final PreludeBase.TList.DList<Tokens.TToken> $18718 = arg$1.asList();
+  if ($18718 != null) {
     return Range.TRange.mk(
               Position.TPosition.mk(Thunk.<Integer>lazy(1), Thunk.<Integer>lazy(0)),
               Position.TPosition.mk(Thunk.<Integer>lazy(2), Thunk.<Integer>lazy(0))
             );
   }
-  final PreludeBase.TList.DCons<Tokens.TToken> $18752 = arg$1.asCons();
-  if ($18752 != null) {
-    final PreludeBase.TList<Tokens.TToken> $18753 = $18752.mem2.call();
-    final PreludeBase.TList.DList<Tokens.TToken> $18754 = $18753.asList();
-    if ($18754 != null) {
-      final Tokens.TToken tk$17411 = $18752.mem1.call();
-      return Range.tokenToRange(tk$17411);
+  final PreludeBase.TList.DCons<Tokens.TToken> $18719 = arg$1.asCons();
+  if ($18719 != null) {
+    final PreludeBase.TList<Tokens.TToken> $18720 = $18719.mem2.call();
+    final PreludeBase.TList.DList<Tokens.TToken> $18721 = $18720.asList();
+    if ($18721 != null) {
+      final Tokens.TToken tk$17410 = $18719.mem1.call();
+      return Range.tokenToRange(tk$17410);
     }
   }
-  final Lazy<Tokens.TToken> endToken$17414 = Thunk.<Tokens.TToken>shared(
+  final Lazy<Tokens.TToken> endToken$17413 = Thunk.<Tokens.TToken>shared(
         (Lazy<Tokens.TToken>)(() -> PreludeList.<Tokens.TToken>last(arg$1))
       );
-  final Lazy<Tokens.TToken> startToken$17413 = Thunk.<Tokens.TToken>shared(
+  final Lazy<Tokens.TToken> startToken$17412 = Thunk.<Tokens.TToken>shared(
         (Lazy<Tokens.TToken>)(() -> PreludeList.IListView_$lbrack$rbrack.<Tokens.TToken>head(
                   arg$1
                 ))
       );
   return Range.TRange.mk(
             Position.TPosition.mk(
-                  Thunk.<Integer>lazy(Tokens.TToken.line(startToken$17413.call())),
-                  Thunk.<Integer>lazy(Tokens.TToken.col(startToken$17413.call()))
+                  Thunk.<Integer>lazy(Tokens.TToken.line(startToken$17412.call())),
+                  Thunk.<Integer>lazy(Tokens.TToken.col(startToken$17412.call()))
                 ),
             Position.TPosition.mk(
-                  Thunk.<Integer>lazy(Tokens.TToken.line(endToken$17414.call())),
+                  Thunk.<Integer>lazy(Tokens.TToken.line(endToken$17413.call())),
                   Thunk.<Integer>shared(
-                        (Lazy<Integer>)(() -> Tokens.TToken.col(endToken$17414.call()) + Tokens.TToken.value(
-                                  endToken$17414.call()
+                        (Lazy<Integer>)(() -> Tokens.TToken.col(endToken$17413.call()) + Tokens.TToken.value(
+                                  endToken$17413.call()
                                 ).length())
                       )
                 )
@@ -1307,74 +1311,61 @@ final public static Range.TRange tokensToRange(final PreludeBase.TList<Tokens.TT
 final public static PreludeBase.TList<Tokens.TToken> posToTokens(
   final PreludeBase.TList<Positions.TPosition> arg$1, final Lazy<Global.TGlobal> arg$2
 ) {
-  final PreludeBase.TList.DCons<Positions.TPosition> $18756 = arg$1.asCons();
-  if ($18756 != null) {
-    final Positions.TPosition µ$$17533 = $18756.mem1.call();
+  final PreludeBase.TList.DCons<Positions.TPosition> $18723 = arg$1.asCons();
+  if ($18723 != null) {
+    final Positions.TPosition µ$$17531 = $18723.mem1.call();
     return PreludeList.IListMonoid_$lbrack$rbrack.<Tokens.TToken>$plus$plus(
-              Global.tokens(µ$$17533, arg$2),
+              Global.tokens(µ$$17531, arg$2),
               Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
                     (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> Diagnostic.posToTokens(
-                              $18756.mem2.call(), arg$2
+                              $18723.mem2.call(), arg$2
                             ))
                   )
             );
   }
-  final PreludeBase.TList.DList<Positions.TPosition> $18758 = arg$1.asList();
-  assert $18758 != null;
+  final PreludeBase.TList.DList<Positions.TPosition> $18725 = arg$1.asList();
+  assert $18725 != null;
   return PreludeBase.TList.DList.<Tokens.TToken>mk();
 }
 final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWorld, Short>>shared(
       (Lazy<Func.U<RealWorld, Short>>)(() -> {
-            return (Func.U<RealWorld, Short>)((final Lazy<RealWorld> arg$18759) -> {
-                      final Global.TGlobal v2056$18291 = CompilerHelper.standardLSPGlobal
-                      .call().apply(arg$18759).call();
-                      final Func.U<RealWorld, Global.TGlobal> v2053$18310 = Func.<RealWorld, Global.TGlobal>coerceU(
-                            State.<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>execStateT(
-                                  PreludeMonad.IMonad_ST.<RealWorld>mk(),
-                                  Thunk.<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>>shared(
-                                        (Lazy<State.TStateT<
-                                          Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal
-                                        >>)(() -> CompilerHelper.compileFregeFile(
-                                                  Thunk.<String/*<Character>*/>lazy(
-                                                        "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
-                                                      )
-                                                ))
-                                      ),
-                                  v2056$18291
-                                )
+            return (Func.U<RealWorld, Short>)((final Lazy<RealWorld> arg$18726) -> {
+                      final Global.TGlobal v2056$18280 = CompileExecutor.compile(
+                            Thunk.<String/*<Character>*/>lazy(
+                                  "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
+                                ),
+                            CompileGlobal.standardCompileGlobal.call()
+                          ).apply(arg$18726).call();
+                      final Func.U<RealWorld, Short> v4793$18302 = Prelude.<String/*<Character>*/>println(
+                            PreludeText.IShow_String.it, Global.TSubSt.code(Global.TGlobal.sub(v2056$18280)).toString()
                           );
-                      final Global.TGlobal v2056$18313 = v2053$18310.apply(arg$18759)
-                      .call();
-                      final Func.U<RealWorld, Short> v4793$18335 = Prelude.<String/*<Character>*/>println(
-                            PreludeText.IShow_String.it, Global.TSubSt.code(Global.TGlobal.sub(v2056$18313)).toString()
-                          );
-                      final short v4796$18337 = (short)v4793$18335.apply(arg$18759).call();
-                      final Func.U<RealWorld, Short> v4797$18338 = ((Func.U<RealWorld, Short>)((
-                        final Lazy<RealWorld> arg$18766
+                      final short v4796$18304 = (short)v4793$18302.apply(arg$18726).call();
+                      final Func.U<RealWorld, Short> v4797$18305 = ((Func.U<RealWorld, Short>)((
+                        final Lazy<RealWorld> arg$18731
                       ) -> {
-                            final short v4796$18368 = (short)Func.<RealWorld, Short>coerceU(
+                            final short v4796$18335 = (short)Func.<RealWorld, Short>coerceU(
                                   PreludeMonad.<Func.U<RealWorld, ?>, Global.TMessage, Short, PreludeBase.TList<?>>$for(
                                         PreludeMonad.IMonad_ST.<RealWorld>mk(),
                                         PreludeList.IListSource_$lbrack$rbrack.<PreludeBase.TList<?>>mk(),
                                         Thunk.<Kind.U<PreludeBase.TList<?>, Global.TMessage>>lazy(
                                               (Kind.U<PreludeBase.TList<?>, Global.TMessage>)Global.TSubSt.messages(
-                                                    Global.TGlobal.sub(v2056$18313)
+                                                    Global.TGlobal.sub(v2056$18280)
                                                   )
                                             ),
                                         (Func.U<Global.TMessage, Kind.U<Func.U<RealWorld, ?>, Short>>)((
-                                          final Lazy<Global.TMessage> η$18765
+                                          final Lazy<Global.TMessage> η$18730
                                         ) -> Thunk.<Kind.U<Func.U<RealWorld, ?>, Short>>shared(
                                                   (Lazy<Kind.U<Func.U<RealWorld, ?>, Short>>)(() -> (Kind.U<
                                                         Func.U<RealWorld, ?>, Short
                                                       >)Thunk.<Func.U<RealWorld, Short>>shared(
                                                             (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
                                                                   Global.TMessage
-                                                                >println(CompilerHelper.IShow_Message.it, η$18765.call()))
+                                                                >println(CompileExecutor.IShow_Message.it, η$18730.call()))
                                                           ).call())
                                                 ))
                                       )
-                                ).apply(arg$18766).call();
-                            final Func.U<RealWorld, Short> v4797$18369 = Thunk.<Func.U<RealWorld, Short>>shared(
+                                ).apply(arg$18731).call();
+                            final Func.U<RealWorld, Short> v4797$18336 = Thunk.<Func.U<RealWorld, Short>>shared(
                                   (Lazy<Func.U<RealWorld, Short>>)(() -> Func.<RealWorld, Short>coerceU(
                                             Thunk.<Kind.U<Func.U<RealWorld, ?>, Short>>shared(
                                                   (Lazy<Kind.U<Func.U<RealWorld, ?>, Short>>)(() -> PreludeMonad.<
@@ -1404,23 +1395,23 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
                                                                                               Global.TMessage,
                                                                                               Positions.TPosition
                                                                                             >)((
-                                                                                              final Lazy<Global.TMessage> η$18763
+                                                                                              final Lazy<Global.TMessage> η$18728
                                                                                             ) -> Global.TMessage.pos(
-                                                                                                      η$18763
+                                                                                                      η$18728
                                                                                                       .call()
                                                                                                     )),
                                                                                             Global.TSubSt.messages(
                                                                                                   Global.TGlobal.sub(
-                                                                                                        v2056$18313
+                                                                                                        v2056$18280
                                                                                                       )
                                                                                                 )
                                                                                           ),
-                                                                                      v2056$18313
+                                                                                      v2056$18280
                                                                                     ))
                                                                           ).call())
                                                                 ),
                                                             (Func.U<Tokens.TToken, Kind.U<Func.U<RealWorld, ?>, Short>>)((
-                                                              final Lazy<Tokens.TToken> η$18764
+                                                              final Lazy<Tokens.TToken> η$18729
                                                             ) -> Thunk.<Kind.U<Func.U<RealWorld, ?>, Short>>shared(
                                                                       (Lazy<Kind.U<Func.U<RealWorld, ?>, Short>>)(() -> (Kind.U<
                                                                             Func.U<RealWorld, ?>, Short
@@ -1431,7 +1422,7 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
                                                                                       Tokens.TToken
                                                                                     >println(
                                                                                           Tokens.IShow_Token.it,
-                                                                                          η$18764
+                                                                                          η$18729
                                                                                           .call()
                                                                                         ))
                                                                               ).call())
@@ -1440,9 +1431,9 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
                                                 ).call()
                                           ))
                                 ).call();
-                            return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$18369.apply(arg$18766)));
+                            return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$18336.apply(arg$18731)));
                           })).call();
-                      return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$18338.apply(arg$18759)));
+                      return Thunk.<Short>nested((Lazy<Lazy<Short>>)(() -> v4797$18305.apply(arg$18726)));
                     });
           })
     );
@@ -1459,16 +1450,16 @@ final public static short fromCompilerSeverity(final short arg$1) {
 final public static State.TState<Global.TGlobal, Range.TRange> createRangeFromPos(final Positions.TPosition arg$1) {
   return State.TState.<Global.TGlobal, Range.TRange>mk(
             (Func.U<Global.TGlobal, PreludeBase.TTuple2<Range.TRange, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$18772
+              final Lazy<Global.TGlobal> arg$18737
             ) -> {
-                  final State.TState<Global.TGlobal, Range.TRange> $18773 = State.IMonad_State.<
+                  final State.TState<Global.TGlobal, Range.TRange> $18738 = State.IMonad_State.<
                     Global.TGlobal, Range.TRange
-                  >pure(Diagnostic.tokensToRange(Global.tokens(arg$1, arg$18772)));
-                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Range.TRange, Global.TGlobal>> v7693$18613 =
-                  $18773.mem$fun;
+                  >pure(Diagnostic.tokensToRange(Global.tokens(arg$1, arg$18737)));
+                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Range.TRange, Global.TGlobal>> v7693$18580 =
+                  $18738.mem$fun;
                   return Thunk.<PreludeBase.TTuple2<Range.TRange, Global.TGlobal>>nested(
-                            (Lazy<Lazy<PreludeBase.TTuple2<Range.TRange, Global.TGlobal>>>)(() -> v7693$18613
-                                .apply(arg$18772))
+                            (Lazy<Lazy<PreludeBase.TTuple2<Range.TRange, Global.TGlobal>>>)(() -> v7693$18580
+                                .apply(arg$18737))
                           );
                 })
           );
@@ -1476,22 +1467,22 @@ final public static State.TState<Global.TGlobal, Range.TRange> createRangeFromPo
 final public static State.TState<Global.TGlobal, TDiagnostic> createDiagnosticFromMessage(
   final Global.TMessage arg$1
 ) {
-  final State.TState<Global.TGlobal, Range.TRange> $18775 = Diagnostic.createRangeFromPos(
+  final State.TState<Global.TGlobal, Range.TRange> $18740 = Diagnostic.createRangeFromPos(
         Global.TMessage.pos(arg$1)
       );
-  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Range.TRange, Global.TGlobal>> v7688$18575 =
-  $18775.mem$fun;
+  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Range.TRange, Global.TGlobal>> v7688$18542 =
+  $18740.mem$fun;
   return State.TState.<Global.TGlobal, TDiagnostic>mk(
             (Func.U<Global.TGlobal, PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$18777
+              final Lazy<Global.TGlobal> arg$18742
             ) -> {
-                  final PreludeBase.TTuple2<Range.TRange, Global.TGlobal> $18778 = v7688$18575
-                  .apply(arg$18777).call();
-                  final State.TState<Global.TGlobal, TDiagnostic> $18779 = State.IMonad_State.<
+                  final PreludeBase.TTuple2<Range.TRange, Global.TGlobal> $18743 = v7688$18542
+                  .apply(arg$18742).call();
+                  final State.TState<Global.TGlobal, TDiagnostic> $18744 = State.IMonad_State.<
                     Global.TGlobal, TDiagnostic
                   >pure(
                         TDiagnostic.mk(
-                              $18778.mem1,
+                              $18743.mem1,
                               Thunk.<Short>shared(
                                     (Lazy<Short>)(() -> Diagnostic.fromCompilerSeverity(
                                               Global.TMessage.level(arg$1)
@@ -1501,11 +1492,11 @@ final public static State.TState<Global.TGlobal, TDiagnostic> createDiagnosticFr
                               Thunk.<String/*<Character>*/>lazy(Global.TMessage.text(arg$1))
                             )
                       );
-                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>> v7693$18580 =
-                  $18779.mem$fun;
+                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>> v7693$18547 =
+                  $18744.mem$fun;
                   return Thunk.<PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>>nested(
-                            (Lazy<Lazy<PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>>>)(() -> v7693$18580
-                                .apply($18778.mem2))
+                            (Lazy<Lazy<PreludeBase.TTuple2<TDiagnostic, Global.TGlobal>>>)(() -> v7693$18547
+                                .apply($18743.mem2))
                           );
                 })
           );
@@ -1513,53 +1504,53 @@ final public static State.TState<Global.TGlobal, TDiagnostic> createDiagnosticFr
 final public static State.TState<Global.TGlobal, PreludeBase.TList<TDiagnostic>> extractDiagnostics =
 State.TState.<Global.TGlobal, PreludeBase.TList<TDiagnostic>>mk(
       (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>>)((
-        final Lazy<Global.TGlobal> arg$18781
+        final Lazy<Global.TGlobal> arg$18746
       ) -> {
-            final Global.TGlobal v7690$18542 = arg$18781.call();
-            final State.TState<Global.TGlobal, PreludeBase.TList<TDiagnostic>> $18784 =
+            final Global.TGlobal v7690$18509 = arg$18746.call();
+            final State.TState<Global.TGlobal, PreludeBase.TList<TDiagnostic>> $18749 =
             State.TState.<Global.TGlobal, PreludeBase.TList<TDiagnostic>>coerce(
                   PreludeMonad.<State.TState<Global.TGlobal, ?>, TDiagnostic>sequence(
                         State.IMonad_State.<Global.TGlobal>mk(), State.IMonad_State.<Global.TGlobal>mk(),
                         PreludeMonad.IFunctor_$lbrack$rbrack.<Global.TMessage, State.TState<Global.TGlobal, TDiagnostic>>fmap(
                               (Func.U<Global.TMessage, State.TState<Global.TGlobal, TDiagnostic>>)((
-                                final Lazy<Global.TMessage> η$18783
+                                final Lazy<Global.TMessage> η$18748
                               ) -> Thunk.<State.TState<Global.TGlobal, TDiagnostic>>shared(
                                         (Lazy<State.TState<
                                           Global.TGlobal, TDiagnostic
                                         >>)(() -> Diagnostic.createDiagnosticFromMessage(
-                                                  η$18783.call()
+                                                  η$18748.call()
                                                 ))
                                       )),
-                              Global.TSubSt.messages(Global.TGlobal.sub(v7690$18542))
+                              Global.TSubSt.messages(Global.TGlobal.sub(v7690$18509))
                             ).<Kind.U<State.TState<Global.TGlobal, ?>, TDiagnostic>>simsalabim()
                       )
                 );
-            final Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>> v7693$18545 =
-            $18784.mem$fun;
+            final Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>> v7693$18512 =
+            $18749.mem$fun;
             return Thunk.<PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>>nested(
-                      (Lazy<Lazy<PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>>>)(() -> v7693$18545
-                          .apply(v7690$18542))
+                      (Lazy<Lazy<PreludeBase.TTuple2<PreludeBase.TList<TDiagnostic>, Global.TGlobal>>>)(() -> v7693$18512
+                          .apply(v7690$18509))
                     );
           })
     );
 final public static Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> compileAndGetDiagnostics(
   final Lazy<String/*<Character>*/> arg$1
 ) {
-  return (Func.U<RealWorld, PreludeBase.TList<TDiagnostic>>)((final Lazy<RealWorld> arg$18786) -> {
-            final Global.TGlobal v2056$18652 = CompilerHelper.compile(arg$1, CompilerHelper.standardLSPGlobal.call())
-            .apply(arg$18786).call();
-            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2057$18653 = PreludeMonad.IMonad_ST.<
+  return (Func.U<RealWorld, PreludeBase.TList<TDiagnostic>>)((final Lazy<RealWorld> arg$18751) -> {
+            final Global.TGlobal v2056$18619 = CompileExecutor.compile(arg$1, CompileGlobal.standardCompileGlobal.call())
+            .apply(arg$18751).call();
+            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2057$18620 = PreludeMonad.IMonad_ST.<
               RealWorld, PreludeBase.TList<TDiagnostic>
             >pure(
                   Thunk.<PreludeBase.TList<TDiagnostic>>shared(
                         (Lazy<PreludeBase.TList<TDiagnostic>>)(() -> State.<
                               Global.TGlobal, PreludeBase.TList<TDiagnostic>
-                            >evalState(Diagnostic.extractDiagnostics, v2056$18652))
+                            >evalState(Diagnostic.extractDiagnostics, v2056$18619))
                       )
                 );
             return Thunk.<PreludeBase.TList<TDiagnostic>>nested(
-                      (Lazy<Lazy<PreludeBase.TList<TDiagnostic>>>)(() -> v2057$18653.apply(
-                                arg$18786
+                      (Lazy<Lazy<PreludeBase.TList<TDiagnostic>>>)(() -> v2057$18620.apply(
+                                arg$18751
                               ))
                     );
           });
@@ -1579,18 +1570,18 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18789) -> {
-                                            final Global.TGlobal v2056$18397 = CompilerHelper.standardLSPGlobal
-                                            .call().apply(arg$18789).call();
-                                            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2053$18416 =
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18754) -> {
+                                            final Global.TGlobal v2056$18364 = CompileGlobal.standardCompileGlobal
+                                            .call().apply(arg$18754).call();
+                                            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2053$18383 =
                                             Diagnostic.compileAndGetDiagnostics(
                                                   Thunk.<String/*<Character>*/>lazy(
                                                         "module ch.fhnw.thga.FaultyFregeTest where\n\nimport Does.not.Exist"
                                                       )
                                                 );
-                                            final PreludeBase.TList<TDiagnostic> v2056$18419 =
-                                            v2053$18416.apply(arg$18789).call();
-                                            final Func.U<RealWorld, Boolean> v2057$18420 =
+                                            final PreludeBase.TList<TDiagnostic> v2056$18386 =
+                                            v2053$18383.apply(arg$18754).call();
+                                            final Func.U<RealWorld, Boolean> v2057$18387 =
                                             PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
                                                   Thunk.<Boolean>shared(
                                                         (Lazy<Boolean>)(() -> PreludeBase.IEq_$lbrack$rbrack.<
@@ -1641,13 +1632,13 @@ final public static Lazy<QuickCheckGen.TGen<
                                                                           TDiagnostic
                                                                         >mk()
                                                                       ),
-                                                                  v2056$18419
+                                                                  v2056$18386
                                                                 ))
                                                       )
                                                 );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18420
-                                                          .apply(arg$18789))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18387
+                                                          .apply(arg$18754))
                                                     );
                                           })
                                     ))
@@ -1670,29 +1661,29 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18794) -> {
-                                            final PreludeBase.TList<TDiagnostic> v2056$18513 =
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18759) -> {
+                                            final PreludeBase.TList<TDiagnostic> v2056$18480 =
                                             Diagnostic.compileAndGetDiagnostics(
                                                   Thunk.<String/*<Character>*/>shared(
                                                         (Lazy<String/*
                                                           <Character>
                                                         */>)(() -> "module CorrectFregeTest where\n\n" + "ok = 42 + 42")
                                                       )
-                                                ).apply(arg$18794).call();
-                                            final Func.U<RealWorld, Boolean> v2057$18514 =
+                                                ).apply(arg$18759).call();
+                                            final Func.U<RealWorld, Boolean> v2057$18481 =
                                             PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
                                                   Thunk.<Boolean>shared(
                                                         (Lazy<Boolean>)(() -> PreludeBase.IEq_$lbrack$rbrack.<
                                                               TDiagnostic
                                                             >$eq$eq(
                                                                   IEq_Diagnostic.it, PreludeBase.TList.DList.<TDiagnostic>mk(),
-                                                                  v2056$18513
+                                                                  v2056$18480
                                                                 ))
                                                       )
                                                 );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18514
-                                                          .apply(arg$18794))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18481
+                                                          .apply(arg$18759))
                                                     );
                                           })
                                     ))
@@ -1715,18 +1706,18 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18797) -> {
-                                            final Global.TGlobal v2056$18455 = CompilerHelper.standardLSPGlobal
-                                            .call().apply(arg$18797).call();
-                                            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2053$18474 =
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$18762) -> {
+                                            final Global.TGlobal v2056$18422 = CompileGlobal.standardCompileGlobal
+                                            .call().apply(arg$18762).call();
+                                            final Func.U<RealWorld, PreludeBase.TList<TDiagnostic>> v2053$18441 =
                                             Diagnostic.compileAndGetDiagnostics(
                                                   Thunk.<String/*<Character>*/>lazy(
                                                         "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
                                                       )
                                                 );
-                                            final PreludeBase.TList<TDiagnostic> v2056$18477 =
-                                            v2053$18474.apply(arg$18797).call();
-                                            final Func.U<RealWorld, Boolean> v2057$18478 =
+                                            final PreludeBase.TList<TDiagnostic> v2056$18444 =
+                                            v2053$18441.apply(arg$18762).call();
+                                            final Func.U<RealWorld, Boolean> v2057$18445 =
                                             PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
                                                   Thunk.<Boolean>shared(
                                                         (Lazy<Boolean>)(() -> PreludeBase.IEq_$lbrack$rbrack.<
@@ -1887,13 +1878,13 @@ final public static Lazy<QuickCheckGen.TGen<
                                                                                   )
                                                                             )
                                                                       ),
-                                                                  v2056$18477
+                                                                  v2056$18444
                                                                 ))
                                                       )
                                                 );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18478
-                                                          .apply(arg$18797))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18445
+                                                          .apply(arg$18762))
                                                     );
                                           })
                                     ))
