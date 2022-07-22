@@ -1,0 +1,31 @@
+module ch.fhnw.thga.fregelanguageserver.compile.CompileOptions where
+import Compiler.types.Global (Options)
+import frege.compiler.types.Targets public(thisTarget)
+import Compiler.enums.Flags
+
+getEnvDefault :: String -> String -> String
+getEnvDefault defaultValue envName = maybe defaultValue id $ System.getenv envName
+
+standardCompileOptions :: Options
+standardCompileOptions = Options 
+    { 
+        source       = "-",
+        sourcePath   = [ getEnvDefault "." "FREGE_LS_SOURCE_DIR" ],
+        dir          = ".",
+        path         = [ getEnvDefault "" "FREGE_LS_EXTRA_CLASSPATH" ],
+        prefix       = "",
+        encoding     = Just "UTF-8",
+        tRanges      = [],
+        target       = thisTarget,
+        extending    = Nothing,
+        implementing = [],
+        code         = [],
+        flags        = Flags.fromList
+                     [
+                       WARNINGS,
+                       HINTS,
+                       VERBOSE,
+                       IDEMODE,
+                       IDETOKENS
+                     ]
+    }

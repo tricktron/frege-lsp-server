@@ -46,7 +46,7 @@ public class FregeTextDocumentService implements TextDocumentService
             .collect(Collectors.toList());
 
 		DiagnosticService.publishCompilerDiagnostics(
-            simpleLanguageServer.client,
+            simpleLanguageServer.getClient(),
             currentOpenFileContents,
             params.getTextDocument().getUri()
         );
@@ -74,7 +74,7 @@ public class FregeTextDocumentService implements TextDocumentService
 	public void didSave(DidSaveTextDocumentParams params)
     {
 		DiagnosticService.publishCompilerDiagnostics(
-            simpleLanguageServer.client,
+            simpleLanguageServer.getClient(),
             currentOpenFileContents,
             params.getTextDocument().getUri()
         );

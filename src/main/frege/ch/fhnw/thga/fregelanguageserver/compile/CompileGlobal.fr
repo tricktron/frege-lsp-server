@@ -1,0 +1,18 @@
+module ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal where
+
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
+
+import Compiler.types.Global (Global, Options, SubSt)
+import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
+
+fromOptions :: Options -> IO Global
+fromOptions opts = do
+    initialLoader <- theClassLoader opts
+    initialGlobal <- standardGlobal
+    pure initialGlobal. {
+        options  = opts,
+        sub     <- SubSt. { loader = initialLoader }
+    }
+
+standardCompileGlobal :: IO Global
+standardCompileGlobal = fromOptions standardCompileOptions

@@ -1,12 +1,13 @@
-module ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper where
+module ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor where
 
-import frege.compiler.types.Targets public(thisTarget)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
 import Compiler.types.Global (
-    Global, StIO, Options, Message, StG, SubSt,
+    Global, StIO, Message, StG, SubSt,
     liftIO, liftStG,getSTT, getST, forsome, stio, changeST
     )
 import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
-import Control.monad.State (StateT)
+import Control.monad.State (StateT, execStateT)
 import Compiler.passes.Fix()
 import Compiler.passes.Imp()
 import Compiler.passes.Enter()
@@ -28,33 +29,10 @@ import Compiler.common.Desugar
 import Compiler.types.Tokens
 import Compiler.enums.TokenID
 import Compiler.types.Packs
+import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 
 instance Show Message where
   show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text
-
-lspOptions :: Options
-lspOptions = Options 
-    { 
-        source       = "-",
-        sourcePath   = [ "." ],
-        dir          = ".",
-        path         = [],
-        prefix       = "",
-        encoding     = Just "UTF-8",
-        tRanges      = [],
-        target       = thisTarget,
-        extending    = Nothing,
-        implementing = [],
-        code         = [],
-        flags        = Flags.fromList
-                     [
-                       WARNINGS,
-                       HINTS,
-                       VERBOSE,
-                       IDEMODE,
-                       IDETOKENS
-                     ]
-    }
 
 passes = 
     [
@@ -76,32 +54,23 @@ passes =
         (liftStG FI.cleanSymtab,        "clean up")
     ]
 
-lspGlobal :: IO Global
-lspGlobal = do
-    initialLoader <- theClassLoader lspOptions
-    initialGlobal <- standardGlobal
-    pure initialGlobal. {
-        options  = lspOptions,
-        sub     <- SubSt. { loader = initialLoader }
-    }
-
 switchState :: Global -> StG Global
 switchState new = do
     old <- getST
     StG.put new
     return old
 
-lexParseLSP :: String -> StG Global
-lexParseLSP fregeCode = do
+lexParseSourceCode :: String -> StG Global
+lexParseSourceCode fregeCode = do
     g  <- getST
-    lexPassLSP fregeCode
+    lexPassSourceCode fregeCode
     parsePass
     gc <- switchState g
     changeST _.{ sub <- _.{ numErrors <- (gc.errors +) } }
     return gc
 
-lexPassLSP :: String -> StG (String, Int)
-lexPassLSP fregeCode = do
+lexPassSourceCode :: String -> StG (String, Int)
+lexPassSourceCode fregeCode = do
     tokens <- L.passCS $ CharSequence.fromString fregeCode
     return ("tokens", length tokens)
 
@@ -131,13 +100,18 @@ parsePass = do
             | otherwise                        = t : ideClean ts
         ideClean []                            = []
 
-compileFregeFile :: String -> StIO Global
-compileFregeFile fregeCode = do
-    lexParseState <- liftStG $ lexParseLSP fregeCode
+private compileSourceCode :: String -> StIO Global
+private compileSourceCode fregeCode = do
+    lexParseState <- liftStG $ lexParseSourceCode fregeCode
     StateT.put lexParseState
     forsome passes runpass
     g <- getSTT
     return g
+
+compile :: String -> IO Global -> IO Global
+compile fregeCode global = do
+    startGlobal <- global
+    execStateT (compileSourceCode fregeCode) startGlobal
 
 runpass :: (StIO (String, Int), String) -> StIO ()
 runpass (pass, description) = do
@@ -145,3 +119,16 @@ runpass (pass, description) = do
     when (state.errors == 0) do
         (itemnm, items) <- pass
         return ()
+
+shouldCorrectlyConfigureExtraClasspath :: Property
+shouldCorrectlyConfigureExtraClasspath = once $ morallyDubiousIOProperty do
+    fregeCodeWithDependency = 
+        "module FregeFxDep where\n\n"++ 
+        "import fregefx.JavaFxType\n\n" ++ 
+        "main = println \"Hello FregeFX\""
+    fregefxGlobal = CompileGlobal.fromOptions standardCompileOptions.
+        {
+            path = [ "./src/main/resources/fregefx-0.8.2-SNAPSHOT.jar" ]
+        }
+    actual <- compile fregeCodeWithDependency fregefxGlobal
+    pure    $ actual.errors == 0

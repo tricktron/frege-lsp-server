@@ -1,3 +1,0 @@
-module HoverTest where
-
-simplyString = println "Hello"

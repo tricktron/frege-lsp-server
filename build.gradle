@@ -11,7 +11,6 @@ dependencies {
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     frege          group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
-
 }
 
 application {
@@ -31,6 +30,7 @@ frege
     mainSourceDir = layout.projectDirectory.dir('src/main/frege')
     testModules   = 
     [
+        'ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor',
         'ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic',
         'ch.fhnw.thga.fregelanguageserver.hover.Hover'
     ]
