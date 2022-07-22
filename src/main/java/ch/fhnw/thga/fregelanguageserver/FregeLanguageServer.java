@@ -14,15 +14,19 @@ import org.eclipse.lsp4j.services.WorkspaceService;
 
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
-	private TextDocumentService textService;
-	private WorkspaceService workspaceService;
-	LanguageClient client;
-
+	private final TextDocumentService textService;
+	private final WorkspaceService workspaceService;
+	private LanguageClient client;
 	public FregeLanguageServer()
     {
 		textService      = new FregeTextDocumentService(this);
 		workspaceService = new FregeWorkspaceService();
 	}
+
+    public LanguageClient getClient()
+    {
+        return client;
+    }
 
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)

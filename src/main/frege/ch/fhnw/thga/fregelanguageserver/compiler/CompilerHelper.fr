@@ -6,7 +6,7 @@ import Compiler.types.Global (
     liftIO, liftStG,getSTT, getST, forsome, stio, changeST
     )
 import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
-import Control.monad.State (StateT)
+import Control.monad.State (StateT, execStateT)
 import Compiler.passes.Fix()
 import Compiler.passes.Imp()
 import Compiler.passes.Enter()
@@ -28,6 +28,7 @@ import Compiler.common.Desugar
 import Compiler.types.Tokens
 import Compiler.enums.TokenID
 import Compiler.types.Packs
+import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 
 instance Show Message where
   show msg = substr (show msg.level) 0 1 ++ " " ++ show msg.pos.first.tokid ++ show msg.pos.end ++ ": " ++ msg.text
@@ -52,7 +53,8 @@ standardLSPOptions = Options
                        HINTS,
                        VERBOSE,
                        IDEMODE,
-                       IDETOKENS
+                       IDETOKENS,
+                       MAKE
                      ]
     }
 
@@ -86,7 +88,15 @@ createLSPGlobal opts = do
     }
 
 standardLSPGlobal :: IO Global
-standardLSPGlobal = createLSPGlobal standardLSPOptions
+standardLSPGlobal = 
+    let
+        fregeSourceDir = maybe "." id $ System.getenv "FREGE_LSP_SOURCE_DIR"
+        extraClasspath = maybe ""  id $ System.getenv "FREGE_LSP_EXTRA_CLASSPATH" 
+    in
+        createLSPGlobal standardLSPOptions.{
+            sourcePath = [ fregeSourceDir ],
+            path       = [ extraClasspath ]
+    }
 
 switchState :: Global -> StG Global
 switchState new = do
@@ -142,9 +152,26 @@ compileFregeFile fregeCode = do
     g <- getSTT
     return g
 
+compile :: String -> IO Global -> IO Global
+compile fregeCode global = do
+    startGlobal <- global
+    execStateT (compileFregeFile fregeCode) startGlobal
+
 runpass :: (StIO (String, Int), String) -> StIO ()
 runpass (pass, description) = do
     state <- getSTT
     when (state.errors == 0) do
         (itemnm, items) <- pass
         return ()
+
+shouldCorrectlyConfigureExtraClasspath :: Property
+shouldCorrectlyConfigureExtraClasspath = once $ morallyDubiousIOProperty do
+    fregeCodeWithDependency = 
+        "module FregeFxDep where\n\n"++ 
+        "import fregefx.JavaFxType\n\n" ++ 
+        "main = println \"Hello FregeFX\""
+    fregefxGlobal = createLSPGlobal standardLSPOptions. {
+        path = [ "./src/main/resources/fregefx-0.8.2-SNAPSHOT.jar" ]
+    }
+    actual <- compile fregeCodeWithDependency fregefxGlobal
+    pure    $ actual.errors == 0

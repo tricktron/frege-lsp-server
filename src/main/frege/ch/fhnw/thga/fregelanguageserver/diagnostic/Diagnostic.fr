@@ -1,6 +1,6 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic where
 
-import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, standardLSPGlobal)
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper (compileFregeFile, standardLSPGlobal, compile)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
 import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
@@ -68,8 +68,7 @@ extractDiagnostics = do
 
 compileAndGetDiagnostics :: String -> IO [ Diagnostic ]
 compileAndGetDiagnostics fregeCode = do
-    startGlobal <- standardLSPGlobal
-    gl          <- execStateT (compileFregeFile fregeCode) startGlobal
+    gl          <- compile fregeCode standardLSPGlobal
     pure         $ evalState (extractDiagnostics) gl
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property

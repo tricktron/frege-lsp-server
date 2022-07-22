@@ -4,6 +4,7 @@ import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
 import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
     DiagnosticSeverity, Diagnostic, compileAndGetDiagnostics)
+import ch.fhnw.thga.fregelanguageserver.compiler.CompilerHelper(standardLSPGlobal)
 
 import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
