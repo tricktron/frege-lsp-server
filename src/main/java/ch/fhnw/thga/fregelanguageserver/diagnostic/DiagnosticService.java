@@ -9,25 +9,27 @@ import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 import org.eclipse.lsp4j.services.LanguageClient;
 
+import frege.compiler.types.Global.TGlobal;
 import frege.run8.Thunk;
+import frege.run8.Func.U;
+import frege.runtime.Phantom.RealWorld;
 
 public class DiagnosticService
 {
-    private static List<Diagnostic> getCompilerDiagnostics(String fregeCode)
+    private static List<Diagnostic> getCompilerDiagnostics(U<RealWorld, TGlobal> global)
     {
-        return performUnsafe(
-            DiagnosticLSP.compileAndGetDiagnosticsLSP(Thunk.lazy(fregeCode))).call();
+        return performUnsafe(DiagnosticLSP.getDiagnosticsLSP(global)).call();
     }
 
     public static void publishCompilerDiagnostics(
         LanguageClient client, 
-        String fregeCode,
+        U<RealWorld, TGlobal> global,
         String documentUri)
     {
 		CompletableFuture.runAsync(() -> 
         {
             client.publishDiagnostics(new PublishDiagnosticsParams(
-                documentUri, getCompilerDiagnostics(fregeCode)));
+                documentUri, getCompilerDiagnostics(global)));
         });
 	}
 }

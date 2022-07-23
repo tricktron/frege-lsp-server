@@ -12,15 +12,22 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions;
+import frege.compiler.types.Global.TOptions;
+import frege.run8.Lazy;
+
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
 	private final TextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
+    private TOptions compileOptions;
+
 	public FregeLanguageServer()
     {
 		textService      = new FregeTextDocumentService(this);
 		workspaceService = new FregeWorkspaceService();
+        compileOptions   = CompileOptions.standardCompileOptions.call();
 	}
 
     public LanguageClient getClient()
@@ -28,9 +35,15 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return client;
     }
 
+    public TOptions getCompileOptions()
+    {
+        return compileOptions;
+    }
+
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
+        compileOptions = CompileOptions.standardCompileOptions.call();
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
 		res.getCapabilities().setHoverProvider(true);

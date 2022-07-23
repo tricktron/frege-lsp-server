@@ -67,6 +67,13 @@ extractDiagnostics = do
     diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
     sequence diagnostics
 
+-- TODO: change to Global -> IO [ Diagnostic ]
+getDiagnostics :: IO Global -> IO [ Diagnostic ]
+getDiagnostics global = do
+    gl  <- global
+    pure $ evalState (extractDiagnostics) gl
+
+-- TODO: remove if everything works
 compileAndGetDiagnostics :: String -> IO [ Diagnostic ]
 compileAndGetDiagnostics fregeCode = do
     gl          <- compile fregeCode standardCompileGlobal
@@ -75,13 +82,15 @@ compileAndGetDiagnostics fregeCode = do
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
     fregeCodeWithoutError = "module CorrectFregeTest where\n\n" ++ "ok = 42 + 42"
+    gl                    = compile fregeCodeWithoutError standardCompileGlobal 
     expected              = []
-    actual               <- compileAndGetDiagnostics fregeCodeWithoutError
+    actual               <- getDiagnostics gl
     pure                  $ expected == actual
 
 fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics :: Property
 fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
     fregeCodeWithError = "module ch.fhnw.thga.FaultyFregeTest where\n\nimport Does.not.Exist"
+    gl                 = compile fregeCodeWithError standardCompileGlobal 
     expected           = 
         [ 
             Diagnostic 
@@ -92,13 +101,13 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
                 message  = "Could not import module frege.does.not.Exist\n(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
             } 
         ]
-    gl     <- standardCompileGlobal
-    actual <- compileAndGetDiagnostics fregeCodeWithError
+    actual <- getDiagnostics gl
     pure    $ expected == actual
 
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics :: Property
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
     fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
+    gl                  = compile fregeCodeWithErrors standardCompileGlobal 
     expected            = 
         [ 
             Diagnostic 
@@ -123,8 +132,7 @@ fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubi
                 message  = "last statement in a monadic do block must not\nbe let decls" 
             }
         ]
-    gl     <- standardCompileGlobal
-    actual <- compileAndGetDiagnostics fregeCodeWithErrors
+    actual <- getDiagnostics gl
     pure    $ expected == actual
 
 posToTokens :: [ TokenPosition ] -> Global -> [ Token ]
