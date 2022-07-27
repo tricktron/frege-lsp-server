@@ -59,17 +59,8 @@ tokenToQName t = do
     namespaceOrVariable <- lift $ Global.resolved global t
     lift                 $ either (const Nothing) Just namespaceOrVariable
 
-compileAndGetTypeSignatureOnHover :: String -> Position -> IO (Maybe Hover)
-compileAndGetTypeSignatureOnHover fregeCode pos = do
-    startGlobal <- standardCompileGlobal
-    gl          <- compile fregeCode standardCompileGlobal
-    pure         $ evalStateT (getTypeOnHover pos) gl
-
--- TODO: change to Global -> Position -> IO (Maybe Hover)
-getTypeSignatureOnHover :: IO Global -> Position -> IO (Maybe Hover)
-getTypeSignatureOnHover ioGlobal pos = do
-    global  <- ioGlobal
-    pure     $ evalStateT (getTypeOnHover pos) global
+getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
+getTypeSignatureOnHover pos = evalStateT $ getTypeOnHover pos
 
 getTypeOnHover :: Position -> StateT Global Maybe Hover
 getTypeOnHover pos = do
@@ -86,52 +77,56 @@ getTypeOnHover pos = do
 
 shouldShowLocalVaridTypeSignature :: Property
 shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
-    global         = compile fregeHoverCode standardCompileGlobal
+    fregeHoverCode  = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 3 1, end = Position 3 13 },
             content = FregeCodeBlock "simplyString :: String"
         }
-    actual        <- getTypeSignatureOnHover global (Position 3 3)
+    actual         = getTypeSignatureOnHover (Position 3 3) compiledGlobal
     pure           $ expected == actual
 
 shouldShowImportedVaridTypeSignature :: Property
 shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n" ++ "main = println \"Hello\""
-    global         = compile fregeHoverCode standardCompileGlobal
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 3 8, end = Position 3 15 },
             content = FregeCodeBlock "println :: Show 𝖆 => 𝖆 -> IO ()"
         }
-    actual         <- getTypeSignatureOnHover global (Position 3 9)
+    actual          = getTypeSignatureOnHover (Position 3 9) compiledGlobal
     pure            $ expected == actual
 
 shouldShowLocalConidTypeSignature :: Property
 shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n"
                   ++ "data MyMaybe a = MyNothing | MyJust a\n"
-    global         = compile fregeHoverCode standardCompileGlobal
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 3 6, end = Position 3 13 },
             content = FregeCodeBlock "MyMaybe :: *->*"
         }
-    actual         <- getTypeSignatureOnHover global (Position 3 7)
+    actual          = getTypeSignatureOnHover (Position 3 7) compiledGlobal
     pure            $ expected == actual
 
 shouldShowImportedConidTypeSignature :: Property
 shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n"
                   ++ "import frege.data.Maybe(Maybe)"
-    global         = compile fregeHoverCode standardCompileGlobal
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 3 25, end = Position 3 30 },
             content = FregeCodeBlock "Maybe :: *->*"
         }
-    actual         <- getTypeSignatureOnHover global (Position 3 27)
+    actual          = getTypeSignatureOnHover (Position 3 27) compiledGlobal
     pure           $  expected == actual
 
 shouldShowLocalConidDataConstructor :: Property
@@ -139,13 +134,14 @@ shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n"
                   ++ "data MyMaybe a = MyNothing | MyJust a\n"
                   ++ "res = MyJust 42"
-    global         = compile fregeHoverCode standardCompileGlobal
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 4 7, end = Position 4 13 },
             content = FregeCodeBlock "MyJust :: a -> MyMaybe a"
         }
-    actual         <- getTypeSignatureOnHover global (Position 4 8)
+    actual          = getTypeSignatureOnHover (Position 4 8) compiledGlobal
     pure            $ expected == actual
 
 shouldShowImportedConidDataConstructor :: Property
@@ -153,13 +149,14 @@ shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
     fregeHoverCode = "module HoverTest where\n\n"
                   ++ "import frege.data.Maybe(Maybe, Just)\n"
                   ++ "res = Just 42"
-    global         = compile fregeHoverCode standardCompileGlobal
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 4 7, end = Position 4 11 },
             content = FregeCodeBlock "Just :: a -> Maybe a"
         }
-    actual         <- getTypeSignatureOnHover global (Position 4 10)
+    actual          = getTypeSignatureOnHover (Position 4 10) compiledGlobal
     pure            $ expected == actual
 
 main :: IO ()
@@ -172,10 +169,11 @@ main = do
     let simpleFregeCode = "module HoverTest where\n\n" 
                        ++ "data MyMaybe a = MyNothing | MyJust a\n"
                        ++ "res = MyJust 42"
-    global             <- compile fregeCode standardCompileGlobal
-    println             $ CharSequence.toString global.sub.code
-    tokens              = listFromArray global.sub.toks
+    global             <- standardCompileGlobal
+    compiledGlobal     <- compile fregeCode global
+    println             $ CharSequence.toString compiledGlobal.sub.code
+    tokens              = listFromArray compiledGlobal.sub.toks
     for tokens println
-    hover             <- getTypeSignatureOnHover (pure global) (Position 5 9)
+    hover               = getTypeSignatureOnHover (Position 5 9) compiledGlobal
     println hover
     println "end"

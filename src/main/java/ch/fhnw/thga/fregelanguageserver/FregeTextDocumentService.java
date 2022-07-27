@@ -1,5 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import static frege.prelude.PreludeBase.TST.performUnsafe;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,24 +20,26 @@ import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticService;
 import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 import frege.compiler.types.Global.TGlobal;
 import frege.run8.Thunk;
-import frege.run8.Func.U;
-import frege.runtime.Phantom.RealWorld;
 
 public class FregeTextDocumentService implements TextDocumentService
 {
 	public static final String FREGE_LANGUAGE_ID = "frege";
 	private final FregeLanguageServer simpleLanguageServer;
 	private String currentOpenFileContents;
-    // TODO: Change type to TGlobal only
-    private U<RealWorld, TGlobal> global;
+    private TGlobal global;
 
 	public FregeTextDocumentService(FregeLanguageServer server)
     {
 		simpleLanguageServer    = server;
 		currentOpenFileContents = "";
-        // TODO: Get with performUnsafe
-        global                  = CompileGlobal.fromOptions(server.getCompileOptions());
+        global                  = performUnsafe
+        (CompileGlobal.standardCompileGlobal.call()).call();
 	}
+
+    public void setGlobal(TGlobal global)
+    {
+        this.global = global;
+    }
 
     @Override
 	public CompletableFuture<Hover> hover(HoverParams params)
@@ -47,12 +51,14 @@ public class FregeTextDocumentService implements TextDocumentService
 	public void didOpen(DidOpenTextDocumentParams params)
     {
 		currentOpenFileContents  = params.getTextDocument().getText();
-        // Todo: get with performUnsafe
-        global                   = CompileExecutor.compile
+        global                   = performUnsafe
+        (
+            CompileExecutor.compile
             (
                 Thunk.lazy(currentOpenFileContents),
                 global
-            );
+            )
+        ).call();
 		DiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.getClient(),
             global,
@@ -72,6 +78,11 @@ public class FregeTextDocumentService implements TextDocumentService
 	public void didClose(DidCloseTextDocumentParams params)
     {
 		currentOpenFileContents = "";
+        DiagnosticService.cleanCompilerDiagnostics
+        (
+            simpleLanguageServer.getClient(), 
+            params.getTextDocument().getUri()
+        );
 	}
 
 	@Override

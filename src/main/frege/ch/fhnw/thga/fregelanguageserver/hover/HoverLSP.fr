@@ -2,7 +2,7 @@ module ch.fhnw.thga.fregelanguageserver.hover.HoverLSP where
 
 import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
-import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, getTypeSignatureOnHover, compileAndGetTypeSignatureOnHover)
+import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, getTypeSignatureOnHover)
 import Compiler.types.Global (Global)
 import Control.monad.State (evalState)
 
@@ -22,16 +22,9 @@ data HoverLSP = pure native org.eclipse.lsp4j.Hover where
             (MarkupContentLSP.new MarkupKindLSP.markdown (show content))
             (RangeLSP.fromRange range)
 
--- TODO: Change to Global -> PositionLSP -> IO (Maybe HoverLSP)
-getTypeSignatureOnHoverLSP :: IO Global -> PositionLSP -> IO (Maybe HoverLSP)
-getTypeSignatureOnHoverLSP global posLSP = do
-    hover <- getTypeSignatureOnHover global (PositionLSP.toPosition posLSP)
-    pure $ fmap HoverLSP.fromHover hover
+getTypeSignatureOnHoverLSP :: PositionLSP -> Global -> Maybe HoverLSP
+getTypeSignatureOnHoverLSP posLSP global = do
+    hover <- getTypeSignatureOnHover (PositionLSP.toPosition posLSP) global
+    pure   $ HoverLSP.fromHover hover
 
--- TODO: remove if everything works
-compileAndGetTypeSignatureOnHoverLSP :: String -> PositionLSP -> IO (Maybe HoverLSP)
-compileAndGetTypeSignatureOnHoverLSP fregeCode posLSP = do
-    hover <- compileAndGetTypeSignatureOnHover fregeCode (PositionLSP.toPosition posLSP)
-    pure $ fmap HoverLSP.fromHover hover
-
-main = println "hello"
+main = println "hello HoverLSP"

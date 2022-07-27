@@ -108,10 +108,8 @@ private compileSourceCode fregeCode = do
     g <- getSTT
     return g
 
-compile :: String -> IO Global -> IO Global
-compile fregeCode global = do
-    startGlobal <- global
-    execStateT (compileSourceCode fregeCode) startGlobal
+compile :: String -> Global -> IO Global
+compile fregeCode = execStateT $ compileSourceCode fregeCode
 
 runpass :: (StIO (String, Int), String) -> StIO ()
 runpass (pass, description) = do
@@ -126,9 +124,9 @@ shouldCorrectlyConfigureExtraClasspath = once $ morallyDubiousIOProperty do
         "module FregeFxDep where\n\n"++ 
         "import fregefx.JavaFxType\n\n" ++ 
         "main = println \"Hello FregeFX\""
-    fregefxGlobal = CompileGlobal.fromOptions standardCompileOptions.
+    fregefxGlobal          <- CompileGlobal.fromOptions standardCompileOptions.
         {
             path = [ "./src/main/resources/fregefx-0.8.2-SNAPSHOT.jar" ]
         }
-    actual <- compile fregeCodeWithDependency fregefxGlobal
-    pure    $ actual.errors == 0
+    actual                 <- compile fregeCodeWithDependency fregefxGlobal
+    pure                    $ actual.errors == 0

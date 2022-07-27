@@ -2,6 +2,7 @@ package ch.fhnw.thga.fregelanguageserver.diagnostic;
 
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -10,20 +11,17 @@ import org.eclipse.lsp4j.PublishDiagnosticsParams;
 import org.eclipse.lsp4j.services.LanguageClient;
 
 import frege.compiler.types.Global.TGlobal;
-import frege.run8.Thunk;
-import frege.run8.Func.U;
-import frege.runtime.Phantom.RealWorld;
 
 public class DiagnosticService
 {
-    private static List<Diagnostic> getCompilerDiagnostics(U<RealWorld, TGlobal> global)
+    private static List<Diagnostic> getCompilerDiagnostics(TGlobal global)
     {
         return performUnsafe(DiagnosticLSP.getDiagnosticsLSP(global)).call();
     }
 
     public static void publishCompilerDiagnostics(
         LanguageClient client, 
-        U<RealWorld, TGlobal> global,
+        TGlobal global,
         String documentUri)
     {
 		CompletableFuture.runAsync(() -> 
@@ -32,4 +30,17 @@ public class DiagnosticService
                 documentUri, getCompilerDiagnostics(global)));
         });
 	}
+
+    public static void cleanCompilerDiagnostics
+        (
+            LanguageClient client,
+            String documentUri
+        )
+    {
+        CompletableFuture.runAsync(() -> 
+        {
+            client.publishDiagnostics(new PublishDiagnosticsParams(
+                documentUri, Collections.emptyList()));
+        });
+    }
 }
