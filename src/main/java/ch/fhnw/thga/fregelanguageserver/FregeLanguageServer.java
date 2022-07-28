@@ -1,5 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import static frege.prelude.PreludeBase.TST.performUnsafe;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.InitializeParams;
@@ -12,11 +14,15 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions;
+
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
-	private final TextDocumentService textService;
+	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
+
 	public FregeLanguageServer()
     {
 		textService      = new FregeTextDocumentService(this);
@@ -31,6 +37,14 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
+        textService.setGlobal
+        (
+            performUnsafe
+            (
+                CompileGlobal
+                .fromOptions(CompileOptions.standardCompileOptions.call()).call()
+            ).call()
+        );
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
 		res.getCapabilities().setHoverProvider(true);

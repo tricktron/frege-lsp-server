@@ -1,9 +1,10 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP where
 
 import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
-    DiagnosticSeverity, Diagnostic, compileAndGetDiagnostics)
-
+    DiagnosticSeverity, Diagnostic, getDiagnostics)
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
+import Compiler.types.Global (Global)
+import Control.monad.State (evalState)
 
 data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where
     pure native error       "org.eclipse.lsp4j.DiagnosticSeverity.Error"       :: DiagnosticSeverityLSP
@@ -38,8 +39,10 @@ data ArrayList a = native java.util.ArrayList where
     go [] list     = return list
     go (x:xs) list = ArrayList.add list x >> go xs list
 
-compileAndGetDiagnosticsLSP :: String -> IOMutable (ArrayList DiagnosticLSP)
-compileAndGetDiagnosticsLSP fregeCode = do
-    diagnostics   <- compileAndGetDiagnostics fregeCode
+getDiagnosticsLSP :: Global -> STMutable s (ArrayList DiagnosticLSP)
+getDiagnosticsLSP global = do
+    diagnostics    = getDiagnostics global
     diagnosticsLSP = DiagnosticLSP.fromDiagnostic <$> diagnostics
     ArrayList.fromFregeList diagnosticsLSP
+
+main = println "hello DiagnosticLSP"

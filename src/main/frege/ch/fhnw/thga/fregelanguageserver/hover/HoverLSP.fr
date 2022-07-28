@@ -2,7 +2,9 @@ module ch.fhnw.thga.fregelanguageserver.hover.HoverLSP where
 
 import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
 import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
-import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, compileAndGetTypeSignatureOnHover)
+import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, getTypeSignatureOnHover)
+import Compiler.types.Global (Global)
+import Control.monad.State (evalState)
 
 data MarkupContentLSP = pure native org.eclipse.lsp4j.MarkupContent where
     pure native new :: String -> String -> MarkupContentLSP
@@ -14,15 +16,15 @@ data MarkupKindLSP = pure native org.eclipse.lsp4j.MarkupKind where
 data HoverLSP = pure native org.eclipse.lsp4j.Hover where
     pure native new :: MarkupContentLSP -> RangeLSP -> HoverLSP
 
-    hoverToHoverLSP :: Hover -> HoverLSP
-    hoverToHoverLSP Hover { range, content } =
+    fromHover :: Hover -> HoverLSP
+    fromHover Hover { range, content } =
         HoverLSP.new 
             (MarkupContentLSP.new MarkupKindLSP.markdown (show content))
             (RangeLSP.fromRange range)
 
-compileAndGetTypeSignatureOnHoverLSP :: String -> PositionLSP -> IO (Maybe HoverLSP)
-compileAndGetTypeSignatureOnHoverLSP fregeCode posLSP = do
-    hover <- compileAndGetTypeSignatureOnHover fregeCode (PositionLSP.toPosition posLSP)
-    pure $ fmap HoverLSP.hoverToHoverLSP hover
+getTypeSignatureOnHoverLSP :: PositionLSP -> Global -> Maybe HoverLSP
+getTypeSignatureOnHoverLSP posLSP global = do
+    hover <- getTypeSignatureOnHover (PositionLSP.toPosition posLSP) global
+    pure   $ HoverLSP.fromHover hover
 
-main = println "hello"
+main = println "hello HoverLSP"
