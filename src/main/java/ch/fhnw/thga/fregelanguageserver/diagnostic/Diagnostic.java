@@ -140,7 +140,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/Diagnostic.fr",
-  time=1658948163560L, jmajor=11, jminor=-1,
+  time=1659200053722L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal", "frege.compiler.types.Global",

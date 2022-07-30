@@ -2,6 +2,7 @@ package ch.fhnw.thga.fregelanguageserver;
 
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,44 +25,40 @@ import frege.run8.Thunk;
 public class FregeTextDocumentService implements TextDocumentService
 {
 	public static final String FREGE_LANGUAGE_ID = "frege";
+    public static final TGlobal STANDARD_GLOBAL = performUnsafe
+        (CompileGlobal.standardCompileGlobal.call()).call();
 	private final FregeLanguageServer simpleLanguageServer;
-	private String currentOpenFileContents;
-    private TGlobal global;
+    private HashMap<String, TGlobal> uriGlobals;
 
 	public FregeTextDocumentService(FregeLanguageServer server)
     {
 		simpleLanguageServer    = server;
-		currentOpenFileContents = "";
-        global                  = performUnsafe
-        (CompileGlobal.standardCompileGlobal.call()).call();
+        uriGlobals              = new HashMap<>();
 	}
-
-    public void setGlobal(TGlobal global)
-    {
-        this.global = global;
-    }
 
     @Override
 	public CompletableFuture<Hover> hover(HoverParams params)
     {
-        return HoverService.hover(params, this.global);
+        TGlobal global = uriGlobals.get(params.getTextDocument().getUri());
+        return global == null ? null : HoverService.hover(params, global);
     }
 
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params)
     {
-		currentOpenFileContents  = params.getTextDocument().getText();
-        global                   = performUnsafe
+        String uri             = params.getTextDocument().getUri();
+        TGlobal compiledGlobal = performUnsafe
         (
             CompileExecutor.compile
             (
-                Thunk.lazy(currentOpenFileContents),
-                global
+                Thunk.lazy(params.getTextDocument().getText()),
+                STANDARD_GLOBAL
             )
         ).call();
+        uriGlobals.put(uri, compiledGlobal);
 		DiagnosticService.publishCompilerDiagnostics(
             simpleLanguageServer.getClient(),
-            global,
+            compiledGlobal,
             params.getTextDocument().getUri()
         );
 	}
@@ -70,14 +67,29 @@ public class FregeTextDocumentService implements TextDocumentService
 	public void didChange(DidChangeTextDocumentParams params)
     {
 		List<TextDocumentContentChangeEvent> changes 
-                                = params.getContentChanges();
-		currentOpenFileContents = changes.get(changes.size() - 1).getText();
+                               = params.getContentChanges();
+        String uri             = params.getTextDocument().getUri();
+        TGlobal compiledGlobal = performUnsafe
+        (
+            CompileExecutor.compile
+            (
+                Thunk.lazy(changes.get(changes.size() - 1).getText()),
+                STANDARD_GLOBAL
+            )
+        ).call();
+        uriGlobals.put(uri, compiledGlobal);
+        DiagnosticService.publishCompilerDiagnostics(
+            simpleLanguageServer.getClient(),
+            compiledGlobal,
+            uri
+        );
+
+        
 	}
 
 	@Override
 	public void didClose(DidCloseTextDocumentParams params)
     {
-		currentOpenFileContents = "";
         DiagnosticService.cleanCompilerDiagnostics
         (
             simpleLanguageServer.getClient(), 
@@ -87,11 +99,5 @@ public class FregeTextDocumentService implements TextDocumentService
 
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
-    {
-		DiagnosticService.publishCompilerDiagnostics(
-            simpleLanguageServer.getClient(),
-            this.global,
-            params.getTextDocument().getUri()
-        );
-	}
+    {}
 }

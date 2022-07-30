@@ -26,8 +26,9 @@ public class DiagnosticService
     {
 		CompletableFuture.runAsync(() -> 
         {
+            List<Diagnostic> diagnostics = getCompilerDiagnostics(global);
             client.publishDiagnostics(new PublishDiagnosticsParams(
-                documentUri, getCompilerDiagnostics(global)));
+                documentUri, diagnostics));
         });
 	}
 
