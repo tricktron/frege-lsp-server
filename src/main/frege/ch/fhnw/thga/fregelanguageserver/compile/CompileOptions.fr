@@ -10,8 +10,8 @@ standardCompileOptions :: Options
 standardCompileOptions = Options 
     { 
         source       = "-",
-        sourcePath   = [ getEnvDefault "." "FREGE_LS_SOURCE_DIR" ],
-        dir          = ".",
+        sourcePath   = [ getEnvDefault "./src/main/frege" "FREGE_LS_SOURCE_DIR" ],
+        dir          = "./.frege-ls/classes/frege",
         path         = [ getEnvDefault "" "FREGE_LS_EXTRA_CLASSPATH" ],
         prefix       = "",
         encoding     = Just "UTF-8",
@@ -26,6 +26,9 @@ standardCompileOptions = Options
                        HINTS,
                        VERBOSE,
                        IDEMODE,
-                       IDETOKENS
+                       IDETOKENS,
+                       WITHCP,
+                       RUNJAVAC,
+                       MAKE
                      ]
     }

@@ -20,6 +20,8 @@ import Compiler.passes.GlobalLam as GL()
 import Compiler.passes.Easy as EA()
 import Compiler.passes.Strict as SC()
 import Compiler.passes.Final as FI()
+import Compiler.passes.GenCode()
+import Compiler.GenMeta as GM()
 import Compiler.Classes()
 import Compiler.Typecheck as TC()
 import Compiler.grammar.Lexer as L()
@@ -29,6 +31,8 @@ import Compiler.common.Desugar
 import Compiler.types.Tokens
 import Compiler.enums.TokenID
 import Compiler.types.Packs
+import Compiler.Main(openFilePrinter, closePrinter, javac)
+import frege.Version(version)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 
 instance Show Message where
@@ -51,8 +55,18 @@ passes =
         (liftStG EA.pass,               "simplify expressions"),            -- TRACE9
         (liftStG GL.pass,               "globalize anonymous lambdas"),     -- TRACE8
         (liftStG SC.pass,               "strictness analysis"),             -- TRACES
-        (liftStG FI.cleanSymtab,        "clean up")
+        (openPrinter,                   "open file"),
+        (GM.genmeta,                    "generate meta data"),              -- none
+        (GenCode.pass,                  "generate java code"),              -- TRACEG
+        (closePrinter,                  "close java file"),
+        (javac,                         "run java compiler"),
+        (liftStG FI.cleanSymtab,        "clean up"),
     ]
+
+openPrinter = do
+    openFilePrinter ".java"
+    GM.banner version
+    return ("file", 1)
 
 switchState :: Global -> StG Global
 switchState new = do

@@ -9,3 +9,4 @@ bin
 .vscode
 .idea
 frege-native-gen*
+.frege-ls
