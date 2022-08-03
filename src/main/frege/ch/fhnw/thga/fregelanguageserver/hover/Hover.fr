@@ -1,7 +1,7 @@
 module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
 import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal (standardCompileGlobal)
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor (compile)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor (compile, compileMake)
 import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
 
@@ -79,7 +79,7 @@ shouldShowLocalVaridTypeSignature :: Property
 shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode  = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
     global         <- standardCompileGlobal
-    compiledGlobal <- compile fregeHoverCode global
+    compiledGlobal <- compileMake fregeHoverCode global
     expected       = Just Hover 
         { 
             range   = Range { start = Position 3 1, end = Position 3 13 },
@@ -170,7 +170,7 @@ main = do
                        ++ "data MyMaybe a = MyNothing | MyJust a\n"
                        ++ "res = MyJust 42"
     global             <- standardCompileGlobal
-    compiledGlobal     <- compile fregeCode global
+    compiledGlobal     <- compileMake simpleFregeCode global
     println             $ CharSequence.toString compiledGlobal.sub.code
     tokens              = listFromArray compiledGlobal.sub.toks
     for tokens println

@@ -31,8 +31,8 @@ frege
     testModules   = 
     [
         'ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor',
-        'ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic',
-        'ch.fhnw.thga.fregelanguageserver.hover.Hover'
+        //'ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic',
+        //'ch.fhnw.thga.fregelanguageserver.hover.Hover'
     ]
 }
 
