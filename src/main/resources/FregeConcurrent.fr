@@ -1,3 +1,0 @@
-module FregeConcurrent where
-
-main = println "Hello FregeConcurrent"

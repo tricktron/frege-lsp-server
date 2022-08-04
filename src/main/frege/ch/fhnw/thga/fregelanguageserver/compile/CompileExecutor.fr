@@ -7,6 +7,7 @@ import Compiler.types.Global (
     liftIO, liftStG,getSTT, getST, forsome, stio, changeST
     )
 import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
+import Control.monad.State (StateT, execStateT)
 import Compiler.passes.Fix()
 import Compiler.passes.Imp()
 import Compiler.passes.Enter()
@@ -30,12 +31,8 @@ import Compiler.common.Desugar
 import Compiler.types.Tokens
 import Compiler.enums.TokenID
 import Compiler.types.Packs
-import Compiler.Main(Parsed, ParseMe, Todo, TodoList, openFilePrinter, closePrinter, javac, parseAll, successful, failed, addDepsOf, makeone, running, processDirs, createTodo, compiled)
-
-import Control.monad.State (StateT, execStateT)
-import Control.Concurrent as C()
+import Compiler.Main(openFilePrinter, closePrinter, javac)
 import frege.Version(version)
-import Data.TreeMap as TM(TreeMap, insert, delete, each, values)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 
 instance Show Message where
@@ -125,113 +122,8 @@ private compileSourceCode fregeCode = do
     g <- getSTT
     return g
 
-make :: C.MVar (Pack, Todo) -> TodoList -> StIO Global
-make mvar tree = do
-    -- go through the todo list and submit any tasks that can do some work
-    tree <- foldM (makeone mvar) tree (each tree)
-    -- if something was running before or just submitted, wait for an answer
-    if any running (values tree)
-    then do
-        g       ←   getSTT
-        tree    ←   liftIO do
-            -- result <-  mvar.poll
-            (p, todo)   ←   mvar.take
-            --case result of
-            --    Just x -> return x  -- no time for status
-            --    _      -> do 
-            --        status tree
-            --        mvar.take
-            --      where
-            --        status tree = do
-            --            let list = each tree
-            --                rstate = filter (running    . snd) list
-            --                fstate = filter (failed     . snd) list
-            --                gstate = filter (successful . snd) list
-            --            stderr.printf "%d running, %d failed, %d successful, %d queued/waiting%s"
-            --                    (length rstate)
-            --                    (length fstate)
-            --                    (length gstate)
-            --                    (length list - length rstate - length fstate - length gstate)
-            --                    lineSeparator
-            --            return () 
-            -- let oldstate = maybe "WHAT THE FUCK???" show (tree.lookup p)
-
-            when (isOn g.options.flags VERBOSE && successful todo || failed todo) do
-                stderr.println (unmagicPack p.raw ++ ": " ++ show todo)
-
-            case todo of
-                CompileAfterDeps{global} -> do
-                                -- need to add the new dependencies to the todo list
-                                -- also, the package name may have changed
-                                return ((     insert global.thisPack todo
-                                            . delete p 
-                                            . addDepsOf global) 
-                                        tree)
-                Waiting{for, status, todo=prev} -> do
-                    -- module waited for may already have changed state,
-                    -- in that case just resubmit
-                    case tree.lookup for of
-                        Just x | failed x || status x
-                              = return (tree.insert p prev)
-                        sonst = return (tree.insert p todo)
-                _ | failed todo || successful todo
-                              -- awake tasks waiting for this one 
-                              = return (fmap unwait (tree.insert p todo))
-                  | otherwise = return (tree.insert p todo)
-                  where 
-                        unwait Waiting{for, todo} | for == p = todo
-                        unwait x = x
-        make mvar tree
-    else do                 -- no running tasks found
-        liftIO C.shutdown
-
-        -- -- javac the compiled stuff in case -j was given
-        -- let javafs = [ targetPath global ".java" | Compiled{global} <- values tree,
-        --                                             isOff global.options.flags RUNJAVAC ]
-        -- g       ← getSTT
-        -- changeSTT _.{options <- _.{flags <- flagSet RUNJAVAC}}
-        -- unless (null javafs) do 
-        --     start   ← liftIO $ System.currentTimeMillis ()
-        --     javacs javafs
-        --     ende    ← liftIO $ System.currentTimeMillis ()
-        --     when (isOn g.options.flags VERBOSE) do 
-        --         liftIO $ stderr.printf "java compilation of %d files took %5.3fs%s"
-        --             (length javafs)
-        --             ((ende.double - start.double) / 1000)
-        --             (System.lineSeparator())
-  
-        if all successful (values tree)
-        then do
-            compileTodo = filter (compiled . snd) .each $ tree
-            g <- getSTT 
-            return g
-        else do
-            -- there should be no tasks that are not either successful or failed
-            -- whenever this outputs something, it is time to reconsider the code
-            let hanging = filter (not . successful . snd)
-                        . filter (not . failed     . snd)
-                        . each $ tree
-            liftIO $ mapM_ (\(p,todo) -> stderr.println ("hanging: `" 
-                            ++ unmagicPack p.raw ++ "`  "
-                            ++ show todo)) hanging
-            liftIO $ stderr.println "Build failed."
-            getSTT
-
-compileSourceCodeMake :: String -> StIO Global
-compileSourceCodeMake fregeCode = do
-    lexParseState <- liftStG $ lexParseSourceCode fregeCode
-    --files <- processDirs [ fregeCode ]
-    todos  = TreeMap.insert empty lexParseState.thisPack Parsed{global=lexParseState}
-    mvar <- liftIO C.MVar.newEmpty
-    todo <- parseAll mvar todos 
-    g    <- make mvar todo
-    return g
-
 compile :: String -> Global -> IO Global
 compile fregeCode = execStateT $ compileSourceCode fregeCode
-
-compileMake :: String -> Global -> IO Global
-compileMake fregeCode = execStateT $ compileSourceCodeMake fregeCode
 
 runpass :: (StIO (String, Int), String) -> StIO ()
 runpass (pass, description) = do
@@ -250,20 +142,5 @@ shouldCorrectlyConfigureExtraClasspath = once $ morallyDubiousIOProperty do
         {
             path = [ "./src/main/resources/fregefx-0.8.2-SNAPSHOT.jar" ]
         }
-    actual                 <- compileMake fregeCodeWithDependency fregefxGlobal
+    actual                 <- compile fregeCodeWithDependency fregefxGlobal
     pure                    $ actual.errors == 0
-
-main = do
-    fregeCode      = "module FregeMakeModeTest where\n\n"
-                  ++ "import Dep(square)\n\n"
-                  ++ "frob a = square a"
-    compileOptions = standardCompileOptions.{
-        sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ]
-    }
-    global         <- CompileGlobal.fromOptions compileOptions
-    compiledGlobal <- compileMake fregeCode global
-    -- compiledGlobal <- compileMake "/Users/tricktron/github/master/frege-lsp-server/src/main/resources/FregeConcurrent.fr" global
-    tokens              = listFromArray compiledGlobal.sub.toks
-    for tokens println
-    println $ CharSequence.toString compiledGlobal.sub.code
-    println $ compiledGlobal.sub.nextPass
