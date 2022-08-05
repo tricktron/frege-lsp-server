@@ -156,7 +156,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/HoverLSP.fr",
-  time=1659433741764L, jmajor=11, jminor=-1,
+  time=1659704002657L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.types.Global", "ch.fhnw.thga.fregelanguageserver.hover.Hover",
     "ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J", "frege.Prelude", "frege.prelude.PreludeArrays",

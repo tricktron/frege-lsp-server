@@ -3,6 +3,7 @@ module ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode where
 import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal
 import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
 import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor(passes)
+import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP(ArrayList)
 
 import frege.Prelude hiding(<+>)
 import Lib.PP(msgdoc, text, <+>, <>)
@@ -519,7 +520,6 @@ parseAll mvar tree = do
             case todo of
                 Parsed{global} -> return (tree.insert global.thisPack todo)
                 _ -> do
-                    stderr.println (p.raw ++ ": " ++ show todo)
                     return (tree.insert p todo)
  
 {--
@@ -556,8 +556,9 @@ make mvar tree = do
             --            return () 
             -- let oldstate = maybe "WHAT THE FUCK???" show (tree.lookup p)
 
-            when (isOn g.options.flags VERBOSE && successful todo || failed todo) do
-                stderr.println (unmagicPack p.raw ++ ": " ++ show todo)
+            when (isOn g.options.flags VERBOSE && successful todo || 
+                failed todo && (isOff g.options.flags IDEMODE)) do
+                    stderr.println (unmagicPack p.raw ++ ": " ++ show todo)
 
             case todo of
                 CompileAfterDeps{global} -> do
@@ -583,7 +584,9 @@ make mvar tree = do
                         unwait x = x
         make mvar tree
     else do                 -- no running tasks found
-        liftIO C.shutdown
+        g <- getSTT
+        when (isOff g.options.flags IDEMODE) do 
+            liftIO C.shutdown
 
         -- -- javac the compiled stuff in case -j was given
         -- let javafs = [ targetPath global ".java" | Compiled{global} <- values tree,
@@ -603,15 +606,17 @@ make mvar tree = do
         then do
             pure $ filterValues (not . hasGlobal) tree
         else do
+            g <- getSTT
             -- there should be no tasks that are not either successful or failed
             -- whenever this outputs something, it is time to reconsider the code
-            let hanging = filter (not . successful . snd)
-                        . filter (not . failed     . snd)
-                        . each $ tree
-            liftIO $ mapM_ (\(p,todo) -> stderr.println ("hanging: `" 
-                            ++ unmagicPack p.raw ++ "`  "
-                            ++ show todo)) hanging
-            liftIO $ stderr.println "Build failed."
+            when (isOff g.options.flags IDEMODE) do
+                let hanging = filter (not . successful . snd)
+                            . filter (not . failed     . snd)
+                            . each $ tree
+                liftIO $ mapM_ (\(p,todo) -> stderr.println ("hanging: `" 
+                                ++ unmagicPack p.raw ++ "`  "
+                                ++ show todo)) hanging
+                liftIO $ stderr.println "Build failed."
             pure $ filterValues (not . hasGlobal) tree
 
 {--
@@ -674,7 +679,12 @@ compileAfterDeps tree global reason = do
     else do
         g <- getSTT
         case filter (failed . snd) dr of
-            (p,_):_ -> return Failed{because="module `" ++ unmagicPack p.raw ++ "` not built.", global = g}
+            (p,_):_ -> do
+                errorMessage = getImportErrorMessage p tree
+                message = "module `" ++ unmagicPack p.raw ++ "` not built" ++ maybe "" id errorMessage
+                liftStG $ E.error importErrorPosition (msgdoc message)
+                g      <- getSTT  
+                return Failed{because=message, global = g}
             [] -> case filter (not . successful . snd) dr of
                 -- not successful, but not failed, i.e. waiting or running
                 -- tell the scheduler that we wait until p's state changes
@@ -713,7 +723,13 @@ compileAfterDeps tree global reason = do
                             else
                                 return NoRebuild{because="class file is up to date", compiletime=cmod}
 
+getImportErrorMessage :: Pack -> TodoList -> Maybe String
+getImportErrorMessage moduleName todos = do
+    todo <- todos.lookup moduleName
+    pure $ " because: " ++ todo.because
 
+importErrorPosition :: Position
+importErrorPosition = Pos (Token LEXERROR "?¿" 3 1 0 []) (Token LEXERROR "?¿" 4 1 0 [])
 
 javacMe g pack reason = do
     src  ← liftIO $ resolvePackSP g (Pack.raw pack)
@@ -784,11 +800,11 @@ checkUpdate pack reason = do
                     case res  of
                         Left _ -> return Failed {
                                 because = "module is not on class path",
-                                global  = g
+                                global  = g.{ options <- _.{ source = "-"}}
                             }
                         Right Nothing -> return Failed {
-                                because = "class is not a frege module.",
-                                global  = g
+                                because = "class is not a frege module",
+                                global  = g.{ options <- _.{ source = "-"}}
                             }
                         Right (Just fp) -> return NoRebuild {
                                 because = "module exists on class path and no source available.",
@@ -849,33 +865,53 @@ compileMe tree g reason = do
                 return Aborted{because="not complete yet"}
             -}
 
-getGlobalTodo :: TodoList -> Maybe Todo
-getGlobalTodo todos = do
-    todo <- todos.lookup $ Pack.new "FregeMakeModeTest"
-    case todo of
-        Compiled { global }        -> pure todo
-        Failed { because, global } -> pure todo
-        _                          -> pure todo
 
 compileSourceCodeMake :: String -> StIO [Global]
 compileSourceCodeMake fileUri = do
+    changeSTT _.{options <- _.{source = fileUri}}
     files       <- processDirs [ fileUri ]
     todos        = createTodo files
     mvar        <- liftIO C.MVar.newEmpty
     parsedTodos <- parseAll mvar todos 
-    packTodosWithGlobal <- make mvar parsedTodos
-    pure $ map (\t -> t.global) (values packTodosWithGlobal)
+    resTodolist <- make mvar parsedTodos
+    finalTodolist = filterValues (\t -> t.global.options.source == "-") resTodolist
+    pure $ map (\t -> t.global) (values finalTodolist)
 
 
 compileMake :: String -> Global -> IO [Global]
 compileMake fileUri = evalStateT $ compileSourceCodeMake fileUri
 
-shouldCompileModuleWithLocalDependencyInMakeMode :: Property
-shouldCompileModuleWithLocalDependencyInMakeMode = once $ morallyDubiousIOProperty do
+compileMakeLSP :: String -> Global -> IOMutable (ArrayList Global)
+compileMakeLSP fileUri global = do 
+    globals <- compileMake fileUri global
+    ArrayList.fromFregeList globals
+
+shouldCompileModuleWithLocalDependency :: Property
+shouldCompileModuleWithLocalDependency = once $ morallyDubiousIOProperty do
     global        <- CompileGlobal.fromOptions standardCompileOptions.
         {
             sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
         }
     globals       <- compileMake "./src/main/resources/FregeMakeModeTest.fr" global
     pure $ all (\global -> global.errors == 0 && CharSequence.length global.sub.code > 0) globals
+
+shouldFindAlreadyCompiledDependency :: Property
+shouldFindAlreadyCompiledDependency = once $ morallyDubiousIOProperty do
+    global        <- CompileGlobal.fromOptions standardCompileOptions.
+        {
+            sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
+        }
+    globals1       <- compileMake "./src/main/resources/Dep.fr" global
+    globals2       <- compileMake "./src/main/resources/FregeMakeModeTest.fr" global
+    pure $ all (\global -> global.errors == 0 && CharSequence.length global.sub.code > 0) globals1
+    pure $ all (\global -> global.errors == 0 && CharSequence.length global.sub.code > 0) globals2
+
+shouldShowErrorsIfDependencyIsNotOnClasspath :: Property
+shouldShowErrorsIfDependencyIsNotOnClasspath = once $ morallyDubiousIOProperty do
+    global        <- CompileGlobal.fromOptions standardCompileOptions.
+        {
+            sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
+        }
+    globals       <- compileMake "./src/main/resources/FregeFXDep.fr" global
+    pure $ all (\global -> global.errors > 0) globals
     

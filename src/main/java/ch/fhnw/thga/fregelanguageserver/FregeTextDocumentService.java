@@ -2,6 +2,8 @@ package ch.fhnw.thga.fregelanguageserver;
 
 import static frege.prelude.PreludeBase.TST.performUnsafe;
 
+import java.net.URI;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -12,11 +14,10 @@ import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.DidSaveTextDocumentParams;
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.HoverParams;
-import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor;
 import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode;
 import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticService;
 import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 import frege.compiler.types.Global.TGlobal;
@@ -28,63 +29,48 @@ public class FregeTextDocumentService implements TextDocumentService
     public static final TGlobal STANDARD_GLOBAL = performUnsafe
         (CompileGlobal.standardCompileGlobal.call()).call();
 	private final FregeLanguageServer simpleLanguageServer;
-    private HashMap<String, TGlobal> uriGlobals;
+    private HashMap<URI, TGlobal> uriGlobals;
 
 	public FregeTextDocumentService(FregeLanguageServer server)
     {
-		simpleLanguageServer    = server;
-        uriGlobals              = new HashMap<>();
+		simpleLanguageServer = server;
+        uriGlobals           = new HashMap<>();
 	}
 
     @Override
 	public CompletableFuture<Hover> hover(HoverParams params)
     {
-        TGlobal global = uriGlobals.get(params.getTextDocument().getUri());
-        return global == null ? null : HoverService.hover(params, global);
+        TGlobal global = uriGlobals.get(URI.create(params.getTextDocument().getUri()));
+        return HoverService.hover(params, global);
     }
 
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params)
     {
-        String uri             = params.getTextDocument().getUri();
-        TGlobal compiledGlobal = performUnsafe
+        List<TGlobal> globals = performUnsafe
         (
-            CompileExecutor.compile
+            CompileMakeMode.compileMakeLSP
             (
-                Thunk.lazy(params.getTextDocument().getText()),
+                Thunk.lazy(URI.create(params.getTextDocument().getUri()).getPath()),
                 STANDARD_GLOBAL
             )
         ).call();
-        uriGlobals.put(uri, compiledGlobal);
-		DiagnosticService.publishCompilerDiagnostics(
-            simpleLanguageServer.getClient(),
-            compiledGlobal,
-            params.getTextDocument().getUri()
-        );
+        globals.forEach(global -> 
+        {
+            URI uri = Path.of(global.mem$options.mem$source).normalize().toUri();
+            uriGlobals.put(uri, global);
+            DiagnosticService.publishCompilerDiagnostics
+            (
+                simpleLanguageServer.getClient(),
+                global,
+                uri.toString()
+            );
+        });
 	}
 
 	@Override
 	public void didChange(DidChangeTextDocumentParams params)
     {
-		List<TextDocumentContentChangeEvent> changes 
-                               = params.getContentChanges();
-        String uri             = params.getTextDocument().getUri();
-        TGlobal compiledGlobal = performUnsafe
-        (
-            CompileExecutor.compile
-            (
-                Thunk.lazy(changes.get(changes.size() - 1).getText()),
-                STANDARD_GLOBAL
-            )
-        ).call();
-        uriGlobals.put(uri, compiledGlobal);
-        DiagnosticService.publishCompilerDiagnostics(
-            simpleLanguageServer.getClient(),
-            compiledGlobal,
-            uri
-        );
-
-        
 	}
 
 	@Override
@@ -99,5 +85,25 @@ public class FregeTextDocumentService implements TextDocumentService
 
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
-    {}
+    {
+        List<TGlobal> globals = performUnsafe
+        (
+            CompileMakeMode.compileMakeLSP
+            (
+                Thunk.lazy(URI.create(params.getTextDocument().getUri()).getPath()),
+                STANDARD_GLOBAL
+            )
+        ).call();
+        globals.forEach(global -> 
+        {
+            URI uri = Path.of(global.mem$options.mem$source).normalize().toUri();
+            uriGlobals.put(uri, global);
+            DiagnosticService.publishCompilerDiagnostics
+            (
+                simpleLanguageServer.getClient(),
+                global,
+                uri.toString()
+            );
+        });
+    }
 }

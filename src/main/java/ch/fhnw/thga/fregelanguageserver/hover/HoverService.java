@@ -22,7 +22,7 @@ public class HoverService
     {
         return CompletableFutures.computeAsync(cancel ->
         {
-            if (cancel.isCanceled())
+            if (global == null || cancel.isCanceled())
             {
                 return null;
             }
