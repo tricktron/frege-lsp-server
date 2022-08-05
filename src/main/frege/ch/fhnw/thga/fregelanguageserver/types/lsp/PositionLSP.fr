@@ -1,6 +1,6 @@
-module ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J where
+module ch.fhnw.thga.fregelanguageserver.types.lsp.PositionLSP where
 
-import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
+import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
 
 data PositionLSP = pure native org.eclipse.lsp4j.Position where
     pure native new          :: Int -> Int -> PositionLSP

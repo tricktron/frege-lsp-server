@@ -16,8 +16,8 @@ import frege.run.Kind;
 import frege.run.RunTM;
 import frege.runtime.Meta;
 import frege.runtime.Phantom.RealWorld;
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor;
 import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode;
 import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions;
 import ch.fhnw.thga.fregelanguageserver.types.Position;
 import ch.fhnw.thga.fregelanguageserver.types.Range;
@@ -152,10 +152,10 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/Diagnostic.fr",
-  time=1659704002202L, jmajor=11, jminor=-1,
+  time=1659724143768L, jmajor=11, jminor=-1,
   imps={
-    "ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor",
-    "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal", "frege.compiler.types.Global",
+    "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
+    "ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode", "frege.compiler.types.Global",
     "ch.fhnw.thga.fregelanguageserver.types.Position", "frege.compiler.types.Positions", "frege.Prelude",
     "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
     "frege.prelude.PreludeIO", "frege.prelude.PreludeList", "frege.prelude.PreludeMonad", "frege.prelude.PreludeText",
@@ -163,19 +163,19 @@ import frege.test.QuickCheckText;
     "frege.control.monad.State", "frege.compiler.types.Tokens"
   },
   nmss={
-    "CompileExecutor", "CompileGlobal", "Global", "Position", "Positions", "Prelude", "PreludeArrays",
+    "CompileGlobal", "CompileNormalMode", "Global", "Position", "Positions", "Prelude", "PreludeArrays",
     "PreludeBase", "PreludeDecimal", "PreludeIO", "PreludeList", "PreludeMonad", "PreludeText",
     "QuickCheck", "Range", "Regexp", "State", "Tokens"
   },
   symas={}, symcs={},
   symis={
     @Meta.SymI(
-      offset=1182,
+      offset=1178,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showsub"
@@ -183,7 +183,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=1, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showList"
@@ -191,7 +191,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=4, depth=2, rkind=13, doc="inherited from 'Show.showList'"
         ),
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showsPrec"
@@ -199,7 +199,7 @@ import frege.test.QuickCheckText;
           stri="s(uss)", sig=6, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="display"
@@ -207,7 +207,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=1, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="show"
@@ -215,7 +215,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=1, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_Diagnostic",
             member="showChars"
@@ -225,14 +225,14 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=794,
+      offset=790,
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity"
       ),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showsub"
@@ -240,7 +240,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showList"
@@ -248,7 +248,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=11, depth=2, rkind=13, doc="inherited from 'Show.showList'"
         ),
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showsPrec"
@@ -256,7 +256,7 @@ import frege.test.QuickCheckText;
           stri="s(uss)", sig=12, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="display"
@@ -264,7 +264,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=9, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="show"
@@ -272,7 +272,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Show_DiagnosticSeverity",
             member="showChars"
@@ -282,12 +282,12 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1161,
+      offset=1157,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="hashCode"
@@ -295,7 +295,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=14, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="!="
@@ -303,7 +303,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=15, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_Diagnostic",
             member="=="
@@ -313,14 +313,14 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=765,
+      offset=761,
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity"
       ),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="hashCode"
@@ -328,7 +328,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=16, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="!="
@@ -336,7 +336,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Eq_DiagnosticSeverity",
             member="=="
@@ -348,28 +348,28 @@ import frege.test.QuickCheckText;
   },
   symts={
     @Meta.SymT(
-      offset=1026,
+      offset=1022,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"), typ=0,
       kind=12,
       cons={
         @Meta.SymD(
-          offset=1039,
+          offset=1035,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="Diagnostic"
           ),
           cid=0, typ=19,
           fields={
-            @Meta.Field(name="range", offset=1056, sigma=18, strict=false),
-            @Meta.Field(name="severity", offset=1079, sigma=8, strict=false),
-            @Meta.Field(name="source", offset=1115, sigma=3, strict=false),
-            @Meta.Field(name="message", offset=1139, sigma=3, strict=false)
+            @Meta.Field(name="range", offset=1052, sigma=18, strict=false),
+            @Meta.Field(name="severity", offset=1075, sigma=8, strict=false),
+            @Meta.Field(name="source", offset=1111, sigma=3, strict=false),
+            @Meta.Field(name="message", offset=1135, sigma=3, strict=false)
           }
         )
       },
       lnks={
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showsPrec"
@@ -380,7 +380,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showChars"
@@ -391,7 +391,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showList"
@@ -402,7 +402,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="show"
@@ -413,7 +413,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="showsub"
@@ -424,7 +424,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="hashCode"
@@ -435,7 +435,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1182,
+          offset=1178,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="display"
@@ -446,7 +446,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="!="
@@ -457,7 +457,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1161,
+          offset=1157,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="=="
@@ -470,7 +470,7 @@ import frege.test.QuickCheckText;
       },
       funs={
         @Meta.SymV(
-          offset=1116,
+          offset=1112,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$source"
@@ -478,7 +478,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @source@"
         ),
         @Meta.SymV(
-          offset=1057,
+          offset=1053,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$range"
@@ -486,7 +486,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=21, depth=2, rkind=13, doc="update field @range@"
         ),
         @Meta.SymV(
-          offset=1080,
+          offset=1076,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$severity"
@@ -494,7 +494,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=22, depth=2, rkind=13, doc="update field @severity@"
         ),
         @Meta.SymV(
-          offset=1116,
+          offset=1112,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="source"
@@ -502,7 +502,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=1, depth=1, rkind=13, doc="access field @source@"
         ),
         @Meta.SymV(
-          offset=1140,
+          offset=1136,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="upd$message"
@@ -510,7 +510,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @message@"
         ),
         @Meta.SymV(
-          offset=1057,
+          offset=1053,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="range"
@@ -518,7 +518,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=23, depth=1, rkind=13, doc="access field @range@"
         ),
         @Meta.SymV(
-          offset=1080,
+          offset=1076,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="severity"
@@ -526,7 +526,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=24, depth=1, rkind=13, doc="access field @severity@"
         ),
         @Meta.SymV(
-          offset=1116,
+          offset=1112,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$source"
@@ -534,7 +534,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @source@"
         ),
         @Meta.SymV(
-          offset=1057,
+          offset=1053,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$range"
@@ -542,7 +542,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @range@"
         ),
         @Meta.SymV(
-          offset=1080,
+          offset=1076,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$severity"
@@ -550,7 +550,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @severity@"
         ),
         @Meta.SymV(
-          offset=1080,
+          offset=1076,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$severity"
@@ -558,7 +558,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=28, depth=2, rkind=13, doc="change field @severity@"
         ),
         @Meta.SymV(
-          offset=1116,
+          offset=1112,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$source"
@@ -566,7 +566,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="change field @source@"
         ),
         @Meta.SymV(
-          offset=1140,
+          offset=1136,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$message"
@@ -574,7 +574,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="change field @message@"
         ),
         @Meta.SymV(
-          offset=1057,
+          offset=1053,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="chg$range"
@@ -582,7 +582,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=32, depth=2, rkind=13, doc="change field @range@"
         ),
         @Meta.SymV(
-          offset=1140,
+          offset=1136,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="has$message"
@@ -590,7 +590,7 @@ import frege.test.QuickCheckText;
           stri="s(u)", sig=26, depth=1, rkind=13, doc="check if constructor has field @message@"
         ),
         @Meta.SymV(
-          offset=1140,
+          offset=1136,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic",
             member="message"
@@ -601,14 +601,14 @@ import frege.test.QuickCheckText;
       prod=true
     ),
     @Meta.SymT(
-      offset=706,
+      offset=702,
       name=@Meta.QName(
         kind=0, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity"
       ),
       typ=8, kind=12,
       cons={
         @Meta.SymD(
-          offset=735,
+          offset=731,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="WARNING"
@@ -616,7 +616,7 @@ import frege.test.QuickCheckText;
           cid=1, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=759,
+          offset=755,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="HINT"
@@ -624,7 +624,7 @@ import frege.test.QuickCheckText;
           cid=3, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=727,
+          offset=723,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="ERROR"
@@ -632,7 +632,7 @@ import frege.test.QuickCheckText;
           cid=0, typ=8, fields={}
         ),
         @Meta.SymD(
-          offset=745,
+          offset=741,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="INFORMATION"
@@ -642,7 +642,7 @@ import frege.test.QuickCheckText;
       },
       lnks={
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showsub"
@@ -653,7 +653,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showList"
@@ -664,7 +664,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showChars"
@@ -675,7 +675,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="showsPrec"
@@ -686,7 +686,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="hashCode"
@@ -697,7 +697,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="display"
@@ -708,7 +708,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="!="
@@ -719,7 +719,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=765,
+          offset=761,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="=="
@@ -730,7 +730,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=794,
+          offset=790,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
             member="show"
@@ -746,30 +746,30 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=1206,
+      offset=1202,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="tokensToRange"),
       stri="s(s)", sig=34, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=5169, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
+      offset=5165, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="posToTokens"),
       stri="s(su)", sig=37, depth=2, rkind=45
     ),
     @Meta.SymV(
-      offset=5310, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
+      offset=5306, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="main"),
       stri="u", sig=38, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2300,
+      offset=2296,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="getDiagnostics"),
       stri="s(u)", sig=39, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=826,
+      offset=822,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="fromCompilerSeverity"),
       stri="s(s)", sig=41, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2883,
+      offset=2879,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics"
@@ -777,7 +777,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=42, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=3722,
+      offset=3718,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics"
@@ -785,7 +785,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=42, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2392,
+      offset=2388,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic",
         base="fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray"
@@ -793,52 +793,52 @@ import frege.test.QuickCheckText;
       stri="u", sig=42, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2118,
+      offset=2114,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="extractDiagnostics"),
       stri="s", sig=43, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=1768,
+      offset=1764,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="createDiagnosticFromMessage"
       ),
       stri="s(s)", sig=45, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1618,
+      offset=1614,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="createRangeFromPos"),
       stri="s(s)", sig=47, depth=1, rkind=13
     )
   },
   symls={
     @Meta.SymL(
-      offset=735, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="WARNING"),
+      offset=731, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="WARNING"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
         member="WARNING"
       )
     ),
     @Meta.SymL(
-      offset=745, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="INFORMATION"),
+      offset=741, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="INFORMATION"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity",
         member="INFORMATION"
       )
     ),
     @Meta.SymL(
-      offset=759, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="HINT"),
+      offset=755, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="HINT"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity", member="HINT"
       )
     ),
     @Meta.SymL(
-      offset=727, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="ERROR"),
+      offset=723, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="ERROR"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="DiagnosticSeverity", member="ERROR"
       )
     ),
     @Meta.SymL(
-      offset=1039, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"),
+      offset=1035, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", base="Diagnostic", member="Diagnostic"
       )
@@ -1343,7 +1343,7 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
             return (Func.U<RealWorld, Short>)((final Lazy<RealWorld> arg$19128) -> {
                       final Global.TGlobal v2056$18660 = CompileGlobal.standardCompileGlobal
                       .call().apply(arg$19128).call();
-                      final Func.U<RealWorld, Global.TGlobal> v2053$18679 = CompileExecutor.compile(
+                      final Func.U<RealWorld, Global.TGlobal> v2053$18679 = CompileNormalMode.compile(
                             Thunk.<String/*<Character>*/>lazy(
                                   "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
                                 ),
@@ -1375,7 +1375,7 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
                                                       >)Thunk.<Func.U<RealWorld, Short>>shared(
                                                             (Lazy<Func.U<RealWorld, Short>>)(() -> Prelude.<
                                                                   Global.TMessage
-                                                                >println(CompileExecutor.IShow_Message.it, η$19134.call()))
+                                                                >println(CompileNormalMode.IShow_Message.it, η$19134.call()))
                                                           ).call())
                                                 ))
                                       )
@@ -1570,7 +1570,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                             final Global.TGlobal v2056$18773 = CompileGlobal.standardCompileGlobal
                                             .call().apply(arg$19155).call();
                                             final Func.U<RealWorld, Global.TGlobal> v2053$18792 =
-                                            CompileExecutor.compile(
+                                            CompileNormalMode.compile(
                                                   Thunk.<String/*<Character>*/>lazy(
                                                         "module ch.fhnw.thga.FaultyFregeTest where\n\nimport Does.not.Exist"
                                                       ),
@@ -1668,7 +1668,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                             final Global.TGlobal v2056$18889 = CompileGlobal.standardCompileGlobal
                                             .call().apply(arg$19160).call();
                                             final Func.U<RealWorld, Global.TGlobal> v2053$18908 =
-                                            CompileExecutor.compile(
+                                            CompileNormalMode.compile(
                                                   Thunk.<String/*<Character>*/>shared(
                                                         (Lazy<String/*
                                                           <Character>
@@ -1724,7 +1724,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                             final Global.TGlobal v2056$18831 = CompileGlobal.standardCompileGlobal
                                             .call().apply(arg$19165).call();
                                             final Func.U<RealWorld, Global.TGlobal> v2053$18850 =
-                                            CompileExecutor.compile(
+                                            CompileNormalMode.compile(
                                                   Thunk.<String/*<Character>*/>lazy(
                                                         "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
                                                       ),

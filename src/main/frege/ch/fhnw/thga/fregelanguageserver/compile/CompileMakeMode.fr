@@ -1,21 +1,22 @@
 module ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode where
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal)
 import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor(passes)
-import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP(ArrayList)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(passes)
 
 import frege.Prelude hiding(<+>)
 import Lib.PP(msgdoc, text, <+>, <>)
 import Control.monad.State
 import Data.TreeMap as TM(TreeMap, each, values, keys, insert, delete, filterValues)
-import Data.List (sort, uniq)
+import Data.List(sort, uniq)
 import frege.Version(version)
 import Compiler.enums.Flags
 import Compiler.enums.Visibility
 import Compiler.types.Global
 import Compiler.common.Desugar
-import Compiler.common.CompilerOptions (thisTarget, standardGlobal, getOpts, theClassLoader, pathSep, ourPath)
+import Compiler.common.CompilerOptions(
+        thisTarget, standardGlobal, getOpts, theClassLoader, pathSep, ourPath
+    )
 import Compiler.common.Errors as E(printErrors, printAndClearErrors)
 import Compiler.common.SymbolTable(enter)
 import Compiler.types.Tokens
@@ -24,24 +25,10 @@ import Compiler.types.Packs
 import Compiler.types.Positions
 import Compiler.grammar.Lexer as L()
 import Compiler.grammar.Frege as F()
-import Compiler.passes.Fix()
 import Compiler.passes.Imp()
-import Compiler.passes.Enter()
-import Compiler.passes.Fields()
-import Compiler.passes.TypeAlias()
-import Compiler.passes.Instances()
-import Compiler.passes.Transdef()
-import Compiler.Classes()
-import Compiler.Typecheck as TC()
-import Compiler.passes.LetUnroll as LU()
-import Compiler.passes.GlobalLam as GL()
-import Compiler.passes.Easy as EA()
-import Compiler.passes.Strict    as SC()
-import Compiler.GenMeta   as GM()
-import Compiler.passes.GenCode()
-import Compiler.passes.Final as FI()
+import Compiler.GenMeta as GM()
 import Control.Concurrent as C()
-import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
+import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
 
 lexPass = do
     g <- getSTT
@@ -865,26 +852,21 @@ compileMe tree g reason = do
                 return Aborted{because="not complete yet"}
             -}
 
-
-compileSourceCodeMake :: String -> StIO [Global]
-compileSourceCodeMake fileUri = do
-    changeSTT _.{options <- _.{source = fileUri}}
-    files       <- processDirs [ fileUri ]
-    todos        = createTodo files
+compileFileMake :: String -> StIO [Global]
+compileFileMake filepath = do
+    changeSTT _.{options <- _.{source = filepath}}
+    todos        = TreeMap.insert empty (Pack.new filepath) ParseMe{source=filepath}
     mvar        <- liftIO C.MVar.newEmpty
-    parsedTodos <- parseAll mvar todos 
-    resTodolist <- make mvar parsedTodos
-    finalTodolist = filterValues (\t -> t.global.options.source == "-") resTodolist
-    pure $ map (\t -> t.global) (values finalTodolist)
+    allTodos    <- parseAll mvar todos 
+    doneTodos   <- make mvar allTodos
+    neededTodos  = ignoreFailedTodosWithoutSource doneTodos
+    pure $ map (\t -> t.global) (values neededTodos)
 
+ignoreFailedTodosWithoutSource :: TodoList -> TodoList
+ignoreFailedTodosWithoutSource = filterValues (\t -> t.global.options.source == "-")
 
 compileMake :: String -> Global -> IO [Global]
-compileMake fileUri = evalStateT $ compileSourceCodeMake fileUri
-
-compileMakeLSP :: String -> Global -> IOMutable (ArrayList Global)
-compileMakeLSP fileUri global = do 
-    globals <- compileMake fileUri global
-    ArrayList.fromFregeList globals
+compileMake fileUri = evalStateT $ compileFileMake fileUri
 
 shouldCompileModuleWithLocalDependency :: Property
 shouldCompileModuleWithLocalDependency = once $ morallyDubiousIOProperty do

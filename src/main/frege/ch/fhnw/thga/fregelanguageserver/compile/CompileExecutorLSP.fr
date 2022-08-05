@@ -1,0 +1,18 @@
+module ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP where
+
+import ch.fhnw.thga.fregelanguageserver.types.Generics(ArrayList)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode(compileMake)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
+import Compiler.types.Global(Global, Options)
+
+compileMakeLSP :: String -> Global -> IOMutable (ArrayList Global)
+compileMakeLSP fileUri global = do 
+    globals <- compileMake fileUri global
+    ArrayList.fromFregeList globals
+
+standardCompileGlobalLSP :: IO Global
+standardCompileGlobalLSP  = standardCompileGlobal
+
+standardCompileOptionsLSP :: Options
+standardCompileOptionsLSP = standardCompileOptions

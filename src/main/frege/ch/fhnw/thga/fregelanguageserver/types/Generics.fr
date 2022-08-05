@@ -1,0 +1,11 @@
+module ch.fhnw.thga.fregelanguageserver.types.Generics where
+
+data ArrayList a = native java.util.ArrayList where
+  native add :: Mutable s (ArrayList a) -> a -> ST s Bool
+  native new :: () -> STMutable s (ArrayList a)
+
+  fromFregeList :: [a] -> STMutable s (ArrayList a)
+  fromFregeList xs = ArrayList.new () >>= go xs where
+    go :: [a] -> Mutable s (ArrayList a) -> STMutable s (ArrayList a)
+    go [] list     = return list
+    go (x:xs) list = ArrayList.add list x >> go xs list

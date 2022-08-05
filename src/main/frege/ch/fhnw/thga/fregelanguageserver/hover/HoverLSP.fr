@@ -1,10 +1,9 @@
 module ch.fhnw.thga.fregelanguageserver.hover.HoverLSP where
 
-import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
-import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
-import ch.fhnw.thga.fregelanguageserver.hover.Hover (Hover, getTypeSignatureOnHover)
-import Compiler.types.Global (Global)
-import Control.monad.State (evalState)
+import ch.fhnw.thga.fregelanguageserver.types.lsp.PositionLSP(PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.types.lsp.RangeLSP(RangeLSP)
+import ch.fhnw.thga.fregelanguageserver.hover.Hover(Hover, getTypeSignatureOnHover)
+import Compiler.types.Global(Global)
 
 data MarkupContentLSP = pure native org.eclipse.lsp4j.MarkupContent where
     pure native new :: String -> String -> MarkupContentLSP

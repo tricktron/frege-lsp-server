@@ -1,10 +1,11 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticLSP where
 
-import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic (
-    DiagnosticSeverity, Diagnostic, getDiagnostics)
-import ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J (RangeLSP)
-import Compiler.types.Global (Global)
-import Control.monad.State (evalState)
+import ch.fhnw.thga.fregelanguageserver.types.Generics(ArrayList)
+import ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic(
+        DiagnosticSeverity, Diagnostic, getDiagnostics
+    )
+import ch.fhnw.thga.fregelanguageserver.types.lsp.RangeLSP(RangeLSP)
+import Compiler.types.Global(Global)
 
 data DiagnosticSeverityLSP = pure native org.eclipse.lsp4j.DiagnosticSeverity where
     pure native error       "org.eclipse.lsp4j.DiagnosticSeverity.Error"       :: DiagnosticSeverityLSP
@@ -28,16 +29,6 @@ data DiagnosticLSP = pure native org.eclipse.lsp4j.Diagnostic where
             message 
             (DiagnosticSeverityLSP.fromCompilerSeverity severity) 
             source
-
-data ArrayList a = native java.util.ArrayList where
-  native add :: Mutable s (ArrayList a) -> a -> ST s Bool
-  native new :: () -> STMutable s (ArrayList a)
-
-  fromFregeList :: [a] -> STMutable s (ArrayList a)
-  fromFregeList xs = ArrayList.new () >>= go xs where
-    go :: [a] -> Mutable s (ArrayList a) -> STMutable s (ArrayList a)
-    go [] list     = return list
-    go (x:xs) list = ArrayList.add list x >> go xs list
 
 getDiagnosticsLSP :: Global -> STMutable s (ArrayList DiagnosticLSP)
 getDiagnosticsLSP global = do

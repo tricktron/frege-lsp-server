@@ -1,12 +1,13 @@
 package ch.fhnw.thga.fregelanguageserver;
 
-import static frege.prelude.PreludeBase.TST.performUnsafe;
+import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.STANDARD_GLOBAL;
 
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import org.eclipse.lsp4j.DidChangeTextDocumentParams;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
@@ -16,18 +17,14 @@ import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.HoverParams;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal;
-import ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode;
+import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
 import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticService;
 import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 import frege.compiler.types.Global.TGlobal;
-import frege.run8.Thunk;
 
 public class FregeTextDocumentService implements TextDocumentService
 {
 	public static final String FREGE_LANGUAGE_ID = "frege";
-    public static final TGlobal STANDARD_GLOBAL = performUnsafe
-        (CompileGlobal.standardCompileGlobal.call()).call();
 	private final FregeLanguageServer simpleLanguageServer;
     private HashMap<URI, TGlobal> uriGlobals;
 
@@ -36,6 +33,22 @@ public class FregeTextDocumentService implements TextDocumentService
 		simpleLanguageServer = server;
         uriGlobals           = new HashMap<>();
 	}
+
+    final Consumer<TGlobal> updateUriGlobalsAndPublishDiagnostics = new Consumer<TGlobal>() 
+    {
+        @Override
+        public final void accept(TGlobal global)
+        {
+            URI uri = Path.of(global.mem$options.mem$source).normalize().toUri();
+            uriGlobals.put(uri, global);
+            DiagnosticService.publishCompilerDiagnostics
+            (
+                simpleLanguageServer.getClient(),
+                global,
+                uri.toString()
+            );
+        }
+    };
 
     @Override
 	public CompletableFuture<Hover> hover(HoverParams params)
@@ -47,25 +60,12 @@ public class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params)
     {
-        List<TGlobal> globals = performUnsafe
+        List<TGlobal> globals = CompileService.compileWithMakeMode
         (
-            CompileMakeMode.compileMakeLSP
-            (
-                Thunk.lazy(URI.create(params.getTextDocument().getUri()).getPath()),
-                STANDARD_GLOBAL
-            )
-        ).call();
-        globals.forEach(global -> 
-        {
-            URI uri = Path.of(global.mem$options.mem$source).normalize().toUri();
-            uriGlobals.put(uri, global);
-            DiagnosticService.publishCompilerDiagnostics
-            (
-                simpleLanguageServer.getClient(),
-                global,
-                uri.toString()
-            );
-        });
+            URI.create(params.getTextDocument().getUri()).getPath(), 
+            STANDARD_GLOBAL
+        );
+        globals.forEach(updateUriGlobalsAndPublishDiagnostics);
 	}
 
 	@Override
@@ -86,24 +86,11 @@ public class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
     {
-        List<TGlobal> globals = performUnsafe
+        List<TGlobal> globals = CompileService.compileWithMakeMode
         (
-            CompileMakeMode.compileMakeLSP
-            (
-                Thunk.lazy(URI.create(params.getTextDocument().getUri()).getPath()),
-                STANDARD_GLOBAL
-            )
-        ).call();
-        globals.forEach(global -> 
-        {
-            URI uri = Path.of(global.mem$options.mem$source).normalize().toUri();
-            uriGlobals.put(uri, global);
-            DiagnosticService.publishCompilerDiagnostics
-            (
-                simpleLanguageServer.getClient(),
-                global,
-                uri.toString()
-            );
-        });
+            URI.create(params.getTextDocument().getUri()).getPath(), 
+            STANDARD_GLOBAL
+        );
+        globals.forEach(updateUriGlobalsAndPublishDiagnostics);
     }
 }
