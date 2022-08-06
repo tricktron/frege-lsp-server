@@ -78,7 +78,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileOptions.fr",
-  time=1659770981601L, jmajor=11, jminor=-1,
+  time=1659795935764L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",

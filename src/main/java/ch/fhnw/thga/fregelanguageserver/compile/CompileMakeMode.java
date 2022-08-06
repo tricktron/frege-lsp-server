@@ -150,7 +150,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileMakeMode.fr",
-  time=1659770984527L, jmajor=11, jminor=-1,
+  time=1659795938798L, jmajor=11, jminor=-1,
   imps={
     "frege.control.Concurrent", "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode",
