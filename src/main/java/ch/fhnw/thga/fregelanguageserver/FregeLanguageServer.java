@@ -1,5 +1,8 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.InitializeParams;
@@ -12,11 +15,17 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
+import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
+import frege.compiler.types.Global.TGlobal;
+import frege.compiler.types.Global.TOptions;
+
+
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
 	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
+    private TGlobal projectGlobal;
 
 	public FregeLanguageServer()
     {
@@ -29,9 +38,28 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return client;
     }
 
+    public TGlobal getProjectGlobal()
+    {
+        return projectGlobal;
+    }
+
+    private TOptions createProjectOptions()
+    {
+        return CompileService.STANDARD_COMPILE_OPTIONS;
+    }
+
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
+        TOptions projectOptions = createProjectOptions();
+        try 
+        {
+            Files.createDirectories(Paths.get(projectOptions.mem$dir).normalize());
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+        projectGlobal = CompileService.createCompileGlobal(projectOptions);
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
 		res.getCapabilities().setHoverProvider(true);

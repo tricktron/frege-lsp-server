@@ -153,7 +153,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/Hover.fr",
-  time=1659724143819L, jmajor=11, jminor=-1,
+  time=1659770983923L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode", "frege.compiler.types.Global", "frege.data.List",
@@ -171,47 +171,47 @@ import frege.test.QuickCheckText;
   symas={}, symcs={},
   symis={
     @Meta.SymI(
-      offset=890,
+      offset=912,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsub"
           ),
           stri="s(s)", sig=1, depth=1, rkind=13, doc="inherited from 'Show.showsub'"
         ),
         @Meta.SymV(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showList"
           ),
           stri="s(ss)", sig=4, depth=2, rkind=13, doc="inherited from 'Show.showList'"
         ),
         @Meta.SymV(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showsPrec"
           ),
           stri="s(uss)", sig=6, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="display"
           ),
           stri="s(s)", sig=1, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=929,
+          offset=951,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="show"
           ),
           stri="s(s(s))", sig=1, depth=1, rkind=13
         ),
         @Meta.SymV(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_FregeCodeBlock", member="showChars"
           ),
@@ -220,46 +220,46 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1094, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover"),
+      offset=1116, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsub"
           ),
           stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showList"
           ),
           stri="s(ss)", sig=11, depth=2, rkind=13, doc="inherited from 'Show.showList'"
         ),
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsPrec"
           ),
           stri="s(uss)", sig=12, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="display"
           ),
           stri="s(s)", sig=9, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="show"
           ),
           stri="s(s)", sig=9, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showChars"
           ),
@@ -268,26 +268,26 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=865,
+      offset=887,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=0, lnks={},
       funs={
         @Meta.SymV(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="hashCode"
           ),
           stri="s(s)", sig=14, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="!="
           ),
           stri="s(ss)", sig=15, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_FregeCodeBlock", member="=="
           ),
@@ -296,23 +296,23 @@ import frege.test.QuickCheckText;
       }
     ),
     @Meta.SymI(
-      offset=1078, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover"),
+      offset=1100, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeBase", base="Eq"), typ=8, lnks={},
       funs={
         @Meta.SymV(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="hashCode"
           ),
           stri="s(s)", sig=16, depth=1, rkind=13, doc="Function generated for derived instance."
         ),
         @Meta.SymV(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="!="),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="inherited from 'Eq.!='", op=96
         ),
         @Meta.SymV(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="=="),
           stri="s(ss)", sig=17, depth=2, rkind=13, doc="Function generated for derived instance.", op=96
         )
@@ -321,29 +321,29 @@ import frege.test.QuickCheckText;
   },
   symts={
     @Meta.SymT(
-      offset=1007, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"), typ=8,
+      offset=1029, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"), typ=8,
       kind=12,
       cons={
         @Meta.SymD(
-          offset=1015,
+          offset=1037,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="Hover"),
           cid=0, typ=19,
           fields={
-            @Meta.Field(name="range", offset=1027, sigma=18, strict=false),
-            @Meta.Field(name="content", offset=1049, sigma=0, strict=false)
+            @Meta.Field(name="range", offset=1049, sigma=18, strict=false),
+            @Meta.Field(name="content", offset=1071, sigma=0, strict=false)
           }
         )
       },
       lnks={
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showsub"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="showsub"
           )
         ),
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showList"
           ),
@@ -352,14 +352,14 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="show"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="show"
           )
         ),
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showChars"
           ),
@@ -368,7 +368,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="showsPrec"
           ),
@@ -377,7 +377,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="hashCode"
           ),
@@ -386,73 +386,73 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=1094,
+          offset=1116,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="display"),
           alias=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Show_Hover", member="display"
           )
         ),
         @Meta.SymL(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="!="),
           alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="!=")
         ),
         @Meta.SymL(
-          offset=1078,
+          offset=1100,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="=="),
           alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Eq_Hover", member="==")
         )
       },
       funs={
         @Meta.SymV(
-          offset=1028,
+          offset=1050,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="upd$range"
           ),
           stri="s(su)", sig=20, depth=2, rkind=13, doc="update field @range@"
         ),
         @Meta.SymV(
-          offset=1050,
+          offset=1072,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="upd$content"
           ),
           stri="s(su)", sig=21, depth=2, rkind=13, doc="update field @content@"
         ),
         @Meta.SymV(
-          offset=1050,
+          offset=1072,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="has$content"
           ),
           stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @content@"
         ),
         @Meta.SymV(
-          offset=1028,
+          offset=1050,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="has$range"
           ),
           stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @range@"
         ),
         @Meta.SymV(
-          offset=1028,
+          offset=1050,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="range"),
           stri="s(s)", sig=24, depth=1, rkind=13, doc="access field @range@"
         ),
         @Meta.SymV(
-          offset=1028,
+          offset=1050,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="chg$range"
           ),
           stri="s(su)", sig=26, depth=2, rkind=13, doc="change field @range@"
         ),
         @Meta.SymV(
-          offset=1050,
+          offset=1072,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="chg$content"
           ),
           stri="s(su)", sig=28, depth=2, rkind=13, doc="change field @content@"
         ),
         @Meta.SymV(
-          offset=1050,
+          offset=1072,
           name=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="content"),
           stri="s(s)", sig=29, depth=1, rkind=13, doc="access field @content@"
         )
@@ -460,20 +460,20 @@ import frege.test.QuickCheckText;
       prod=true
     ),
     @Meta.SymT(
-      offset=809, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
+      offset=831, name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
       typ=0, kind=12,
       cons={
         @Meta.SymD(
-          offset=826,
+          offset=848,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="FregeCodeBlock"
           ),
-          cid=0, typ=30, fields={@Meta.Field(name="code", offset=847, sigma=3, strict=false)}
+          cid=0, typ=30, fields={@Meta.Field(name="code", offset=869, sigma=3, strict=false)}
         )
       },
       lnks={
         @Meta.SymL(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showsPrec"
           ),
@@ -482,7 +482,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showChars"
           ),
@@ -491,7 +491,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showList"
           ),
@@ -500,7 +500,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="showsub"
           ),
@@ -509,7 +509,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="hashCode"
           ),
@@ -518,7 +518,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=890,
+          offset=912,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="display"
           ),
@@ -527,7 +527,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="!="
           ),
@@ -536,7 +536,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=865,
+          offset=887,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="=="
           ),
@@ -545,7 +545,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=929,
+          offset=951,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="show"
           ),
@@ -556,28 +556,28 @@ import frege.test.QuickCheckText;
       },
       funs={
         @Meta.SymV(
-          offset=848,
+          offset=870,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="upd$code"
           ),
           stri="s(su)", sig=31, depth=2, rkind=13, doc="update field @code@"
         ),
         @Meta.SymV(
-          offset=848,
+          offset=870,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="has$code"
           ),
           stri="s(u)", sig=23, depth=1, rkind=13, doc="check if constructor has field @code@"
         ),
         @Meta.SymV(
-          offset=848,
+          offset=870,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="chg$code"
           ),
           stri="s(su)", sig=33, depth=2, rkind=13, doc="change field @code@"
         ),
         @Meta.SymV(
-          offset=848,
+          offset=870,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="code"
           ),
@@ -589,78 +589,78 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=1777, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToQName"),
+      offset=1799, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="tokenToQName"),
       stri="s(u)", sig=35, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=5008,
+      offset=5041,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalConidDataConstructor"),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=3755,
+      offset=3782,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalConidTypeSignature"),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2535,
+      offset=2557,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowLocalVaridTypeSignature"),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=4383,
+      offset=4413,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedConidTypeSignature"
       ),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=5688,
+      offset=5725,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedConidDataConstructor"
       ),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=3136,
+      offset=3161,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="shouldShowImportedVaridTypeSignature"
       ),
       stri="u", sig=36, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=6368, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="main"), stri="u",
+      offset=6409, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="main"), stri="u",
       sig=37, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=2145, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getTypeOnHover"),
+      offset=2167, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getTypeOnHover"),
       stri="s(u)", sig=39, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=2021,
+      offset=2043,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getTypeSignatureOnHover"),
       stri="s(uu)", sig=41, depth=2, rkind=13
     ),
     @Meta.SymV(
-      offset=1113, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbolType"),
+      offset=1135, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="getSymbolType"),
       stri="s(u)", sig=43, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1638, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findSymbol"),
+      offset=1660, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findSymbol"),
       stri="s(u)", sig=45, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1245, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findToken"), stri="s(u)",
+      offset=1267, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="findToken"), stri="s(u)",
       sig=46, depth=1, rkind=13
     )
   },
   symls={
     @Meta.SymL(
-      offset=1015, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"),
+      offset=1037, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover"),
       alias=@Meta.QName(kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="Hover", member="Hover")
     ),
     @Meta.SymL(
-      offset=826, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
+      offset=848, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.hover.Hover", base="FregeCodeBlock", member="FregeCodeBlock"
       )

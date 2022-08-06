@@ -150,7 +150,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileMakeMode.fr",
-  time=1659724144621L, jmajor=11, jminor=-1,
+  time=1659770984527L, jmajor=11, jminor=-1,
   imps={
     "frege.control.Concurrent", "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode",
@@ -173,7 +173,7 @@ import frege.test.QuickCheckText;
   },
   symas={
     @Meta.SymA(
-      offset=16972,
+      offset=16976,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="TodoList"),
       vars={}, typ=0, kind=5, doc=" build tree   "
     )
@@ -181,12 +181,12 @@ import frege.test.QuickCheckText;
   symcs={},
   symis={
     @Meta.SymI(
-      offset=15619,
+      offset=15623,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo"),
       clas=@Meta.QName(kind=0, pack="frege.prelude.PreludeText", base="Show"), typ=1, lnks={},
       funs={
         @Meta.SymV(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="showsub"
@@ -194,7 +194,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=2, depth=1, rkind=13, doc="inherited from 'Show.showsub'"
         ),
         @Meta.SymV(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="showList"
@@ -202,7 +202,7 @@ import frege.test.QuickCheckText;
           stri="s(ss)", sig=5, depth=2, rkind=13, doc="inherited from 'Show.showList'"
         ),
         @Meta.SymV(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="showsPrec"
@@ -210,7 +210,7 @@ import frege.test.QuickCheckText;
           stri="s(uss)", sig=7, depth=3, rkind=13, doc="inherited from 'Show.showsPrec'"
         ),
         @Meta.SymV(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="display"
@@ -218,7 +218,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=2, depth=1, rkind=13, doc="inherited from 'Show.display'"
         ),
         @Meta.SymV(
-          offset=15648,
+          offset=15652,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="show"
@@ -226,7 +226,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=2, depth=1, rkind=45
         ),
         @Meta.SymV(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Show_Todo",
             member="showChars"
@@ -238,25 +238,25 @@ import frege.test.QuickCheckText;
   },
   symts={
     @Meta.SymT(
-      offset=12860,
+      offset=12864,
       name=@Meta.QName(kind=0, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo"), typ=1,
       kind=5,
       cons={
         @Meta.SymD(
-          offset=14116,
+          offset=14120,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Waiting"
           ),
           cid=4, typ=11,
           fields={
-            @Meta.Field(doc=" package we are waiting for   ", name="for", offset=14134, sigma=9, strict=false),
+            @Meta.Field(doc=" package we are waiting for   ", name="for", offset=14138, sigma=9, strict=false),
             @Meta.Field(
-              doc=" predicate to fulfill ('failed' always included)   ", name="status", offset=14201,
+              doc=" predicate to fulfill ('failed' always included)   ", name="status", offset=14205,
               sigma=10, strict=false
             ),
             @Meta.Field(
-              doc=" what to do once package fails or succeeds   ", name="todo", offset=14289,
+              doc=" what to do once package fails or succeeds   ", name="todo", offset=14293,
               sigma=1, strict=false
             )
           },
@@ -264,43 +264,43 @@ import frege.test.QuickCheckText;
           "             "
         ),
         @Meta.SymD(
-          offset=13069,
+          offset=13073,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Parsed"
           ),
           cid=1, typ=13,
-          fields={@Meta.Field(doc=" state after parsing   ", name="global", offset=13086, sigma=12, strict=false)},
+          fields={@Meta.Field(doc=" state after parsing   ", name="global", offset=13090, sigma=12, strict=false)},
           doc=" source has been parsed without syntax errors   "
         ),
         @Meta.SymD(
-          offset=14409,
+          offset=14413,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Running"
           ),
           cid=5, typ=14,
-          fields={@Meta.Field(doc=" what is it doing   ", name="todo", offset=14428, sigma=1, strict=false)},
+          fields={@Meta.Field(doc=" what is it doing   ", name="todo", offset=14432, sigma=1, strict=false)},
           doc=" submitted to do some work   "
         ),
         @Meta.SymD(
-          offset=14855,
+          offset=14859,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="NoRebuild"
           ),
           cid=8, typ=16,
           fields={
-            @Meta.Field(doc=" reason why we don't need it   ", name="because", offset=14875, sigma=4, strict=false),
+            @Meta.Field(doc=" reason why we don't need it   ", name="because", offset=14879, sigma=4, strict=false),
             @Meta.Field(
-              doc=" when has this been compiled?   ", name="compiletime", offset=14943, sigma=15,
+              doc=" when has this been compiled?   ", name="compiletime", offset=14947, sigma=15,
               strict=false
             )
           },
           doc=" no rebuild needed   "
         ),
         @Meta.SymD(
-          offset=15605,
+          offset=15609,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="JavaCompiled"
@@ -308,92 +308,92 @@ import frege.test.QuickCheckText;
           cid=12, typ=1, fields={}, doc=" javac was successful (for 'JavacMe')   "
         ),
         @Meta.SymD(
-          offset=15403,
+          offset=15407,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="JavacMe"
           ),
           cid=11, typ=18,
           fields={
-            @Meta.Field(doc=" what to compile   ", name="pack", offset=15421, sigma=9, strict=false),
+            @Meta.Field(doc=" what to compile   ", name="pack", offset=15425, sigma=9, strict=false),
             @Meta.Field(
-              doc=" required from package (or commandline)   ", name="reason", offset=15477, sigma=17,
+              doc=" required from package (or commandline)   ", name="reason", offset=15481, sigma=17,
               strict=false
             )
           },
           doc=" possible dependency needs java compilation   "
         ),
         @Meta.SymD(
-          offset=12935,
+          offset=12939,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="ParseMe"
           ),
           cid=0, typ=19,
-          fields={@Meta.Field(doc=" path name to parse   ", name="source", offset=12953, sigma=4, strict=false)},
+          fields={@Meta.Field(doc=" path name to parse   ", name="source", offset=12957, sigma=4, strict=false)},
           doc=" We have a source file but do not know the package yet.   "
         ),
         @Meta.SymD(
-          offset=15160,
+          offset=15164,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="CompileMe"
           ),
           cid=10, typ=20,
           fields={
-            @Meta.Field(doc=" state   ", name="global", offset=15180, sigma=12, strict=false),
-            @Meta.Field(doc=" required by or commandline   ", name="reason", offset=15226, sigma=17, strict=false),
-            @Meta.Field(doc=" specific cause   ", name="because", offset=15293, sigma=4, strict=false)
+            @Meta.Field(doc=" state   ", name="global", offset=15184, sigma=12, strict=false),
+            @Meta.Field(doc=" required by or commandline   ", name="reason", offset=15230, sigma=17, strict=false),
+            @Meta.Field(doc=" specific cause   ", name="because", offset=15297, sigma=4, strict=false)
           },
           doc=" needs recompilation   "
         ),
         @Meta.SymD(
-          offset=15046,
+          offset=15050,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Compiled"
           ),
           cid=9, typ=13,
-          fields={@Meta.Field(doc=" state after compiling   ", name="global", offset=15066, sigma=12, strict=false)},
+          fields={@Meta.Field(doc=" state after compiling   ", name="global", offset=15070, sigma=12, strict=false)},
           doc=" successfully compiled   "
         ),
         @Meta.SymD(
-          offset=14542,
+          offset=14546,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Aborted"
           ),
           cid=6, typ=19,
           fields={
-            @Meta.Field(doc=" reason for abort, if known   ", name="because", offset=14560, sigma=4, strict=false)
+            @Meta.Field(doc=" reason for abort, if known   ", name="because", offset=14564, sigma=4, strict=false)
           },
           doc=" aborted for some reason like exceptions, ...   "
         ),
         @Meta.SymD(
-          offset=13849,
+          offset=13853,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="CheckUpdate"
           ),
           cid=3, typ=18,
           fields={
-            @Meta.Field(doc=" build the package if needed   ", name="pack", offset=13871, sigma=9, strict=false),
-            @Meta.Field(doc=" 'Nothing' means command line   ", name="reason", offset=13939, sigma=17, strict=false)
+            @Meta.Field(doc=" build the package if needed   ", name="pack", offset=13875, sigma=9, strict=false),
+            @Meta.Field(doc=" 'Nothing' means command line   ", name="reason", offset=13943, sigma=17, strict=false)
           },
           doc=" " +"\n"+ "        Module was found as dependency of some other, or was asked for on command line."
           +"\n"+ "        If there is a source, it will be parsed and the state changed to 'CompileAfterDeps'. " +"\n"+
           "             "
         ),
         @Meta.SymD(
-          offset=13477,
+          offset=13481,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="CompileAfterDeps"
           ),
           cid=2, typ=21,
           fields={
-            @Meta.Field(doc=" global state for this package   ", name="global", offset=13504, sigma=12, strict=false),
-            @Meta.Field(doc=" 'Nothing' means command line   ", name="reason", offset=13574, sigma=17, strict=false)
+            @Meta.Field(doc=" global state for this package   ", name="global", offset=13508, sigma=12, strict=false),
+            @Meta.Field(doc=" 'Nothing' means command line   ", name="reason", offset=13578, sigma=17, strict=false)
           },
           doc=" " +"\n"+ "        Source has been parsed and dependencies added to tree." +"\n"+
           "        Will be compiled after dependencies have been checked and one of the " +"\n"+
@@ -402,22 +402,22 @@ import frege.test.QuickCheckText;
           "        - The source is newer than our target " +"\n"+ "           "
         ),
         @Meta.SymD(
-          offset=14709,
+          offset=14713,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="Failed"
           ),
           cid=7, typ=22,
           fields={
-            @Meta.Field(name="because", offset=14726, sigma=4, strict=false),
-            @Meta.Field(doc=" reason for abort, if known   ", name="global", offset=14794, sigma=12, strict=false)
+            @Meta.Field(name="because", offset=14730, sigma=4, strict=false),
+            @Meta.Field(doc=" reason for abort, if known   ", name="global", offset=14798, sigma=12, strict=false)
           },
           doc=" failed for some reason like syntax, compiler errors or file not found   "
         )
       },
       lnks={
         @Meta.SymL(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="showsub"
@@ -428,7 +428,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="showList"
@@ -439,7 +439,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="showsPrec"
@@ -450,7 +450,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=15648,
+          offset=15652,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="show"
@@ -461,7 +461,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="showChars"
@@ -472,7 +472,7 @@ import frege.test.QuickCheckText;
           )
         ),
         @Meta.SymL(
-          offset=15619,
+          offset=15623,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="display"
@@ -485,7 +485,7 @@ import frege.test.QuickCheckText;
       },
       funs={
         @Meta.SymV(
-          offset=14290,
+          offset=14294,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$todo"
@@ -493,7 +493,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=23, depth=2, rkind=13, doc="update field @todo@"
         ),
         @Meta.SymV(
-          offset=14202,
+          offset=14206,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$status"
@@ -501,7 +501,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=25, depth=2, rkind=13, doc="update field @status@"
         ),
         @Meta.SymV(
-          offset=13575,
+          offset=13579,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$reason"
@@ -509,7 +509,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=26, depth=2, rkind=13, doc="update field @reason@"
         ),
         @Meta.SymV(
-          offset=12954,
+          offset=12958,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$source"
@@ -517,7 +517,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=27, depth=2, rkind=13, doc="update field @source@"
         ),
         @Meta.SymV(
-          offset=13087,
+          offset=13091,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$global"
@@ -525,7 +525,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=28, depth=2, rkind=13, doc="update field @global@"
         ),
         @Meta.SymV(
-          offset=14944,
+          offset=14948,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$compiletime"
@@ -533,7 +533,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=29, depth=2, rkind=13, doc="update field @compiletime@"
         ),
         @Meta.SymV(
-          offset=14135,
+          offset=14139,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$for"
@@ -541,7 +541,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="update field @for@"
         ),
         @Meta.SymV(
-          offset=13872,
+          offset=13876,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$pack"
@@ -549,7 +549,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=30, depth=2, rkind=13, doc="update field @pack@"
         ),
         @Meta.SymV(
-          offset=14290,
+          offset=14294,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="todo"
@@ -558,7 +558,7 @@ import frege.test.QuickCheckText;
           doc=" what to do once package fails or succeeds   " +"\n"+ " what is it doing   "
         ),
         @Meta.SymV(
-          offset=14202,
+          offset=14206,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="status"
@@ -566,7 +566,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=31, depth=2, rkind=12, doc=" predicate to fulfill ('failed' always included)   "
         ),
         @Meta.SymV(
-          offset=13575,
+          offset=13579,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="reason"
@@ -576,7 +576,7 @@ import frege.test.QuickCheckText;
           " 'Nothing' means command line   " +"\n"+ " 'Nothing' means command line   "
         ),
         @Meta.SymV(
-          offset=12954,
+          offset=12958,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="source"
@@ -584,7 +584,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=2, depth=1, rkind=13, doc=" path name to parse   "
         ),
         @Meta.SymV(
-          offset=14290,
+          offset=14294,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$todo"
@@ -592,7 +592,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @todo@"
         ),
         @Meta.SymV(
-          offset=14202,
+          offset=14206,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$status"
@@ -600,7 +600,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @status@"
         ),
         @Meta.SymV(
-          offset=13575,
+          offset=13579,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$reason"
@@ -608,7 +608,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @reason@"
         ),
         @Meta.SymV(
-          offset=12954,
+          offset=12958,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$source"
@@ -616,7 +616,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @source@"
         ),
         @Meta.SymV(
-          offset=13087,
+          offset=13091,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$global"
@@ -624,7 +624,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @global@"
         ),
         @Meta.SymV(
-          offset=14944,
+          offset=14948,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$compiletime"
@@ -632,7 +632,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @compiletime@"
         ),
         @Meta.SymV(
-          offset=14135,
+          offset=14139,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$for"
@@ -640,7 +640,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @for@"
         ),
         @Meta.SymV(
-          offset=13872,
+          offset=13876,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$pack"
@@ -648,7 +648,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=10, depth=1, rkind=13, doc="check if constructor has field @pack@"
         ),
         @Meta.SymV(
-          offset=13872,
+          offset=13876,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="pack"
@@ -656,7 +656,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=33, depth=1, rkind=13, doc=" what to compile   " +"\n"+ " build the package if needed   "
         ),
         @Meta.SymV(
-          offset=14561,
+          offset=14565,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="upd$because"
@@ -664,7 +664,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=27, depth=2, rkind=13, doc="update field @because@"
         ),
         @Meta.SymV(
-          offset=13087,
+          offset=13091,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="global"
@@ -674,7 +674,7 @@ import frege.test.QuickCheckText;
           " global state for this package   " +"\n"+ " reason for abort, if known   "
         ),
         @Meta.SymV(
-          offset=14135,
+          offset=14139,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="for"
@@ -682,7 +682,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=33, depth=1, rkind=13, doc=" package we are waiting for   "
         ),
         @Meta.SymV(
-          offset=14290,
+          offset=14294,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$todo"
@@ -690,7 +690,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=36, depth=2, rkind=13, doc="change field @todo@"
         ),
         @Meta.SymV(
-          offset=12954,
+          offset=12958,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$source"
@@ -698,7 +698,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=38, depth=2, rkind=13, doc="change field @source@"
         ),
         @Meta.SymV(
-          offset=14202,
+          offset=14206,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$status"
@@ -706,7 +706,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=40, depth=2, rkind=13, doc="change field @status@"
         ),
         @Meta.SymV(
-          offset=14944,
+          offset=14948,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="compiletime"
@@ -714,7 +714,7 @@ import frege.test.QuickCheckText;
           stri="s(s)", sig=41, depth=1, rkind=13, doc=" when has this been compiled?   "
         ),
         @Meta.SymV(
-          offset=13872,
+          offset=13876,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$pack"
@@ -722,7 +722,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=43, depth=2, rkind=13, doc="change field @pack@"
         ),
         @Meta.SymV(
-          offset=14135,
+          offset=14139,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$for"
@@ -730,7 +730,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=43, depth=2, rkind=13, doc="change field @for@"
         ),
         @Meta.SymV(
-          offset=14561,
+          offset=14565,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$because"
@@ -738,7 +738,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=38, depth=2, rkind=13, doc="change field @because@"
         ),
         @Meta.SymV(
-          offset=14944,
+          offset=14948,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$compiletime"
@@ -746,7 +746,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=45, depth=2, rkind=13, doc="change field @compiletime@"
         ),
         @Meta.SymV(
-          offset=13087,
+          offset=13091,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$global"
@@ -754,7 +754,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=47, depth=2, rkind=13, doc="change field @global@"
         ),
         @Meta.SymV(
-          offset=13575,
+          offset=13579,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="chg$reason"
@@ -762,7 +762,7 @@ import frege.test.QuickCheckText;
           stri="s(su)", sig=49, depth=2, rkind=13, doc="change field @reason@"
         ),
         @Meta.SymV(
-          offset=14561,
+          offset=14565,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="because"
@@ -771,7 +771,7 @@ import frege.test.QuickCheckText;
           doc=" reason why we don't need it   " +"\n"+ " specific cause   " +"\n"+ " reason for abort, if known   "
         ),
         @Meta.SymV(
-          offset=14561,
+          offset=14565,
           name=@Meta.QName(
             kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
             member="has$because"
@@ -784,26 +784,26 @@ import frege.test.QuickCheckText;
   },
   symvs={
     @Meta.SymV(
-      offset=11592, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="walk"),
+      offset=11596, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="walk"),
       stri="s(s)", sig=51, depth=1, rkind=45, doc=" walk a directory and return all Frege source files found.   "
     ),
     @Meta.SymV(
-      offset=4382, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="targetPath"),
+      offset=4386, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="targetPath"),
       stri="s(ss)", sig=52, depth=2, rkind=13,
       doc="  make filename from package name  @x.y.z.Packet@ =>  @dest/x/y/z/Packet.java@   "
     ),
     @Meta.SymV(
-      offset=17215,
+      offset=17219,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="switchState"),
       stri="s(u)", sig=53, depth=1, rkind=13, doc=" Replace the state with the argument, return the old state   "
     ),
     @Meta.SymV(
-      offset=17980,
+      offset=17984,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="successful"), stri="s(s)",
       sig=10, depth=1, rkind=13, doc=" Predicate to tell if the argument represents a successful state   "
     ),
     @Meta.SymV(
-      offset=38400,
+      offset=38404,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode",
         base="shouldShowErrorsIfDependencyIsNotOnClasspath"
@@ -811,44 +811,44 @@ import frege.test.QuickCheckText;
       stri="u", sig=54, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=37734,
+      offset=37738,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="shouldFindAlreadyCompiledDependency"
       ),
       stri="u", sig=54, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=37234,
+      offset=37238,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="shouldCompileModuleWithLocalDependency"
       ),
       stri="u", sig=54, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=17860, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="running"),
+      offset=17864, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="running"),
       stri="s(s)", sig=10, depth=1, rkind=13, doc=" Predicate to tell if the argument represents a running state   "
     ),
     @Meta.SymV(
-      offset=8025, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="runpass"),
+      offset=8029, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="runpass"),
       stri="s(s(uu))", sig=56, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=5856, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="runJavac"),
+      offset=5860, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="runJavac"),
       stri="s(s)", sig=58, nativ="frege.runtime.Javac.runJavac", depth=1, rkind=9,
       doc=" utility function to run a command.   " +"\n"+ "" +"\n"+ " takes a command line and produces an exit code   "
     ),
     @Meta.SymV(
-      offset=12591, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="resolveSP"),
+      offset=12595, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="resolveSP"),
       stri="s(uu)", sig=59, depth=2, rkind=13, doc=" Look up a (relative) file name in source path   "
     ),
     @Meta.SymV(
-      offset=12243,
+      offset=12247,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="resolvePackSP"),
       stri="s(uu)", sig=59, depth=2, rkind=13,
       doc=" look up an external package name in source path, check frege and java files   "
     ),
     @Meta.SymV(
-      offset=9071,
+      offset=9075,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="processDirs"),
       stri="s(s)", sig=61, depth=1, rkind=13,
       doc=" Process the list of file arguments   " +"\n"+ "" +"\n"+ " Regular files are taken over   " +"\n"+
@@ -856,209 +856,209 @@ import frege.test.QuickCheckText;
       +"\n"+ " Module names are translated to file names through the source path   "
     ),
     @Meta.SymV(
-      offset=34536, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parseMe"),
+      offset=34540, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parseMe"),
       stri="s(u)", sig=62, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=1419, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parsePass"),
+      offset=1423, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parsePass"),
       stri="s", sig=63, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=19274, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parseAll"),
+      offset=19278, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="parseAll"),
       stri="s(us)", sig=65, depth=2, rkind=13, doc=" parse all files in parallel first   "
     ),
     @Meta.SymV(
-      offset=11461, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="packfile"),
+      offset=11465, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="packfile"),
       stri="s(s)", sig=66, depth=1, rkind=13, doc=" check if argument is a file   "
     ),
     @Meta.SymV(
-      offset=5149,
+      offset=5153,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="openFilePrinter"),
       stri="s(u)", sig=67, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=4880,
+      offset=4884,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="openPrinter"), stri="s",
       sig=68, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=17051,
+      offset=17055,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="mergeErrors"),
       stri="s(u)", sig=69, depth=1, rkind=13, doc=" Take over number of errors of another state   "
     ),
     @Meta.SymV(
-      offset=24763, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="makeone"),
+      offset=24767, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="makeone"),
       stri="s(uus(uu))", sig=71, depth=3, rkind=13,
       doc="" +"\n"+ "    See what can be done for a single 'Todo' item" +"\n"+ "     "
     ),
     @Meta.SymV(
-      offset=19944, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="make"),
+      offset=19948, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="make"),
       stri="s(us)", sig=65, depth=2, rkind=45,
       doc="" +"\n"+ "    Make a bunch of source files and/or packages." +"\n"+ "     "
     ),
     @Meta.SymV(
-      offset=2984, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="makeFile"),
+      offset=2988, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="makeFile"),
       stri="s(uu)", sig=73, depth=2, rkind=13, doc=" Run the passes on an already parsed global   "
     ),
     @Meta.SymV(
-      offset=2655, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lexparse"),
+      offset=2659, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lexparse"),
       stri="s(u)", sig=74, depth=1, rkind=13,
       doc="" +"\n"+ "    Lex & Parse given source file and return the resulting state." +"\n"+
       "    The 'StIO' state is kept, except for the number of errors," +"\n"+
       "    which gets updated from the parser state" +"\n"+ "         "
     ),
     @Meta.SymV(
-      offset=1264, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lexPass"),
+      offset=1268, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lexPass"),
       stri="s", sig=68, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=26632, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lastMod"),
+      offset=26636, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="lastMod"),
       stri="s(s)", sig=75, depth=1, rkind=13,
       doc=" Interpret the argument as path name and return the last modification time of the corresponding 'File'   "
       +"\n"+ "" +"\n"+ " Should be 0 if the file doesn't exist.   "
     ),
     @Meta.SymV(
-      offset=6137, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacs"),
+      offset=6141, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacs"),
       stri="s(u)", sig=76, depth=1, rkind=13, doc=" run the java compiler for some files   "
     ),
     @Meta.SymV(
-      offset=7153, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacJava"),
+      offset=7157, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacJava"),
       stri="s(u)", sig=77, depth=1, rkind=13, doc=" compile a java file   "
     ),
     @Meta.SymV(
-      offset=30094, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacMe"),
+      offset=30098, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javacMe"),
       stri="s(uuu)", sig=79, depth=3, rkind=13
     ),
     @Meta.SymV(
-      offset=5982, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javac"),
+      offset=5986, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="javac"),
       stri="s", sig=68, depth=0, rkind=13, doc=" run the java compiler for the current file   "
     ),
     @Meta.SymV(
-      offset=36986,
+      offset=36990,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="ignoreFailedTodosWithoutSource"
       ),
       stri="s(s)", sig=80, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=29973,
+      offset=29977,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="importErrorPosition"),
       stri="s", sig=81, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=18577, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="hasGlobal"),
+      offset=18581, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="hasGlobal"),
       stri="s(s)", sig=10, depth=1, rkind=13, doc=" Predicate to tell wheter a 'Todo' has a global   "
     ),
     @Meta.SymV(
-      offset=29794,
+      offset=29798,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="getImportErrorMessage"),
       stri="s(us)", sig=82, depth=2, rkind=13
     ),
     @Meta.SymV(
-      offset=18452, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="failed"),
+      offset=18456, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="failed"),
       stri="s(s)", sig=10, depth=1, rkind=13, doc=" Predicate to tell if a 'Todo' item failed   "
     ),
     @Meta.SymV(
-      offset=17365,
+      offset=17369,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="createTodo"), stri="s(s)",
       sig=84, depth=1, rkind=13, doc=" " +"\n"+ "    Create the To Do list." +"\n"+ "     "
     ),
     @Meta.SymV(
-      offset=18317, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="complete"),
+      offset=18321, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="complete"),
       stri="s(s)", sig=10, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=37127,
+      offset=37131,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compileMake"),
       stri="s(uu)", sig=85, depth=2, rkind=13
     ),
     @Meta.SymV(
-      offset=34704, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compileMe"),
+      offset=34708, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compileMe"),
       stri="s(usu)", sig=86, depth=3, rkind=13
     ),
     @Meta.SymV(
-      offset=26735,
+      offset=26739,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compileAfterDeps"),
       stri="s(usu)", sig=87, depth=3, rkind=13, doc=" The action that re-builds a source if needed    "
     ),
     @Meta.SymV(
-      offset=36543,
+      offset=36547,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compileFileMake"),
       stri="s(u)", sig=88, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=18207, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compiled"),
+      offset=18211, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="compiled"),
       stri="s(s)", sig=10, depth=1, rkind=13,
       doc=" Predicate to tell whether the state means something was indeed compiled    "
     ),
     @Meta.SymV(
-      offset=5627,
+      offset=5631,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="closePrinter"), stri="s",
       sig=68, depth=0, rkind=13, doc=" close the current file printer and continue to print to 'stdout'    "
     ),
     @Meta.SymV(
-      offset=4695,
+      offset=4699,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="classForPack"),
       stri="s(ss)", sig=89, depth=2, rkind=13,
       doc=" give name of class file for a package   " +"\n"+ "" +"\n"+
       " Whether the class file actually exists must be determined separately.   "
     ),
     @Meta.SymV(
-      offset=32509,
+      offset=32513,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="checkUpdate"),
       stri="s(uu)", sig=90, depth=2, rkind=13, doc=" The action that checks if we need to rebuild a package   "
     ),
     @Meta.SymV(
-      offset=18754, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="addDepsOf"),
+      offset=18758, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="addDepsOf"),
       stri="s(ss)", sig=91, depth=2, rkind=13,
       doc="" +"\n"+ "    Add dependencies of a parsed module to a 'TodoList' " +"\n"+ "     "
     )
   },
   symls={
     @Meta.SymL(
-      offset=14116, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Waiting"),
+      offset=14120, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Waiting"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Waiting"
       )
     ),
     @Meta.SymL(
-      offset=14409, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Running"),
+      offset=14413, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Running"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Running"
       )
     ),
     @Meta.SymL(
-      offset=12935, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="ParseMe"),
+      offset=12939, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="ParseMe"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="ParseMe"
       )
     ),
     @Meta.SymL(
-      offset=13069, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Parsed"),
+      offset=13073, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Parsed"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Parsed"
       )
     ),
     @Meta.SymL(
-      offset=14855, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="NoRebuild"),
+      offset=14859, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="NoRebuild"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="NoRebuild"
       )
     ),
     @Meta.SymL(
-      offset=15403, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="JavacMe"),
+      offset=15407, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="JavacMe"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="JavacMe"
       )
     ),
     @Meta.SymL(
-      offset=15605,
+      offset=15609,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="JavaCompiled"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
@@ -1066,28 +1066,28 @@ import frege.test.QuickCheckText;
       )
     ),
     @Meta.SymL(
-      offset=14709, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Failed"),
+      offset=14713, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Failed"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Failed"
       )
     ),
     @Meta.SymL(
-      offset=15160, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="CompileMe"),
+      offset=15164, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="CompileMe"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="CompileMe"
       )
     ),
     @Meta.SymL(
-      offset=15046, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Compiled"),
+      offset=15050, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Compiled"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Compiled"
       )
     ),
     @Meta.SymL(
-      offset=13849,
+      offset=13853,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="CheckUpdate"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
@@ -1095,7 +1095,7 @@ import frege.test.QuickCheckText;
       )
     ),
     @Meta.SymL(
-      offset=13477,
+      offset=13481,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="CompileAfterDeps"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
@@ -1103,7 +1103,7 @@ import frege.test.QuickCheckText;
       )
     ),
     @Meta.SymL(
-      offset=14542, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Aborted"),
+      offset=14546, name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Aborted"),
       alias=@Meta.QName(
         kind=2, pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="Todo",
         member="Aborted"

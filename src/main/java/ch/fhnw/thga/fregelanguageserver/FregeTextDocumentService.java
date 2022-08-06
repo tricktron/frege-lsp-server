@@ -1,7 +1,5 @@
 package ch.fhnw.thga.fregelanguageserver;
 
-import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.STANDARD_GLOBAL;
-
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -63,7 +61,7 @@ public class FregeTextDocumentService implements TextDocumentService
         List<TGlobal> globals = CompileService.compileWithMakeMode
         (
             URI.create(params.getTextDocument().getUri()).getPath(), 
-            STANDARD_GLOBAL
+            simpleLanguageServer.getProjectGlobal()
         );
         globals.forEach(updateUriGlobalsAndPublishDiagnostics);
 	}
@@ -89,7 +87,7 @@ public class FregeTextDocumentService implements TextDocumentService
         List<TGlobal> globals = CompileService.compileWithMakeMode
         (
             URI.create(params.getTextDocument().getUri()).getPath(), 
-            STANDARD_GLOBAL
+            simpleLanguageServer.getProjectGlobal()
         );
         globals.forEach(updateUriGlobalsAndPublishDiagnostics);
     }
