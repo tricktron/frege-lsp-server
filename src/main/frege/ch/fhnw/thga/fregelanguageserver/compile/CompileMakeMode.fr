@@ -872,7 +872,7 @@ shouldCompileModuleWithLocalDependency :: Property
 shouldCompileModuleWithLocalDependency = once $ morallyDubiousIOProperty do
     global        <- CompileGlobal.fromOptions standardCompileOptions.
         {
-            sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
+            sourcePath = [ "./src/main/resources" ] 
         }
     globals       <- compileMake "./src/main/resources/FregeMakeModeTest.fr" global
     pure $ all (\global -> global.errors == 0 && CharSequence.length global.sub.code > 0) globals
@@ -881,7 +881,7 @@ shouldFindAlreadyCompiledDependency :: Property
 shouldFindAlreadyCompiledDependency = once $ morallyDubiousIOProperty do
     global        <- CompileGlobal.fromOptions standardCompileOptions.
         {
-            sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
+            sourcePath = [ "./src/main/resources" ] 
         }
     globals1       <- compileMake "./src/main/resources/Dep.fr" global
     globals2       <- compileMake "./src/main/resources/FregeMakeModeTest.fr" global
@@ -892,7 +892,7 @@ shouldShowErrorsIfDependencyIsNotOnClasspath :: Property
 shouldShowErrorsIfDependencyIsNotOnClasspath = once $ morallyDubiousIOProperty do
     global        <- CompileGlobal.fromOptions standardCompileOptions.
         {
-            sourcePath = [ "/Users/tricktron/github/master/frege-lsp-server/src/main/resources" ] 
+            sourcePath = [ "./src/main/resources" ] 
         }
     globals       <- compileMake "./src/main/resources/FregeFXDep.fr" global
     pure $ all (\global -> global.errors > 0) globals
