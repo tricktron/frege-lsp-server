@@ -30,7 +30,8 @@ frege
     mainSourceDir = layout.projectDirectory.dir('src/main/frege')
     testModules   = 
     [
-        'ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor',
+        'ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode',
+        'ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode',
         'ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic',
         'ch.fhnw.thga.fregelanguageserver.hover.Hover'
     ]

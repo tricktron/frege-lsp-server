@@ -1,0 +1,5 @@
+module FregeMakeModeTest where
+
+import Dep(square)
+
+frob a = square a

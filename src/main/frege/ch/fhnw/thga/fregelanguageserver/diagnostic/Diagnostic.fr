@@ -1,11 +1,11 @@
 module ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic where
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal (standardCompileGlobal)
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor (compile)
-import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
-import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
-import Compiler.types.Global (StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
-import Compiler.types.Tokens (Token)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
+import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
+import Compiler.types.Global(StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
+import Compiler.types.Tokens(Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
 import Control.monad.State (evalStateT, execStateT, evalState)

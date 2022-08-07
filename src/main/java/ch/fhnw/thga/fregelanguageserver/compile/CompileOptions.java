@@ -78,7 +78,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileOptions.fr",
-  time=1659433738980L, jmajor=11, jminor=-1,
+  time=1659795935764L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -130,8 +130,8 @@ final public static Lazy<String/*<Character>*/> getEnvDefault(
 ) {
   return PreludeBase.<String/*<Character>*/, String/*<Character>*/>maybe(
             arg$1,
-            (Func.U<String/*<Character>*/, String/*<Character>*/>)((final Lazy<String/*<Character>*/> arg$12949) -> {
-                  return arg$12949;
+            (Func.U<String/*<Character>*/, String/*<Character>*/>)((final Lazy<String/*<Character>*/> arg$12951) -> {
+                  return arg$12951;
                 }),
             PreludeBase._toMaybe(System.getenv(arg$2))
           );
@@ -155,18 +155,18 @@ final public static Lazy<Global.TOptions> standardCompileOptions = Thunk.<Global
                                   PreludeBase.TList.DCons.<Short>mk(
                                         Thunk.<Short>lazy(Flags.TFlag.HINTS),
                                         PreludeBase.TList.DCons.<Short>mk(
-                                              Thunk.<Short>lazy(Flags.TFlag.VERBOSE),
+                                              Thunk.<Short>lazy(Flags.TFlag.IDEMODE),
                                               PreludeBase.TList.DCons.<Short>mk(
-                                                    Thunk.<Short>lazy(Flags.TFlag.IDEMODE),
+                                                    Thunk.<Short>lazy(Flags.TFlag.IDETOKENS),
                                                     PreludeBase.TList.DCons.<Short>mk(
-                                                          Thunk.<Short>lazy(Flags.TFlag.IDETOKENS),
+                                                          Thunk.<Short>lazy(Flags.TFlag.WITHCP),
                                                           PreludeBase.TList.DCons.<Short>mk(
-                                                                Thunk.<Short>lazy(Flags.TFlag.WITHCP),
+                                                                Thunk.<Short>lazy(Flags.TFlag.RUNJAVAC),
                                                                 PreludeBase.TList.DCons.<
                                                                   Short
                                                                 >mk(
                                                                       Thunk.<Short>lazy(
-                                                                            Flags.TFlag.RUNJAVAC
+                                                                            Flags.TFlag.MAKE
                                                                           ),
                                                                       PreludeBase.TList.DList.<
                                                                         Short
@@ -179,7 +179,9 @@ final public static Lazy<Global.TOptions> standardCompileOptions = Thunk.<Global
                                       )
                                 )
                           ),
-                      "./.frege-ls/classes/frege",
+                      CompileOptions.getEnvDefault(
+                            Thunk.<String/*<Character>*/>lazy("./.frege-ls/classes/frege"), "FREGE_LS_TARGET_DIR"
+                          ).call(),
                       PreludeBase.TList.DCons.<String/*<Character>*/>mk(
                             Thunk.<String/*<Character>*/>nested(
                                   (Lazy<Lazy<String/*<Character>*/>>)(() -> CompileOptions.getEnvDefault(

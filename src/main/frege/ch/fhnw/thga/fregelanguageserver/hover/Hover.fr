@@ -1,19 +1,21 @@
 module ch.fhnw.thga.fregelanguageserver.hover.Hover where
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal (standardCompileGlobal)
-import ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor (compile)
-import ch.fhnw.thga.fregelanguageserver.types.Position (Position)
-import ch.fhnw.thga.fregelanguageserver.types.Range (Range, tokenToRange)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
+import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
+import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
 
-import Compiler.types.Global (StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo, tokens, getST, liftStG, liftIO)
-import Compiler.types.Tokens (Token)
-import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Control.monad.State (StateT, evalStateT, execStateT, evalState)
+import Compiler.types.Global(
+        StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo,
+        tokens, getST, liftStG, liftIO
+    )
+import Compiler.types.Tokens(Token)
+import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
+import Control.monad.State(StateT, evalStateT, execStateT, evalState)
 import Control.monad.trans.MonadTrans (lift)
-import frege.ide.Utilities (label)
-import Data.List (sortBy)
-import Compiler.types.QNames (QName)
-import Data.List (find)
+import frege.ide.Utilities(label)
+import Data.List(find, sortBy)
+import Compiler.types.QNames(QName)
 
 newtype FregeCodeBlock = FregeCodeBlock {
     code :: String
@@ -80,20 +82,20 @@ shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do
     fregeHoverCode  = "module HoverTest where\n\n" ++ "simplyString = \"Hello\""
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 3 1, end = Position 3 13 },
             content = FregeCodeBlock "simplyString :: String"
         }
-    actual         = getTypeSignatureOnHover (Position 3 3) compiledGlobal
-    pure           $ expected == actual
+    actual          = getTypeSignatureOnHover (Position 3 3) compiledGlobal
+    pure            $ expected == actual
 
 shouldShowImportedVaridTypeSignature :: Property
 shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n" ++ "main = println \"Hello\""
+    fregeHoverCode =  "module HoverTest where\n\n" ++ "main = println \"Hello\""
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 3 8, end = Position 3 15 },
             content = FregeCodeBlock "println :: Show 𝖆 => 𝖆 -> IO ()"
@@ -103,11 +105,11 @@ shouldShowImportedVaridTypeSignature = once $ morallyDubiousIOProperty do
 
 shouldShowLocalConidTypeSignature :: Property
 shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-                  ++ "data MyMaybe a = MyNothing | MyJust a\n"
+    fregeHoverCode  = "module HoverTest where\n\n"
+                   ++ "data MyMaybe a = MyNothing | MyJust a\n"
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 3 6, end = Position 3 13 },
             content = FregeCodeBlock "MyMaybe :: *->*"
@@ -117,11 +119,11 @@ shouldShowLocalConidTypeSignature = once $ morallyDubiousIOProperty do
 
 shouldShowImportedConidTypeSignature :: Property
 shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-                  ++ "import frege.data.Maybe(Maybe)"
+    fregeHoverCode  = "module HoverTest where\n\n"
+                   ++ "import frege.data.Maybe(Maybe)"
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 3 25, end = Position 3 30 },
             content = FregeCodeBlock "Maybe :: *->*"
@@ -131,12 +133,12 @@ shouldShowImportedConidTypeSignature = once $ morallyDubiousIOProperty do
 
 shouldShowLocalConidDataConstructor :: Property
 shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-                  ++ "data MyMaybe a = MyNothing | MyJust a\n"
-                  ++ "res = MyJust 42"
+    fregeHoverCode  = "module HoverTest where\n\n"
+                   ++ "data MyMaybe a = MyNothing | MyJust a\n"
+                   ++ "res = MyJust 42"
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 4 7, end = Position 4 13 },
             content = FregeCodeBlock "MyJust :: a -> MyMaybe a"
@@ -146,12 +148,12 @@ shouldShowLocalConidDataConstructor = once $ morallyDubiousIOProperty do
 
 shouldShowImportedConidDataConstructor :: Property
 shouldShowImportedConidDataConstructor = once $ morallyDubiousIOProperty do
-    fregeHoverCode = "module HoverTest where\n\n"
-                  ++ "import frege.data.Maybe(Maybe, Just)\n"
-                  ++ "res = Just 42"
+    fregeHoverCode  = "module HoverTest where\n\n"
+                   ++ "import frege.data.Maybe(Maybe, Just)\n"
+                   ++ "res = Just 42"
     global         <- standardCompileGlobal
     compiledGlobal <- compile fregeHoverCode global
-    expected       = Just Hover 
+    expected        = Just Hover 
         { 
             range   = Range { start = Position 4 7, end = Position 4 11 },
             content = FregeCodeBlock "Just :: a -> Maybe a"
@@ -170,7 +172,7 @@ main = do
                        ++ "data MyMaybe a = MyNothing | MyJust a\n"
                        ++ "res = MyJust 42"
     global             <- standardCompileGlobal
-    compiledGlobal     <- compile fregeCode global
+    compiledGlobal     <- compile simpleFregeCode global
     println             $ CharSequence.toString compiledGlobal.sub.code
     tokens              = listFromArray compiledGlobal.sub.toks
     for tokens println

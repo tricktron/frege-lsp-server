@@ -1,7 +1,7 @@
-module ch.fhnw.thga.fregelanguageserver.lsp4j.RangeLSP4J where
+module ch.fhnw.thga.fregelanguageserver.types.lsp.RangeLSP where
 
-import ch.fhnw.thga.fregelanguageserver.lsp4j.PositionLSP4J (PositionLSP)
-import ch.fhnw.thga.fregelanguageserver.types.Range (Range)
+import ch.fhnw.thga.fregelanguageserver.types.lsp.PositionLSP(PositionLSP)
+import ch.fhnw.thga.fregelanguageserver.types.Range(Range)
 
 data RangeLSP = pure native org.eclipse.lsp4j.Range where
     pure native new      :: PositionLSP -> PositionLSP -> RangeLSP

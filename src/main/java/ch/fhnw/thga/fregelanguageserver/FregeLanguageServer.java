@@ -1,5 +1,11 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.InitializeParams;
@@ -12,11 +18,18 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
+import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
+import frege.compiler.types.Global.TGlobal;
+import frege.compiler.types.Global.TOptions;
+
+
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
+    private static final String LOGFILE_NAME = "frege-ls.log";
 	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
+    private TGlobal projectGlobal;
 
 	public FregeLanguageServer()
     {
@@ -29,11 +42,48 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return client;
     }
 
+    public TGlobal getProjectGlobal()
+    {
+        return projectGlobal;
+    }
+
+    private TOptions createProjectOptions()
+    {
+        return CompileService.STANDARD_COMPILE_OPTIONS;
+    }
+
+    private String couldNotCreateOutputDirMessage(String outputDirPath)
+    {
+        return String.format
+        (
+            "Could not create output dir %s. Please create it manually and restart the server.",
+            outputDirPath
+        );
+    }
+
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
+        TOptions projectOptions = createProjectOptions();
+        Path languageServerOutputDir = Paths.get(projectOptions.mem$dir).normalize();
+        try 
+        {
+            Path outputDir = Files.createDirectories(languageServerOutputDir);
+            System.setErr(new PrintStream(new FileOutputStream
+            (
+                outputDir.resolve(LOGFILE_NAME).toFile()
+            )));
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+            throw new RuntimeException
+            (
+                couldNotCreateOutputDirMessage(languageServerOutputDir.toString()), e
+            );
+        }
+        projectGlobal = CompileService.createCompileGlobal(projectOptions);
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
-		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
+		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Incremental);
 		res.getCapabilities().setHoverProvider(true);
 		return CompletableFuture.supplyAsync(() -> res);
 	}

@@ -1,13 +1,12 @@
-module ch.fhnw.thga.fregelanguageserver.compile.CompileExecutor where
+module ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode where
 
-import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal
+import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal)
 import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
-import Compiler.types.Global (
-    Global, StIO, Message, StG, SubSt,
-    liftIO, liftStG,getSTT, getST, forsome, stio, changeST
+import Compiler.types.Global(
+        Global, StIO, Message, StG, SubSt,
+        liftIO, liftStG, getSTT, getST, forsome, stio, changeST
     )
-import Compiler.common.CompilerOptions (standardGlobal, theClassLoader)
-import Control.monad.State (StateT, execStateT)
+import Control.monad.State(StateT, execStateT)
 import Compiler.passes.Fix()
 import Compiler.passes.Imp()
 import Compiler.passes.Enter()
