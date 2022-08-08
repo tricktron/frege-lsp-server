@@ -11,7 +11,6 @@ repositories {
 
 dependencies {
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
-    
     frege          group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
     implementation "org.gradle:gradle-tooling-api:$gradleVersion"
