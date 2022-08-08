@@ -18,8 +18,8 @@ public class GradleProject implements Project
     {
         return CompileService.compileOptionsFromGradle
         (
-            projectInfo.getFregeMainSourceDir(),
-            projectInfo.getFregeDependenciesClasspath()
+            projectInfo.getMainSourceDir(),
+            projectInfo.getClasspath()
         );
     }
 }
