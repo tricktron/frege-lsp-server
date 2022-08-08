@@ -1,5 +1,6 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -17,8 +18,11 @@ import org.eclipse.lsp4j.services.LanguageClientAware;
 import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
+import org.gradle.tooling.GradleConnector;
+import org.gradle.tooling.ProjectConnection;
 
 import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
+import ch.fhnw.thga.gradleplugins.FregeProjectInfo;
 import frege.compiler.types.Global.TGlobal;
 import frege.compiler.types.Global.TOptions;
 
@@ -47,9 +51,27 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return projectGlobal;
     }
 
-    private TOptions createProjectOptions()
+    private TOptions createProjectOptions(String projectRootPath)
     {
-        return CompileService.STANDARD_COMPILE_OPTIONS;
+        try 
+        (
+            ProjectConnection connection = GradleConnector.newConnector()
+            .forProjectDirectory(new File(projectRootPath))
+            .connect()
+        ) 
+        {
+            FregeProjectInfo fregeProjectInfo = connection.getModel(FregeProjectInfo.class);
+            return CompileService.compileOptionsFromGradle
+            (
+                fregeProjectInfo.getFregeMainSourceDir(),
+                fregeProjectInfo.getFregeDependenciesClasspath()
+            );
+        }
+        catch (Exception e)
+        {
+            System.err.println(e.getMessage());
+            return CompileService.STANDARD_COMPILE_OPTIONS;
+        }
     }
 
     private String couldNotCreateOutputDirMessage(String outputDirPath)
@@ -64,7 +86,7 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
-        TOptions projectOptions = createProjectOptions();
+        TOptions projectOptions = createProjectOptions(params.getRootPath());
         Path languageServerOutputDir = Paths.get(projectOptions.mem$dir).normalize();
         try 
         {

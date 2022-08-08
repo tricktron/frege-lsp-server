@@ -18,6 +18,19 @@ public class CompileService
         return performUnsafe(CompileExecutorLSP.fromOptionsLSP(options)).call();
     }
 
+    public static TOptions compileOptionsFromGradle
+        (
+            String srcMainDir, 
+            String extraClasspath
+        )
+    {
+        return CompileExecutorLSP.fromGradle
+        (
+            Thunk.lazy(srcMainDir), 
+            Thunk.lazy(extraClasspath)
+        );
+    }
+    
     public static List<TGlobal> compileWithMakeMode(String filePath, TGlobal global)
     {
         return performUnsafe

@@ -150,7 +150,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileMakeMode.fr",
-  time=1659795938798L, jmajor=11, jminor=-1,
+  time=1659941753343L, jmajor=11, jminor=-1,
   imps={
     "frege.control.Concurrent", "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode",
@@ -803,7 +803,7 @@ import frege.test.QuickCheckText;
       sig=10, depth=1, rkind=13, doc=" Predicate to tell if the argument represents a successful state   "
     ),
     @Meta.SymV(
-      offset=38404,
+      offset=38312,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode",
         base="shouldShowErrorsIfDependencyIsNotOnClasspath"
@@ -811,7 +811,7 @@ import frege.test.QuickCheckText;
       stri="u", sig=54, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=37738,
+      offset=37692,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode", base="shouldFindAlreadyCompiledDependency"
       ),
@@ -12385,7 +12385,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                                         .call(),
                                                         PreludeBase.TList.DCons.<String/*<Character>*/>mk(
                                                               Thunk.<String/*<Character>*/>lazy(
-                                                                    "/Users/tricktron/github/master/frege-lsp-server/src/main/resources"
+                                                                    "./src/main/resources"
                                                                   ),
                                                               PreludeBase.TList.DList.<
                                                                 String/*<Character>*/
@@ -12453,7 +12453,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                                         .call(),
                                                         PreludeBase.TList.DCons.<String/*<Character>*/>mk(
                                                               Thunk.<String/*<Character>*/>lazy(
-                                                                    "/Users/tricktron/github/master/frege-lsp-server/src/main/resources"
+                                                                    "./src/main/resources"
                                                                   ),
                                                               PreludeBase.TList.DList.<
                                                                 String/*<Character>*/
@@ -12571,7 +12571,7 @@ final public static Lazy<QuickCheckGen.TGen<
                                                         .call(),
                                                         PreludeBase.TList.DCons.<String/*<Character>*/>mk(
                                                               Thunk.<String/*<Character>*/>lazy(
-                                                                    "/Users/tricktron/github/master/frege-lsp-server/src/main/resources"
+                                                                    "./src/main/resources"
                                                                   ),
                                                               PreludeBase.TList.DList.<
                                                                 String/*<Character>*/

@@ -152,7 +152,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileExecutorLSP.fr",
-  time=1659795939838L, jmajor=11, jminor=-1,
+  time=1659941754276L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode",
@@ -169,28 +169,33 @@ import frege.test.QuickCheckText;
   symas={}, symcs={}, symis={}, symts={},
   symvs={
     @Meta.SymV(
-      offset=720,
+      offset=735,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP", base="standardCompileOptionsLSP"
       ),
       stri="s", sig=0, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=631,
+      offset=646,
       name=@Meta.QName(
         pack="ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP", base="standardCompileGlobalLSP"
       ),
       stri="s", sig=1, depth=0, rkind=13
     ),
     @Meta.SymV(
-      offset=809,
+      offset=824,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP", base="fromOptionsLSP"),
       stri="s(s)", sig=2, depth=1, rkind=13
     ),
     @Meta.SymV(
-      offset=449,
+      offset=893,
+      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP", base="fromGradle"),
+      stri="s(uu)", sig=4, depth=2, rkind=13
+    ),
+    @Meta.SymV(
+      offset=464,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP", base="compileMakeLSP"),
-      stri="s(uu)", sig=5, depth=2, rkind=13
+      stri="s(uu)", sig=6, depth=2, rkind=13
     )
   },
   symls={},
@@ -214,12 +219,13 @@ import frege.test.QuickCheckText;
   },
   rhos={
     @Meta.Rho(rhofun=false, rhotau=0), @Meta.Rho(rhofun=false, rhotau=5), @Meta.Rho(sigma=0, rhotau=1),
-    @Meta.Rho(rhofun=false, rhotau=8), @Meta.Rho(rhofun=false, rhotau=4), @Meta.Rho(rhofun=false, rhotau=14),
-    @Meta.Rho(sigma=4, rhotau=5), @Meta.Rho(sigma=3, rhotau=6)
+    @Meta.Rho(rhofun=false, rhotau=8), @Meta.Rho(sigma=3, rhotau=0), @Meta.Rho(sigma=3, rhotau=4),
+    @Meta.Rho(rhofun=false, rhotau=4), @Meta.Rho(rhofun=false, rhotau=14), @Meta.Rho(sigma=5, rhotau=7),
+    @Meta.Rho(sigma=3, rhotau=8)
   },
   sigmas={
-    @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=3), @Meta.Sigma(rho=4),
-    @Meta.Sigma(rho=7)
+    @Meta.Sigma(rho=0), @Meta.Sigma(rho=1), @Meta.Sigma(rho=2), @Meta.Sigma(rho=3), @Meta.Sigma(rho=5),
+    @Meta.Sigma(rho=6), @Meta.Sigma(rho=9)
   },
   exprs={@Meta.Expr()}
 )
@@ -236,18 +242,43 @@ final public static Func.U<RealWorld, Global.TGlobal> standardCompileGlobalLSP =
 final public static Func.U<RealWorld, Global.TGlobal> fromOptionsLSP(final Global.TOptions arg$1) {
   return CompileGlobal.fromOptions(arg$1);
 }
+final public static Global.TOptions fromGradle(
+  final Lazy<String/*<Character>*/> arg$1, final Lazy<String/*<Character>*/> arg$2
+) {
+  return Global.TOptions.upd$path(
+            Global.TOptions.upd$sourcePath(
+                  CompileExecutorLSP.standardCompileOptionsLSP,
+                  PreludeBase.TList.DCons.<String/*<Character>*/>mk(
+                        Thunk.<String/*<Character>*/>nested(
+                              (Lazy<Lazy<String/*<Character>*/>>)(() -> CompileOptions.getEnvDefault(
+                                        arg$1, "FREGE_LS_SOURCE_DIR"
+                                      ))
+                            ),
+                        PreludeBase.TList.DList.<String/*<Character>*/>mk()
+                      )
+                ),
+            PreludeBase.TList.DCons.<String/*<Character>*/>mk(
+                  Thunk.<String/*<Character>*/>nested(
+                        (Lazy<Lazy<String/*<Character>*/>>)(() -> CompileOptions.getEnvDefault(
+                                  arg$2, "FREGE_LS_EXTRA_CLASSPATH"
+                                ))
+                      ),
+                  PreludeBase.TList.DList.<String/*<Character>*/>mk()
+                )
+          );
+}
 final public static Func.U<RealWorld, java.util.ArrayList<Global.TGlobal>> compileMakeLSP(
   final Lazy<String/*<Character>*/> arg$1, final Lazy<Global.TGlobal> arg$2
 ) {
-  return (Func.U<RealWorld, java.util.ArrayList<Global.TGlobal>>)((final Lazy<RealWorld> arg$17733) -> {
-            final PreludeBase.TList<Global.TGlobal> v2056$17719 = CompileMakeMode.compileMake(
+  return (Func.U<RealWorld, java.util.ArrayList<Global.TGlobal>>)((final Lazy<RealWorld> arg$17763) -> {
+            final PreludeBase.TList<Global.TGlobal> v2056$17749 = CompileMakeMode.compileMake(
                   arg$1, arg$2
-                ).apply(arg$17733).call();
-            final Func.U<RealWorld, java.util.ArrayList<Global.TGlobal>> v2057$17720 =
-            Generics.TArrayList.<Global.TGlobal, RealWorld>fromFregeList(v2056$17719);
+                ).apply(arg$17763).call();
+            final Func.U<RealWorld, java.util.ArrayList<Global.TGlobal>> v2057$17750 =
+            Generics.TArrayList.<Global.TGlobal, RealWorld>fromFregeList(v2056$17749);
             return Thunk.<java.util.ArrayList<Global.TGlobal>>nested(
-                      (Lazy<Lazy<java.util.ArrayList<Global.TGlobal>>>)(() -> v2057$17720
-                          .apply(arg$17733))
+                      (Lazy<Lazy<java.util.ArrayList<Global.TGlobal>>>)(() -> v2057$17750
+                          .apply(arg$17763))
                     );
           });
 }

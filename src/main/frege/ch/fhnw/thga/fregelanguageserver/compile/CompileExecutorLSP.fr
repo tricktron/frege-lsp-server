@@ -3,7 +3,7 @@ module ch.fhnw.thga.fregelanguageserver.compile.CompileExecutorLSP where
 import ch.fhnw.thga.fregelanguageserver.types.Generics(ArrayList)
 import ch.fhnw.thga.fregelanguageserver.compile.CompileMakeMode(compileMake)
 import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlobal, fromOptions)
-import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions)
+import ch.fhnw.thga.fregelanguageserver.compile.CompileOptions(standardCompileOptions, getEnvDefault)
 import Compiler.types.Global(Global, Options)
 
 compileMakeLSP :: String -> Global -> IOMutable (ArrayList Global)
@@ -19,3 +19,9 @@ standardCompileOptionsLSP = standardCompileOptions
 
 fromOptionsLSP :: Options -> IO Global
 fromOptionsLSP = fromOptions
+
+fromGradle :: String -> String -> Options
+fromGradle srcDir extraClasspath = standardCompileOptionsLSP.{
+        sourcePath = [ getEnvDefault srcDir "FREGE_LS_SOURCE_DIR" ],
+        path       = [ getEnvDefault extraClasspath "FREGE_LS_EXTRA_CLASSPATH" ]
+    }
