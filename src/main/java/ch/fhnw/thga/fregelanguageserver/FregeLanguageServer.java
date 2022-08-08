@@ -1,8 +1,11 @@
 package ch.fhnw.thga.fregelanguageserver;
 
+import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.ROOT_OUTPUT_DIR;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,13 +22,15 @@ import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
 import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
+import ch.fhnw.thga.fregelanguageserver.project.DefaultProject;
+import ch.fhnw.thga.fregelanguageserver.project.GradleProjectOptions;
 import frege.compiler.types.Global.TGlobal;
 import frege.compiler.types.Global.TOptions;
 
 
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
-    private static final String LOGFILE_NAME = "frege-ls.log";
+    private static final String LOGFILE_NAME = "frege.log";
 	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
@@ -47,9 +52,14 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return projectGlobal;
     }
 
-    private TOptions createProjectOptions()
+    private TOptions createProjectOptions(Path projectRootPath)
     {
-        return CompileService.STANDARD_COMPILE_OPTIONS;
+        if (projectRootPath.resolve("build.gradle").toFile().exists())
+        {
+            return new GradleProjectOptions()
+            .getCompileOptions(projectRootPath.toFile().getAbsolutePath());
+        }
+        return new DefaultProject().getCompileOptions();
     }
 
     private String couldNotCreateOutputDirMessage(String outputDirPath)
@@ -61,18 +71,36 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         );
     }
 
+    private void createLogFile(Path projectRootPath)
+    {
+        try
+        {
+            Path rootOutputDir = Files
+            .createDirectories(projectRootPath.resolve(ROOT_OUTPUT_DIR));
+            System.setErr(new PrintStream(new FileOutputStream
+            (
+                rootOutputDir
+                .resolve(LOGFILE_NAME).toFile()
+            )));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
-        TOptions projectOptions = createProjectOptions();
+        Path projectRootPath = Path.of
+        (
+            URI.create(params.getWorkspaceFolders().get(0).getUri())
+        );
+        createLogFile(projectRootPath);
+        TOptions projectOptions = createProjectOptions(projectRootPath);
         Path languageServerOutputDir = Paths.get(projectOptions.mem$dir).normalize();
         try 
         {
-            Path outputDir = Files.createDirectories(languageServerOutputDir);
-            System.setErr(new PrintStream(new FileOutputStream
-            (
-                outputDir.resolve(LOGFILE_NAME).toFile()
-            )));
+            Files.createDirectories(languageServerOutputDir);
         } catch (IOException e) 
         {
             e.printStackTrace();

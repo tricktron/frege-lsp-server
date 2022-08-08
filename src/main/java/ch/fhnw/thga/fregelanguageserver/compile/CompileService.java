@@ -12,12 +12,27 @@ public class CompileService
 {
     public static final TOptions STANDARD_COMPILE_OPTIONS = 
         CompileExecutorLSP.standardCompileOptionsLSP.call();
+    
+    public static final String ROOT_OUTPUT_DIR = CompileExecutorLSP.rootOutputDirLSP;
 
     public static TGlobal createCompileGlobal(TOptions options)
     {
         return performUnsafe(CompileExecutorLSP.fromOptionsLSP(options)).call();
     }
 
+    public static TOptions compileOptionsFromGradle
+        (
+            String srcMainDir, 
+            String extraClasspath
+        )
+    {
+        return CompileExecutorLSP.fromGradle
+        (
+            Thunk.lazy(srcMainDir), 
+            Thunk.lazy(extraClasspath)
+        );
+    }
+    
     public static List<TGlobal> compileWithMakeMode(String filePath, TGlobal global)
     {
         return performUnsafe

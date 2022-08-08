@@ -82,7 +82,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileGlobal.fr",
-  time=1659795936730L, jmajor=11, jminor=-1,
+  time=1659972657615L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", "frege.compiler.common.CompilerOptions",
     "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase",
@@ -124,41 +124,41 @@ final public class CompileGlobal  {
 
 
 final public static Func.U<RealWorld, Global.TGlobal> fromOptions(final Global.TOptions arg$1) {
-  return (Func.U<RealWorld, Global.TGlobal>)((final Lazy<RealWorld> arg$13593) -> {
-            final java.net.URLClassLoader v2056$13557 = CompilerOptions.theClassLoader(
+  return (Func.U<RealWorld, Global.TGlobal>)((final Lazy<RealWorld> arg$13594) -> {
+            final java.net.URLClassLoader v2056$13558 = CompilerOptions.theClassLoader(
                   arg$1
-                ).apply(arg$13593).call();
-            final Func.U<RealWorld, Global.TGlobal> v2053$13576 = CompilerOptions.standardGlobal
+                ).apply(arg$13594).call();
+            final Func.U<RealWorld, Global.TGlobal> v2053$13577 = CompilerOptions.standardGlobal
             .call();
-            final Global.TGlobal v2056$13579 = v2053$13576.apply(arg$13593).call();
-            final Func.U<RealWorld, Global.TGlobal> v2057$13580 = PreludeMonad.IMonad_ST.<
+            final Global.TGlobal v2056$13580 = v2053$13577.apply(arg$13594).call();
+            final Func.U<RealWorld, Global.TGlobal> v2057$13581 = PreludeMonad.IMonad_ST.<
               RealWorld, Global.TGlobal
             >pure(
                   Thunk.<Global.TGlobal>shared(
                         (Lazy<Global.TGlobal>)(() -> Global.TGlobal.chg$sub(
-                                  Global.TGlobal.upd$options(v2056$13579, arg$1),
-                                  (Func.U<Global.TSubSt, Global.TSubSt>)((final Lazy<Global.TSubSt> η$13597) -> Thunk.<
+                                  Global.TGlobal.upd$options(v2056$13580, arg$1),
+                                  (Func.U<Global.TSubSt, Global.TSubSt>)((final Lazy<Global.TSubSt> η$13598) -> Thunk.<
                                         Global.TSubSt
                                       >nested(
                                             (Lazy<Lazy<Global.TSubSt>>)(() -> PreludeBase.<
                                                   Global.TSubSt, Global.TSubSt, java.net.URLClassLoader
                                                 >flip(
                                                       (Func.U<Global.TSubSt, Func.U<java.net.URLClassLoader, Global.TSubSt>>)((
-                                                        final Lazy<Global.TSubSt> η$13598
+                                                        final Lazy<Global.TSubSt> η$13599
                                                       ) -> (Func.U<java.net.URLClassLoader, Global.TSubSt>)((
-                                                            final Lazy<java.net.URLClassLoader> η$13599
+                                                            final Lazy<java.net.URLClassLoader> η$13600
                                                           ) -> Thunk.<Global.TSubSt>shared(
                                                                     (Lazy<Global.TSubSt>)(() -> Global.TSubSt.upd$loader(
-                                                                              η$13598.call(), η$13599.call()
+                                                                              η$13599.call(), η$13600.call()
                                                                             ))
                                                                   ))),
-                                                      Thunk.<java.net.URLClassLoader>lazy(v2056$13557), η$13597
+                                                      Thunk.<java.net.URLClassLoader>lazy(v2056$13558), η$13598
                                                     ))
                                           ))
                                 ))
                       )
                 );
-            return Thunk.<Global.TGlobal>nested((Lazy<Lazy<Global.TGlobal>>)(() -> v2057$13580.apply(arg$13593)));
+            return Thunk.<Global.TGlobal>nested((Lazy<Lazy<Global.TGlobal>>)(() -> v2057$13581.apply(arg$13594)));
           });
 }
 final public static Lazy<Func.U<RealWorld, Global.TGlobal>> standardCompileGlobal = Thunk.<

@@ -6,12 +6,15 @@ import Compiler.enums.Flags
 getEnvDefault :: String -> String -> String
 getEnvDefault defaultValue envName = maybe defaultValue id $ System.getenv envName
 
+rootOutputDir :: String
+rootOutputDir = ".frege"
+
 standardCompileOptions :: Options
 standardCompileOptions = Options 
     { 
         source       = "-",
         sourcePath   = [ getEnvDefault "./src/main/frege" "FREGE_LS_SOURCE_DIR" ],
-        dir          = getEnvDefault "./.frege-ls/classes/frege" "FREGE_LS_TARGET_DIR", -- this folder must already exist, otherwise we get import errors
+        dir          =  rootOutputDir ++ "/classes/frege", -- this folder must already exist before loading the classloader, otherwise we get import errors
         path         = [ getEnvDefault "" "FREGE_LS_EXTRA_CLASSPATH" ],
         prefix       = "",
         encoding     = Just "UTF-8",

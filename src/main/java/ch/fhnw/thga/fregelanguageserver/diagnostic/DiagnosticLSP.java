@@ -156,7 +156,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/diagnostic/DiagnosticLSP.fr",
-  time=1659795938629L, jmajor=11, jminor=-1,
+  time=1659972659590L, jmajor=11, jminor=-1,
   imps={
     "ch.fhnw.thga.fregelanguageserver.diagnostic.Diagnostic", "ch.fhnw.thga.fregelanguageserver.types.Generics",
     "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase",
@@ -344,13 +344,13 @@ final public static class TDiagnosticSeverityLSP  {
 }
 final public static class TDiagnosticLSP  {
   final public static org.eclipse.lsp4j.Diagnostic fromDiagnostic(final Diagnostic.TDiagnostic arg$1) {
-    final String/*<Character>*/ message$17737 = arg$1.mem$message.call();
-    final String/*<Character>*/ source$17736 = arg$1.mem$source.call();
-    final short severity$17735 = (short)arg$1.mem$severity.call();
-    final Range.TRange range$17734 = arg$1.mem$range.call();
+    final String/*<Character>*/ message$17738 = arg$1.mem$message.call();
+    final String/*<Character>*/ source$17737 = arg$1.mem$source.call();
+    final short severity$17736 = (short)arg$1.mem$severity.call();
+    final Range.TRange range$17735 = arg$1.mem$range.call();
     return new org.eclipse.lsp4j.Diagnostic(
-          RangeLSP.TRangeLSP.fromRange(range$17734), message$17737, TDiagnosticSeverityLSP.fromCompilerSeverity(severity$17735),
-          source$17736
+          RangeLSP.TRangeLSP.fromRange(range$17735), message$17738, TDiagnosticSeverityLSP.fromCompilerSeverity(severity$17736),
+          source$17737
         );
   }
 }
@@ -368,10 +368,10 @@ final public static <𝓢> Func.U<𝓢, java.util.ArrayList<org.eclipse.lsp4j.Di
                         Diagnostic.TDiagnostic, org.eclipse.lsp4j.Diagnostic
                       >fmap(
                             (Func.U<Diagnostic.TDiagnostic, org.eclipse.lsp4j.Diagnostic>)((
-                              final Lazy<Diagnostic.TDiagnostic> η$17765
+                              final Lazy<Diagnostic.TDiagnostic> η$17766
                             ) -> Thunk.<org.eclipse.lsp4j.Diagnostic>shared(
                                       (Lazy<org.eclipse.lsp4j.Diagnostic>)(() -> TDiagnosticLSP.fromDiagnostic(
-                                                η$17765.call()
+                                                η$17766.call()
                                               ))
                                     )),
                             Diagnostic.getDiagnostics(arg$1)

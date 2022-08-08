@@ -34,7 +34,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/types/Position.fr",
-  time=1659795935767L, jmajor=11, jminor=-1,
+  time=1659972656812L, jmajor=11, jminor=-1,
   imps={
     "frege.Prelude", "frege.prelude.PreludeArrays", "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal",
     "frege.prelude.PreludeIO", "frege.prelude.PreludeList", "frege.prelude.PreludeMonad", "frege.prelude.PreludeText",

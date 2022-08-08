@@ -1,16 +1,21 @@
 plugins {
     id 'application'
-    id 'ch.fhnw.thga.frege' version '4.1.0-alpha'
+    id 'ch.fhnw.thga.frege' version '4.2.0-alpha'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    mavenLocal()
 }
 
 dependencies {
     implementation group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     frege          group: 'org.eclipse.lsp4j', name: 'org.eclipse.lsp4j', version: '0.12.0'
     implementation files(compileFrege.fregeCompilerJar)
+    implementation "org.gradle:gradle-tooling-api:$gradleVersion"
+    runtimeOnly    'org.slf4j:slf4j-simple:1.7.10'
+    implementation group: 'ch.fhnw.thga', name: 'frege-plugin', version: '4.2.0-alpha'
 }
 
 application {
