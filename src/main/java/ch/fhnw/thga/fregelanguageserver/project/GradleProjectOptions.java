@@ -5,7 +5,7 @@ import java.io.File;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 
-import ch.fhnw.thga.gradleplugins.FregeProjectInfo;
+import ch.fhnw.thga.fregegradleplugin.tooling.FregeProjectInfo;
 
 public class GradleProjectOptions extends ProjectOptions
 {

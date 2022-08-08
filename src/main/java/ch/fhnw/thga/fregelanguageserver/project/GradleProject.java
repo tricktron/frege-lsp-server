@@ -1,7 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver.project;
 
 import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
-import ch.fhnw.thga.gradleplugins.FregeProjectInfo;
+import ch.fhnw.thga.fregegradleplugin.tooling.FregeProjectInfo;
 import frege.compiler.types.Global.TOptions;
 
 public class GradleProject implements Project
