@@ -12,6 +12,8 @@ public class CompileService
 {
     public static final TOptions STANDARD_COMPILE_OPTIONS = 
         CompileExecutorLSP.standardCompileOptionsLSP.call();
+    
+    public static final String ROOT_OUTPUT_DIR = CompileExecutorLSP.rootOutputDirLSP;
 
     public static TGlobal createCompileGlobal(TOptions options)
     {

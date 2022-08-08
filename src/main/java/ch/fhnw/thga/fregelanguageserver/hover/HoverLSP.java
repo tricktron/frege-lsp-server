@@ -156,7 +156,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/hover/HoverLSP.fr",
-  time=1659941753293L, jmajor=11, jminor=-1,
+  time=1659966091250L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.types.Global", "ch.fhnw.thga.fregelanguageserver.hover.Hover",
     "ch.fhnw.thga.fregelanguageserver.types.lsp.PositionLSP", "frege.Prelude", "frege.prelude.PreludeArrays",
@@ -299,13 +299,13 @@ final public class HoverLSP  {
 
 final public static class THoverLSP  {
   final public static org.eclipse.lsp4j.Hover fromHover(final Hover.THover arg$1) {
-    final String/*<Character>*/ content$18105 = arg$1.mem$content.call();
-    final Range.TRange range$18104 = arg$1.mem$range.call();
+    final String/*<Character>*/ content$18106 = arg$1.mem$content.call();
+    final Range.TRange range$18105 = arg$1.mem$range.call();
     return new org.eclipse.lsp4j.Hover(
           new org.eclipse.lsp4j.MarkupContent(
-            org.eclipse.lsp4j.MarkupKind.MARKDOWN, Hover.IShow_FregeCodeBlock.show(content$18105)
+            org.eclipse.lsp4j.MarkupKind.MARKDOWN, Hover.IShow_FregeCodeBlock.show(content$18106)
           ),
-          RangeLSP.TRangeLSP.fromRange(range$18104)
+          RangeLSP.TRangeLSP.fromRange(range$18105)
         );
   }
 }
@@ -317,19 +317,19 @@ final public static Lazy<Func.U<RealWorld, Short>> $main = Thunk.<Func.U<RealWor
 final public static PreludeBase.TMaybe<org.eclipse.lsp4j.Hover> getTypeSignatureOnHoverLSP(
   final Lazy<org.eclipse.lsp4j.Position> arg$1, final Lazy<Global.TGlobal> arg$2
 ) {
-  final PreludeBase.TMaybe<Hover.THover> $18156 = Hover.getTypeSignatureOnHover(
+  final PreludeBase.TMaybe<Hover.THover> $18157 = Hover.getTypeSignatureOnHover(
         Thunk.<Position.TPosition>shared((Lazy<Position.TPosition>)(() -> PositionLSP.TPositionLSP.toPosition(arg$1))), arg$2
       );
-  final PreludeBase.TMaybe.DJust<Hover.THover> $18157 = $18156.asJust();
-  if ($18157 != null) {
+  final PreludeBase.TMaybe.DJust<Hover.THover> $18158 = $18157.asJust();
+  if ($18158 != null) {
     return Maybe.IApplicative_Maybe.<org.eclipse.lsp4j.Hover>pure(
               Thunk.<org.eclipse.lsp4j.Hover>shared(
-                    (Lazy<org.eclipse.lsp4j.Hover>)(() -> THoverLSP.fromHover($18157.mem1.call()))
+                    (Lazy<org.eclipse.lsp4j.Hover>)(() -> THoverLSP.fromHover($18158.mem1.call()))
                   )
             );
   }
-  final PreludeBase.TMaybe.DNothing<Hover.THover> $18158 = $18156.asNothing();
-  assert $18158 != null;
+  final PreludeBase.TMaybe.DNothing<Hover.THover> $18159 = $18157.asNothing();
+  assert $18159 != null;
   return PreludeBase.TMaybe.DNothing.<org.eclipse.lsp4j.Hover>mk();
 }
 

@@ -78,7 +78,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileOptions.fr",
-  time=1659941750501L, jmajor=11, jminor=-1,
+  time=1659966087986L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -91,9 +91,14 @@ import frege.prelude.PreludeText;
   symas={}, symcs={}, symis={}, symts={},
   symvs={
     @Meta.SymV(
-      offset=320,
+      offset=370,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", base="standardCompileOptions"),
       stri="u", sig=0, depth=0, rkind=8
+    ),
+    @Meta.SymV(
+      offset=320,
+      name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", base="rootOutputDir"), stri="s",
+      sig=1, depth=0, rkind=13
     ),
     @Meta.SymV(
       offset=192,
@@ -125,13 +130,14 @@ final public class CompileOptions  {
 
 
 
+final public static String/*<Character>*/ rootOutputDir = ".frege";
 final public static Lazy<String/*<Character>*/> getEnvDefault(
   final Lazy<String/*<Character>*/> arg$1, final String/*<Character>*/ arg$2
 ) {
   return PreludeBase.<String/*<Character>*/, String/*<Character>*/>maybe(
             arg$1,
-            (Func.U<String/*<Character>*/, String/*<Character>*/>)((final Lazy<String/*<Character>*/> arg$12951) -> {
-                  return arg$12951;
+            (Func.U<String/*<Character>*/, String/*<Character>*/>)((final Lazy<String/*<Character>*/> arg$12954) -> {
+                  return arg$12954;
                 }),
             PreludeBase._toMaybe(System.getenv(arg$2))
           );
@@ -179,9 +185,7 @@ final public static Lazy<Global.TOptions> standardCompileOptions = Thunk.<Global
                                       )
                                 )
                           ),
-                      CompileOptions.getEnvDefault(
-                            Thunk.<String/*<Character>*/>lazy("./.frege-ls/classes/frege"), "FREGE_LS_TARGET_DIR"
-                          ).call(),
+                      CompileOptions.rootOutputDir + "/classes/frege",
                       PreludeBase.TList.DCons.<String/*<Character>*/>mk(
                             Thunk.<String/*<Character>*/>nested(
                                   (Lazy<Lazy<String/*<Character>*/>>)(() -> CompileOptions.getEnvDefault(

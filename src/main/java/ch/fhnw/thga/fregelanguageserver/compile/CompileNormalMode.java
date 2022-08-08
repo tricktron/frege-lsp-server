@@ -149,7 +149,7 @@ import frege.test.QuickCheckText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileNormalMode.fr",
-  time=1659941751998L, jmajor=11, jminor=-1,
+  time=1659966089749L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.Classes", "ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal",
     "ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", "frege.compiler.common.Desugar",
@@ -362,9 +362,9 @@ final public static class IShow_Message implements PreludeText.CShow<Global.TMes
     return "[" + (PreludeText.joined(
               Thunk.<String/*<Character>*/>lazy(", "),
               PreludeList.<String/*<Character>*/, Global.TMessage>map(
-                    (Func.U<Global.TMessage, String/*<Character>*/>)((final Lazy<Global.TMessage> η$19887) -> Thunk.<
+                    (Func.U<Global.TMessage, String/*<Character>*/>)((final Lazy<Global.TMessage> η$19888) -> Thunk.<
                           String/*<Character>*/
-                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Message.show(η$19887.call())))),
+                        >shared((Lazy<String/*<Character>*/>)(() -> IShow_Message.show(η$19888.call())))),
                     arg$1
                   )
             ).call() + ("]" + arg$2));
@@ -392,17 +392,17 @@ final public static class IShow_Message implements PreludeText.CShow<Global.TMes
 final public static State.TState<Global.TGlobal, Global.TGlobal> switchState(final Lazy<Global.TGlobal> arg$1) {
   return State.TState.<Global.TGlobal, Global.TGlobal>mk(
             (Func.U<Global.TGlobal, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$19888
+              final Lazy<Global.TGlobal> arg$19889
             ) -> {
-                  final Global.TGlobal v7690$18658 = arg$19888.call();
-                  final State.TState<Global.TGlobal, Short> $19890 = State.TState.<Global.TGlobal>put(
+                  final Global.TGlobal v7690$18659 = arg$19889.call();
+                  final State.TState<Global.TGlobal, Short> $19891 = State.TState.<Global.TGlobal>put(
                         arg$1
                       );
-                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$18694 =
-                  $19890.mem$fun;
-                  final PreludeBase.TTuple2<Short, Global.TGlobal> $19892 = v8822$18694
-                  .apply(v7690$18658).call();
-                  return PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(v7690$18658, $19892.mem2);
+                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$18695 =
+                  $19891.mem$fun;
+                  final PreludeBase.TTuple2<Short, Global.TGlobal> $19893 = v8822$18695
+                  .apply(v7690$18659).call();
+                  return PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(v7690$18659, $19893.mem2);
                 })
           );
 }
@@ -414,28 +414,28 @@ final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> r
 ) {
   return State.TStateT.<Global.TGlobal, Func.U<RealWorld, ?>, Short>mk(
             (Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>>)((
-              final Lazy<Global.TGlobal> arg$19893
+              final Lazy<Global.TGlobal> arg$19894
             ) -> {
                   return Thunk.<Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>>lazy(
                             (Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>)(Func.U<
                               RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>
-                            >)((final Lazy<RealWorld> arg$19894) -> {
-                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$18823 =
+                            >)((final Lazy<RealWorld> arg$19895) -> {
+                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$18824 =
                                   PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>pure(
                                         PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(
-                                              arg$19893, arg$19893
+                                              arg$19894, arg$19894
                                             )
-                                      ).apply(arg$19894).call();
-                                  final Global.TGlobal v7737$18791 = v2056$18823.mem1
+                                      ).apply(arg$19895).call();
+                                  final Global.TGlobal v7737$18792 = v2056$18824.mem1
                                   .call();
                                   final State.TStateT<
                                     Global.TGlobal, Func.U<RealWorld, ?>, PreludeBase.TTuple2<String/*<Character>*/, Integer>
-                                  > $19897 = arg$1.mem1.call();
-                                  if (Global.TGlobal.errors(v7737$18791) == 0) {
+                                  > $19898 = arg$1.mem1.call();
+                                  if (Global.TGlobal.errors(v7737$18792) == 0) {
                                     final Func.U<
                                       RealWorld,
                                       PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>
-                                    > v2053$18943 = RunTM.<
+                                    > v2053$18944 = RunTM.<
                                       Func.U<
                                         Global.TGlobal,
                                         Func.U<
@@ -445,33 +445,33 @@ final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> r
                                           >
                                         >
                                       >
-                                    >cast($19897.mem$run).apply(v2056$18823.mem2).call();
+                                    >cast($19898.mem$run).apply(v2056$18824.mem2).call();
                                     final PreludeBase.TTuple2<
                                       PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal
-                                    > v2056$18945 = v2053$18943.apply(arg$19894).call();
-                                    final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7737$18946 =
-                                    v2056$18945.mem1.call();
-                                    final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2057$18951 =
+                                    > v2056$18946 = v2053$18944.apply(arg$19895).call();
+                                    final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7737$18947 =
+                                    v2056$18946.mem1.call();
+                                    final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2057$18952 =
                                     PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>pure(
                                           PreludeBase.TTuple2.<Short, Global.TGlobal>mk(
-                                                Thunk.<Short>lazy(PreludeBase.TUnit.Unit), v2056$18945.mem2
+                                                Thunk.<Short>lazy(PreludeBase.TUnit.Unit), v2056$18946.mem2
                                               )
                                         );
                                     return Thunk.<PreludeBase.TTuple2<Short, Global.TGlobal>>nested(
-                                              (Lazy<Lazy<PreludeBase.TTuple2<Short, Global.TGlobal>>>)(() -> v2057$18951
-                                                  .apply(arg$19894))
+                                              (Lazy<Lazy<PreludeBase.TTuple2<Short, Global.TGlobal>>>)(() -> v2057$18952
+                                                  .apply(arg$19895))
                                             );
                                   }
                                   else {
-                                    final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2057$18957 =
+                                    final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2057$18958 =
                                     PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>pure(
                                           PreludeBase.TTuple2.<Short, Global.TGlobal>mk(
-                                                Thunk.<Short>lazy(PreludeBase.TUnit.Unit), v2056$18823.mem2
+                                                Thunk.<Short>lazy(PreludeBase.TUnit.Unit), v2056$18824.mem2
                                               )
                                         );
                                     return Thunk.<PreludeBase.TTuple2<Short, Global.TGlobal>>nested(
-                                              (Lazy<Lazy<PreludeBase.TTuple2<Short, Global.TGlobal>>>)(() -> v2057$18957
-                                                  .apply(arg$19894))
+                                              (Lazy<Lazy<PreludeBase.TTuple2<Short, Global.TGlobal>>>)(() -> v2057$18958
+                                                  .apply(arg$19895))
                                             );
                                   }
                                 })
@@ -485,15 +485,15 @@ final public static Lazy<State.TStateT<
   State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, PreludeBase.TTuple2<String/*<Character>*/, Integer>>
 >shared(
       (Lazy<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, PreludeBase.TTuple2<String/*<Character>*/, Integer>>>)(() -> {
-            final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7732$19381 = PreludeBase.TTuple2.<
+            final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7732$19382 = PreludeBase.TTuple2.<
               String/*<Character>*/, Integer
             >mk(Thunk.<String/*<Character>*/>lazy("file"), Thunk.<Integer>lazy(1));
-            final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19904 =
-            GenMeta.banner(Thunk.<String/*<Character>*/>lazy(Version.version));
             final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19905 =
+            GenMeta.banner(Thunk.<String/*<Character>*/>lazy(Version.version));
+            final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19906 =
             Main.openFilePrinter(Thunk.<String/*<Character>*/>lazy(".java"));
-            final Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>> v8728$19274 =
-            $19905.mem$run;
+            final Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>> v8728$19275 =
+            $19906.mem$run;
             return State.TStateT.<Global.TGlobal, Func.U<RealWorld, ?>, PreludeBase.TTuple2<String/*<Character>*/, Integer>>mk(
                       (Func.U<
                         Global.TGlobal,
@@ -501,7 +501,7 @@ final public static Lazy<State.TStateT<
                           Func.U<RealWorld, ?>,
                           PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>
                         >
-                      >)((final Lazy<Global.TGlobal> arg$19907) -> {
+                      >)((final Lazy<Global.TGlobal> arg$19908) -> {
                             return Thunk.<
                                   Kind.U<
                                     Func.U<RealWorld, ?>,
@@ -514,29 +514,29 @@ final public static Lazy<State.TStateT<
                                       >)(Func.U<
                                         RealWorld,
                                         PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>
-                                      >)((final Lazy<RealWorld> arg$19908) -> {
-                                            final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19308 =
+                                      >)((final Lazy<RealWorld> arg$19909) -> {
+                                            final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19309 =
                                             RunTM.<
                                               Func.U<
                                                 Global.TGlobal, Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>
                                               >
-                                            >cast(v8728$19274).apply(arg$19907).call()
-                                            .apply(arg$19908).call();
-                                            final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19362 =
+                                            >cast(v8728$19275).apply(arg$19908).call()
+                                            .apply(arg$19909).call();
+                                            final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19363 =
                                             RunTM.<
                                               Func.U<
                                                 Global.TGlobal, Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>
                                               >
-                                            >cast($19904.mem$run).apply(v2056$19308.mem2)
+                                            >cast($19905.mem$run).apply(v2056$19309.mem2)
                                             .call();
-                                            final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19365 =
-                                            v2053$19362.apply(arg$19908).call();
+                                            final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19366 =
+                                            v2053$19363.apply(arg$19909).call();
                                             final Func.U<
                                               RealWorld,
                                               PreludeBase.TTuple2<
                                                 PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal
                                               >
-                                            > v2057$19366 = PreludeMonad.IMonad_ST.<
+                                            > v2057$19367 = PreludeMonad.IMonad_ST.<
                                               RealWorld,
                                               PreludeBase.TTuple2<
                                                 PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal
@@ -544,7 +544,7 @@ final public static Lazy<State.TStateT<
                                             >pure(
                                                   PreludeBase.TTuple2.<
                                                     PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal
-                                                  >mk(v7732$19381, v2056$19365.mem2)
+                                                  >mk(v7732$19382, v2056$19366.mem2)
                                                 );
                                             return Thunk.<
                                                   PreludeBase.TTuple2<
@@ -553,7 +553,7 @@ final public static Lazy<State.TStateT<
                                                 >nested(
                                                       (Lazy<Lazy<PreludeBase.TTuple2<
                                                         PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal
-                                                      >>>)(() -> v2057$19366.apply(arg$19908))
+                                                      >>>)(() -> v2057$19367.apply(arg$19909))
                                                     );
                                           })
                                     );
@@ -1957,28 +1957,28 @@ final public static Lazy<PreludeBase.TList<
 final public static State.TState<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>> lexPassSourceCode(
   final String/*<Character>*/ arg$1
 ) {
-  final State.TState<Global.TGlobal, PreludeBase.TList<Tokens.TToken>> $19913 = Lexer.passCS(
+  final State.TState<Global.TGlobal, PreludeBase.TList<Tokens.TToken>> $19914 = Lexer.passCS(
         (java.lang.CharSequence)(arg$1)
       );
-  final Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Tokens.TToken>, Global.TGlobal>> v7688$19400 =
-  $19913.mem$fun;
+  final Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TList<Tokens.TToken>, Global.TGlobal>> v7688$19401 =
+  $19914.mem$fun;
   return State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>>mk(
             (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$19915
+              final Lazy<Global.TGlobal> arg$19916
             ) -> {
-                  final PreludeBase.TTuple2<PreludeBase.TList<Tokens.TToken>, Global.TGlobal> $19916 =
-                  v7688$19400.apply(arg$19915).call();
-                  final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7686$19429 =
+                  final PreludeBase.TTuple2<PreludeBase.TList<Tokens.TToken>, Global.TGlobal> $19917 =
+                  v7688$19401.apply(arg$19916).call();
+                  final PreludeBase.TTuple2<String/*<Character>*/, Integer> v7686$19430 =
                   PreludeBase.TTuple2.<String/*<Character>*/, Integer>mk(
                         Thunk.<String/*<Character>*/>lazy("tokens"),
                         Thunk.<Integer>shared(
                               (Lazy<Integer>)(() -> PreludeList.IListView_$lbrack$rbrack.<
                                     Tokens.TToken
-                                  >length($19916.mem1.call()))
+                                  >length($19917.mem1.call()))
                             )
                       );
                   return PreludeBase.TTuple2.<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>mk(
-                            v7686$19429, $19916.mem2
+                            v7686$19430, $19917.mem2
                           );
                 })
           );
@@ -1986,84 +1986,84 @@ final public static State.TState<Global.TGlobal, PreludeBase.TTuple2<String/*<Ch
 final public static PreludeBase.TList<Tokens.TToken> ideClean(PreludeBase.TList<Tokens.TToken> arg$1) {
   tailrecursion: while (true) {
     final PreludeBase.TList<Tokens.TToken> arg$1f = arg$1;
-    final PreludeBase.TList.DCons<Tokens.TToken> $19918 = arg$1f.asCons();
-    if ($19918 != null) {
-      final Tokens.TToken t$17848 = $19918.mem1.call();
-      if (TokenID.IEq_TokenID.$eq$eq(Tokens.TToken.tokid(t$17848), TokenID.TTokenID.COMMENT)) {
-        if (Tokens.TToken.value(t$17848).equals("}")) {
-          arg$1 = $19918.mem2.call();
+    final PreludeBase.TList.DCons<Tokens.TToken> $19919 = arg$1f.asCons();
+    if ($19919 != null) {
+      final Tokens.TToken t$17849 = $19919.mem1.call();
+      if (TokenID.IEq_TokenID.$eq$eq(Tokens.TToken.tokid(t$17849), TokenID.TTokenID.COMMENT)) {
+        if (Tokens.TToken.value(t$17849).equals("}")) {
+          arg$1 = $19919.mem2.call();
           continue tailrecursion;
         }
       }
-      if (Tokens.TToken.col(t$17848) == 0) {
-        arg$1 = $19918.mem2.call();
+      if (Tokens.TToken.col(t$17849) == 0) {
+        arg$1 = $19919.mem2.call();
         continue tailrecursion;
       }
       return PreludeBase.TList.DCons.<Tokens.TToken>mk(
-                t$17848,
+                t$17849,
                 Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
                       (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> CompileNormalMode.ideClean(
-                                $19918.mem2.call()
+                                $19919.mem2.call()
                               ))
                     )
               );
     }
-    final PreludeBase.TList.DList<Tokens.TToken> $19920 = arg$1f.asList();
-    assert $19920 != null;
+    final PreludeBase.TList.DList<Tokens.TToken> $19921 = arg$1f.asList();
+    assert $19921 != null;
     return PreludeBase.TList.DList.<Tokens.TToken>mk();
   }
 }
 final public static State.TState<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>> parsePass =
 State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>>mk(
       (Func.U<Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>>)((
-        final Lazy<Global.TGlobal> arg$19921
+        final Lazy<Global.TGlobal> arg$19922
       ) -> {
-            final State.TState<Global.TGlobal, PreludeBase.TMaybe<Desugar.TProgram>> $19923 =
+            final State.TState<Global.TGlobal, PreludeBase.TMaybe<Desugar.TProgram>> $19924 =
             Frege.pass(
                   Thunk.<PreludeBase.TList<Tokens.TToken>>shared(
                         (Lazy<PreludeBase.TList<Tokens.TToken>>)(() -> PreludeList.<Tokens.TToken>filter(
-                                  (Func.U<Tokens.TToken, Boolean>)((final Lazy<Tokens.TToken> η$19922) -> Thunk.<
+                                  (Func.U<Tokens.TToken, Boolean>)((final Lazy<Tokens.TToken> η$19923) -> Thunk.<
                                         Boolean
-                                      >shared((Lazy<Boolean>)(() -> Tokens.TToken.noComment(η$19922.call())))),
+                                      >shared((Lazy<Boolean>)(() -> Tokens.TToken.noComment(η$19923.call())))),
                                   PreludeArrays.IListSource_JArray.<Tokens.TToken>toList(
-                                        Global.TSubSt.toks(Global.TGlobal.sub(arg$19921.call()))
+                                        Global.TSubSt.toks(Global.TGlobal.sub(arg$19922.call()))
                                       )
                                 ))
                       )
                 );
             final Func.U<
               Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TMaybe<Desugar.TProgram>, Global.TGlobal>
-            > v7688$19078 = $19923.mem$fun;
-            final PreludeBase.TTuple2<PreludeBase.TMaybe<Desugar.TProgram>, Global.TGlobal> $19925 =
-            v7688$19078.apply(arg$19921).call();
-            final PreludeBase.TMaybe<Desugar.TProgram> v7691$19081 = $19925.mem1.call();
-            final PreludeBase.TMaybe.DJust<Desugar.TProgram> $19927 = v7691$19081.asJust();
-            if ($19927 != null) {
-              final Desugar.TProgram $19928 = $19927.mem1.call();
-              final Desugar.TProgram.DModule $19929 = $19928.asModule();
-              if ($19929 != null) {
+            > v7688$19079 = $19924.mem$fun;
+            final PreludeBase.TTuple2<PreludeBase.TMaybe<Desugar.TProgram>, Global.TGlobal> $19926 =
+            v7688$19079.apply(arg$19922).call();
+            final PreludeBase.TMaybe<Desugar.TProgram> v7691$19082 = $19926.mem1.call();
+            final PreludeBase.TMaybe.DJust<Desugar.TProgram> $19928 = v7691$19082.asJust();
+            if ($19928 != null) {
+              final Desugar.TProgram $19929 = $19928.mem1.call();
+              final Desugar.TProgram.DModule $19930 = $19929.asModule();
+              if ($19930 != null) {
                 final PreludeBase.TTuple3<
                   String/*<Character>*/, PreludeBase.TList<SourceDefinitions.TDefinitionS>,
                   PreludeBase.TMaybe<String/*<Character>*/>
-                > $19930 = $19929.mem1.call();
-                final PreludeBase.TTuple2<String/*<Character>*/, Integer> v16081$19235 =
+                > $19931 = $19930.mem1.call();
+                final PreludeBase.TTuple2<String/*<Character>*/, Integer> v16081$19236 =
                 PreludeBase.TTuple2.<String/*<Character>*/, Integer>mk(
                       Thunk.<String/*<Character>*/>lazy("tokens"),
                       Thunk.<Integer>shared(
                             (Lazy<Integer>)(() -> java.lang.reflect.Array.getLength(
-                                      Global.TSubSt.toks(Global.TGlobal.sub(arg$19921.call()))
+                                      Global.TSubSt.toks(Global.TGlobal.sub(arg$19922.call()))
                                     ))
                           )
                     );
-                final Lazy<State.TState<Global.TGlobal, Short>> tmp$19260 = Thunk.<State.TState<Global.TGlobal, Short>>shared(
+                final Lazy<State.TState<Global.TGlobal, Short>> tmp$19261 = Thunk.<State.TState<Global.TGlobal, Short>>shared(
                       (Lazy<State.TState<Global.TGlobal, Short>>)(() -> {
                             if (
                               Flags.isOn(
-                                    (long)Global.TOptions.flags(Global.TGlobal.options(arg$19921.call())), Flags.TFlag.IDETOKENS
+                                    (long)Global.TOptions.flags(Global.TGlobal.options(arg$19922.call())), Flags.TFlag.IDETOKENS
                                   )
                             ) {
                               return State.TState.<Global.TGlobal>modify(
-                                        (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> η$19932) -> Thunk.<
+                                        (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> η$19933) -> Thunk.<
                                               Global.TGlobal
                                             >nested(
                                                   (Lazy<Lazy<Global.TGlobal>>)(() -> PreludeBase.<
@@ -2072,17 +2072,17 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                             (Func.U<
                                                               Global.TGlobal,
                                                               Func.U<Func.U<Global.TSubSt, Global.TSubSt>, Global.TGlobal>
-                                                            >)((final Lazy<Global.TGlobal> η$19933) -> (Func.U<
+                                                            >)((final Lazy<Global.TGlobal> η$19934) -> (Func.U<
                                                                   Func.U<Global.TSubSt, Global.TSubSt>, Global.TGlobal
                                                                 >)((
-                                                                  final Lazy<Func.U<Global.TSubSt, Global.TSubSt>> η$19934
+                                                                  final Lazy<Func.U<Global.TSubSt, Global.TSubSt>> η$19935
                                                                 ) -> Thunk.<Global.TGlobal>shared(
                                                                           (Lazy<Global.TGlobal>)(() -> Global.TGlobal.chg$sub(
-                                                                                    η$19933.call(), η$19934.call()
+                                                                                    η$19934.call(), η$19935.call()
                                                                                   ))
                                                                         ))),
                                                             (Func.U<Global.TSubSt, Global.TSubSt>)((
-                                                              final Lazy<Global.TSubSt> η$19935
+                                                              final Lazy<Global.TSubSt> η$19936
                                                             ) -> Thunk.<Global.TSubSt>nested(
                                                                       (Lazy<Lazy<Global.TSubSt>>)(() -> PreludeBase.<
                                                                             Global.TSubSt, Global.TSubSt,
@@ -2098,7 +2098,7 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                                     Global.TSubSt
                                                                                   >
                                                                                 >)((
-                                                                                  final Lazy<Global.TSubSt> η$19936
+                                                                                  final Lazy<Global.TSubSt> η$19937
                                                                                 ) -> (Func.U<
                                                                                       Func.U<
                                                                                         Tokens.TToken[],
@@ -2109,37 +2109,37 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                                       final Lazy<Func.U<
                                                                                         Tokens.TToken[],
                                                                                         Tokens.TToken[]
-                                                                                      >> η$19937
+                                                                                      >> η$19938
                                                                                     ) -> Thunk.<
                                                                                           Global.TSubSt
                                                                                         >shared(
                                                                                               (Lazy<Global.TSubSt>)(() -> Global.TSubSt.chg$toks(
-                                                                                                        η$19936
-                                                                                                        .call(),
                                                                                                         η$19937
+                                                                                                        .call(),
+                                                                                                        η$19938
                                                                                                         .call()
                                                                                                       ))
                                                                                             ))),
                                                                                 (Func.U<
                                                                                   Tokens.TToken[], Tokens.TToken[]
-                                                                                >)((final Lazy<Tokens.TToken[]> arg$19938) -> {
-                                                                                      final Tokens.TToken[] v2338$19213 =
-                                                                                      arg$19938
+                                                                                >)((final Lazy<Tokens.TToken[]> arg$19939) -> {
+                                                                                      final Tokens.TToken[] v2338$19214 =
+                                                                                      arg$19939
                                                                                       .call();
                                                                                       return Tokens.IArrayElement_Token.arrayFromList(
                                                                                                 CompileNormalMode.ideClean(
                                                                                                       PreludeArrays.IListSource_JArray.<
                                                                                                         Tokens.TToken
                                                                                                       >toList(
-                                                                                                            v2338$19213
+                                                                                                            v2338$19214
                                                                                                           )
                                                                                                     )
                                                                                               );
                                                                                     }),
-                                                                                η$19935
+                                                                                η$19936
                                                                               ))
                                                                     )),
-                                                            η$19932
+                                                            η$19933
                                                           ))
                                                 ))
                                       );
@@ -2147,21 +2147,21 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                             else {
                               return State.TState.<Global.TGlobal, Short>mk(
                                         (Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>>)((
-                                          final Lazy<Global.TGlobal> arg$19940
+                                          final Lazy<Global.TGlobal> arg$19941
                                         ) -> {
                                               return PreludeBase.TTuple2.<Short, Global.TGlobal>mk(
-                                                        Thunk.<Short>lazy(PreludeBase.TUnit.Unit), arg$19940
+                                                        Thunk.<Short>lazy(PreludeBase.TUnit.Unit), arg$19941
                                                       );
                                             })
                                       );
                             }
                           })
                     );
-                final State.TState<Global.TGlobal, Short> $19941 = tmp$19260.call();
-                final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19165 =
-                $19941.mem$fun;
-                final State.TState<Global.TGlobal, Short> $19953 = State.TState.<Global.TGlobal>modify(
-                      (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> η$19943) -> Thunk.<
+                final State.TState<Global.TGlobal, Short> $19942 = tmp$19261.call();
+                final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19166 =
+                $19942.mem$fun;
+                final State.TState<Global.TGlobal, Short> $19954 = State.TState.<Global.TGlobal>modify(
+                      (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> η$19944) -> Thunk.<
                             Global.TGlobal
                           >nested(
                                 (Lazy<Lazy<Global.TGlobal>>)(() -> PreludeBase.<
@@ -2169,31 +2169,31 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                     >flip(
                                           (Func.U<
                                             Global.TGlobal, Func.U<Func.U<Global.TSubSt, Global.TSubSt>, Global.TGlobal>
-                                          >)((final Lazy<Global.TGlobal> η$19944) -> (Func.U<
+                                          >)((final Lazy<Global.TGlobal> η$19945) -> (Func.U<
                                                 Func.U<Global.TSubSt, Global.TSubSt>, Global.TGlobal
-                                              >)((final Lazy<Func.U<Global.TSubSt, Global.TSubSt>> η$19945) -> Thunk.<
+                                              >)((final Lazy<Func.U<Global.TSubSt, Global.TSubSt>> η$19946) -> Thunk.<
                                                     Global.TGlobal
                                                   >shared(
                                                         (Lazy<Global.TGlobal>)(() -> Global.TGlobal.chg$sub(
-                                                                  η$19944.call(), η$19945.call()
+                                                                  η$19945.call(), η$19946.call()
                                                                 ))
                                                       ))),
-                                          (Func.U<Global.TSubSt, Global.TSubSt>)((final Lazy<Global.TSubSt> arg$19946) -> {
+                                          (Func.U<Global.TSubSt, Global.TSubSt>)((final Lazy<Global.TSubSt> arg$19947) -> {
                                                 return PreludeBase.<Global.TSubSt, Global.TSubSt, String/*<Character>*/>flip(
                                                           (Func.U<
                                                             Global.TSubSt, Func.U<String/*<Character>*/, Global.TSubSt>
-                                                          >)((final Lazy<Global.TSubSt> η$19947) -> (Func.U<
+                                                          >)((final Lazy<Global.TSubSt> η$19948) -> (Func.U<
                                                                 String/*<Character>*/, Global.TSubSt
-                                                              >)((final Lazy<String/*<Character>*/> η$19948) -> Thunk.<
+                                                              >)((final Lazy<String/*<Character>*/> η$19949) -> Thunk.<
                                                                     Global.TSubSt
                                                                   >shared(
                                                                         (Lazy<Global.TSubSt>)(() -> Global.TSubSt.upd$thisPack(
-                                                                                  η$19947.call(), η$19948.call()
+                                                                                  η$19948.call(), η$19949.call()
                                                                                 ))
                                                                       ))),
                                                           Thunk.<String/*<Character>*/>shared(
                                                                 (Lazy<String/*<Character>*/>)(() -> Packs.TPack.$new(
-                                                                          $19930.mem1
+                                                                          $19931.mem1
                                                                         ))
                                                               ),
                                                           Thunk.<Global.TSubSt>nested(
@@ -2211,7 +2211,7 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                               >,
                                                                               Global.TSubSt
                                                                             >
-                                                                          >)((final Lazy<Global.TSubSt> η$19949) -> (Func.U<
+                                                                          >)((final Lazy<Global.TSubSt> η$19950) -> (Func.U<
                                                                                 PreludeBase.TList<
                                                                                   SourceDefinitions.TDefinitionS
                                                                                 >,
@@ -2219,18 +2219,18 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                               >)((
                                                                                 final Lazy<PreludeBase.TList<
                                                                                   SourceDefinitions.TDefinitionS
-                                                                                >> η$19950
+                                                                                >> η$19951
                                                                               ) -> Thunk.<
                                                                                     Global.TSubSt
                                                                                   >shared(
                                                                                         (Lazy<Global.TSubSt>)(() -> Global.TSubSt.upd$sourcedefs(
-                                                                                                  η$19949
-                                                                                                  .call(),
                                                                                                   η$19950
+                                                                                                  .call(),
+                                                                                                  η$19951
                                                                                                   .call()
                                                                                                 ))
                                                                                       ))),
-                                                                          $19930.mem2,
+                                                                          $19931.mem2,
                                                                           Thunk.<Global.TSubSt>nested(
                                                                                 (Lazy<Lazy<Global.TSubSt>>)(() -> PreludeBase.<
                                                                                       Global.TSubSt,
@@ -2256,7 +2256,7 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                                               Global.TSubSt
                                                                                             >
                                                                                           >)((
-                                                                                            final Lazy<Global.TSubSt> η$19951
+                                                                                            final Lazy<Global.TSubSt> η$19952
                                                                                           ) -> (Func.U<
                                                                                                 PreludeBase.TMaybe<
                                                                                                   String/*
@@ -2273,102 +2273,102 @@ State.TState.<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer
                                                                                                       Character
                                                                                                     >
                                                                                                   */
-                                                                                                >> η$19952
+                                                                                                >> η$19953
                                                                                               ) -> Thunk.<
                                                                                                     Global.TSubSt
                                                                                                   >shared(
                                                                                                         (Lazy<Global.TSubSt>)(() -> Global.TSubSt.upd$packageDoc(
-                                                                                                                  η$19951
-                                                                                                                  .call(),
                                                                                                                   η$19952
+                                                                                                                  .call(),
+                                                                                                                  η$19953
                                                                                                                   .call()
                                                                                                                 ))
                                                                                                       ))),
-                                                                                          $19930.mem3,
-                                                                                          arg$19946
+                                                                                          $19931.mem3,
+                                                                                          arg$19947
                                                                                         ))
                                                                               )
                                                                         ))
                                                               )
                                                         );
                                               }),
-                                          η$19943
+                                          η$19944
                                         ))
                               ))
                     );
-                final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19107 =
-                $19953.mem$fun;
-                final PreludeBase.TTuple2<Short, Global.TGlobal> $19955 = v8822$19107
-                .apply($19925.mem2).call();
-                final PreludeBase.TTuple2<Short, Global.TGlobal> $19956 = v8822$19165
-                .apply($19955.mem2).call();
+                final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19108 =
+                $19954.mem$fun;
+                final PreludeBase.TTuple2<Short, Global.TGlobal> $19956 = v8822$19108
+                .apply($19926.mem2).call();
+                final PreludeBase.TTuple2<Short, Global.TGlobal> $19957 = v8822$19166
+                .apply($19956.mem2).call();
                 return PreludeBase.TTuple2.<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>mk(
-                          v16081$19235, $19956.mem2
+                          v16081$19236, $19957.mem2
                         );
               }
             }
-            final PreludeBase.TTuple2<String/*<Character>*/, Integer> v16081$19261 = PreludeBase.TTuple2.<
+            final PreludeBase.TTuple2<String/*<Character>*/, Integer> v16081$19262 = PreludeBase.TTuple2.<
               String/*<Character>*/, Integer
             >mk(
                   Thunk.<String/*<Character>*/>lazy("tokens"),
                   Thunk.<Integer>shared(
                         (Lazy<Integer>)(() -> java.lang.reflect.Array.getLength(
-                                  Global.TSubSt.toks(Global.TGlobal.sub(arg$19921.call()))
+                                  Global.TSubSt.toks(Global.TGlobal.sub(arg$19922.call()))
                                 ))
                       )
                 );
             return PreludeBase.TTuple2.<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>mk(
-                      v16081$19261, $19925.mem2
+                      v16081$19262, $19926.mem2
                     );
           })
     );
 final public static State.TState<Global.TGlobal, Global.TGlobal> lexParseSourceCode(final String/*<Character>*/ arg$1) {
   return State.TState.<Global.TGlobal, Global.TGlobal>mk(
             (Func.U<Global.TGlobal, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>)((
-              final Lazy<Global.TGlobal> arg$19958
+              final Lazy<Global.TGlobal> arg$19959
             ) -> {
-                  final State.TState<Global.TGlobal, Global.TGlobal> $19959 = CompileNormalMode.switchState(
-                        arg$19958
+                  final State.TState<Global.TGlobal, Global.TGlobal> $19960 = CompileNormalMode.switchState(
+                        arg$19959
                       );
-                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v7688$19535 =
-                  $19959.mem$fun;
+                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v7688$19536 =
+                  $19960.mem$fun;
                   final Func.U<
                     Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>
-                  > v8822$19510 = CompileNormalMode.parsePass.mem$fun;
-                  final State.TState<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>> $19962 =
+                  > v8822$19511 = CompileNormalMode.parsePass.mem$fun;
+                  final State.TState<Global.TGlobal, PreludeBase.TTuple2<String/*<Character>*/, Integer>> $19963 =
                   CompileNormalMode.lexPassSourceCode(arg$1);
                   final Func.U<
                     Global.TGlobal, PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal>
-                  > v8822$19482 = $19962.mem$fun;
-                  final PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal> $19964 =
-                  v8822$19482.apply(arg$19958).call();
+                  > v8822$19483 = $19963.mem$fun;
                   final PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal> $19965 =
-                  v8822$19510.apply($19964.mem2).call();
-                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> $19966 = v7688$19535
-                  .apply($19965.mem2).call();
-                  final Global.TGlobal v7691$19538 = $19966.mem1.call();
-                  final State.TState<Global.TGlobal, Short> $19973 = State.TState.<Global.TGlobal>modify(
-                        (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> arg$19968) -> {
-                              final Global.TGlobal in$17842 = arg$19968.call();
+                  v8822$19483.apply(arg$19959).call();
+                  final PreludeBase.TTuple2<PreludeBase.TTuple2<String/*<Character>*/, Integer>, Global.TGlobal> $19966 =
+                  v8822$19511.apply($19965.mem2).call();
+                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> $19967 = v7688$19536
+                  .apply($19966.mem2).call();
+                  final Global.TGlobal v7691$19539 = $19967.mem1.call();
+                  final State.TState<Global.TGlobal, Short> $19974 = State.TState.<Global.TGlobal>modify(
+                        (Func.U<Global.TGlobal, Global.TGlobal>)((final Lazy<Global.TGlobal> arg$19969) -> {
+                              final Global.TGlobal in$17843 = arg$19969.call();
                               return Thunk.<Global.TGlobal>shared(
                                         (Lazy<Global.TGlobal>)(() -> Global.TGlobal.chg$sub(
-                                                  in$17842,
+                                                  in$17843,
                                                   (Func.U<Global.TSubSt, Global.TSubSt>)((
-                                                    final Lazy<Global.TSubSt> arg$19970
+                                                    final Lazy<Global.TSubSt> arg$19971
                                                   ) -> {
-                                                        final Global.TSubSt in$17843 =
-                                                        arg$19970.call();
+                                                        final Global.TSubSt in$17844 =
+                                                        arg$19971.call();
                                                         return Thunk.<Global.TSubSt>shared(
                                                                   (Lazy<Global.TSubSt>)(() -> Global.TSubSt.chg$numErrors(
-                                                                            in$17843,
+                                                                            in$17844,
                                                                             (Func.U<Integer, Integer>)((
-                                                                              final Lazy<Integer> η$19972
+                                                                              final Lazy<Integer> η$19973
                                                                             ) -> Thunk.<
                                                                                   Integer
                                                                                 >shared(
                                                                                       (Lazy<Integer>)(() -> Global.TGlobal.errors(
-                                                                                                v7691$19538
-                                                                                              ) + (int)η$19972
+                                                                                                v7691$19539
+                                                                                              ) + (int)η$19973
                                                                                           .call())
                                                                                     ))
                                                                           ))
@@ -2378,18 +2378,18 @@ final public static State.TState<Global.TGlobal, Global.TGlobal> lexParseSourceC
                                       );
                             })
                       );
-                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19564 =
-                  $19973.mem$fun;
-                  final PreludeBase.TTuple2<Short, Global.TGlobal> $19975 = v8822$19564
-                  .apply($19966.mem2).call();
-                  return PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(v7691$19538, $19975.mem2);
+                  final Func.U<Global.TGlobal, PreludeBase.TTuple2<Short, Global.TGlobal>> v8822$19565 =
+                  $19974.mem$fun;
+                  final PreludeBase.TTuple2<Short, Global.TGlobal> $19976 = v8822$19565
+                  .apply($19967.mem2).call();
+                  return PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(v7691$19539, $19976.mem2);
                 })
           );
 }
 final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal> compileSourceCode(
   final Lazy<String/*<Character>*/> arg$1
 ) {
-  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal> $19976 = Global.<
+  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal> $19977 = Global.<
     Global.TGlobal
   >liftStG(
         Thunk.<State.TState<Global.TGlobal, Global.TGlobal>>shared(
@@ -2398,24 +2398,24 @@ final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.T
                       ))
             )
       );
-  final Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>> v7734$19613 =
-  $19976.mem$run;
+  final Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>> v7734$19614 =
+  $19977.mem$run;
   return State.TStateT.<Global.TGlobal, Func.U<RealWorld, ?>, Global.TGlobal>mk(
             (Func.U<Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>>)((
-              final Lazy<Global.TGlobal> arg$19978
+              final Lazy<Global.TGlobal> arg$19979
             ) -> {
                   return Thunk.<Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>>lazy(
                             (Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>)(Func.U<
                               RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>
-                            >)((final Lazy<RealWorld> arg$19979) -> {
-                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$19648 =
+                            >)((final Lazy<RealWorld> arg$19980) -> {
+                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$19649 =
                                   RunTM.<
                                     Func.U<
                                       Global.TGlobal, Func.U<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>
                                     >
-                                  >cast(v7734$19613).apply(arg$19978).call().apply(arg$19979)
+                                  >cast(v7734$19614).apply(arg$19979).call().apply(arg$19980)
                                   .call();
-                                  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19982 =
+                                  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19983 =
                                   Global.<
                                     PreludeBase.TTuple2<
                                       State.TStateT<
@@ -2443,56 +2443,56 @@ final public static State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Global.T
                                               PreludeBase.TTuple2<String/*<Character>*/, Integer>
                                             >,
                                             String/*<Character>*/
-                                          >> η$19981
+                                          >> η$19982
                                         ) -> Thunk.<State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short>>shared(
                                                   (Lazy<State.TStateT<
                                                     Global.TGlobal, Func.U<RealWorld, ?>, Short
                                                   >>)(() -> CompileNormalMode.runpass(
-                                                            η$19981.call()
+                                                            η$19982.call()
                                                           ))
                                                 ))
                                       );
                                   final Func.U<
                                     Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>
-                                  > v8728$19735 = $19982.mem$run;
-                                  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19984 =
+                                  > v8728$19736 = $19983.mem$run;
+                                  final State.TStateT<Global.TGlobal, Func.U<RealWorld, ?>, Short> $19985 =
                                   State.TStateT.<Global.TGlobal, Func.U<RealWorld, ?>>put(
-                                        PreludeMonad.IMonad_ST.<RealWorld>mk(), v2056$19648.mem1
+                                        PreludeMonad.IMonad_ST.<RealWorld>mk(), v2056$19649.mem1
                                       );
                                   final Func.U<
                                     Global.TGlobal, Kind.U<Func.U<RealWorld, ?>, PreludeBase.TTuple2<Short, Global.TGlobal>>
-                                  > v8728$19678 = $19984.mem$run;
-                                  final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19709 =
+                                  > v8728$19679 = $19985.mem$run;
+                                  final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19710 =
                                   RunTM.<
                                     Func.U<Global.TGlobal, Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>>
-                                  >cast(v8728$19678).apply(v2056$19648.mem2).call();
-                                  final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19712 =
-                                  v2053$19709.apply(arg$19979).call();
-                                  final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19766 =
+                                  >cast(v8728$19679).apply(v2056$19649.mem2).call();
+                                  final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19713 =
+                                  v2053$19710.apply(arg$19980).call();
+                                  final Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>> v2053$19767 =
                                   RunTM.<
                                     Func.U<Global.TGlobal, Func.U<RealWorld, PreludeBase.TTuple2<Short, Global.TGlobal>>>
-                                  >cast(v8728$19735).apply(v2056$19712.mem2).call();
-                                  final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19769 =
-                                  v2053$19766.apply(arg$19979).call();
-                                  final Func.U<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v2053$19821 =
+                                  >cast(v8728$19736).apply(v2056$19713.mem2).call();
+                                  final PreludeBase.TTuple2<Short, Global.TGlobal> v2056$19770 =
+                                  v2053$19767.apply(arg$19980).call();
+                                  final Func.U<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v2053$19822 =
                                   PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>pure(
                                         PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(
-                                              v2056$19769.mem2, v2056$19769.mem2
+                                              v2056$19770.mem2, v2056$19770.mem2
                                             )
                                       );
-                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$19824 =
-                                  v2053$19821.apply(arg$19979).call();
-                                  final Global.TGlobal v7737$19792 = v2056$19824.mem1
+                                  final PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal> v2056$19825 =
+                                  v2053$19822.apply(arg$19980).call();
+                                  final Global.TGlobal v7737$19793 = v2056$19825.mem1
                                   .call();
-                                  final Func.U<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v2057$19825 =
+                                  final Func.U<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>> v2057$19826 =
                                   PreludeMonad.IMonad_ST.<RealWorld, PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>pure(
                                         PreludeBase.TTuple2.<Global.TGlobal, Global.TGlobal>mk(
-                                              v7737$19792, v2056$19824.mem2
+                                              v7737$19793, v2056$19825.mem2
                                             )
                                       );
                                   return Thunk.<PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>nested(
-                                            (Lazy<Lazy<PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>>)(() -> v2057$19825
-                                                .apply(arg$19979))
+                                            (Lazy<Lazy<PreludeBase.TTuple2<Global.TGlobal, Global.TGlobal>>>)(() -> v2057$19826
+                                                .apply(arg$19980))
                                           );
                                 })
                           );
@@ -2529,8 +2529,8 @@ final public static Lazy<QuickCheckGen.TGen<
                               QuickCheckProperty.TRose<QuickCheckProperty.TResult>
                             >>)(() -> QuickCheckProperty.<Boolean>morallyDubiousIOProperty(
                                       QuickCheckProperty.ITestable_Bool.it,
-                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$19994) -> {
-                                            final Global.TGlobal v2056$18739 = CompileGlobal.fromOptions(
+                                      (Func.U<RealWorld, Boolean>)((final Lazy<RealWorld> arg$19995) -> {
+                                            final Global.TGlobal v2056$18740 = CompileGlobal.fromOptions(
                                                   Global.TOptions.upd$path(
                                                         CompileOptions.standardCompileOptions
                                                         .call(),
@@ -2543,29 +2543,29 @@ final public static Lazy<QuickCheckGen.TGen<
                                                               >mk()
                                                             )
                                                       )
-                                                ).apply(arg$19994).call();
-                                            final Func.U<RealWorld, Global.TGlobal> v2053$18758 =
+                                                ).apply(arg$19995).call();
+                                            final Func.U<RealWorld, Global.TGlobal> v2053$18759 =
                                             CompileNormalMode.compile(
                                                   Thunk.<String/*<Character>*/>shared(
                                                         (Lazy<String/*
                                                           <Character>
                                                         */>)(() -> "module FregeFxDep where\n\n" + ("import fregefx.JavaFxType\n\n" + "main = println \"Hello FregeFX\""))
                                                       ),
-                                                  v2056$18739
+                                                  v2056$18740
                                                 );
-                                            final Global.TGlobal v2056$18761 = v2053$18758
-                                            .apply(arg$19994).call();
-                                            final Func.U<RealWorld, Boolean> v2057$18762 =
+                                            final Global.TGlobal v2056$18762 = v2053$18759
+                                            .apply(arg$19995).call();
+                                            final Func.U<RealWorld, Boolean> v2057$18763 =
                                             PreludeMonad.IMonad_ST.<RealWorld, Boolean>pure(
                                                   Thunk.<Boolean>shared(
                                                         (Lazy<Boolean>)(() -> Global.TGlobal.errors(
-                                                                  v2056$18761
+                                                                  v2056$18762
                                                                 ) == 0)
                                                       )
                                                 );
                                             return Thunk.<Boolean>nested(
-                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18762
-                                                          .apply(arg$19994))
+                                                      (Lazy<Lazy<Boolean>>)(() -> v2057$18763
+                                                          .apply(arg$19995))
                                                     );
                                           })
                                     ))
