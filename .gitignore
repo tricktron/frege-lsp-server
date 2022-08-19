@@ -10,3 +10,5 @@ bin
 .idea
 frege-native-gen*
 .frege
+.direnv
+.envrc
