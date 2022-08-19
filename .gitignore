@@ -13,3 +13,4 @@ frege-native-gen*
 .direnv
 .envrc
 docs/node_modules
+docs/diagrams/.structurizr
