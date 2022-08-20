@@ -1,6 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver;
 
 import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.ROOT_OUTPUT_DIR;
+import static frege.prelude.PreludeBase.TST.performUnsafe;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -119,6 +120,7 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
 	@Override
 	public CompletableFuture<Object> shutdown() 
     {
+        performUnsafe(frege.control.Concurrent.shutdown.call());
 		return CompletableFuture.supplyAsync(() -> Boolean.TRUE);
 	}
 
