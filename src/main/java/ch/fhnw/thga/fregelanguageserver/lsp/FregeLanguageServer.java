@@ -32,6 +32,8 @@ import frege.compiler.types.Global.TOptions;
 public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
     private static final String LOGFILE_NAME = "frege.log";
+    private static final String OUTPUT_DIR_ERROR_MESSAGE = 
+    "Could not create output dir %s. Please create it manually and restart the server.";
 	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
@@ -63,15 +65,6 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return new DefaultProject().getCompileOptions();
     }
 
-    private String couldNotCreateOutputDirMessage(String outputDirPath)
-    {
-        return String.format
-        (
-            "Could not create output dir %s. Please create it manually and restart the server.",
-            outputDirPath
-        );
-    }
-
     private void createLogFile(Path projectRootPath)
     {
         try
@@ -89,6 +82,18 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         }
     }
 
+    private void createLanguageServerOutputDir(Path outputDirPath)
+    {
+        try 
+        {
+            Files.createDirectories(outputDirPath);
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+            throw new RuntimeException(String.format(OUTPUT_DIR_ERROR_MESSAGE, outputDirPath), e);
+        }
+    }
+
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
@@ -98,18 +103,7 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         );
         createLogFile(projectRootPath);
         TOptions projectOptions = createProjectOptions(projectRootPath);
-        Path languageServerOutputDir = Paths.get(projectOptions.mem$dir).normalize();
-        try 
-        {
-            Files.createDirectories(languageServerOutputDir);
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-            throw new RuntimeException
-            (
-                couldNotCreateOutputDirMessage(languageServerOutputDir.toString()), e
-            );
-        }
+        createLanguageServerOutputDir(Paths.get(projectOptions.mem$dir).normalize());
         projectGlobal = CompileService.createCompileGlobal(projectOptions);
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Incremental);
