@@ -1,4 +1,4 @@
-package ch.fhnw.thga.fregelanguageserver;
+package ch.fhnw.thga.fregelanguageserver.lsp;
 
 import java.net.URI;
 import java.nio.file.Path;

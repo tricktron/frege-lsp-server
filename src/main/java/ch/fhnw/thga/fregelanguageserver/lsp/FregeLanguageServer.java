@@ -1,4 +1,4 @@
-package ch.fhnw.thga.fregelanguageserver;
+package ch.fhnw.thga.fregelanguageserver.lsp;
 
 import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.ROOT_OUTPUT_DIR;
 import static frege.prelude.PreludeBase.TST.performUnsafe;
