@@ -7,10 +7,10 @@ import org.gradle.tooling.ProjectConnection;
 
 import ch.fhnw.thga.fregegradleplugin.tooling.FregeProjectInfo;
 
-public class GradleProjectOptions extends ProjectOptions
+class GradleProjectOptions extends ProjectOptions
 {
     @Override
-    public Project createProject(String projectRootPath)
+    Project createProject(String projectRootPath)
     {
         try 
         (

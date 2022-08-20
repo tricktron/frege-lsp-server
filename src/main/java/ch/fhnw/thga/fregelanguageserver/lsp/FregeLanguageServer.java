@@ -1,15 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver.lsp;
 
-import static ch.fhnw.thga.fregelanguageserver.compile.CompileService.ROOT_OUTPUT_DIR;
-import static frege.prelude.PreludeBase.TST.performUnsafe;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URI;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.InitializeParams;
@@ -23,21 +15,15 @@ import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
 import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
-import ch.fhnw.thga.fregelanguageserver.project.DefaultProject;
-import ch.fhnw.thga.fregelanguageserver.project.GradleProjectOptions;
-import frege.compiler.types.Global.TGlobal;
-import frege.compiler.types.Global.TOptions;
+import ch.fhnw.thga.fregelanguageserver.project.ProjectService;
 
 
-public class FregeLanguageServer implements LanguageServer, LanguageClientAware 
+class FregeLanguageServer implements LanguageServer, LanguageClientAware 
 {
-    private static final String LOGFILE_NAME = "frege.log";
-    private static final String OUTPUT_DIR_ERROR_MESSAGE = 
-    "Could not create output dir %s. Please create it manually and restart the server.";
 	private final FregeTextDocumentService textService;
 	private final WorkspaceService workspaceService;
 	private LanguageClient client;
-    private TGlobal projectGlobal;
+    private ProjectService projectService;
 
 	public FregeLanguageServer()
     {
@@ -50,61 +36,18 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
         return client;
     }
 
-    public TGlobal getProjectGlobal()
+    public ProjectService getProjectService()
     {
-        return projectGlobal;
-    }
-
-    private TOptions createProjectOptions(Path projectRootPath)
-    {
-        if (projectRootPath.resolve("build.gradle").toFile().exists())
-        {
-            return new GradleProjectOptions()
-            .getCompileOptions(projectRootPath.toFile().getAbsolutePath());
-        }
-        return new DefaultProject().getCompileOptions();
-    }
-
-    private void createLogFile(Path projectRootPath)
-    {
-        try
-        {
-            Path rootOutputDir = Files
-            .createDirectories(projectRootPath.resolve(ROOT_OUTPUT_DIR));
-            System.setErr(new PrintStream(new FileOutputStream
-            (
-                rootOutputDir
-                .resolve(LOGFILE_NAME).toFile()
-            )));
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void createLanguageServerOutputDir(Path outputDirPath)
-    {
-        try 
-        {
-            Files.createDirectories(outputDirPath);
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-            throw new RuntimeException(String.format(OUTPUT_DIR_ERROR_MESSAGE, outputDirPath), e);
-        }
+        return projectService;
     }
 
 	@Override
 	public CompletableFuture<InitializeResult> initialize(InitializeParams params)
     {
-        Path projectRootPath = Path.of
+        projectService             = ProjectService.fromRootPath
         (
-            URI.create(params.getWorkspaceFolders().get(0).getUri())
+            Path.of(URI.create(params.getWorkspaceFolders().get(0).getUri()))
         );
-        createLogFile(projectRootPath);
-        TOptions projectOptions = createProjectOptions(projectRootPath);
-        createLanguageServerOutputDir(Paths.get(projectOptions.mem$dir).normalize());
-        projectGlobal = CompileService.createCompileGlobal(projectOptions);
 		final InitializeResult res = new InitializeResult(new ServerCapabilities());
 		res.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Incremental);
 		res.getCapabilities().setHoverProvider(true);
@@ -114,7 +57,7 @@ public class FregeLanguageServer implements LanguageServer, LanguageClientAware
 	@Override
 	public CompletableFuture<Object> shutdown() 
     {
-        performUnsafe(frege.control.Concurrent.shutdown.call());
+        CompileService.shutdownCompilerExecutorService();
 		return CompletableFuture.supplyAsync(() -> Boolean.TRUE);
 	}
 

@@ -15,7 +15,7 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
 import ch.fhnw.thga.fregelanguageserver.diagnostic.DiagnosticService;
 import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 
-public class FregeTextDocumentService implements TextDocumentService
+class FregeTextDocumentService implements TextDocumentService
 {
 	public static final String FREGE_LANGUAGE_ID = "frege";
 	private final FregeLanguageServer simpleLanguageServer;
@@ -44,7 +44,7 @@ public class FregeTextDocumentService implements TextDocumentService
         compileService.compileAndUpdateGlobals
         (
             uri, 
-            simpleLanguageServer.getProjectGlobal()
+            simpleLanguageServer.getProjectService().getProjectGlobal()
         );
         DiagnosticService.publishCompilerDiagnostics
         (
@@ -76,7 +76,7 @@ public class FregeTextDocumentService implements TextDocumentService
         compileService.compileAndUpdateGlobals
         (
             uri, 
-            simpleLanguageServer.getProjectGlobal()
+            simpleLanguageServer.getProjectService().getProjectGlobal()
         );
         DiagnosticService.publishCompilerDiagnostics
         (

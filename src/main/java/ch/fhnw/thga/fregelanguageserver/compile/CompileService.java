@@ -75,4 +75,9 @@ public class CompileService
         List<TGlobal> newGlobals = compileWithMakeMode(uri.getPath(), projectGlobal);
         newGlobals.forEach(updateUriGlobals);
     }
+
+    public static void shutdownCompilerExecutorService()
+    {
+        performUnsafe(frege.control.Concurrent.shutdown.call());
+    }
 }
