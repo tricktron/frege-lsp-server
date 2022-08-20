@@ -1,10 +1,10 @@
-package ch.fhnw.thga.fregelanguageserver;
+package ch.fhnw.thga.fregelanguageserver.lsp;
 
 import org.eclipse.lsp4j.DidChangeConfigurationParams;
 import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
-public class FregeWorkspaceService implements WorkspaceService {
+class FregeWorkspaceService implements WorkspaceService {
 
 	@Override
 	public void didChangeConfiguration(DidChangeConfigurationParams params) {

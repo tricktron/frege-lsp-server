@@ -1,4 +1,4 @@
-package ch.fhnw.thga.fregelanguageserver;
+package ch.fhnw.thga.fregelanguageserver.lsp;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,7 +10,6 @@ import org.eclipse.lsp4j.services.LanguageClient;
 
 public class App 
 {
-
     public static void startServer
         (
         InputStream in, 

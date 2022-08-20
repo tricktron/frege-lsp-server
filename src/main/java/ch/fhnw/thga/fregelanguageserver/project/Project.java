@@ -2,7 +2,7 @@ package ch.fhnw.thga.fregelanguageserver.project;
 
 import frege.compiler.types.Global.TOptions;
 
-public interface Project
+interface Project
 {
-   public TOptions getCompileOptions(); 
+    TOptions getCompileOptions(); 
 }

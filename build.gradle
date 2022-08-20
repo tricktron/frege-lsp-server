@@ -19,7 +19,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'ch.fhnw.thga.fregelanguageserver.App'
+    mainClass = 'ch.fhnw.thga.fregelanguageserver.lsp.App'
 }
 
 java {

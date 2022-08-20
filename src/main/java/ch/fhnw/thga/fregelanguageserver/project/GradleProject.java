@@ -4,11 +4,11 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileService;
 import ch.fhnw.thga.fregegradleplugin.tooling.FregeProjectInfo;
 import frege.compiler.types.Global.TOptions;
 
-public class GradleProject implements Project
+class GradleProject implements Project
 {
     private final FregeProjectInfo projectInfo;
 
-    public GradleProject(FregeProjectInfo projectInfo)
+    GradleProject(FregeProjectInfo projectInfo)
     {
         this.projectInfo = projectInfo;
     }
