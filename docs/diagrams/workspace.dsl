@@ -5,18 +5,18 @@ workspace "Frege Language Server" {
             textEditor          = container "Text Editor" "Allows basic text editing of documents."
             fregeExtension      = container "Frege Language Extension" "Adds Frege specific language features to a text editor."
             fregeLanguageServer = container "Frege Language Server" "Provides Frege specific language features." {
-                lsp        = component "LSP" "Receives and sends notifications and requests according to the language server protocol (LSP)."
+                lsp        = component "LSP" "Receives and sends notifications, requests and responses according to the language server protocol (LSP)."
                 compile    = component "Compile" "Runs the Frege compiler and manages all available compiler information, called global."
                 diagnostic = component "Diagnostic" "Extracts all available errors and warnings from the compiler global and returns them as LSP diagnostics."
                 hover      = component "Hover" "Extracts all available type signatures of functions and variables from the compiler global and returns them as LSP hover."
-                project    = component "Project" "Extract project specific information such as external dependencies and returns them as compiler options."
+                project    = component "Project" "Configures the Frege project with information such as external dependencies from Gradle Build Tool if available."
             }
         }
         fregeApplication = softwareSystem "Application" "The Frege application to be developed."
         fregeCompiler    = softwareSystem "Frege Compiler" "Transpiles Frege code into Java code."
-        gradleBuildTool  = softwareSystem "Gradle Build Tool" "Automates the process of creating an exectuable from source code." {
-            core        = container "Gradle Core" "Provides the well known Gradle build tool functionality."
-            fregePlugin = container "Frege Plugin" "Automates the creation and compilation of Frege projects."
+        buildTool  = softwareSystem "Gradle Build Tool" "Automates the process of creating an exectuable from source code." {
+            core        = container "Gradle Core" "Provides the standard Gradle build tool functionality."
+            fregePlugin = container "Frege Gradle Plugin" "Adds tasks to create, compile, run, REPL and test a Frege project to Gradle."
         }
 
         textEditor          -> fregeExtension "activates and uses"
@@ -24,16 +24,17 @@ workspace "Frege Language Server" {
         fregeExtension      -> textEditor "visualises Frege language features in"
         fregeDeveloper      -> fregeApplication "develops"
         fregeDeveloper      -> fregeIde "writes source code in"
-        fregeDeveloper      -> gradleBuildTool "configures and builds application with"
-        fregeLanguageServer -> fregePlugin "extracts Frege application/project specific configuration"
-        gradleBuildTool     -> fregeCompiler "creates an executable Frege application for the Java Virtual Machine with"
+        fregeDeveloper      -> buildTool "configures and builds application with"
+        fregeLanguageServer -> fregePlugin "extracts specific Frege application configuration"
+        buildTool           -> fregeCompiler "creates an executable Frege application for the Java Virtual Machine with"
         fregeLanguageServer -> fregeCompiler "extracts Frege language features from"
-        lsp                 -> compile "Notify the compile service on new source code changes"
-        lsp                 -> hover "Trigger the hover service on hover requests and return the hover results"
-        lsp                 -> diagnostic "Notify the diagnostic service on new source code changes"
-        lsp                 -> project "Notify the project service when the Frege extension starts"
-        hover               -> compile "Get current compiler global"
-        diagnostic          -> compile "Get current compiler global"
+        lsp                 -> compile "on new source code changes"
+        lsp                 -> hover "on hover request"
+        lsp                 -> diagnostic "on new source code changes"
+        lsp                 -> project "on intialize"
+        compile             -> fregeCompiler "extracts compiler global from"
+        project             -> fregePlugin "extracts Frege project config from"
+        project             -> compile "configures project compiler options"
     }
 
     views {
@@ -52,7 +53,7 @@ workspace "Frege Language Server" {
             autoLayout lr
         }
 
-        container gradleBuildTool "buildTool" {
+        container buildTool "buildTool" {
             include *
             autoLayout lr
         }
