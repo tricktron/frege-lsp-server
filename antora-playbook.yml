@@ -1,0 +1,10 @@
+site:
+  title: Frege Language Server
+  start_page: frege-lsp-server::index.adoc
+content:
+  sources:
+  - url: .
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

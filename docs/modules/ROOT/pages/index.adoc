@@ -1,0 +1,7 @@
+= Starting Point
+
+Here is the index ...
+
+== First Heading
+
+This is a paragraph in a section. See the xref:context.adoc[] for more info.

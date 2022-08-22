@@ -1,7 +1,7 @@
 workspace "Frege Language Server" {
     model {
         fregeDeveloper = person "Frege Developer"
-        fregeIde  = softwareSystem "Integrated Development Environment (IDE) for Frege" "Helps developers to develop Frege applications faster by providing extra language features besides basic text editing." {
+        fregeIde  = softwareSystem "Frege Integrated Development Environment" "Visualises Frege language features to develop Frege applications faster." {
             textEditor          = container "Text Editor" "Allows basic text editing of documents."
             fregeExtension      = container "Frege Language Extension" "Adds Frege specific language features to a text editor."
             fregeLanguageServer = container "Frege Language Server" "Provides Frege specific language features." {
@@ -65,9 +65,15 @@ workspace "Frege Language Server" {
         styles {
             element "Person" {
                 color #ffffff
-                fontSize 22
                 shape Person
                 background #08427b
+            }
+            relationship "Relationship" {
+                fontSize 32
+            }
+
+            element "Element" {
+                fontSize 26
             }
         }
     }

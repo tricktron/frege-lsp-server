@@ -1,0 +1,9 @@
+= Context
+
+Here comes the svg
+
+image::system-context-optimized.svg[opts=interactive,width=1000]
+
+Here comes the png
+
+image::system-context.png[]
