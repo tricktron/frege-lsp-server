@@ -1,0 +1,14 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Functional Overview
+
+The Frege Integrated Development IDE powers language features for the https://github.com/frege/frege[Frege programming language]. Language features help developers to write code more efficiently by providing language specific support during the development process. There are https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#languageFeatures[many different language features], such as showing compile warnings and errors, providing autocompletion suggestions and additional information while hovering over source code, etc. While the Frege IDE powers the language features with the help of the Frege compiler, the text editor visualises them to provide a fast feedback loop. See the xref:context.adoc[Context] page for an overview of all involved systems and users.   
+
+== Supported Language Features
+// TODO: add a quick description and screenshots for each feature and maybe a GIF for the code lens actions
+=== Compiler Errors and Warnings
+
+=== Type Signature on Hover
+=== Code Lens to run Frege programs (only in Visual Studio Code)
+=== Code Lens to load a Frege module into the Frege Repl (only in Visual Studio Code)
+=== Automatic Gradle Build Tool Support
