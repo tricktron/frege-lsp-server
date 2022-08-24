@@ -1,9 +1,23 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
 = Context
 
-Here comes the svg
+The Frege Integrated Development Environment (IDE) adds language features for the https://github.com/frege/frege[Frege programming language] to a text editor. It interacts both with the Frege compiler and a Build Tool as shown in <<img-system-context>>.
 
-image::system-context-optimized.svg[opts=interactive,width=1000]
+[#img-system-context]
+.System Context of the Frege Integrated Development Environment
+image::structurizr-1-SystemContext.png["System Context of the Frege Integrated Development Environment"]
 
-Here comes the png
+[#img-system-context-key]
+.Diagram Key for <<img-system-context>>
+image::structurizr-1-SystemContext-key.png["System Context Diagram Key"]
 
-image::system-context.png[]
+In the broader context, its main users are Frege developers who write their source code in a supported text editor as can be seen in <<img-system-landscape>>.
+
+[#img-system-landscape]
+.System Landscape of the Frege Integrated Development Environment
+image::structurizr-1-SystemLandscape.png["System Landscape of the Frege Integrated Development Environment"]
+
+[#img-system-landscape-key]
+.Diagram Key for <<img-system-landscape>>
+image::structurizr-1-SystemLandscape-key.png["Diagram Key"]
