@@ -1,3 +1,4 @@
 * xref:index.adoc[]
 * xref:context.adoc[]
 * xref:functional-overview.adoc[]
+* xref:quality-attributes.adoc[]

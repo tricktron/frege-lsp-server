@@ -1,0 +1,33 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Quality Attributes
+
+The Frege IDE's architecture should satisfy the following quality attributes, also known as non-functionalm requirements, listed from highest to lowest priority.
+
+== Interoperability
+One Frege IDE version must be usable with multiple different text editor products.
+
+== Usability
+The Frege IDE should follow a convention over configuration approach so that it works out of the box or with minimal configuration.
+
+== Maintainability
+As mentioned in the xref:functional-overview.adoc[Functional Overview] page, there are https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#languageFeatures[many different language features]. Therefore, the architecture should make it easy to add, remove, change and test a single language feature.
+
+=== Maintainability Checklist
+* [ ] Analyzability: how easy or difficult is it to identify bugs and map them to the source code location?
+* [ ] Changeability: how easy or difficult is it to change the code?
+* [ ] Stability: how easy or difficult is it to keep the system stable when changing it?
+* [ ] Testability: how easy or difficult is it to test the system after a change?
+
+
+== Installability
+The Frege IDE must be installable and runnable on Linux, MacOS and Windows.
+
+== Performance
+All language feature requests should be answered on average within one second if both the text editor and the Frege IDE run on the same machine. 
+
+== Fault Tolerance and Resilience
+All errors should be logged.
+
+== Internationalization and Localization
+All user interfaces will only be available in English.
