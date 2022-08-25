@@ -2,7 +2,7 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 :xrefstyle: short
 = Quality Attributes
 
-The Frege IDE's architecture should satisfy the following quality attributes, also known as non-functionalm requirements, listed from highest to lowest priority.
+The Frege IDE's architecture should satisfy the following quality attributes, also known as non-functional requirements, listed from highest to lowest priority.
 
 == Interoperability
 One Frege IDE version must be usable with multiple different text editor products.

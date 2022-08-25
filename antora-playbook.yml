@@ -8,3 +8,9 @@ content:
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+asciidoc:
+  attributes:
+    kroki-fetch-diagram: true
+    listing-caption: Listing
+  extensions:
+    - asciidoctor-kroki

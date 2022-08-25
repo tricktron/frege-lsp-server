@@ -1,0 +1,81 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Constraints
+
+The following constraints are imposed upon the Frege IDE:
+
+== Language Server Protocol (LSP)
+xref:quality-attributes#Interoperability.adoc[Interoperability] is the Frege IDE's highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The https://microsoft.github.io/language-server-protocol/[LSP] emerged as the communication standard. As a result, the Frege IDE must implement the LSP.
+
+The LSP uses a client-server model with a remote procedure call JSON (JSON-RPC) message format. The text editor takes the role of the client while
+the Frege IDE acts as the server. The protocol consists of a header and a content part and specifies three types of messsages:
+
+Notification:: which does not require a response.
+Request:: which requires a response.
+Response:: which matches a request.
+
+Hence, every supported interaction is either started by a notification or request message. 
+
+<<diag-lsp-seq>> shows the exchanged messages when the user opens a Frege file:
+
+.The user opens a Frege file in the text editor which initialises the Frege IDE first. Since the initialize message is a request, it requires a response. Afterwards the didOpen notification is sent to the Frege IDE. Since it is a notification, it does not require a response. However, the Frege IDE uses this moment to compile the openend Frege file and reports back any warnings and errors as diagnostics to the text editor.
+[mermaid#diag-lsp-seq]
+....
+sequenceDiagram
+    participant Text Editor
+    participant Frege IDE
+    Text Editor->>Frege IDE: sending request initialize
+    Frege IDE->>Text Editor: sending response initialized
+    Text Editor ->>Frege IDE: sending textDocument/didOpen notification
+    Frege IDE->>Text Editor: sending textDocument/publishDiagnostics notification
+....
+
+
+<<ex-code>> shows the JSON-RPC message of the _textDocument/publishDiagnostics_ notification from <<diag-lsp-seq>>.
+
+.The JSON
+[source#ex-code,json]
+----
+Content-Length: ...\r\n
+\r\n
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "uri": "file:///Users/.../Hello.fr",
+        "diagnostics": [
+            {
+                "range": {
+                    "start": {
+                        "line": 5,
+                        "character": 8
+                    },
+                    "end": {
+                        "line": 5,
+                        "character": 19
+                    }
+                },
+                "severity": 3,
+                "source": "frege compiler",
+                "message": "value `result` is not used anywhere."
+            }
+        ]
+    }
+}
+----
+
+TODO: mention here the ownership difference between didSave
+
+The https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/[LSP specification] divides the supported messages into the following groups which are summarized for brevity:
+
+Lifecycle Message:: signal the start and exit of the client-server interaction.
+Document Synchronization:: Documents with a URI are the central data type on which the LSP works. Signals document specific messages such as _did change_, _did close_ and _did save_. Documents with a corresponding URI are the basic units for files and folders.
+Language Features:: are language specific code smarts visualised by the text editor which help developers write code faster. Examples are _go to declaration_, _hover_ and _publish diagnostics_.
+Workspace Features:: A workspace is an opened project in a text editor with one or more root folders. Example messages are _did change watched files_, _workspace symbols_ and _did change configuration_.
+Window Features:: are messages related to the user interface such as _show message notification_, _create work done progress_.
+
+== Java or Frege
+
+
+
