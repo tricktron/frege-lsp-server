@@ -18,13 +18,14 @@ import ch.fhnw.thga.fregelanguageserver.hover.HoverService;
 class FregeTextDocumentService implements TextDocumentService
 {
 	public static final String FREGE_LANGUAGE_ID = "frege";
+    // TODO rename simpleLangaugeServer -> fregeServer
 	private final FregeLanguageServer simpleLanguageServer;
     private final CompileService compileService;
 
-	public FregeTextDocumentService(FregeLanguageServer server)
+	public FregeTextDocumentService(FregeLanguageServer server, CompileService compileService)
     {
 		simpleLanguageServer = server;
-        compileService       = new CompileService();
+        this.compileService  = compileService;
 	}
 
     @Override
@@ -72,17 +73,17 @@ class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didSave(DidSaveTextDocumentParams params)
     {
-        URI uri = URI.create(params.getTextDocument().getUri());
-        compileService.compileAndUpdateGlobals
-        (
-            uri, 
-            simpleLanguageServer.getProjectService().getProjectGlobal()
-        );
-        DiagnosticService.publishCompilerDiagnostics
-        (
-            simpleLanguageServer.getClient(),
-            compileService.getGlobal(uri),
-            uri.toString()
-        );
+        //URI uri = URI.create(params.getTextDocument().getUri());
+        //compileService.compileAndUpdateGlobals
+        //(
+        //    uri, 
+        //    simpleLanguageServer.getProjectService().getProjectGlobal()
+        //);
+        //DiagnosticService.publishCompilerDiagnostics
+        //(
+        //    simpleLanguageServer.getClient(),
+        //    compileService.getGlobal(uri),
+        //    uri.toString()
+        //);
     }
 }

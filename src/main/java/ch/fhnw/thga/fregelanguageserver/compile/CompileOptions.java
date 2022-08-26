@@ -78,7 +78,7 @@ import frege.prelude.PreludeText;
 @SuppressWarnings("unused")
 @Meta.FregePackage(
   source="/Users/tricktron/github/master/frege-lsp-server/src/main/frege/ch/fhnw/thga/fregelanguageserver/compile/CompileOptions.fr",
-  time=1661005251303L, jmajor=11, jminor=-1,
+  time=1661518377674L, jmajor=11, jminor=-1,
   imps={
     "frege.compiler.enums.Flags", "frege.compiler.types.Global", "frege.Prelude", "frege.prelude.PreludeArrays",
     "frege.prelude.PreludeBase", "frege.prelude.PreludeDecimal", "frege.prelude.PreludeIO", "frege.prelude.PreludeList",
@@ -91,12 +91,12 @@ import frege.prelude.PreludeText;
   symas={}, symcs={}, symis={}, symts={},
   symvs={
     @Meta.SymV(
-      offset=370,
+      offset=407,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", base="standardCompileOptions"),
       stri="u", sig=0, depth=0, rkind=8
     ),
     @Meta.SymV(
-      offset=320,
+      offset=357,
       name=@Meta.QName(pack="ch.fhnw.thga.fregelanguageserver.compile.CompileOptions", base="rootOutputDir"), stri="s",
       sig=1, depth=0, rkind=13
     ),

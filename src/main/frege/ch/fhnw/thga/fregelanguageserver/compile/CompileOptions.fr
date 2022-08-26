@@ -6,6 +6,7 @@ import Compiler.enums.Flags
 getEnvDefault :: String -> String -> String
 getEnvDefault defaultValue envName = maybe defaultValue id $ System.getenv envName
 
+-- TODO: rename to standardOutputDir
 rootOutputDir :: String
 rootOutputDir = ".frege"
 
