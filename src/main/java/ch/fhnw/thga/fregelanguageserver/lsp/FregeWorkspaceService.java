@@ -1,6 +1,7 @@
 package ch.fhnw.thga.fregelanguageserver.lsp;
 
 import java.net.URI;
+import java.util.List;
 
 import org.eclipse.lsp4j.DidChangeConfigurationParams;
 import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
@@ -28,11 +29,11 @@ class FregeWorkspaceService implements WorkspaceService
 	public void didChangeWatchedFiles(DidChangeWatchedFilesParams params)
     {
         // TODO: extract function to functional consumer, give it good name and call it in forEach
-        params.getChanges().forEach
+        List<URI> allFileURIs = compileService.getAllFileURIs();
+        allFileURIs.forEach
         (
-            change -> 
+            uri ->
             {
-                URI uri = URI.create(change.getUri());
                 compileService.compileAndUpdateGlobals
                 (
                     uri, 
@@ -46,5 +47,23 @@ class FregeWorkspaceService implements WorkspaceService
                 );
             }
         );
+        //params.getChanges().forEach
+        //(
+        //    change -> 
+        //    {
+        //        URI uri = URI.create(change.getUri());
+        //        compileService.compileAndUpdateGlobals
+        //        (
+        //            uri, 
+        //            fregeServer.getProjectService().getProjectGlobal()
+        //        );
+        //        DiagnosticService.publishCompilerDiagnostics
+        //        (
+        //            fregeServer.getClient(),
+        //            compileService.getGlobal(uri),
+        //            uri.toString()
+        //        );
+        //    }
+        //);
 	}
 }

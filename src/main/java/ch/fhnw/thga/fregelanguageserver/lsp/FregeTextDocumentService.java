@@ -63,6 +63,7 @@ class FregeTextDocumentService implements TextDocumentService
 	@Override
 	public void didClose(DidCloseTextDocumentParams params)
     {
+        compileService.removeGlobal(URI.create(params.getTextDocument().getUri()));
         DiagnosticService.cleanCompilerDiagnostics
         (
             simpleLanguageServer.getClient(), 

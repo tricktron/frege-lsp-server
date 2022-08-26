@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import frege.compiler.types.Global.TGlobal;
 import frege.compiler.types.Global.TOptions;
@@ -65,9 +66,19 @@ public class CompileService
         uriGlobals = new HashMap<>();
     }
 
+    public void removeGlobal(URI uri)
+    {
+        uriGlobals.remove(uri);
+    }
+
     public TGlobal getGlobal(URI uri)
     {
         return uriGlobals.get(uri);
+    }
+
+    public List<URI> getAllFileURIs()
+    {
+        return uriGlobals.keySet().stream().collect(Collectors.toUnmodifiableList());
     }
 
     public void compileAndUpdateGlobals(URI uri, TGlobal projectGlobal)
