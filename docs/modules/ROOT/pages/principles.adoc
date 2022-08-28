@@ -1,0 +1,52 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Principles
+
+== Write Core Logic in Frege, Use Java for LSP
+A language feature is divided into three layers. As an example, we have a closer look at the hover feature:
+
+Hover.fr:: The core logic which extracts the hover information from the Frege compiler. Must be testable in isolation. Written in Frege.
+HoverLSP.fr:: Transforms the extracted hover information to the language server protocol (LSP) data types. Written in Frege.
+HoverService.java:: Sends the result to the text editor using xref:constraints.adoc#lsp4j[LSP4J]. This class is not allowed to call the `Hover` class directly (e.g. imports of the `Hover` class are forbidden). Instead it must go through the `HoverLSP` class. Written in Java.
+
+While the <<hover-seq>> shows the top-down call usage of the hover feature, it is usually built bottom up starting with a Frege test in the core logic layer.
+
+.Hover Sequence Diagram
+[seqdiag#hover-seq]
+....
+seqdiag {
+    edge_length = 400;
+    default_fontsize = 16;
+    "Text Editor" -> "Frege IDE" [ label = "textDocument/hover request" ]; 
+    "Frege IDE"   -> "Frege Compiler" [ label = "Hover.fr" ];
+    "Frege IDE"   <- "Frege Compiler";
+    "Frege IDE"   -> "Frege IDE" [ label = "HoverLSP.fr" ];
+    "Text Editor" <- "Frege IDE" [ label = "HoverService.java" ];
+}
+....
+
+
+
+== Test-Driven Development
+The core Frege logic should be built using test-driven development. While Frege has builtin support for property-based testing, it lacks a traditional unit test framework. As a workaround, we use the `once` function to mimick a unit test as can be seen in <<code-hover-prop>>. The tests are written in the same Frege file as the code.
+
+.Mimicking a Unit Test with a Property
+[source#code-hover-prop,haskell]
+----
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = 
+    once $ morallyDubiousIOProperty do
+        fregeCodeWithoutError = "module CorrectFregeTest where\n\n"
+                             ++ "ok = 42 + 42"
+        global               <- standardCompileGlobal
+        compiledGlobal       <- compile fregeCodeWithoutError global
+        expected              = []
+        actual                = getDiagnostics compiledGlobal
+        pure                  $ expected == actual
+----
+
+== Do Not Test the LSP
+We only test the core logic we build. We do not test the LSP functionality because that is the responsibility of the LSP4J library. As a result, we currently do not write any integration tests.
+
+== Frege Modules & Java Packages are Feature Driven
+A feature should be testable in isolation. Hence, we group the different classes by feature and put them into a common module/package. E.g. the hover package contains the `Hover.fr` `HoverLSP.fr` and `HoverService.java` classes.

@@ -5,7 +5,7 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 The following constraints are imposed upon the Frege IDE:
 
 == Language Server Protocol (LSP)
-xref:quality-attributes#Interoperability.adoc[Interoperability] is the Frege IDE's highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The https://microsoft.github.io/language-server-protocol/[LSP] emerged as the communication standard. As a result, the Frege IDE must implement the LSP.
+xref:quality-attributes.adoc#_interoperability[Interoperability] is the Frege IDE's highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The https://microsoft.github.io/language-server-protocol/[LSP] emerged as the communication standard. As a result, the Frege IDE must implement the LSP.
 
 The LSP uses a client-server model with a remote procedure call JSON (JSON-RPC) message format and supports standard input output, pipes and sockets as communication channels. The text editor takes the role of the client while
 the Frege IDE acts as the server. The protocol consists of a header and a content part and specifies three types of messsages:
@@ -79,6 +79,7 @@ Window Features:: are messages related to the user interface such as `ShowMessag
 The `didOpen` notification transfers the ownership of the document to the text editor by loading it into a buffer. As a result, the document's single source of truth lies now in the text editor's buffer and not on the file system anymore. The `didChange notification` propagates changes on the buffer to the server. The single source of truth is only synced to the file system after the `didSave` notification. As a consequence, a server *should not* read the document from filesystem between the `didOpen` and `didSave` notification. If the server needs to read from the filesystem it should use the `didChangeWatchedFiles` instead of the `didChange` notification.
 ====
 
+[#lsp4j]
 == Language Server Protocol 4 Java (LSP4J)
 There are existing https://microsoft.github.io/language-server-protocol/implementors/sdks/[software development kits (SDKs)] which provide language bindings for the LSP types, the JSON-RPC format and its asychronous message exchange. Implementing the LSP myself in Frege was out of scope and therefore we use the https://github.com/eclipse/lsp4j[LSP4J] library for the Frege IDE.
 
@@ -107,7 +108,7 @@ As a consequence, we do not need to worry about correctly creating a JSON-RPC me
 The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an LSP type is the core task of the Frege IDE. Therefore, we want to summarize the general core concept of the Frege compiler here.
 
 == Frege and Java
-We use Java for LSP4J only and Frege for everything else. See xref:principles.adoc[Principles] for more information.
+We use Java for LSP4J only and Frege for everything else. See xref:principles.adoc[Principles] and xref:software-architecture.adoc[Software Architecture] for more information.
 
 
 
