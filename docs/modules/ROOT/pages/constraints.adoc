@@ -22,8 +22,10 @@ Hence, every supported interaction is either started by a notification or reques
 [seqdiag#diag-lsp-seq]
 ....
 seqdiag {
-    edge_length = 500;
-    default_fontsize = 16;
+    edge_length = 600;
+    default_fontsize = 24;
+    "Text Editor" [ width = 192 ];
+    "Frege IDE"   [ width = 192 ];
     "Text Editor" ->  "Frege IDE" [ label = "request initialize" ];
     "Text Editor" <-- "Frege IDE" [ label = "response initialized" ];
     "Text Editor" ->>  "Frege IDE" [ label = "textDocument/didOpen notification" ];
@@ -81,7 +83,7 @@ The `didOpen` notification transfers the ownership of the document to the text e
 
 [#lsp4j]
 == Language Server Protocol 4 Java (LSP4J)
-There are existing https://microsoft.github.io/language-server-protocol/implementors/sdks/[software development kits (SDKs)] which provide language bindings for the LSP types, the JSON-RPC format and its asychronous message exchange. Implementing the LSP myself in Frege was out of scope and therefore we use the https://github.com/eclipse/lsp4j[LSP4J] library for the Frege IDE.
+There are existing https://microsoft.github.io/language-server-protocol/implementors/sdks/[software development kits (SDKs)] which provide language bindings for the LSP types, the JSON-RPC format and its asychronous message exchange. Implementing the LSP in Frege was out of scope and therefore we use the https://github.com/eclipse/lsp4j[LSP4J] library for the Frege IDE.
 
 https://github.com/eclipse/lsp4j/blob/main/documentation/README.md[After setting up LSP4J], we only need to implement the `org.eclipse.lsp4j.services.LanguageServer`, `org.eclipse.lsp4j.services.LanguageServer.TextDocumentService` and `org.eclipse.lsp4j.services.WorkspaceService` interfaces. <<code-lsp4j-hover>> shows and explains how LSP4J works and helps with an example of the hover language feature.
 
@@ -105,10 +107,53 @@ class FregeTextDocumentService implements TextDocumentService
 As a consequence, we do not need to worry about correctly creating a JSON-RPC message and the asynchronous complexity of the message exchange. Instead, we just use the types provided by LSP4J.
 
 == Frege Compiler
-The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an LSP type is the core task of the Frege IDE. Therefore, we want to summarize the general core concept of the Frege compiler here.
+
+.The Frege Compiler first transpiles `.fr` files to `.java` files and then runs the java compiler to create `.class` files.
+[blockdiag#frege-compiler,frege-compiler,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    ".java Files"    [width = 164 ];
+    "Frege Compiler" [width = 192 ];
+    "Java Compiler"  [width = 192 ];
+    ".class Files"   [width = 192 ];
+    ".fr Files"      [width = 128 ];
+    ".fr Files" -> "Frege Compiler";
+    "Frege Compiler" -> ".java Files";
+    ".java Files"    -> "Java Compiler";
+    "Java Compiler"  -> ".class Files";
+}
+....
+
+The Frege compiler transpiles `.fr` files to `.java` files. By default, it then calls the Java compiler to compile the `.java` files to `.class` files. The Java compilation step can be turned off with the `-j` flag so that the Frege compiler only acts as a transpiler. The https://github.com/Frege/frege/wiki/Compiler-Manpage[compiler manpage] lists all supported flags and configurations for more information.
+
+The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an language sever protocol type is the core task of the Frege IDE. Hence the integration boundary between the Frege IDE and the Frege compiler is the most crucial relationship. Since the Frege compiler is written in Frege, we want to write the Frege IDE's core part in Frege as well to reduce the complexity of the _Frege IDE - Frege compiler_ boundary.
+
 
 == Frege and Java
-We use Java for LSP4J only and Frege for everything else. See xref:principles.adoc[Principles] and xref:software-architecture.adoc[Software Architecture] for more information.
+We use Java with the Language Server Protocol 4 Java (LSP4J) library only and Frege for everything else. See xref:principles.adoc#fregeCore[Principles] for more information.
+
+=== Why Frege?
+
+.A pure and and impure function. If a function is impure it is of type `IO`, otherwise it is pure. Therefore the function `average` is pure, while the `main` function is impure.
+[source#code-pure-impure,haskell]
+----
+module Compute where
+average :: Real a => [a] -> a
+average [] = error "no average for empty lists"
+average xs = sum xs / fromIntegral (length xs)
+
+main :: IO ()
+main = do
+    println $ average [1, 2, 3] -- prints 2.0
+----
+
+Frege is a purely functional language for the Java Virtual Machine (JVM). The strong and static type system with global type inference combined with the purity characteristic lead to the following powerful guarantee: The type system not only distinguishes if an expression is pure or impure (causing a side-effect) at compile time, as shown in <<code-pure-impure>>, but it also enforces that a pure function cannot call an impure action.
+
+As a result, the Frege language has builtin support for the separation of concerns (SoC) design principle by separating pure code from side-effect causing actions. Pure code is desirable because it can be cached, tested and evaluated lazily, in advance or concurrently. Applying the SoC to a program thus benefits not only its modularity and testability but also allows the compiler to optimize the pure code part. The xref:principles.adoc#funcCore[functional core, outer shell] design pattern aims at exactly these quality attributes for its core and builds 
+
+The abovementioned characteristic and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its https://github.com/frege/frege[official Github repository].
+
 
 
 

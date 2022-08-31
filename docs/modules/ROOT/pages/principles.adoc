@@ -2,6 +2,7 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 :xrefstyle: short
 = Principles
 
+[#fregeCore]
 == Write Core Logic in Frege, Use Java for LSP
 A language feature is divided into three layers. As an example, we have a closer look at the hover feature:
 
@@ -16,7 +17,10 @@ While the <<hover-seq>> shows the top-down call usage of the hover feature, it i
 ....
 seqdiag {
     edge_length = 400;
-    default_fontsize = 16;
+    default_fontsize = 24;
+    "Text Editor"    [ width = 192 ];
+    "Frege IDE"      [ width = 192 ];
+    "Frege Compiler" [ width = 192 ];
     "Text Editor" -> "Frege IDE" [ label = "textDocument/hover request" ]; 
     "Frege IDE"   -> "Frege Compiler" [ label = "Hover.fr" ];
     "Frege IDE"   <- "Frege Compiler";
@@ -24,8 +28,6 @@ seqdiag {
     "Text Editor" <- "Frege IDE" [ label = "HoverService.java" ];
 }
 ....
-
-
 
 == Test-Driven Development
 The core Frege logic should be built using test-driven development. While Frege has builtin support for property-based testing, it lacks a traditional unit test framework. As a workaround, we use the `once` function to mimick a unit test as can be seen in <<code-hover-prop>>. The tests are written in the same Frege file as the code.
@@ -45,8 +47,32 @@ fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray =
         pure                  $ expected == actual
 ----
 
-== Do Not Test the LSP
-We only test the core logic we build. We do not test the LSP functionality because that is the responsibility of the LSP4J library. As a result, we currently do not write any integration tests.
+[#funCore]
+== Functional Core, Imperative Shell
+
+.The Functional core is surrounded by an imperative shell.
+[blockdiag#diag-fun-core,diag-fun-core,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    "Impure Input"    [width = 192 ];
+    "Pure Core"       [width = 192 ];
+    "Impure Output"   [width = 192 ];
+    "Impure Input" -> "Pure Core";
+    "Pure Core" -> "Impure Output";
+}
+....
+The functional core, imperative shell principle, as shown in <<diag-fun-core>>, sandwiches the functional core with impure actions. We apply this for the following three steps:
+
+Impure Input:: Parse and compile the Frege source code.
+Pure Core:: Extract the requested language feature.
+Impure Output:: Transform and send the requested language feature back to the text editor.
+
+Keeping the middle step pure provides us with the inherited benefits of pure code, the most important one being great testability.
+
+=== Do Not Test the LSP, do not Test the Frege Compiler
+This follows naturally from the <<funCore>> design principle.
+We only test the core logic we build. We neither test the LSP nor the correct compilation functionality because the first is the responsibility of the LSP4J library and the latter is the responsibility of the Frege compiler.
 
 == Frege Modules & Java Packages are Feature Driven
 A feature should be testable in isolation. Hence, we group the different classes by feature and put them into a common module/package. E.g. the hover package contains the `Hover.fr` `HoverLSP.fr` and `HoverService.java` classes.
