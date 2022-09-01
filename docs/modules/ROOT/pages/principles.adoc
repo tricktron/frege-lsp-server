@@ -16,7 +16,7 @@ While the <<hover-seq>> shows the top-down call usage of the hover feature, it i
 [seqdiag#hover-seq]
 ....
 seqdiag {
-    edge_length = 400;
+    edge_length = 350;
     default_fontsize = 24;
     "Text Editor"    [ width = 192 ];
     "Frege IDE"      [ width = 192 ];

@@ -1,3 +1,43 @@
 ifdef::env-vscode[:imagesdir: ../assets/images]
 :xrefstyle: short
 = Software Architecture
+
+<<img-container>> shows the three containers of the Frege IDE:
+
+[#img-container]
+.Container Diagram of the Frege Integrated Development Environment
+image::structurizr-1-Language-Server-Container-Diagram.png["Container Diagram of the Frege Integrated Development Environment"]
+
+[#img-container-key]
+.Diagram Key for <<img-container>>
+image::structurizr-1-Language-Server-Container-Diagram-key.png["Container Diagram Key"]
+
+https://github.com/tricktron/frege-lsp-server[Frege Language Server]:: reads Frege project configurations from the Frege Gradle plugin container, receives language server protocol (LSP) requests and notifications from the Frege language extension, extracts the requested language feature from the Frege compiler, transforms it to an LSP type and sends the result back to the Frege language extension, as shown in <<img-container>>. The core components are written in Frege, while the LSP component is written in Java.
+
+https://github.com/tricktron/frege-gradle-plugin[Frege Gradle Plugin]:: adds both Frege project support and the Tooling API to the Gradle build tool. It follows the https://docs.gradle.org/current/userguide/custom_plugins.html[official Gradle plugin development guidelines] to add Frege specific tasks to Gradle and uses the https://docs.gradle.org/current/userguide/third_party_integration.html[official Tooling API] to expose configuration to the Frege language server container. It is written in Java.
+
+https://github.com/tricktron/frege-vscode[Frege Language Extension]:: Currently, there only exists the Visual Studio Code Extension, which adds Frege language support to the https://code.visualstudio.com[Visual Studio Code] (VS Code) text editor. It follows the https://code.visualstudio.com/api/language-extensions/language-server-extension-guide[official VS Code language server extension guidelines] and is written in Typescript.
+
+
+== Frege Language Server
+
+The Frege language server is the core container of the Frege IDE.
+
+[#img-frege-server-components]
+.Components Diagram of the Frege Language Server
+image::structurizr-1-Components.png["Components Diagram of the Frege Language Server for <<img-frege-server-components>>"]
+
+[#img-frege-server-components-key]
+.Diagram Key for <<img-frege-server-components>>
+image::structurizr-1-Components-key.png["Components Diagram Key for <<img-frege-server-components>>"]
+
+<<img-frege-server-components>> zooms into the Frege Language Server container and shows its components.
+
+LSP:: The LSP components is the gateway to incoming and outgoing LSP requests and notifications. It delegates the language features to the corresponding components  The project component reads Frege project configurations from the Frege Gradle plugin container, receives language server protocol (LSP) requests and notifications from the Frege language extension, extracts the requested language feature from the Frege compiler, transforms it to an LSP type and sends the result back to the Frege language extension. 
+
+== Frege Gradle Plugin
+
+
+
+== Frege Language Extension
+The Frege Language Extension adds the 

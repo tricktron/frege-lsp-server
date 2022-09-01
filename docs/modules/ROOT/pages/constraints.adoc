@@ -154,6 +154,35 @@ As a result, the Frege language has builtin support for the separation of concer
 
 The abovementioned characteristic and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its https://github.com/frege/frege[official Github repository].
 
+== Build Tool
+
+Language features can be divided into three levels, depending on their capabilities as shown in <<diag-levels>>.
+
+.The three levels of language features: Basic is the first level, single-file support the second and project/workspace aware the most advanced.
+[blockdiag#diag-levels,diag-levels,svg]
+....
+blockdiag {
+    orientation = portrait;
+    default_fontsize = 24;
+    span_height = 80;
+    "Project/Workspace Aware"    [ width = 384 ];
+    "Single-File"                [ width = 192 ];
+    "Basic"                      [ width = 192 ];
+    "Project/Workspace Aware" -> "Single-File" [ label = "extends" ];
+    "Single-File" -> "Basic" [ label = "extends" ];
+}
+....
+
+Basic:: Provides syntax highlighting and language snippets. These features can be provided with a language extension only.
+Single-File:: Provides language features, such as completions, hovers, signature help and document symbols for a single-file only. These features are usually powered by a separete program, called the language server.
+Project/Workspace Aware:: Provides language features across files. This is especially important for programming languages since a project almost always consists of multiple dependent files. Capturing the project structure and its dependency model is usually delegated to a specialised build tool.
+
+The Frege IDE needs to be project/workspace aware to satisfy the xref:quality-attributes.adoc#_usability[Usability] attribute. In order to achieve this, the Frege IDE adds Frege project support to a build tool and extracts project specific configuration from the build tool. See xref:context.adoc[Context] for the big picture and xref:software-architecture.adoc[Software Architecture] for more details.
+
+
+
+
+
 
 
 

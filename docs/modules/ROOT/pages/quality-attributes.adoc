@@ -37,6 +37,8 @@ blockdiag {
 == Usability
 The Frege IDE should follow a convention over configuration approach so that it works out of the box or with minimal configuration.
 
+Besides, it should not only support single-file language smarts but also be cross-file workspace/project aware.  
+
 == Maintainability
 As mentioned in the xref:functional-overview.adoc[Functional Overview] page, there are https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#languageFeatures[many different language features]. Therefore, the architecture should make it easy to add, remove, change and test a single language feature.
 
