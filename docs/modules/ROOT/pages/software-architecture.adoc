@@ -25,7 +25,7 @@ The Frege language server is the core container of the Frege IDE.
 
 [#img-frege-server-components]
 .Components Diagram of the Frege Language Server
-image::structurizr-1-Components.png["Components Diagram of the Frege Language Server for <<img-frege-server-components>>"]
+image::structurizr-1-Components.png["Components Diagram of the Frege Language Server"]
 
 [#img-frege-server-components-key]
 .Diagram Key for <<img-frege-server-components>>
@@ -33,11 +33,54 @@ image::structurizr-1-Components-key.png["Components Diagram Key for <<img-frege-
 
 <<img-frege-server-components>> zooms into the Frege Language Server container and shows its components.
 
-LSP:: The LSP components is the gateway to incoming and outgoing LSP requests and notifications. It delegates the language features to the corresponding components  The project component reads Frege project configurations from the Frege Gradle plugin container, receives language server protocol (LSP) requests and notifications from the Frege language extension, extracts the requested language feature from the Frege compiler, transforms it to an LSP type and sends the result back to the Frege language extension. 
+LSP:: The LSP component is the gateway to incoming and outgoing LSP requests and notifications. It delegates language feature requests and notification to the responsible component. On activation of the Frege language extension it queries the project component to recognise a Frege project. It uses the LSP4J language binding library and is therefore written in Java.
+Project:: The project component extracts relevant Frege project configuration with the help of the Frege Gradle plugin. If the developer has setup his Frege project without any build tool, sane defaults are provided. The configuration is forwarded as compiler options to the compile component. Written in Java.
+Compile:: Runs the Frege compiler, extracts all available compiler information called global and saves them in memory. Impure Frege Module.
+Diagnostics:: Responsible for the diagnostics language feature. Extracts all available errors and warnings from the compiler global and transforms them to the LSP diagnostics type. Pure Frege module.
+Hover:: Responsible for the hover language feature. Extracts all available type signatures of functions and variables from the compiler global and transforms them to LSP hover type. Pure Frege module.
+
+
 
 == Frege Gradle Plugin
 
+<<img-frege-gradle-plugin-components>> zooms into the Frege Gradle plugin container and shows its components.
+
+[#img-frege-gradle-plugin-components]
+.Components Diagram of the Frege Gradle Plugin
+image::structurizr-1-frege-gradle-plugin-components.png["Components Diagram of the Frege Gradle Plugin"]
+
+[#img-frege-gradle-plugin-components-key]
+.Diagram Key for <<img-frege-gradle-plugin-components>>
+image::structurizr-1-frege-gradle-plugin-components-key.png["Components Diagram Key for <<img-frege-gradle-plugin-components>>"]
+
+The tasks component adds the following tasks to Gradle:
+
+setupFrege:: Downloads the specified version of the Frege compiler.
+initFrege:: Creates a default `HelloFrege.fr` example file under
+ `mainSourceDir/examples/HelloFrege.fr`. Alternatively, you can specify the location
+ on the command line with `--mainModule=my.mod.HelloFrege`.
+compileFrege:: Compiles all your `*.fr` files in `mainSourceDir` to `outputDir`.
+Alternatively, you can also specify the compile items by with the `compileItems` property.
+Then only the specified compile items and its dependencies get compiled. 
+E.g.: `compileItems = [ 'my.mod.Mod1', my.mod.Mod2' ]`.
+compileTestFrege:: Same as compileFrege but compiles all your `*.fr` files 
+in `mainSourceDir` to `testOutputDir`. Used by the testFrege task.
+runFrege:: Runs the Frege module specified by `mainModule`. Alternatively you can
+also pass the main module by command line, e.g: `gradle runFrege --mainModule=my.mod.Name`.
+testFrege:: Tests all QuickCheck properties defined in the specified `testModules`.
+You can pass test args on the command line, e.g: `gradle testFrege --args="-v -n 1000 -p pred1`.
+Run `gradle testFrege --args=-h` to see all options.
+replFrege:: Takes care of all project dependencies of the specified `replModule`
+and prints the command to start the Frege REPL and load the `replModule`. 
+E.g.: `(echo :l <path to replModule.fr> && cat) | java -cp <your-correct-classpath-with-all-dependencies> frege.repl.FregeRepl`.
+On Unix you can even further automate starting the repl and loading the module
+ with the following one-liner:
+`eval $(./gradlew -q replFrege)`.
+
+The tooling component exposes configuration relevant for the Frege compiler through the Gradle Tooling API. The exposed configuration parameters are declared in the `FregeProjectInfo` class.
+
+See the https://github.com/tricktron/frege-gradle-plugin[Github repository] for how to install, use it and more details.
 
 
 == Frege Language Extension
-The Frege Language Extension adds the 
+The VS Code Frege language extension adds Frege support to the Visual Studio Code editor. It is activated as soon as you open a `.fr` file, starts the included Frege language server and visualises supported language features. See the xref:functional-overview.adoc[Functional Overview] page for all supported features and the corresponding https://github.com/tricktron/frege-vscode[Github repository] for how to install, use it and more details.
