@@ -1,0 +1,105 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Code
+
+In this Section, we want to examine how the xref:principles.adoc#funcCore[functional core, outer shell] design pattern was implemented for the hover feature with the following three steps:
+
+Impure Input:: Compile Frege source code, extract and save the compiler global.
+Pure Core:: Extract the hover information (type signature) from the extracted compiler global and transform it to the LSP hover type.
+Impure Output:: Send the hover lsp data type back to the text editor using the LSP4J library.
+
+[NOTE]
+====
+The xref:principles.adoc#funcCore[functional core, outer shell] design pattern generalises well:
+The code for the impure input is already implemented while the code skeleton for the impure output is given by the LSP4J library. As a result, only the pure core part needs a lot of effort to implement for new language features.
+====
+
+== Impure Input
+
+The compile component is responsible for creating an in-memory model of all available compiler information. It uses a Java `uriGlobals HashMap<URI, Global>` data structure to keep track of all openend Frege files in the text editor and its compiler information.
+
+The Uniform Resource Identifier (`URI`) for each Frege file is defined by the https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/#uri[language server protocol (LSP)], while the `Global` data type is defined by the Frege compiler. It stores all compiler information for the associated Frege file `URI` and is documented https://github.com/Frege/frege/blob/master/frege/compiler/types/Global.fr[here].
+
+<<compile-component-seq>> shows the sequence diagram for the compile component.  
+
+
+.A code change in the text editor calls the LSP component, which delegates the call to the Compile component. The Compile component compiles the given Frege file `URI` with the initialised projectGlobal and saves all returned newGlobals in the `uriGlobals` hashmap.
+[seqdiag#compile-component-seq]
+....
+seqdiag {
+    edge_length = 300;
+    default_fontsize = 24;
+    "Frege Language Extension" [ width = 330 ];
+    "LSP"                      [ width = 60  ];
+    "Compile"                  [ width = 120 ];
+    "Frege Compiler"           [ width = 192 ];
+    "Frege Language Extension" ->> "LSP"                 [ label = "code change in uri" ];
+    "LSP"                      ->> "Compile"             [ label = "code change in uri" ];
+    "Compile"                  ->> "Frege Compiler"      [ label = "compileAndUpdateGlobals\n(uri, projectGlobal)" ];
+    "Compile"                  <<- "Frege Compiler"      [ label = "ArrayList<Global>\nnewGlobals" ];
+}
+....
+
+The Compile component is layered according to the xref:principles.adoc#fregeCore[Write Core Logic in Frege, Use Java for LSP] principle and shown in <<compile-layer-seq>>.
+
+.The CompileService.java class calls the CompileExecutorLSP.fr module, which calls the CompileMakeMode.fr module. The CompileMakeMode.fr is the core part, which calls the Frege compiler to compile the Frege file with the given project global. The returned list of globals is of type IO and thus impure. This `IO [Global]` list is then first converted by the CompileMakeMode.fr to `IOMutalbe (ArrayList Global)` and finally to the Java native type `List<TGlobal>`.
+[seqdiag#compile-layer-seq]
+....
+seqdiag {
+    edge_length = 280;
+    default_fontsize = 24;
+    "CompileService.java"    [ width = 290  ];
+    "CompileExecutorLSP.fr"  [ width = 300  ];
+    "CompileMakeMode.fr"     [ width = 280  ];
+    "Frege Compiler"          [ width = 192  ];
+    "CompileService.java" ->> "CompileService.java" [ leftnote = "compileAndUpdateGlobals\n(uri, projectGlobal)" ];
+    "CompileService.java" ->> "CompileExecutorLSP.fr" [ label = "compileWithMakeMode\n(uri, projectGlobal)" ];
+    "CompileExecutorLSP.fr" ->> "CompileMakeMode.fr"  [ label = "compileMakeLSP\n:: String\n-> Global\n -> IOMutable (ArrayList Global)" ];
+    "CompileMakeMode.fr"    ->> "Frege Compiler"      [ label = "compileMake\n:: String\n-> Global\n -> IO [Global]" ];
+    "CompileMakeMode.fr"    <<- "Frege Compiler"      [ label = "IO [Global]" ];
+    "CompileExecutorLSP.fr" <<- "CompileMakeMode.fr" [ label = "IOMutable (ArrayList Global)" ];
+    "CompileService.java"   <<- "CompileExecutorLSP.fr" [ label = "List<TGlobal>" ];
+}
+....
+
+The impure `compileMake {two-colons} String -> Global -> IO [Global]` is the core function. It uses a slight variation of the Frege compiler's https://github.com/Frege/frege/wiki/Compiler-Manpage#make-mode[make mode], which automatically compiles all dependent modules first. It differs only in the return type by always returning a list of globals. As a result, all dependencies of the given Frege file are compiled as well. For this to work, the Frege compiler needs to know the common Frege main source directory, which is configured through the project global and retrieved by the xref:software-architecture.adoc#_frege_language_server[Project component].
+
+[NOTE]
+.The three `Global monads in the Frege compiler`
+====
+.The three `Global monads` in the Frege comiler. The `StG` is pure, while the `StIO Global` and `IO Global` are impure, beautifully showing the separation of concerns. We can switch from the `StG` to the `StIO Global` monad with the `liftStG` function and from `StIO Global` to `IO Global` with the `evalStateT` function. There also exist the two convenient get global state functions getST for `StG` and `getSTT` for `StIO Global`.
+[blockdiag#diag-global-monads,diag-global-monads,svg]
+....
+blockdiag {
+    orientation = portrait;
+    default_fontsize = 24;
+    span_height = 80;
+    "StG"                          [ width = 250 ];
+    "StIO Global"                  [ width = 300 ];
+    "IO Global"                    [ width = 250 ];
+    "StIO Global" <- "StG"         [ label = "liftStG" ];
+    "IO Global"   <- "StIO Global" [ label = "evalStateT" ];
+}
+....
+====
+
+== Pure Hover Core
+
+.Hover Component Sequence Diagram
+[seqdiag#hover-component-seq]
+....
+seqdiag {
+    edge_length = 450;
+    default_fontsize = 24;
+    "Frege Language Extension" [ width = 330 ];
+    "LSP"                      [ width = 60  ];
+    "HoverLSP"                 [ width = 120 ];
+    "Hover"                    [ width = 80  ];
+    "Frege Language Extension"  -> "LSP"            [ label = "textDocument/hover request" ];
+    "LSP"                       -> "HoverLSP"          [ label = "getTypeSignatureOnHoverLSP" ];
+    "HoverLSP"                  -> "Hover"          [ label = "getTypeSignatureOnHover" ];
+    "HoverLSP"                <-- "Hover"          [ label = "return Hover" ];
+    "LSP"                      <-- "HoverLSP"          [ label = "return HoverLSP" ];
+    "Frege Language Extension" <-- "LSP"            [ label = "return HoverLSP" ];
+}
+....

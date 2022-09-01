@@ -36,8 +36,8 @@ image::structurizr-1-Components-key.png["Components Diagram Key for <<img-frege-
 LSP:: The LSP component is the gateway to incoming and outgoing LSP requests and notifications. It delegates language feature requests and notification to the responsible component. On activation of the Frege language extension it queries the project component to recognise a Frege project. It uses the LSP4J language binding library and is therefore written in Java.
 Project:: The project component extracts relevant Frege project configuration with the help of the Frege Gradle plugin. If the developer has setup his Frege project without any build tool, sane defaults are provided. The configuration is forwarded as compiler options to the compile component. Written in Java.
 Compile:: Runs the Frege compiler, extracts all available compiler information called global and saves them in memory. Impure Frege Module.
-Diagnostics:: Responsible for the diagnostics language feature. Extracts all available errors and warnings from the compiler global and transforms them to the LSP diagnostics type. Pure Frege module.
-Hover:: Responsible for the hover language feature. Extracts all available type signatures of functions and variables from the compiler global and transforms them to LSP hover type. Pure Frege module.
+Diagnostics:: Responsible for the https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/#textDocument_publishDiagnostics[diagnostics language feature]. Extracts all available errors and warnings from the compiler global and transforms them to the LSP diagnostics type. Pure Frege module.
+Hover:: Responsible for the https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/#textDocument_hover[hover language feature]. Extracts all available type signatures of functions and variables from the compiler global and transforms them to LSP hover type. Pure Frege module.
 
 
 

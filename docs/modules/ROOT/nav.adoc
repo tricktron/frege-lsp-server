@@ -5,3 +5,4 @@
 * xref:constraints.adoc[]
 * xref:principles.adoc[]
 * xref:software-architecture.adoc[]
+* xref:code.adoc[]

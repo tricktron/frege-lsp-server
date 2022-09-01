@@ -130,6 +130,8 @@ The Frege compiler transpiles `.fr` files to `.java` files. By default, it then 
 The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an language sever protocol type is the core task of the Frege IDE. Hence the integration boundary between the Frege IDE and the Frege compiler is the most crucial relationship. Since the Frege compiler is written in Frege, we want to write the Frege IDE's core part in Frege as well to reduce the complexity of the _Frege IDE - Frege compiler_ boundary.
 
 
+
+
 == Frege and Java
 We use Java with the Language Server Protocol 4 Java (LSP4J) library only and Frege for everything else. See xref:principles.adoc#fregeCore[Principles] for more information.
 
@@ -148,11 +150,11 @@ main = do
     println $ average [1, 2, 3] -- prints 2.0
 ----
 
-Frege is a purely functional language for the Java Virtual Machine (JVM). The strong and static type system with global type inference combined with the purity characteristic lead to the following powerful guarantee: The type system not only distinguishes if an expression is pure or impure (causing a side-effect) at compile time, as shown in <<code-pure-impure>>, but it also enforces that a pure function cannot call an impure action.
+Frege is a purely functional language for the Java Virtual Machine (JVM). The strong and static type system with global type inference combined with the purity characteristic lead to the following powerful guarantee: *The type system not only distinguishes if an expression is pure or impure (causing a side-effect) at compile time, as shown in <<code-pure-impure>>, but it also enforces that a pure function cannot call an impure action*.
 
-As a result, the Frege language has builtin support for the separation of concerns (SoC) design principle by separating pure code from side-effect causing actions. Pure code is desirable because it can be cached, tested and evaluated lazily, in advance or concurrently. Applying the SoC to a program thus benefits not only its modularity and testability but also allows the compiler to optimize the pure code part. The xref:principles.adoc#funcCore[functional core, outer shell] design pattern aims at exactly these quality attributes for its core and builds 
+As a result, the Frege language has builtin support for the separation of concerns (SoC) design principle by separating pure code from side-effect causing actions. Pure code is desirable because it can be cached, tested and evaluated lazily, in advance or concurrently. Applying the SoC to a program thus benefits not only its modularity and testability but also allows the compiler to optimize the pure code part. The xref:principles.adoc#funcCore[functional core, outer shell] design pattern aims at exactly these quality attributes for its pure core. 
 
-The abovementioned characteristic and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its https://github.com/frege/frege[official Github repository].
+The abovementioned guarantee and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its https://github.com/frege/frege[official Github repository].
 
 == Build Tool
 
