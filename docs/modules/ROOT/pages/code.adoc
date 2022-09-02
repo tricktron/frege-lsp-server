@@ -36,13 +36,14 @@ seqdiag {
     "Frege Language Extension" ->> "LSP"                 [ label = "code change in uri" ];
     "LSP"                      ->> "Compile"             [ label = "code change in uri" ];
     "Compile"                  ->> "Frege Compiler"      [ label = "compileAndUpdateGlobals\n(uri, projectGlobal)" ];
-    "Compile"                  <<- "Frege Compiler"      [ label = "ArrayList<Global>\nnewGlobals" ];
+    "Compile"                  <<- "Frege Compiler"      [ label = "List<Global>\nnewGlobals" ];
+    "Compile"                   -> "Compile"             [ label = "update\nuriGlobals"];
 }
 ....
 
 The Compile component is layered according to the xref:principles.adoc#fregeCore[Write Core Logic in Frege, Use Java for LSP] principle and shown in <<compile-layer-seq>>.
 
-.The CompileService.java class calls the CompileExecutorLSP.fr module, which calls the CompileMakeMode.fr module. The CompileMakeMode.fr is the core part, which calls the Frege compiler to compile the Frege file with the given project global. The returned list of globals is of type IO and thus impure. This `IO [Global]` list is then first converted by the CompileMakeMode.fr to `IOMutalbe (ArrayList Global)` and finally to the Java native type `List<TGlobal>`.
+.Compile layers: The `CompileService.java` class calls the `CompileExecutorLSP.fr` module, which calls the `CompileMakeMode.fr` module. The `CompileMakeMode.fr` is the core part, which calls the Frege compiler to compile the Frege file with the given project global. The returned list of globals is of type `IO` and thus impure. This `IO [Global]` list is then first converted by the `CompileMakeMode.fr` to `IOMutalbe (ArrayList Global)` and finally to the Java native type `List<TGlobal>` As a final step the `uriGlobals` hashmap is upated with the new globals.
 [seqdiag#compile-layer-seq]
 ....
 seqdiag {
@@ -59,10 +60,11 @@ seqdiag {
     "CompileMakeMode.fr"    <<- "Frege Compiler"      [ label = "IO [Global]" ];
     "CompileExecutorLSP.fr" <<- "CompileMakeMode.fr" [ label = "IOMutable (ArrayList Global)" ];
     "CompileService.java"   <<- "CompileExecutorLSP.fr" [ label = "List<TGlobal>" ];
+    "CompileService.java"    -> "CompileService.java" [ label = "update\nuriGlobals" ];
 }
 ....
 
-The impure `compileMake {two-colons} String -> Global -> IO [Global]` is the core function. It uses a slight variation of the Frege compiler's https://github.com/Frege/frege/wiki/Compiler-Manpage#make-mode[make mode], which automatically compiles all dependent modules first. It differs only in the return type by always returning a list of globals. As a result, all dependencies of the given Frege file are compiled as well. For this to work, the Frege compiler needs to know the common Frege main source directory, which is configured through the project global and retrieved by the xref:software-architecture.adoc#_frege_language_server[Project component].
+The impure `compileMake {two-colons} String -> Global -> IO [Global]` is the core function. It uses a slight variation of the Frege compiler's https://github.com/Frege/frege/wiki/Compiler-Manpage#make-mode[make mode], which automatically compiles all dependent modules first. It differs only in the return type by always returning a list of globals. For this to work, the Frege compiler needs to know the common Frege main source directory, which is configured through the project global and retrieved by the xref:software-architecture.adoc#_frege_language_server[Project component]. This builds the basis to make the Frege IDE workspace/project-aware and satisfy the usability quality attribute.
 
 [NOTE]
 .The three `Global monads in the Frege compiler`
@@ -85,21 +87,88 @@ blockdiag {
 
 == Pure Hover Core
 
-.Hover Component Sequence Diagram
+<<hover-component-seq>> shows the sequence diagram for the hover component.  
+
+
+.Hovering over an expression in the text editor calls the LSP component, which finds the global for the Frege file and delegates the call to the Hover component. The Hover component extracts the type signature from the global, transforms it to the LSP type Hover and returns it to the LSP, which forwards it back to the text editor.
 [seqdiag#hover-component-seq]
 ....
 seqdiag {
-    edge_length = 450;
+    edge_length = 350;
     default_fontsize = 24;
     "Frege Language Extension" [ width = 330 ];
     "LSP"                      [ width = 60  ];
-    "HoverLSP"                 [ width = 120 ];
-    "Hover"                    [ width = 80  ];
-    "Frege Language Extension"  -> "LSP"            [ label = "textDocument/hover request" ];
-    "LSP"                       -> "HoverLSP"          [ label = "getTypeSignatureOnHoverLSP" ];
-    "HoverLSP"                  -> "Hover"          [ label = "getTypeSignatureOnHover" ];
-    "HoverLSP"                <-- "Hover"          [ label = "return Hover" ];
-    "LSP"                      <-- "HoverLSP"          [ label = "return HoverLSP" ];
-    "Frege Language Extension" <-- "LSP"            [ label = "return HoverLSP" ];
+    "Hover"                    [ width = 120 ];
+    "Frege Language Extension" -> "LSP"    [ label = "hover request" ];
+    "LSP"                      -> "Hover"  [ label = "hover\n(hoverParams, global)" ];
+    "LSP"                      <- "Hover"  [ label = "Hover" ];
+    "Frege Language Extension" <- "LSP"    [ label = "Hover" ];
 }
 ....
+
+The Hover component is layered according to the xref:principles.adoc#fregeCore[Write Core Logic in Frege, Use Java for LSP] principle and shown in <<hover-layers-seq>>.
+
+
+.Hover layers: The `HoverService.java` class creates the Frege `PositionLSP` type and calls the `HoverLSP.fr` module. The `HoverLSP.fr` module converts the `PositionLSP` type to the core `Position` type to make the core logic data types independent of the LSP types. It then calls the `Hover.fr` module to compute the type signature, which is returned as `Maybe Hover` signaling that there may be no available type for the requested hover expression. As a final step the core data type `Maybe Hover` is transformed back to the `Maybe HoverLSP` type and returned to the `HoverService.java` class. The whole interaction is pure because there is no `IO` involved. 
+[seqdiag#hover-layers-seq]
+....
+seqdiag {
+    edge_length = 280;
+    default_fontsize = 24;
+    "HoverService.java"    [ width = 290  ];
+    "HoverLSP.fr"          [ width = 300  ];
+    "Hover.fr"             [ width = 280  ];
+    "HoverService.java" -> "HoverLSP.fr" [ label = "getTypeSignatureOnHoverLSP\n:: PositionLSP\n-> Global\n -> Maybe HoverLSP" ];
+    "HoverLSP.fr"       -> "Hover.fr"    [ label = "getTypeSignatureOnHover\n:: Position\n-> Global\n -> Maybe Hover" ];
+    "Hover.fr"          -> "Hover.fr"    [ label = "getTypeOnHover", fontsize = "22" ];
+    "HoverLSP.fr"       <- "Hover.fr"    [ label = "Maybe Hover" ];
+    "HoverService.java" <- "HoverLSP.fr" [ label = "Maybe HoverLSP" ];
+}
+....
+
+The `getTypeOnHover` function is responsible for the main work and shown in <<code-getTypeOnHover>>.
+
+.The `getTypeOnHover` Function
+[source#code-getTypeOnHover,haskell]
+----
+getTypeOnHover :: Position -> StateT Global Maybe Hover // <1>
+getTypeOnHover pos = do
+    global     <- StateT.get
+    token      <- findToken pos <2>
+    qname      <- tokenToQName token <2>
+    symbol     <- findSymbol qname <2>
+    symbolType <- getSymbolType symbol <2>
+    pure        $ Hover <3>
+        { 
+            range   = tokenToRange token, 
+            content = FregeCodeBlock symbolType
+        }
+----
+<1> The function uses the monad transformer concept to combine the `State Global` and the `Maybe Hover` monad.
+<2> The main logicWe find the needed type in the big `Global` record by moving from `token -> qualifiedName -> symbol -> symbolType`.
+<3> As a last step, we transform the result to our core data type `Hover`.
+
+Since the core is pure and since we developed it with a xref:principles.adoc#_test_driven_development[Test-Driven Development] approach it is testable as shown <<code-hover-test>>.
+
+.A Hover test case checking the type signature of a string constant
+[source#code-hover-test,haskell]
+----
+shouldShowLocalVaridTypeSignature :: Property
+shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do // <1>
+    fregeHoverCode  = "module HoverTest where\n\n" 
+                   ++ "simplyString = \"Hello\""
+    global         <- standardCompileGlobal
+    compiledGlobal <- compile fregeHoverCode global
+    expected        = Just Hover 
+        { 
+            range   = Range { start = Position 3 1, end = Position 3 13 },
+            content = FregeCodeBlock "simplyString :: String"
+        }
+    actual          = getTypeSignatureOnHover (Position 3 3) compiledGlobal
+    pure            $ expected == actual
+----
+<1> The acute reader might notice the `morallyDubiousIOProperty` and think that the test is not pure. You are right: For the test setup we need to compile the code first, which is as illustrated the impure first step. Since a pure function cannot call an impure function in Frege, we need to execute the whole test in the impure `IO` context. The `getTypeOnHover` function, however, remains pure.
+
+== Impure Output
+
+This last step is delgated to the https://github.com/eclipse/lsp4j[LSP4J] library. As a result, we just follow the guidelines and implement the hover binding as shown in xref:constraints.adoc#lsp4j[Constraints].
