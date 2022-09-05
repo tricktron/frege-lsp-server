@@ -47,22 +47,21 @@ Content-Length: ...\r\n
     "params": {
         "uri": "file:///Users/.../Hello.fr",
         "diagnostics": [
-            {
-                "range": {
-                    "start": {
-                        "line": 5,
-                        "character": 8
-                    },
-                    "end": {
-                        "line": 5,
-                        "character": 19
-                    }
-                },
-                "severity": 3,
-                "source": "frege compiler",
-                "message": "value `result` is not used anywhere."
-            }
-        ]
+        {
+            "range": {
+               "start": {
+                   "line": 5,
+                   "character": 8
+               },
+               "end": {
+                   "line": 5,
+                   "character": 19
+               }
+            },
+            "severity": 3,
+            "source": "frege compiler",
+            "message": "value `result` is not used anywhere."
+        }]
     }
 }
 ----

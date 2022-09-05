@@ -26,7 +26,7 @@ workspace "Frege Language Server" {
         developer           -> fregeApplication "develops"
         developer           -> textEditor "writes source code in"
         developer           -> buildTool "configures and builds application with"
-        fregeLanguageServer -> tooling "extracts specific Frege application configuration"
+        fregeLanguageServer -> tooling "extracts application specific configuration"
         buildTool           -> fregeCompiler "creates an executable application with"
         fregeLanguageServer -> fregeCompiler "extracts Frege language features from"
         lsp                 -> compile "on new source code changes"
