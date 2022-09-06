@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Principles :: A new Frege IDE</title>
+    <meta name="generator" content="Antora 3.0.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">A new Frege IDE</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="frege-lsp-server" data-version="1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">frege-lsp-server</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">A new Frege IDE</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="context.html">Context</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="functional-overview.html">Functional Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="quality-attributes.html">Quality Attributes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="principles.html">Principles</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="software-architecture.html">Software Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="code.html">Code</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">frege-lsp-server</span>
+    <span class="version">1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">frege-lsp-server</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">frege-lsp-server</a></li>
+    <li><a href="principles.html">Principles</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/tricktron/frege-lsp-server/edit/HEAD/docs/modules/ROOT/pages/principles.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Principles</h1>
+<div class="sect1">
+<h2 id="funCore"><a class="anchor" href="#funCore"></a>Functional Core, Imperative Shell</h2>
+<div class="sectionbody">
+<div id="diag-fun-core" class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-0aa487469a157fb718936c2ba526718e6c7fbca3.svg" alt="The Functional core is surrounded by an imperative shell.">
+</div>
+<div class="title">Figure 1. The Functional core is surrounded by an imperative shell.</div>
+</div>
+<div class="paragraph">
+<p>The functional core, imperative shell principle, as shown in <a href="#diag-fun-core">Figure 1</a>, sandwiches the functional core with impure actions. We apply this for the following three steps:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Impure Input</dt>
+<dd>
+<p>Parse and compile the Frege source code.</p>
+</dd>
+<dt class="hdlist1">Pure Core</dt>
+<dd>
+<p>Extract the requested language feature.</p>
+</dd>
+<dt class="hdlist1">Impure Output</dt>
+<dd>
+<p>Transform and send the requested language feature back to the text editor.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Keeping the middle step pure provides us with the inherited benefits of pure code, the most important one being great testability.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fregeCore"><a class="anchor" href="#fregeCore"></a>Write Core Logic in Frege, Use Java for LSP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A language feature is divided into three layers. As an example, we have a closer look at the hover feature:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Hover.fr</dt>
+<dd>
+<p>The core logic which extracts the hover information from the compiler global. Must be testable in isolation. Written in Frege.</p>
+</dd>
+<dt class="hdlist1">HoverLSP.fr</dt>
+<dd>
+<p>Transforms the extracted hover information to the language server protocol (LSP) data types. Written in Frege.</p>
+</dd>
+<dt class="hdlist1">HoverService.java</dt>
+<dd>
+<p>Sends the result to the text editor using <a href="constraints.html#lsp4j" class="xref page">LSP4J</a>. This class is not allowed to call the <code>Hover</code> class directly (e.g. imports of the <code>Hover</code> class are forbidden). Instead it must go through the <code>HoverLSP</code> class. Written in Java.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The hover feature is usually built bottom up starting with a Frege test in the core logic layer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_driven_development"><a class="anchor" href="#_test_driven_development"></a>Test-Driven Development</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The core Frege logic should be built using test-driven development. While Frege has builtin support for property-based testing, it lacks a traditional unit test framework. As a workaround, we use the <code>once</code> function to mimick a unit test as can be seen in <a href="#code-hover-prop">Listing 1</a>. The tests are written in the same Frege file as the code.</p>
+</div>
+<div id="code-hover-prop" class="listingblock">
+<div class="title">Listing 1. Mimicking a Unit Test with a Property</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-haskell hljs" data-lang="haskell">fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray =
+    once $ morallyDubiousIOProperty do
+        fregeCodeWithoutError = "module CorrectFregeTest where\n\n"
+                             ++ "ok = 42 + 42"
+        global               &lt;- standardCompileGlobal
+        compiledGlobal       &lt;- compile fregeCodeWithoutError global
+        expected              = []
+        actual                = getDiagnostics compiledGlobal
+        pure                  $ expected == actual</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_do_not_test_the_lsp_do_not_test_the_frege_compiler"><a class="anchor" href="#_do_not_test_the_lsp_do_not_test_the_frege_compiler"></a>Do Not Test the LSP, do not Test the Frege Compiler</h3>
+<div class="paragraph">
+<p>This follows naturally from the <a href="#funCore">Functional Core, Imperative Shell</a> design principle.
+We only test the core logic we build. We neither test the LSP nor the correct compilation functionality because the first is the responsibility of the LSP4J library and the latter is the responsibility of the Frege compiler.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_modules_java_packages_are_feature_driven"><a class="anchor" href="#_frege_modules_java_packages_are_feature_driven"></a>Frege Modules &amp; Java Packages are Feature Driven</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A feature should be testable in isolation. Hence, we group the different classes by feature and put them into a common module/package. E.g. the hover package contains the <code>Hover.fr</code> <code>HoverLSP.fr</code> and <code>HoverService.java</code> classes.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>

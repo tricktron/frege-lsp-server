@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Constraints :: A new Frege IDE</title>
+    <meta name="generator" content="Antora 3.0.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">A new Frege IDE</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="frege-lsp-server" data-version="1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">frege-lsp-server</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">A new Frege IDE</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="context.html">Context</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="functional-overview.html">Functional Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="quality-attributes.html">Quality Attributes</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="principles.html">Principles</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="software-architecture.html">Software Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="code.html">Code</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">frege-lsp-server</span>
+    <span class="version">1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">frege-lsp-server</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">frege-lsp-server</a></li>
+    <li><a href="constraints.html">Constraints</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/tricktron/frege-lsp-server/edit/HEAD/docs/modules/ROOT/pages/constraints.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Constraints</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following constraints are imposed upon the Frege IDE:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_language_server_protocol_lsp"><a class="anchor" href="#_language_server_protocol_lsp"></a>Language Server Protocol (LSP)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="quality-attributes.html#_interoperability" class="xref page">Interoperability</a> is the Frege IDE&#8217;s highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The <a href="https://microsoft.github.io/language-server-protocol/">LSP</a> emerged as the communication standard. As a result, the Frege IDE must implement the LSP.</p>
+</div>
+<div class="paragraph">
+<p>The LSP uses a client-server model with a remote procedure call JSON (JSON-RPC) message format and supports standard input output, pipes and sockets as communication channels. The text editor takes the role of the client while
+the Frege IDE acts as the server. The protocol consists of a header and a content part and specifies three types of messsages:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Notification</dt>
+<dd>
+<p>which does not require a response.</p>
+</dd>
+<dt class="hdlist1">Request</dt>
+<dd>
+<p>which requires a response.</p>
+</dd>
+<dt class="hdlist1">Response</dt>
+<dd>
+<p>which matches a request.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Hence, every supported interaction is either started by a notification or request message.</p>
+</div>
+<div class="paragraph">
+<p><a href="#diag-lsp-seq">Figure 1</a> shows the exchanged messages when the user opens a Frege file:</p>
+</div>
+<div id="diag-lsp-seq" class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-4737d045760dec7401bc19e672901318cad37919.svg" alt="The user opens a Frege file in the text editor which initialises the Frege IDE first. Since the initialize message is a request, it requires a response. Afterwards the didOpen notification is sent to the Frege IDE. Since it is a notification, it does not require a response. However, the Frege IDE uses this moment to compile the openend Frege file and reports back any warnings and errors as diagnostics to the text editor.">
+</div>
+<div class="title">Figure 1. The user opens a Frege file in the text editor which initialises the Frege IDE first. Since the initialize message is a request, it requires a response. Afterwards the didOpen notification is sent to the Frege IDE. Since it is a notification, it does not require a response. However, the Frege IDE uses this moment to compile the openend Frege file and reports back any warnings and errors as diagnostics to the text editor.</div>
+</div>
+<div class="paragraph">
+<p><a href="#json-rpc-lsp">Listing 1</a> shows the JSON-RPC message of the <code>textDocument/publishDiagnostics</code> notification from <a href="#diag-lsp-seq">Figure 1</a>.</p>
+</div>
+<div id="json-rpc-lsp" class="listingblock">
+<div class="title">Listing 1. The JSON shows the JSON-RPC message of the <code>textDocument/publishDiagnostics</code> notification from <a href="#diag-lsp-seq">Figure 1</a>.</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">Content-Length: ...\r\n
+\r\n
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "uri": "file:///Users/.../Hello.fr",
+        "diagnostics": [
+        {
+            "range": {
+               "start": {
+                   "line": 5,
+                   "character": 8
+               },
+               "end": {
+                   "line": 5,
+                   "character": 19
+               }
+            },
+            "severity": 3,
+            "source": "frege compiler",
+            "message": "value `result` is not used anywhere."
+        }]
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/">LSP specification</a> divides the supported messages into the following groups which are summarized for brevity:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Lifecycle Messages</dt>
+<dd>
+<p>signal the start and exit of the client-server interaction. Examples are <code>intialize</code> and <code>shutdown</code>.</p>
+</dd>
+<dt class="hdlist1">Document Synchronization</dt>
+<dd>
+<p>signals document specific messages such as <code>didOpen</code>, <code>didChange</code> and <code>didSave</code>. Documents with a corresponding URI are the basic units for files and folders.</p>
+</dd>
+<dt class="hdlist1">Language Features</dt>
+<dd>
+<p>are language specific code smarts visualised by the text editor which help developers to write code faster. Examples are <code>Goto Declaration</code>, <code>Hover</code> and <code>PublishDiagnostics</code>.</p>
+</dd>
+<dt class="hdlist1">Workspace Features</dt>
+<dd>
+<p>A workspace is an opened project in a text editor with one or more root folders. Example messages are <code>didChangeWatchedFiles</code>, <code>workspaceSymbol</code> and <code>didChangeConfiguration</code>.</p>
+</dd>
+<dt class="hdlist1">Window Features</dt>
+<dd>
+<p>are messages related to the user interface such as <code>ShowMessage</code> and <code>Create Work Done Progress</code>.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Document Ownership and its Single Source of Truth</div>
+<div class="paragraph">
+<p>The <code>didOpen</code> notification transfers the ownership of the document to the text editor by loading it into a buffer. As a result, the document&#8217;s single source of truth lies now in the text editor&#8217;s buffer and not on the file system anymore. The <code>didChange notification</code> propagates changes on the buffer to the server. The single source of truth is only synced to the file system after the <code>didSave</code> notification. As a consequence, a server <strong>should not</strong> read the document from filesystem between the <code>didOpen</code> and <code>didSave</code> notification. If the server needs to read from the filesystem it should use the <code>didChangeWatchedFiles</code> instead of the <code>didChange</code> notification.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lsp4j"><a class="anchor" href="#lsp4j"></a>Language Server Protocol 4 Java (LSP4J)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are existing <a href="https://microsoft.github.io/language-server-protocol/implementors/sdks/">software development kits (SDKs)</a> which provide language bindings for the LSP types, the JSON-RPC format and its asychronous message exchange. Implementing the LSP in Frege was out of scope and therefore we use the <a href="https://github.com/eclipse/lsp4j">LSP4J</a> library for the Frege IDE.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/eclipse/lsp4j/blob/main/documentation/README.md">After setting up LSP4J</a>, we only need to implement the <code>org.eclipse.lsp4j.services.LanguageServer</code>, <code>org.eclipse.lsp4j.services.LanguageServer.TextDocumentService</code> and <code>org.eclipse.lsp4j.services.WorkspaceService</code> interfaces. <a href="#code-lsp4j-hover">Listing 2</a> shows and explains how LSP4J works and helps with an example of the hover language feature.</p>
+</div>
+<div id="code-lsp4j-hover" class="listingblock">
+<div class="title">Listing 2. The Hover Feature with LSP4J</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class FregeTextDocumentService implements TextDocumentService
+{
+    ...
+    @Override
+    public CompletableFuture&lt;Hover&gt; hover(HoverParams params) <i class="conum" data-value="1"></i><b>(1)</b>
+    {
+        return HoverService.hover(params); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>LSP4J provides the <code>CompletableFuture</code> type for the asynchronous message exchange and the <code>HoverParams</code> and <code>Hover</code> types which correspond to the <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover">LSP types of the hover specification</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The actual work is performed in the <code>HoverService</code> class.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>As a consequence, we do not need to worry about correctly creating a JSON-RPC message and the asynchronous complexity of the message exchange. Instead, we just use the types provided by LSP4J.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_compiler"><a class="anchor" href="#_frege_compiler"></a>Frege Compiler</h2>
+<div class="sectionbody">
+<div id="frege-compiler" class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-24f7a9046c28f3bd3f855f542988273076167e82.svg" alt="The Frege Compiler first transpiles `.fr` files to `.java` files and then runs the java compiler to create `.class` files.">
+</div>
+<div class="title">Figure 2. The Frege Compiler first transpiles <code>.fr</code> files to <code>.java</code> files and then runs the java compiler to create <code>.class</code> files.</div>
+</div>
+<div class="paragraph">
+<p>The Frege compiler transpiles <code>.fr</code> files to <code>.java</code> files. By default, it then calls the Java compiler to compile the <code>.java</code> files to <code>.class</code> files. The Java compilation step can be turned off with the <code>-j</code> flag so that the Frege compiler only acts as a transpiler. The <a href="https://github.com/Frege/frege/wiki/Compiler-Manpage">compiler manpage</a> lists all supported flags and configurations for more information.</p>
+</div>
+<div class="paragraph">
+<p>The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an language sever protocol type is the core task of the Frege IDE. Hence the integration boundary between the Frege IDE and the Frege compiler is the most crucial relationship. Since the Frege compiler is written in Frege, we want to write the Frege IDE&#8217;s core part in Frege as well to reduce the complexity of the <em>Frege IDE - Frege compiler</em> boundary.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_and_java"><a class="anchor" href="#_frege_and_java"></a>Frege and Java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We use Java with the Language Server Protocol 4 Java (LSP4J) library only and Frege for everything else. See <a href="principles.html#fregeCore" class="xref page">Principles</a> for more information.</p>
+</div>
+<div class="sect2">
+<h3 id="_why_frege"><a class="anchor" href="#_why_frege"></a>Why Frege?</h3>
+<div id="code-pure-impure" class="listingblock">
+<div class="title">Listing 3. A pure and and impure function. If a function is impure it is of type <code>IO</code>, otherwise it is pure. Therefore the function <code>average</code> is pure, while the <code>main</code> function is impure.</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-haskell hljs" data-lang="haskell">module Compute where
+average :: Real a =&gt; [a] -&gt; a
+average [] = error "no average for empty lists"
+average xs = sum xs / fromIntegral (length xs)
+
+main :: IO ()
+main = do
+    println $ average [1, 2, 3] -- prints 2.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Frege is a purely functional language for the Java Virtual Machine (JVM). The strong and static type system with global type inference combined with the purity characteristic lead to the following powerful guarantee: <strong>The type system not only distinguishes if an expression is pure or impure (causing a side-effect) at compile time, as shown in <a href="#code-pure-impure">Listing 3</a>, but it also enforces that a pure function cannot call an impure action</strong>.</p>
+</div>
+<div class="paragraph">
+<p>As a result, the Frege language has builtin support for the separation of concerns (SoC) design principle by separating pure code from side-effect causing actions. Pure code is desirable because it can be cached, tested and evaluated lazily, in advance or concurrently. Applying the SoC to a program thus benefits not only its modularity and testability but also allows the compiler to optimize the pure code part. The <a href="principles.html#funcCore" class="xref page">functional core, outer shell</a> design pattern aims at exactly these quality attributes for its pure core.</p>
+</div>
+<div class="paragraph">
+<p>The abovementioned guarantee and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its <a href="https://github.com/frege/frege">official Github repository</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_tool"><a class="anchor" href="#_build_tool"></a>Build Tool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Language features can be divided into three levels, depending on their capabilities as shown in <a href="#diag-levels">Figure 3</a>.</p>
+</div>
+<div id="diag-levels" class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-4f14ba61face6b13d858f4aa09e1fda45755d30f.svg" alt="The three levels of language features: Basic is the first level, single-file support the second and project/workspace aware the most advanced.">
+</div>
+<div class="title">Figure 3. The three levels of language features: Basic is the first level, single-file support the second and project/workspace aware the most advanced.</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Basic</dt>
+<dd>
+<p>Provides syntax highlighting and language snippets. These features can be provided with a language extension only.</p>
+</dd>
+<dt class="hdlist1">Single-File</dt>
+<dd>
+<p>Provides language features, such as completions, hovers, signature help and document symbols for a single-file only. These features are usually powered by a separete program, called the language server.</p>
+</dd>
+<dt class="hdlist1">Project/Workspace Aware</dt>
+<dd>
+<p>Provides language features across files. This is especially important for programming languages since a project almost always consists of multiple dependent files. Capturing the project structure and its dependency model is usually delegated to a specialised build tool.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The Frege IDE needs to be project/workspace aware to satisfy the <a href="quality-attributes.html#_usability" class="xref page">Usability</a> attribute. In order to achieve this, the Frege IDE adds Frege project support to a build tool and extracts project specific configuration from the build tool. See <a href="context.html" class="xref page">Context</a> for the big picture and <a href="software-architecture.html" class="xref page">Software Architecture</a> for more details.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>

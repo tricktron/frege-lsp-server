@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Software Architecture :: A new Frege IDE</title>
+    <meta name="generator" content="Antora 3.0.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">A new Frege IDE</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="frege-lsp-server" data-version="1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">frege-lsp-server</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">A new Frege IDE</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="context.html">Context</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="functional-overview.html">Functional Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="quality-attributes.html">Quality Attributes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="principles.html">Principles</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="software-architecture.html">Software Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="code.html">Code</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">frege-lsp-server</span>
+    <span class="version">1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">frege-lsp-server</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">frege-lsp-server</a></li>
+    <li><a href="software-architecture.html">Software Architecture</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/tricktron/frege-lsp-server/edit/HEAD/docs/modules/ROOT/pages/software-architecture.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Software Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#img-container">Figure 1</a> shows the three containers of the Frege IDE:</p>
+</div>
+<div id="img-container" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-Language-Server-Container-Diagram.png" alt="Container Diagram of the Frege Integrated Development Environment">
+</div>
+<div class="title">Figure 1. Container Diagram of the Frege Integrated Development Environment</div>
+</div>
+<div id="img-container-key" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-Language-Server-Container-Diagram-key.png" alt="Container Diagram Key">
+</div>
+<div class="title">Figure 2. Diagram Key for <a href="#img-container">Figure 1</a></div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://github.com/tricktron/frege-lsp-server">Frege Language Server</a></dt>
+<dd>
+<p>reads Frege project configurations from the Frege Gradle plugin container, receives language server protocol (LSP) requests and notifications from the Frege language extension, extracts the requested language feature from the Frege compiler, transforms it to an LSP type and sends the result back to the Frege language extension, as shown in <a href="#img-container">Figure 1</a>. The core components are written in Frege, while the LSP component is written in Java.</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/tricktron/frege-gradle-plugin">Frege Gradle Plugin</a></dt>
+<dd>
+<p>adds both Frege project support and the Tooling API to the Gradle build tool. It follows the <a href="https://docs.gradle.org/current/userguide/custom_plugins.html">official Gradle plugin development guidelines</a> to add Frege specific tasks to Gradle and uses the <a href="https://docs.gradle.org/current/userguide/third_party_integration.html">official Tooling API</a> to expose configuration to the Frege language server container. It is written in Java.</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/tricktron/frege-vscode">Frege Language Extension</a></dt>
+<dd>
+<p>Currently, there only exists the Visual Studio Code Extension, which adds Frege language support to the <a href="https://code.visualstudio.com">Visual Studio Code</a> (VS Code) text editor. It follows the <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">official VS Code language server extension guidelines</a> and is written in Typescript.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_language_server"><a class="anchor" href="#_frege_language_server"></a>Frege Language Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Frege language server is the core container of the Frege IDE.</p>
+</div>
+<div id="img-frege-server-components" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-Components.png" alt="Components Diagram of the Frege Language Server">
+</div>
+<div class="title">Figure 3. Components Diagram of the Frege Language Server</div>
+</div>
+<div id="img-frege-server-components-key" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-Components-key.png" alt="Components Diagram Key for &lt;&lt;img-frege-server-components&gt;&gt;">
+</div>
+<div class="title">Figure 4. Diagram Key for <a href="#img-frege-server-components">Figure 3</a></div>
+</div>
+<div class="paragraph">
+<p><a href="#img-frege-server-components">Figure 3</a> zooms into the Frege Language Server container and shows its components.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">LSP</dt>
+<dd>
+<p>The LSP component is the gateway to incoming and outgoing LSP requests and notifications. It delegates language feature requests and notification to the responsible component. On activation of the Frege language extension it queries the project component to recognise a Frege project. It uses the LSP4J language binding library and is therefore written in Java.</p>
+</dd>
+<dt class="hdlist1">Project</dt>
+<dd>
+<p>The project component extracts relevant Frege project configuration with the help of the Frege Gradle plugin. If the developer has setup his Frege project without any build tool, sane defaults are provided. The configuration is forwarded as compiler options to the compile component. Written in Java.</p>
+</dd>
+<dt class="hdlist1">Compile</dt>
+<dd>
+<p>Runs the Frege compiler, extracts all available compiler information called global and saves them in memory. Impure Frege Module.</p>
+</dd>
+<dt class="hdlist1">Diagnostics</dt>
+<dd>
+<p>Responsible for the <a href="https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/#textDocument_publishDiagnostics">diagnostics language feature</a>. Extracts all available errors and warnings from the compiler global and transforms them to the LSP diagnostics type. Pure Frege module.</p>
+</dd>
+<dt class="hdlist1">Hover</dt>
+<dd>
+<p>Responsible for the <a href="https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/#textDocument_hover">hover language feature</a>. Extracts all available type signatures of functions and variables from the compiler global and transforms them to LSP hover type. Pure Frege module.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_gradle_plugin"><a class="anchor" href="#_frege_gradle_plugin"></a>Frege Gradle Plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#img-frege-gradle-plugin-components">Figure 5</a> zooms into the Frege Gradle plugin container and shows its components.</p>
+</div>
+<div id="img-frege-gradle-plugin-components" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-frege-gradle-plugin-components.png" alt="Components Diagram of the Frege Gradle Plugin">
+</div>
+<div class="title">Figure 5. Components Diagram of the Frege Gradle Plugin</div>
+</div>
+<div id="img-frege-gradle-plugin-components-key" class="imageblock">
+<div class="content">
+<img src="_images/structurizr-1-frege-gradle-plugin-components-key.png" alt="Components Diagram Key for &lt;&lt;img-frege-gradle-plugin-components&gt;&gt;">
+</div>
+<div class="title">Figure 6. Diagram Key for <a href="#img-frege-gradle-plugin-components">Figure 5</a></div>
+</div>
+<div class="paragraph">
+<p>The tasks component adds the following tasks to Gradle:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">setupFrege</dt>
+<dd>
+<p>Downloads the specified version of the Frege compiler.</p>
+</dd>
+<dt class="hdlist1">initFrege</dt>
+<dd>
+<p>Creates a default <code>HelloFrege.fr</code> example file under
+<code>mainSourceDir/examples/HelloFrege.fr</code>. Alternatively, you can specify the location
+on the command line with <code>--mainModule=my.mod.HelloFrege</code>.</p>
+</dd>
+<dt class="hdlist1">compileFrege</dt>
+<dd>
+<p>Compiles all your <code>*.fr</code> files in <code>mainSourceDir</code> to <code>outputDir</code>.
+Alternatively, you can also specify the compile items by with the <code>compileItems</code> property.
+Then only the specified compile items and its dependencies get compiled.
+E.g.: <code>compileItems = [ 'my.mod.Mod1', my.mod.Mod2' ]</code>.</p>
+</dd>
+<dt class="hdlist1">compileTestFrege</dt>
+<dd>
+<p>Same as compileFrege but compiles all your <code>*.fr</code> files
+in <code>mainSourceDir</code> to <code>testOutputDir</code>. Used by the testFrege task.</p>
+</dd>
+<dt class="hdlist1">runFrege</dt>
+<dd>
+<p>Runs the Frege module specified by <code>mainModule</code>. Alternatively you can
+also pass the main module by command line, e.g: <code>gradle runFrege --mainModule=my.mod.Name</code>.</p>
+</dd>
+<dt class="hdlist1">testFrege</dt>
+<dd>
+<p>Tests all QuickCheck properties defined in the specified <code>testModules</code>.
+You can pass test args on the command line, e.g: <code>gradle testFrege --args="-v -n 1000 -p pred1</code>.
+Run <code>gradle testFrege --args=-h</code> to see all options.</p>
+</dd>
+<dt class="hdlist1">replFrege</dt>
+<dd>
+<p>Takes care of all project dependencies of the specified <code>replModule</code>
+and prints the command to start the Frege REPL and load the <code>replModule</code>.
+E.g.: <code>(echo :l &lt;path to replModule.fr&gt; &amp;&amp; cat) | java -cp &lt;your-correct-classpath-with-all-dependencies&gt; frege.repl.FregeRepl</code>.
+On Unix you can even further automate starting the repl and loading the module
+ with the following one-liner:
+<code>eval $(./gradlew -q replFrege)</code>.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The tooling component exposes configuration relevant for the Frege compiler through the Gradle Tooling API. The exposed configuration parameters are declared in the <code>FregeProjectInfo</code> class.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/tricktron/frege-gradle-plugin">Github repository</a> for how to install, use it and more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_frege_language_extension"><a class="anchor" href="#_frege_language_extension"></a>Frege Language Extension</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The VS Code Frege language extension adds Frege support to the Visual Studio Code editor. It is activated as soon as you open a <code>.fr</code> file, starts the included Frege language server and visualises supported language features. See the <a href="functional-overview.html" class="xref page">Functional Overview</a> page for all supported features and the corresponding <a href="https://github.com/tricktron/frege-vscode">Github repository</a> for how to install, use it and more details.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>

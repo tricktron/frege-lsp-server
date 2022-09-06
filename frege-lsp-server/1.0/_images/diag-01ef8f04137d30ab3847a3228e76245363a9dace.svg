@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox="0 0 1346 680" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" width="1346px" height="680px">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>seqdiag {
+    edge_length = 300;
+    default_fontsize = 24;
+    "Frege Language Extension" [ width = 330 ];
+    "LSP"                      [ width = 60  ];
+    "Compile"                  [ width = 120 ];
+    "Frege Compiler"           [ width = 192 ];
+    "Frege Language Extension" -&gt;&gt; "LSP"                 [ label = "code change in uri" ];
+    "LSP"                      -&gt;&gt; "Compile"             [ label = "code change in uri" ];
+    "Compile"                  -&gt;&gt; "Frege Compiler"      [ label = "compileAndUpdateGlobals\n(uri, projectGlobal)" ];
+    "Compile"                  &lt;&lt;- "Frege Compiler"      [ label = "List&lt;Global&gt;\nnewGlobals" ];
+    "Compile"                   -&gt; "Compile"             [ label = "update\nuriGlobals"];
+}</desc>
+  <rect fill="rgb(0,0,0)" height="504" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="228" y="154" />
+  <rect fill="rgb(0,0,0)" height="504" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="595" y="154" />
+  <rect fill="rgb(0,0,0)" height="400" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="857" y="258" />
+  <rect fill="rgb(0,0,0)" height="104" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="1185" y="388" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="330" x="67" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="60" x="569" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="120" x="801" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="192" x="1093" y="46" />
+  <path d="M 229 80 L 229 668" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="504" stroke="rgb(0,0,0)" width="8" x="225" y="148" />
+  <path d="M 596 80 L 596 668" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="504" stroke="rgb(0,0,0)" width="8" x="592" y="148" />
+  <path d="M 858 80 L 858 668" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="400" stroke="rgb(0,0,0)" width="8" x="854" y="252" />
+  <path d="M 1186 80 L 1186 668" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="104" stroke="rgb(0,0,0)" width="8" x="1182" y="382" />
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="330" x="64" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="317" x="229.5" y="72">Frege Language Extension</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="60" x="566" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="40" x="596.0" y="72">LSP</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="120" x="798" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="93" x="858.5" y="72">Compile</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="192" x="1090" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="185" x="1186.5" y="72">Frege Compiler</text>
+  <path d="M 237 148 L 588 148" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 580 144 L 588 148" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 588 148 L 580 152" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 604 252 L 850 252" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 842 248 L 850 252" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 850 252 L 842 256" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 866 382 L 1178 382" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1170 378 L 1178 382" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1178 382 L 1170 386" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 866 486 L 1178 486" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 874 482 L 866 486" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 866 486 L 874 490" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 866 590 L 1004 590" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1004 590 L 1004 606" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 1004 606 L 866 606" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="874,602 866,606 874,610" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="238" x="364.0" y="144">code change in uri</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="238" x="731.0" y="235">code change in uri</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="304" x="1026.0" y="339">compileAndUpdateGlobals</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="264" x="1006.0" y="365">(uri, projectGlobal)</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="159" x="1094.5" y="456">List&lt;Global&gt;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="132" x="1108.0" y="482">newGlobals</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="80" x="910.0" y="560">update</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="132" x="936.0" y="586">uriGlobals</text>
+</svg>
