@@ -1,5 +1,5 @@
 site:
-  title: Frege Language Server
+  title: A new Frege IDE
   start_page: frege-lsp-server::index.adoc
 content:
   sources:
@@ -8,9 +8,18 @@ content:
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+  supplemental_files:
+  - path: ui.yml
+    contents: |
+      static_files:
+      - .nojekyll
+  - path: .nojekyll
 asciidoc:
   attributes:
     kroki-fetch-diagram: true
     listing-caption: Listing
   extensions:
     - asciidoctor-kroki
+antora:
+  extensions:
+  - '@antora/lunr-extension'
