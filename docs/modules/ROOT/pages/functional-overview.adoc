@@ -8,7 +8,20 @@ The Frege Integrated Development IDE powers language features for the https://gi
 // TODO: add a quick description and screenshots for each feature and maybe a GIF for the code lens actions
 === Compiler Errors and Warnings
 
+Compiler errors are shown with red, warnings with blue squiggles, as can be seen in <<img-warnings-errors>>.
+
+.Compiler Errors & Warnings: Errors are marked with red, warnings with blue squiggles. Besides, the corresponding messages are accumulated and displayed in the problem tab.
+[#img-warnings-errors]
+image::errors-warnings.png[]
+
 === Type Signature on Hover
+
+Hovering over an expression triggers a popup which shows the type signature or the error/warning message, as shown in <<vid-hover>>.
+
+.The Hover Feature
+[#vid-hover]
+video::hover.mov[width=640,opts=autoplay]
+
 === Code Lens to run Frege programs (only in Visual Studio Code)
 === Code Lens to load a Frege module into the Frege Repl (only in Visual Studio Code)
 === Automatic Gradle Build Tool Support
