@@ -5,6 +5,8 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 [#funCore]
 == Functional Core, Imperative Shell
 
+The functional core, imperative shell principle, as shown in <<diag-fun-core>>, sandwiches the functional core with impure actions.
+
 .The Functional core is surrounded by an imperative shell.
 [blockdiag#diag-fun-core,diag-fun-core,svg]
 ....
@@ -17,7 +19,8 @@ blockdiag {
     "Pure Core" -> "Impure Output";
 }
 ....
-The functional core, imperative shell principle, as shown in <<diag-fun-core>>, sandwiches the functional core with impure actions. We apply this for the following three steps:
+
+We apply this for the following three steps:
 
 Impure Input:: Parse and compile the Frege source code.
 Pure Core:: Extract the requested language feature.

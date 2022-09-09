@@ -2,7 +2,7 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 :xrefstyle: short
 = Constraints
 
-The following constraints are imposed upon the Frege IDE:
+The following constraints are imposed upon the Frege IDE.
 
 == Language Server Protocol (LSP)
 xref:quality-attributes.adoc#_interoperability[Interoperability] is the Frege IDE's highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The https://microsoft.github.io/language-server-protocol/[LSP] emerged as the communication standard. As a result, the Frege IDE must implement the LSP.

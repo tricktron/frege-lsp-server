@@ -171,4 +171,4 @@ shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do // <1>
 
 == Impure Output
 
-This last step is delgated to the https://github.com/eclipse/lsp4j[LSP4J] library. As a result, we just follow the guidelines and implement the hover binding as shown in xref:constraints.adoc#lsp4j[Constraints].
+This last step is delegated to the https://github.com/eclipse/lsp4j[LSP4J] library. As a result, we just follow the guidelines and implement the hover binding as shown in xref:constraints.adoc#lsp4j[Constraints].
