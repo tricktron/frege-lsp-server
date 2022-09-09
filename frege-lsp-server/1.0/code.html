@@ -15,7 +15,11 @@
       <a class="navbar-item" href="../..">A new Frege IDE</a>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
-          <input id="search-input" type="text" placeholder="Search the docs">
+          <input
+            id="search-input" 
+            type="text" 
+            placeholder="Search the docs"
+          >
         </div>
       </div>
       <button class="navbar-burger" data-target="topbar-nav">
@@ -26,33 +30,20 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item" href="#">Home</a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Products</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Product A</a>
-            <a class="navbar-item" href="#">Product B</a>
-            <a class="navbar-item" href="#">Product C</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Services</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Service A</a>
-            <a class="navbar-item" href="#">Service B</a>
-            <a class="navbar-item" href="#">Service C</a>
-          </div>
-        </div>
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
+        <a 
+            class="navbar-item" 
+            href="https://github.com/tricktron/frege-vscode">Frege VS Code</a>
+        <a 
+            class="navbar-item" 
+            href="https://github.com/tricktron/frege-lsp-server">Frege Language Server
+        </a>
+        <a 
+            class="navbar-item" 
+            href="https://github.com/tricktron/frege-gradle-plugin">Frege Gradle Plugin</a>
       </div>
     </div>
   </nav>
-</header>
-<div class="body">
+</header><div class="body">
 <div class="nav-container" data-component="frege-lsp-server" data-version="1.0">
   <aside class="nav">
     <div class="panels">
@@ -308,7 +299,7 @@ shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do <i class=
 <h2 id="_impure_output"><a class="anchor" href="#_impure_output"></a>Impure Output</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This last step is delgated to the <a href="https://github.com/eclipse/lsp4j">LSP4J</a> library. As a result, we just follow the guidelines and implement the hover binding as shown in <a href="constraints.html#lsp4j" class="xref page">Constraints</a>.</p>
+<p>This last step is delegated to the <a href="https://github.com/eclipse/lsp4j">LSP4J</a> library. As a result, we just follow the guidelines and implement the hover binding as shown in <a href="constraints.html#lsp4j" class="xref page">Constraints</a>.</p>
 </div>
 </div>
 </div>
