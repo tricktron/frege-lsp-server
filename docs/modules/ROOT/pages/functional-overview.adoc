@@ -20,7 +20,7 @@ Hovering over an expression triggers a popup which shows the type signature or t
 
 .The Hover Feature
 [#vid-hover]
-video::hover.mov[width=640,opts=autoplay]
+video::hover.mov[width=100%,height=auto,opts=autoplay]
 
 === Code Lens to run Frege programs (only in Visual Studio Code)
 === Code Lens to load a Frege module into the Frege Repl (only in Visual Studio Code)
