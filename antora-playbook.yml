@@ -1,6 +1,6 @@
 site:
   title: A new Frege IDE
-  start_page: frege-lsp-server::index.adoc
+  start_page: A new Frege IDE::context.adoc
 content:
   sources:
   - url: .

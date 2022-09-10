@@ -1,3 +1,0 @@
-= A new Frege IDE
-
-Welcome to the docs of the Frege IDE. Head over to xref:context.adoc[Context] to get started.

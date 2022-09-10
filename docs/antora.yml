@@ -1,4 +1,4 @@
-name: frege-lsp-server
+name: A new Frege IDE
 version: '1.0'
 nav:
 - modules/ROOT/nav.adoc
