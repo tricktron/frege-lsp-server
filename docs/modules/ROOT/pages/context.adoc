@@ -2,10 +2,6 @@ ifdef::env-vscode[:imagesdir: ../assets/images]
 :xrefstyle: short
 = Context
 
-Welcome to the docs of the Frege IDE.
-
-image::hello-frege.png[]
-
 The Frege Integrated Development Environment (IDE) adds language features for the https://github.com/frege/frege[Frege programming language] to a text editor. Showing compiler errors and autocompletion suggestions are two examples of language features which help developers to write software more quickly. The Frege IDE interacts with the Frege compiler, a Build Tool and a text editor, as shown in <<img-system-context>>. It extracts the needed language feature from the Frege compiler and visualises it in the text editor. Besides, it also adds Frege automation support such as the creation, compilation and testing of a Frege application to the build tool.
 
 [#img-system-context]

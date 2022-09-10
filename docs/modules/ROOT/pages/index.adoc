@@ -1,0 +1,11 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Introduction
+
+Welcome to the docs of the Frege IDE.
+
+.A Warm Welcome from the Frege IDE.
+image::hello-frege.png[]
+
+Head over to the xref:context.adoc[Context] page for a big picture overview of the involved systems and users. The xref:functional-overview.adoc[Functional Overview] page lists all supported features, while the xref:quality-attributes.adoc[Quality Attributes] page outlines the major non-functional requirements which drove the design of the architecture. The imposed constraints are mentioned in xref:constraints.adoc[Constraints], while the xref:principles.adoc[Principles] page summarises the architecture's guiding principles. The xref:software-architecture.adoc[Software Architecture] page documents the big picture view of the Frege IDE and explains its three main containers: The Visual Studio Code extension, the Frege language server and the Frege Gradle Plugin. Finally, we show how the principles were applied in some more detail in the xref:code.adoc[Code] page.
+
