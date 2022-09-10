@@ -1,6 +1,6 @@
 site:
   title: A new Frege IDE
-  start_page: A new Frege IDE::context.adoc
+  start_page: frege-ide::context.adoc
 content:
   sources:
   - url: .
