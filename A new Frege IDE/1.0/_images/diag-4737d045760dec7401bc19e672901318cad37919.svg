@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox="0 0 984 456" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" width="984px" height="456px">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>seqdiag {
+    edge_length = 600;
+    default_fontsize = 24;
+    "Text Editor" [ width = 192 ];
+    "Frege IDE"   [ width = 192 ];
+    "Text Editor" -&gt;  "Frege IDE" [ label = "request initialize" ];
+    "Text Editor" &lt;-- "Frege IDE" [ label = "response initialized" ];
+    "Text Editor" -&gt;&gt;  "Frege IDE" [ label = "textDocument/didOpen notification" ];
+    "Text Editor" &lt;&lt;- "Frege IDE" [ label = "textDocument/publishDiagnostics notification" ];
+}</desc>
+  <rect fill="rgb(0,0,0)" height="280" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="159" y="154" />
+  <rect fill="rgb(0,0,0)" height="78" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="823" y="154" />
+  <rect fill="rgb(0,0,0)" height="78" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="8" x="823" y="310" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="192" x="67" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="192" x="731" y="46" />
+  <path d="M 160 80 L 160 444" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="280" stroke="rgb(0,0,0)" width="8" x="156" y="148" />
+  <path d="M 824 80 L 824 444" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="8 4" />
+  <rect fill="moccasin" height="78" stroke="rgb(0,0,0)" width="8" x="820" y="148" />
+  <rect fill="moccasin" height="78" stroke="rgb(0,0,0)" width="8" x="820" y="304" />
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="192" x="64" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="146" x="160.0" y="72">Text Editor</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="192" x="728" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="119" x="824.5" y="72">Frege IDE</text>
+  <path d="M 168 148 L 816 148" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="808,144 816,148 808,152" stroke="rgb(0,0,0)" />
+  <path d="M 168 226 L 816 226" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4" />
+  <polygon fill="rgb(0,0,0)" points="176,222 168,226 176,230" stroke="rgb(0,0,0)" />
+  <path d="M 168 304 L 816 304" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 808 300 L 816 304" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 816 304 L 808 308" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 168 382 L 816 382" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 176 378 L 168 382" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 168 382 L 176 386" fill="none" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="238" x="295.0" y="144">request initialize</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="264" x="680.0" y="222">response initialized</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="436" x="394.0" y="300">textDocument/didOpen notification</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="24" font-style="normal" font-weight="normal" text-anchor="middle" textLength="581" x="521.5" y="378">textDocument/publishDiagnostics notification</text>
+</svg>
