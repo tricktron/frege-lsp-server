@@ -1,9 +1,9 @@
 name: docs
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
         run: nix develop -c npx --prefix docs antora --fetch antora-playbook.yml
 
       - name: Publish to Github Pages
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: docs
