@@ -3,7 +3,11 @@
 ![build](https://github.com/tricktron/frege-lsp-server/actions/workflows/build.yml/badge.svg)
 ![license](https://img.shields.io/github/license/tricktron/frege-lsp-server)
 
-Frege Language Server using the language server protocol
+Frege Language Server using the language server protocol. This is the core container of the Frege IDE.
+
+## Documentation
+
+Head over to the [Frege IDE docs](https://tricktron.github.io/frege-lsp-server/frege-ide/1.0/index.html) website.
 
 ## How to use
 
