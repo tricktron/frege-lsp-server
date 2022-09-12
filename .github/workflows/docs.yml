@@ -1,0 +1,44 @@
+name: docs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: docs ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Nix with Flakes Support and Haskell Nix Binary Cache
+        uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://hydra.iohk.io https://cache.nixos.org
+            trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            allowed-users = *
+
+      - name: Cache Dev Shell
+        run: nix develop
+
+      - name: Install npm dependencies
+        run: nix develop -c npm --prefix docs ci
+
+      - name: Build Docs Website
+        run: nix develop -c npx --prefix docs antora --fetch antora-playbook.yml
+
+      - name: Publish to Github Pages
+        if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: docs
+          folder: build/site

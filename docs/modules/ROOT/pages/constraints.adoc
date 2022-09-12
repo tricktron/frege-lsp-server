@@ -1,0 +1,189 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Constraints
+
+The following constraints are imposed upon the Frege IDE.
+
+== Language Server Protocol (LSP)
+xref:quality-attributes.adoc#_interoperability[Interoperability] is the Frege IDE's highest priority quality attribute and it can only be satisfied if the communication between the text editor and the Frege IDE is standardized. The https://microsoft.github.io/language-server-protocol/[LSP] emerged as the communication standard. As a result, the Frege IDE must implement the LSP.
+
+The LSP uses a client-server model with a remote procedure call JSON (JSON-RPC) message format and supports standard input output, pipes and sockets as communication channels. The text editor takes the role of the client while
+the Frege IDE acts as the server. The protocol consists of a header and a content part and specifies three types of messsages:
+
+Notification:: which does not require a response.
+Request:: which requires a response.
+Response:: which matches a request.
+
+Hence, every supported interaction is either started by a notification or request message. 
+
+<<diag-lsp-seq>> shows the exchanged messages when the user opens a Frege file:
+
+.The user opens a Frege file in the text editor which initialises the Frege IDE first. Since the initialize message is a request, it requires a response. Afterwards the didOpen notification is sent to the Frege IDE. Since it is a notification, it does not require a response. However, the Frege IDE uses this moment to compile the openend Frege file and reports back any warnings and errors as diagnostics to the text editor.
+[seqdiag#diag-lsp-seq]
+....
+seqdiag {
+    edge_length = 600;
+    default_fontsize = 24;
+    "Text Editor" [ width = 192 ];
+    "Frege IDE"   [ width = 192 ];
+    "Text Editor" ->  "Frege IDE" [ label = "request initialize" ];
+    "Text Editor" <-- "Frege IDE" [ label = "response initialized" ];
+    "Text Editor" ->>  "Frege IDE" [ label = "textDocument/didOpen notification" ];
+    "Text Editor" <<- "Frege IDE" [ label = "textDocument/publishDiagnostics notification" ];
+}
+....
+
+<<json-rpc-lsp>> shows the JSON-RPC message of the `textDocument/publishDiagnostics` notification from <<diag-lsp-seq>>.
+
+.The JSON shows the JSON-RPC message of the `textDocument/publishDiagnostics` notification from <<diag-lsp-seq>>.
+[source#json-rpc-lsp,json]
+----
+Content-Length: ...\r\n
+\r\n
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "uri": "file:///Users/.../Hello.fr",
+        "diagnostics": [
+        {
+            "range": {
+               "start": {
+                   "line": 5,
+                   "character": 8
+               },
+               "end": {
+                   "line": 5,
+                   "character": 19
+               }
+            },
+            "severity": 3,
+            "source": "frege compiler",
+            "message": "value `result` is not used anywhere."
+        }]
+    }
+}
+----
+
+The https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/[LSP specification] divides the supported messages into the following groups which are summarized for brevity:
+
+Lifecycle Messages:: signal the start and exit of the client-server interaction. Examples are `intialize` and `shutdown`.
+Document Synchronization:: signals document specific messages such as `didOpen`, `didChange` and `didSave`. Documents with a corresponding URI are the basic units for files and folders.
+Language Features:: are language specific code smarts visualised by the text editor which help developers to write code faster. Examples are `Goto Declaration`, `Hover` and `PublishDiagnostics`.
+Workspace Features:: A workspace is an opened project in a text editor with one or more root folders. Example messages are `didChangeWatchedFiles`, `workspaceSymbol` and `didChangeConfiguration`.
+Window Features:: are messages related to the user interface such as `ShowMessage` and `Create Work Done Progress`.
+
+[NOTE]
+.Document Ownership and its Single Source of Truth
+====
+The `didOpen` notification transfers the ownership of the document to the text editor by loading it into a buffer. As a result, the document's single source of truth lies now in the text editor's buffer and not on the file system anymore. The `didChange notification` propagates changes on the buffer to the server. The single source of truth is only synced to the file system after the `didSave` notification. As a consequence, a server *should not* read the document from filesystem between the `didOpen` and `didSave` notification. If the server needs to read from the filesystem it should use the `didChangeWatchedFiles` instead of the `didChange` notification.
+====
+
+[#lsp4j]
+== Language Server Protocol 4 Java (LSP4J)
+There are existing https://microsoft.github.io/language-server-protocol/implementors/sdks/[software development kits (SDKs)] which provide language bindings for the LSP types, the JSON-RPC format and its asychronous message exchange. Implementing the LSP in Frege was out of scope and therefore we use the https://github.com/eclipse/lsp4j[LSP4J] library for the Frege IDE.
+
+https://github.com/eclipse/lsp4j/blob/main/documentation/README.md[After setting up LSP4J], we only need to implement the `org.eclipse.lsp4j.services.LanguageServer`, `org.eclipse.lsp4j.services.LanguageServer.TextDocumentService` and `org.eclipse.lsp4j.services.WorkspaceService` interfaces. <<code-lsp4j-hover>> shows and explains how LSP4J works and helps with an example of the hover language feature.
+
+.The Hover Feature with LSP4J
+[source#code-lsp4j-hover,java]
+----
+class FregeTextDocumentService implements TextDocumentService
+{
+    ...
+    @Override
+    public CompletableFuture<Hover> hover(HoverParams params) // <1>
+    {
+        return HoverService.hover(params); // <2>
+    }
+    ...
+}
+----
+<1> LSP4J provides the `CompletableFuture` type for the asynchronous message exchange and the `HoverParams` and `Hover` types which correspond to the https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover[LSP types of the hover specification].
+<2> The actual work is performed in the `HoverService` class.
+
+As a consequence, we do not need to worry about correctly creating a JSON-RPC message and the asynchronous complexity of the message exchange. Instead, we just use the types provided by LSP4J.
+
+== Frege Compiler
+
+.The Frege Compiler first transpiles `.fr` files to `.java` files and then runs the java compiler to create `.class` files.
+[blockdiag#frege-compiler,frege-compiler,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    ".java Files"    [width = 164 ];
+    "Frege Compiler" [width = 192 ];
+    "Java Compiler"  [width = 192 ];
+    ".class Files"   [width = 192 ];
+    ".fr Files"      [width = 128 ];
+    ".fr Files" -> "Frege Compiler";
+    "Frege Compiler" -> ".java Files";
+    ".java Files"    -> "Java Compiler";
+    "Java Compiler"  -> ".class Files";
+}
+....
+
+The Frege compiler transpiles `.fr` files to `.java` files. By default, it then calls the Java compiler to compile the `.java` files to `.class` files. The Java compilation step can be turned off with the `-j` flag so that the Frege compiler only acts as a transpiler. The https://github.com/Frege/frege/wiki/Compiler-Manpage[compiler manpage] lists all supported flags and configurations for more information.
+
+The Frege compiler contains all possible information for the Frege language features. Extracting the needed language feature and transforming it to an language sever protocol type is the core task of the Frege IDE. Hence the integration boundary between the Frege IDE and the Frege compiler is the most crucial relationship. Since the Frege compiler is written in Frege, we want to write the Frege IDE's core part in Frege as well to reduce the complexity of the _Frege IDE - Frege compiler_ boundary.
+
+
+
+
+== Frege and Java
+We use Java with the Language Server Protocol 4 Java (LSP4J) library only and Frege for everything else. See xref:principles.adoc#fregeCore[Principles] for more information.
+
+=== Why Frege?
+
+.A pure and and impure function. If a function is impure it is of type `IO`, otherwise it is pure. Therefore the function `average` is pure, while the `main` function is impure.
+[source#code-pure-impure,haskell]
+----
+module Compute where
+average :: Real a => [a] -> a
+average [] = error "no average for empty lists"
+average xs = sum xs / fromIntegral (length xs)
+
+main :: IO ()
+main = do
+    println $ average [1, 2, 3] -- prints 2.0
+----
+
+Frege is a purely functional language for the Java Virtual Machine (JVM). The strong and static type system with global type inference combined with the purity characteristic lead to the following powerful guarantee: *The type system not only distinguishes if an expression is pure or impure (causing a side-effect) at compile time, as shown in <<code-pure-impure>>, but it also enforces that a pure function cannot call an impure action*.
+
+As a result, the Frege language has builtin support for the separation of concerns (SoC) design principle by separating pure code from side-effect causing actions. Pure code is desirable because it can be cached, tested and evaluated lazily, in advance or concurrently. Applying the SoC to a program thus benefits not only its modularity and testability but also allows the compiler to optimize the pure code part. The xref:principles.adoc#funcCore[functional core, outer shell] design pattern aims at exactly these quality attributes for its pure core. 
+
+The abovementioned guarantee and its advantages do not uniquely apply to Frege but to other purely functional languages such as Haskell, Purescript and F# too. However, Frege is the only language that guarantees them for the JVM. Herein lies its main contribution: It allows developers to adopt the functional paradigm with its design patterns and benefits to build a functional architecture on the vast ecosystem of the JVM. Even more information on Frege can be found on its https://github.com/frege/frege[official Github repository].
+
+== Build Tool
+
+Language features can be divided into three levels, depending on their capabilities as shown in <<diag-levels>>.
+
+.The three levels of language features: Basic is the first level, single-file support the second and project/workspace aware the most advanced.
+[blockdiag#diag-levels,diag-levels,svg]
+....
+blockdiag {
+    orientation = portrait;
+    default_fontsize = 24;
+    span_height = 80;
+    "Project/Workspace Aware"    [ width = 384 ];
+    "Single-File"                [ width = 192 ];
+    "Basic"                      [ width = 192 ];
+    "Project/Workspace Aware" -> "Single-File" [ label = "extends" ];
+    "Single-File" -> "Basic" [ label = "extends" ];
+}
+....
+
+Basic:: Provides syntax highlighting and language snippets. These features can be provided with a language extension only.
+Single-File:: Provides language features, such as completions, hovers, signature help and document symbols for a single-file only. These features are usually powered by a separete program, called the language server.
+Project/Workspace Aware:: Provides language features across files. This is especially important for programming languages since a project almost always consists of multiple dependent files. Capturing the project structure and its dependency model is usually delegated to a specialised build tool.
+
+The Frege IDE needs to be project/workspace aware to satisfy the xref:quality-attributes.adoc#_usability[Usability] attribute. In order to achieve this, the Frege IDE adds Frege project support to a build tool and extracts project specific configuration from the build tool. See xref:context.adoc[Context] for the big picture and xref:software-architecture.adoc[Software Architecture] for more details.
+
+
+
+
+
+
+
+

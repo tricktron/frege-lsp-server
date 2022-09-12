@@ -1,0 +1,62 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Quality Attributes
+
+The Frege IDE's architecture should satisfy the following quality attributes, also known as non-functional requirements, listed from highest to lowest priority.
+
+== Interoperability
+One Frege IDE version must be usable with multiple different text editor products, as shown in <<diag-lsp>>. If each text editor requires its own Frege IDE, the interoperability attribute is *not* satisfied, which is shown in <<diag-no-lsp>>.
+
+.Interoperability: Multiple text editors can use the same Frege IDE.
+[blockdiag#diag-lsp,diag-lsp,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    "Text Editor 1" [width = 192 ];
+    "Text Editor 2" [width = 192 ];
+    "Frege IDE"     [width = 192 ];
+    "Text Editor 1" -> "Frege IDE";
+    "Text Editor 2" -> "Frege IDE";
+}
+....
+
+.No Interoperability: One Frege IDE for each text editor.
+[blockdiag#diag-no-lsp,diag-no-lsp,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    "Text Editor 1" [width = 192 ];
+    "Text Editor 2" [width = 192 ];
+    "Frege IDE 1"   [width = 192 ];
+    "Frege IDE 2"   [width = 192 ];
+    "Text Editor 1" -> "Frege IDE 1";
+    "Text Editor 2" -> "Frege IDE 2";
+}
+....
+
+== Usability
+The Frege IDE should follow a convention over configuration approach so that it works out of the box or with minimal configuration.
+
+Besides, it should not only support single-file language smarts but also be cross-file workspace/project aware.  
+
+== Maintainability
+As mentioned in the xref:functional-overview.adoc[Functional Overview] page, there are https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#languageFeatures[many different language features]. Therefore, the architecture should make it easy to add, remove, change and test a single language feature.
+
+=== Maintainability Checklist
+* [ ] Analyzability: how easy or difficult is it to identify bugs and map them to the source code location?
+* [ ] Changeability: how easy or difficult is it to change the code?
+* [ ] Stability: how easy or difficult is it to keep the system stable when changing it?
+* [ ] Testability: how easy or difficult is it to test the system after a change?
+
+
+== Installability
+The Frege IDE must be installable and runnable on Linux, MacOS and Windows.
+
+== Performance
+All language feature requests should be answered on average within one second if both the text editor and the Frege IDE run on the same machine. 
+
+== Fault Tolerance and Resilience
+All errors should be logged.
+
+== Internationalization and Localization
+All user interfaces will only be available in English.

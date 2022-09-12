@@ -10,3 +10,7 @@ bin
 .idea
 frege-native-gen*
 .frege
+.direnv
+.envrc
+docs/node_modules
+docs/diagrams/.structurizr

@@ -1,0 +1,21 @@
+site:
+  title: A new Frege IDE
+  start_page: frege-ide::index.adoc
+content:
+  sources:
+  - url: .
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+  supplemental_files: ./docs/supplemental-ui
+
+asciidoc:
+  attributes:
+    kroki-fetch-diagram: true
+    listing-caption: Listing
+  extensions:
+    - asciidoctor-kroki
+antora:
+  extensions:
+  - '@antora/lunr-extension'

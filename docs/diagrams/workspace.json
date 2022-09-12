@@ -1,0 +1,558 @@
+{
+  "id" : 1,
+  "name" : "Frege Language Server",
+  "description" : "Description",
+  "revision" : 0,
+  "lastModifiedDate" : "2022-09-08T12:44:43Z",
+  "lastModifiedAgent" : "structurizr-web/2769/diagram",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJGcmVnZSBMYW5ndWFnZSBTZXJ2ZXIiIHsKICAgIG1vZGVsIHsKICAgICAgICBkZXZlbG9wZXIgID0gcGVyc29uICJEZXZlbG9wZXIiCiAgICAgICAgdGV4dEVkaXRvciA9IHNvZnR3YXJlU3lzdGVtICJUZXh0IEVkaXRvciIgIkFsbG93cyBiYXNpYyB0ZXh0IGVkaXRpbmcuIiAiRXhpc3RpbmcgU3lzdGVtIgogICAgICAgIGZyZWdlSWRlICAgPSBzb2Z0d2FyZVN5c3RlbSAiRnJlZ2UgSW50ZWdyYXRlZCBEZXZlbG9wbWVudCBFbnZpcm9ubWVudCIgIlByb3ZpZGVzIEZyZWdlIGxhbmd1YWdlIGZlYXR1cmVzIHRvIGRldmVsb3AgRnJlZ2UgYXBwbGljYXRpb25zIGZhc3Rlci4iIHsKICAgICAgICAgICAgZnJlZ2VFeHRlbnNpb24gICAgICA9IGNvbnRhaW5lciAiRnJlZ2UgTGFuZ3VhZ2UgRXh0ZW5zaW9uIiAiQWRkcyBGcmVnZSBzcGVjaWZpYyBsYW5ndWFnZSBmZWF0dXJlcyB0byBhIHRleHQgZWRpdG9yLiIgIlR5cGVzY3JpcHQiCiAgICAgICAgICAgIGZyZWdlR3JhZGxlUGx1Z2luICAgPSBjb250YWluZXIgIkZyZWdlIEdyYWRsZSBQbHVnaW4iICJBZGRzIHRhc2tzIHRvIGNyZWF0ZSwgY29tcGlsZSwgcnVuLCBSRVBMIGFuZCB0ZXN0IGEgRnJlZ2UgcHJvamVjdCB0byBHcmFkbGUuIiAiSmF2YSIgewogICAgICAgICAgICAgICAgdGFza3MgICAgICA9IGNvbXBvbmVudCAiVGFza3MiICJBZGRzIEZyZWdlIHNwZWNpZmljIHRhc2tzIHRvIEdyYWRsZS4iICJKYXZhIFBhY2thZ2UiCiAgICAgICAgICAgICAgICB0b29saW5nICAgID0gY29tcG9uZW50ICJUb29saW5nIiAiRXhwb3NlcyBGcmVnZSB0YXNrIGNvbmZpZ3VyYXRpb24gdXNpbmcgdGhlIEdyYWRsZSBUb29saW5nIEFQSS4iICJKYXZhIFBhY2thZ2UsIEdyYWRsZSBUb29saW5nIEFQSSIKICAgICAgICAgICAgfQogICAgICAgICAgICBmcmVnZUxhbmd1YWdlU2VydmVyID0gY29udGFpbmVyICJGcmVnZSBMYW5ndWFnZSBTZXJ2ZXIiICJQcm92aWRlcyBGcmVnZSBzcGVjaWZpYyBsYW5ndWFnZSBmZWF0dXJlcy4iICJGcmVnZSBhbmQgSmF2YSIgewogICAgICAgICAgICAgICAgbHNwICAgICAgICA9IGNvbXBvbmVudCAiTFNQIiAiUmVjZWl2ZXMgYW5kIHNlbmRzIG5vdGlmaWNhdGlvbnMsIHJlcXVlc3RzIGFuZCByZXNwb25zZXMgYWNjb3JkaW5nIHRvIHRoZSBsYW5ndWFnZSBzZXJ2ZXIgcHJvdG9jb2wgKExTUCkgdXNpbmcgdGhlIExTUDRKIGxpYnJhcnkuIiAiSmF2YSBQYWNrYWdlLCBMU1A0SiIKICAgICAgICAgICAgICAgIGNvbXBpbGUgICAgPSBjb21wb25lbnQgIkNvbXBpbGUiICJSdW5zIHRoZSBGcmVnZSBjb21waWxlciBhbmQgbWFuYWdlcyBhbGwgYXZhaWxhYmxlIGNvbXBpbGVyIGluZm9ybWF0aW9uLCBjYWxsZWQgZ2xvYmFsLiIgIkZyZWdlIE1vZHVsZSIKICAgICAgICAgICAgICAgIGRpYWdub3N0aWMgPSBjb21wb25lbnQgIkRpYWdub3N0aWMiICJFeHRyYWN0cyBhbGwgYXZhaWxhYmxlIGVycm9ycyBhbmQgd2FybmluZ3MgZnJvbSB0aGUgY29tcGlsZXIgZ2xvYmFsIGFuZCByZXR1cm5zIHRoZW0gYXMgTFNQIGRpYWdub3N0aWNzLiIgIkZyZWdlIE1vZHVsZSIKICAgICAgICAgICAgICAgIGhvdmVyICAgICAgPSBjb21wb25lbnQgIkhvdmVyIiAiRXh0cmFjdHMgYWxsIGF2YWlsYWJsZSB0eXBlIHNpZ25hdHVyZXMgb2YgZnVuY3Rpb25zIGFuZCB2YXJpYWJsZXMgZnJvbSB0aGUgY29tcGlsZXIgZ2xvYmFsIGFuZCByZXR1cm5zIHRoZW0gYXMgTFNQIGhvdmVyLiIgIkZyZWdlIE1vZHVsZSIKICAgICAgICAgICAgICAgIHByb2plY3QgICAgPSBjb21wb25lbnQgIlByb2plY3QiICJDb25maWd1cmVzIHRoZSBGcmVnZSBwcm9qZWN0IHdpdGggaW5mb3JtYXRpb24gc3VjaCBhcyBleHRlcm5hbCBkZXBlbmRlbmNpZXMgZnJvbSBHcmFkbGUgQnVpbGQgVG9vbCBpZiBhdmFpbGFibGUuIiAiSmF2YSBQYWNrYWdlIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGZyZWdlQXBwbGljYXRpb24gPSBzb2Z0d2FyZVN5c3RlbSAiQXBwbGljYXRpb24iICJUaGUgYXBwbGljYXRpb24gdG8gYmUgZGV2ZWxvcGVkLiIgIkV4aXN0aW5nIFN5c3RlbSIKICAgICAgICBmcmVnZUNvbXBpbGVyICAgID0gc29mdHdhcmVTeXN0ZW0gIkZyZWdlIENvbXBpbGVyIiAiVHJhbnNwaWxlcyBGcmVnZSBjb2RlIGludG8gSmF2YSBjb2RlLiIgIkV4aXN0aW5nIFN5c3RlbSIKICAgICAgICBidWlsZFRvb2wgID0gc29mdHdhcmVTeXN0ZW0gIkJ1aWxkIFRvb2wiICJBdXRvbWF0ZXMgdGhlIHByb2Nlc3Mgb2YgY3JlYXRpbmcgYW4gZXhlY3R1YWJsZSBmcm9tIHNvdXJjZSBjb2RlLiIgIkV4aXN0aW5nIFN5c3RlbSIKCiAgICAgICAgZnJlZ2VHcmFkbGVQbHVnaW4gICAtPiBidWlsZFRvb2wgImFkZHMgRnJlZ2Ugc3VwcG9ydCB0byIKICAgICAgICBmcmVnZUV4dGVuc2lvbiAgICAgIC0+IGxzcCAicmVxdWVzdHMgRnJlZ2UgbGFuZ3VhZ2UgZmVhdHVyZSBmcm9tIiAiTGFuZ3VhZ2UgU2VydmVyIFByb3RvY29sIChMU1ApIgogICAgICAgIGZyZWdlRXh0ZW5zaW9uICAgICAgLT4gdGV4dEVkaXRvciAidmlzdWFsaXNlcyBGcmVnZSBsYW5ndWFnZSBmZWF0dXJlcyBpbiIKICAgICAgICBkZXZlbG9wZXIgICAgICAgICAgIC0+IGZyZWdlQXBwbGljYXRpb24gImRldmVsb3BzIgogICAgICAgIGRldmVsb3BlciAgICAgICAgICAgLT4gdGV4dEVkaXRvciAid3JpdGVzIHNvdXJjZSBjb2RlIGluIgogICAgICAgIGRldmVsb3BlciAgICAgICAgICAgLT4gYnVpbGRUb29sICJjb25maWd1cmVzIGFuZCBidWlsZHMgYXBwbGljYXRpb24gd2l0aCIKICAgICAgICBmcmVnZUxhbmd1YWdlU2VydmVyIC0+IHRvb2xpbmcgImV4dHJhY3RzIGFwcGxpY2F0aW9uIHNwZWNpZmljIGNvbmZpZ3VyYXRpb24iCiAgICAgICAgYnVpbGRUb29sICAgICAgICAgICAtPiBmcmVnZUNvbXBpbGVyICJjcmVhdGVzIGFuIGV4ZWN1dGFibGUgYXBwbGljYXRpb24gd2l0aCIKICAgICAgICBmcmVnZUxhbmd1YWdlU2VydmVyIC0+IGZyZWdlQ29tcGlsZXIgImV4dHJhY3RzIEZyZWdlIGxhbmd1YWdlIGZlYXR1cmVzIGZyb20iCiAgICAgICAgbHNwICAgICAgICAgICAgICAgICAtPiBjb21waWxlICJvbiBuZXcgc291cmNlIGNvZGUgY2hhbmdlcyIKICAgICAgICBsc3AgICAgICAgICAgICAgICAgIC0+IGhvdmVyICJvbiBob3ZlciByZXF1ZXN0IgogICAgICAgIGxzcCAgICAgICAgICAgICAgICAgLT4gZGlhZ25vc3RpYyAib24gbmV3IHNvdXJjZSBjb2RlIGNoYW5nZXMiCiAgICAgICAgbHNwICAgICAgICAgICAgICAgICAtPiBwcm9qZWN0ICJvbiBpbnRpYWxpemUiCiAgICAgICAgLy9sc3AgICAgICAgICAgICAgICAgIC0+IGZyZWdlRXh0ZW5zaW9uICJyZWNlaXZlcyBhbmQgc2VuZHMiICJMYW5ndWFnZSBTZXJ2ZXIgUHJvdG9jb2wgKExTUCkiCiAgICAgICAgY29tcGlsZSAgICAgICAgICAgICAtPiBmcmVnZUNvbXBpbGVyICJleHRyYWN0cyBjb21waWxlciBnbG9iYWwgZnJvbSIKICAgICAgICBwcm9qZWN0ICAgICAgICAgICAgIC0+IHRvb2xpbmcgImV4dHJhY3RzIEZyZWdlIHByb2plY3QgY29uZmlnIGZyb20iCiAgICAgICAgcHJvamVjdCAgICAgICAgICAgICAtPiBjb21waWxlICJjb25maWd1cmVzIHByb2plY3QgY29tcGlsZXIgb3B0aW9ucyIKICAgICAgICB0YXNrcyAgICAgICAgICAgICAgIC0+IGJ1aWxkVG9vbCAiYWRkcyBGcmVnZSBzdXBwb3J0IHRvIgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1sYW5kc2NhcGUgIlN5c3RlbUxhbmRzY2FwZSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgLy9hdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBzeXN0ZW1Db250ZXh0IGZyZWdlSWRlICJTeXN0ZW1Db250ZXh0IiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgZnJlZ2VJZGUgIkxhbmd1YWdlLVNlcnZlci1Db250YWluZXItRGlhZ3JhbSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgLy9hdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZnJlZ2VMYW5ndWFnZVNlcnZlciAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgLy9hdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZnJlZ2VHcmFkbGVQbHVnaW4gImZyZWdlLWdyYWRsZS1wbHVnaW4tY29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgIH0KCiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzA4NDI3YgogICAgICAgICAgICB9CiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiUmVsYXRpb25zaGlwIiB7CiAgICAgICAgICAgICAgICBmb250U2l6ZSAzMgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzQzOGRkNQogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJDb21wb25lbnQiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzg1YmJmMAogICAgICAgICAgICAgICAgY29sb3IgIzAwMDAwMAogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJFbGVtZW50IiB7CiAgICAgICAgICAgICAgICBmb250U2l6ZSAyNgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJFeGlzdGluZyBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzk5OTk5OQogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzExNjhiZAogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9Cg=="
+  },
+  "configuration" : { },
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "name" : "Developer",
+      "relationships" : [ {
+        "id" : "23",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "14",
+        "description" : "develops"
+      }, {
+        "id" : "25",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "16",
+        "description" : "configures and builds application with"
+      }, {
+        "id" : "24",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "2",
+        "description" : "writes source code in"
+      } ],
+      "location" : "Unspecified"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "15",
+      "tags" : "Element,Software System,Existing System",
+      "name" : "Frege Compiler",
+      "description" : "Transpiles Frege code into Java code.",
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "3",
+      "tags" : "Element,Software System",
+      "name" : "Frege Integrated Development Environment",
+      "description" : "Provides Frege language features to develop Frege applications faster.",
+      "relationships" : [ {
+        "id" : "18",
+        "sourceId" : "3",
+        "destinationId" : "16",
+        "description" : "adds Frege support to",
+        "linkedRelationshipId" : "17"
+      }, {
+        "id" : "22",
+        "sourceId" : "3",
+        "destinationId" : "2",
+        "description" : "visualises Frege language features in",
+        "linkedRelationshipId" : "21"
+      }, {
+        "id" : "30",
+        "sourceId" : "3",
+        "destinationId" : "15",
+        "description" : "extracts Frege language features from",
+        "linkedRelationshipId" : "29"
+      } ],
+      "location" : "Unspecified",
+      "containers" : [ {
+        "id" : "4",
+        "tags" : "Element,Container",
+        "name" : "Frege Language Extension",
+        "description" : "Adds Frege specific language features to a text editor.",
+        "relationships" : [ {
+          "id" : "20",
+          "sourceId" : "4",
+          "destinationId" : "8",
+          "description" : "requests Frege language feature from",
+          "technology" : "Language Server Protocol (LSP)",
+          "linkedRelationshipId" : "19"
+        }, {
+          "id" : "21",
+          "tags" : "Relationship",
+          "sourceId" : "4",
+          "destinationId" : "2",
+          "description" : "visualises Frege language features in"
+        }, {
+          "id" : "19",
+          "tags" : "Relationship",
+          "sourceId" : "4",
+          "destinationId" : "9",
+          "description" : "requests Frege language feature from",
+          "technology" : "Language Server Protocol (LSP)"
+        } ],
+        "technology" : "Typescript"
+      }, {
+        "id" : "5",
+        "tags" : "Element,Container",
+        "name" : "Frege Gradle Plugin",
+        "description" : "Adds tasks to create, compile, run, REPL and test a Frege project to Gradle.",
+        "relationships" : [ {
+          "id" : "17",
+          "tags" : "Relationship",
+          "sourceId" : "5",
+          "destinationId" : "16",
+          "description" : "adds Frege support to"
+        } ],
+        "technology" : "Java",
+        "components" : [ {
+          "id" : "6",
+          "tags" : "Element,Component",
+          "name" : "Tasks",
+          "description" : "Adds Frege specific tasks to Gradle.",
+          "relationships" : [ {
+            "id" : "39",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "16",
+            "description" : "adds Frege support to"
+          } ],
+          "technology" : "Java Package",
+          "size" : 0
+        }, {
+          "id" : "7",
+          "tags" : "Element,Component",
+          "name" : "Tooling",
+          "description" : "Exposes Frege task configuration using the Gradle Tooling API.",
+          "technology" : "Java Package, Gradle Tooling API",
+          "size" : 0
+        } ]
+      }, {
+        "id" : "8",
+        "tags" : "Element,Container",
+        "name" : "Frege Language Server",
+        "description" : "Provides Frege specific language features.",
+        "relationships" : [ {
+          "id" : "26",
+          "tags" : "Relationship",
+          "sourceId" : "8",
+          "destinationId" : "7",
+          "description" : "extracts application specific configuration"
+        }, {
+          "id" : "27",
+          "sourceId" : "8",
+          "destinationId" : "5",
+          "description" : "extracts application specific configuration",
+          "linkedRelationshipId" : "26"
+        }, {
+          "id" : "29",
+          "tags" : "Relationship",
+          "sourceId" : "8",
+          "destinationId" : "15",
+          "description" : "extracts Frege language features from"
+        } ],
+        "technology" : "Frege and Java",
+        "components" : [ {
+          "id" : "11",
+          "tags" : "Element,Component",
+          "name" : "Diagnostic",
+          "description" : "Extracts all available errors and warnings from the compiler global and returns them as LSP diagnostics.",
+          "technology" : "Frege Module",
+          "size" : 0
+        }, {
+          "id" : "13",
+          "tags" : "Element,Component",
+          "name" : "Project",
+          "description" : "Configures the Frege project with information such as external dependencies from Gradle Build Tool if available.",
+          "relationships" : [ {
+            "id" : "36",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "7",
+            "description" : "extracts Frege project config from"
+          }, {
+            "id" : "37",
+            "sourceId" : "13",
+            "destinationId" : "5",
+            "description" : "extracts Frege project config from",
+            "linkedRelationshipId" : "36"
+          }, {
+            "id" : "38",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "10",
+            "description" : "configures project compiler options"
+          } ],
+          "technology" : "Java Package",
+          "size" : 0
+        }, {
+          "id" : "10",
+          "tags" : "Element,Component",
+          "name" : "Compile",
+          "description" : "Runs the Frege compiler and manages all available compiler information, called global.",
+          "relationships" : [ {
+            "id" : "35",
+            "tags" : "Relationship",
+            "sourceId" : "10",
+            "destinationId" : "15",
+            "description" : "extracts compiler global from"
+          } ],
+          "technology" : "Frege Module",
+          "size" : 0
+        }, {
+          "id" : "9",
+          "tags" : "Element,Component",
+          "name" : "LSP",
+          "description" : "Receives and sends notifications, requests and responses according to the language server protocol (LSP) using the LSP4J library.",
+          "relationships" : [ {
+            "id" : "33",
+            "tags" : "Relationship",
+            "sourceId" : "9",
+            "destinationId" : "11",
+            "description" : "on new source code changes"
+          }, {
+            "id" : "34",
+            "tags" : "Relationship",
+            "sourceId" : "9",
+            "destinationId" : "13",
+            "description" : "on intialize"
+          }, {
+            "id" : "32",
+            "tags" : "Relationship",
+            "sourceId" : "9",
+            "destinationId" : "12",
+            "description" : "on hover request"
+          }, {
+            "id" : "31",
+            "tags" : "Relationship",
+            "sourceId" : "9",
+            "destinationId" : "10",
+            "description" : "on new source code changes"
+          } ],
+          "technology" : "Java Package, LSP4J",
+          "size" : 0
+        }, {
+          "id" : "12",
+          "tags" : "Element,Component",
+          "name" : "Hover",
+          "description" : "Extracts all available type signatures of functions and variables from the compiler global and returns them as LSP hover.",
+          "technology" : "Frege Module",
+          "size" : 0
+        } ]
+      } ],
+      "documentation" : { }
+    }, {
+      "id" : "16",
+      "tags" : "Element,Software System,Existing System",
+      "name" : "Build Tool",
+      "description" : "Automates the process of creating an exectuable from source code.",
+      "relationships" : [ {
+        "id" : "28",
+        "tags" : "Relationship",
+        "sourceId" : "16",
+        "destinationId" : "15",
+        "description" : "creates an executable application with"
+      } ],
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "14",
+      "tags" : "Element,Software System,Existing System",
+      "name" : "Application",
+      "description" : "The application to be developed.",
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "2",
+      "tags" : "Element,Software System,Existing System",
+      "name" : "Text Editor",
+      "description" : "Allows basic text editing.",
+      "location" : "Unspecified",
+      "documentation" : { }
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "key" : "SystemLandscape",
+      "order" : 1,
+      "paperSize" : "A4_Landscape",
+      "dimensions" : {
+        "width" : 2366,
+        "height" : 2220
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 232,
+        "y" : 732
+      }, {
+        "id" : "2",
+        "x" : 957,
+        "y" : 807
+      }, {
+        "id" : "3",
+        "x" : 207,
+        "y" : 1432
+      }, {
+        "id" : "14",
+        "x" : 957,
+        "y" : 207
+      }, {
+        "id" : "15",
+        "x" : 1707,
+        "y" : 1711
+      }, {
+        "id" : "16",
+        "x" : 957,
+        "y" : 1407
+      } ],
+      "relationships" : [ {
+        "id" : "18"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "25",
+        "vertices" : [ {
+          "x" : 1785,
+          "y" : 510
+        } ]
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "30",
+        "vertices" : [ {
+          "x" : 957,
+          "y" : 1857
+        } ]
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "softwareSystemId" : "3",
+      "key" : "SystemContext",
+      "order" : 2,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "18"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "30"
+      } ]
+    } ],
+    "containerViews" : [ {
+      "softwareSystemId" : "3",
+      "key" : "Language-Server-Container-Diagram",
+      "order" : 3,
+      "paperSize" : "A3_Landscape",
+      "dimensions" : {
+        "width" : 4004,
+        "height" : 1454
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "2",
+        "x" : 290,
+        "y" : 990
+      }, {
+        "id" : "15",
+        "x" : 1040,
+        "y" : 990
+      }, {
+        "id" : "4",
+        "x" : 286,
+        "y" : 286
+      }, {
+        "id" : "5",
+        "x" : 1786,
+        "y" : 286
+      }, {
+        "id" : "16",
+        "x" : 1785,
+        "y" : 985
+      }, {
+        "id" : "8",
+        "x" : 1036,
+        "y" : 286
+      } ],
+      "relationships" : [ {
+        "id" : "29"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "20"
+      } ]
+    } ],
+    "componentViews" : [ {
+      "key" : "frege-gradle-plugin-components",
+      "order" : 5,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "5",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "26"
+      }, {
+        "id" : "39"
+      } ]
+    }, {
+      "key" : "Components",
+      "order" : 4,
+      "paperSize" : "A3_Landscape",
+      "dimensions" : {
+        "width" : 3254,
+        "height" : 2962
+      },
+      "containerId" : "8",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "11",
+        "x" : 1040,
+        "y" : 780
+      }, {
+        "id" : "12",
+        "x" : 1037,
+        "y" : 286
+      }, {
+        "id" : "13",
+        "x" : 1045,
+        "y" : 1885
+      }, {
+        "id" : "4",
+        "x" : 665,
+        "y" : 2335
+      }, {
+        "id" : "15",
+        "x" : 1805,
+        "y" : 1290
+      }, {
+        "id" : "5",
+        "x" : 1800,
+        "y" : 1880
+      }, {
+        "id" : "9",
+        "x" : 300,
+        "y" : 1115
+      }, {
+        "id" : "10",
+        "x" : 1045,
+        "y" : 1285
+      } ],
+      "relationships" : [ {
+        "id" : "37"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "19"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "tag" : "Person",
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person"
+        }, {
+          "tag" : "Container",
+          "background" : "#438dd5",
+          "color" : "#ffffff"
+        }, {
+          "tag" : "Component",
+          "background" : "#85bbf0",
+          "color" : "#000000"
+        }, {
+          "tag" : "Element",
+          "fontSize" : 26
+        }, {
+          "tag" : "Existing System",
+          "background" : "#999999",
+          "color" : "#ffffff"
+        }, {
+          "tag" : "Software System",
+          "background" : "#1168bd",
+          "color" : "#ffffff"
+        } ],
+        "relationships" : [ {
+          "tag" : "Relationship",
+          "fontSize" : 32
+        } ]
+      },
+      "terminology" : { },
+      "lastSavedView" : "SystemLandscape"
+    }
+  }
+}

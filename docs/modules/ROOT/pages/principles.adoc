@@ -1,0 +1,66 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Principles
+
+[#funCore]
+== Functional Core, Imperative Shell
+
+The functional core, imperative shell principle, as shown in <<diag-fun-core>>, sandwiches the functional core with impure actions.
+
+.The Functional core is surrounded by an imperative shell.
+[blockdiag#diag-fun-core,diag-fun-core,svg]
+....
+blockdiag {
+    default_fontsize = 24; 
+    "Impure Input"    [width = 192 ];
+    "Pure Core"       [width = 192 ];
+    "Impure Output"   [width = 192 ];
+    "Impure Input" -> "Pure Core";
+    "Pure Core" -> "Impure Output";
+}
+....
+
+We apply this for the following three steps:
+
+Impure Input:: Parse and compile the Frege source code.
+Pure Core:: Extract the requested language feature.
+Impure Output:: Transform and send the requested language feature back to the text editor.
+
+Keeping the middle step pure provides us with the inherited benefits of pure code, the most important one being great testability.
+
+[#fregeCore]
+== Write Core Logic in Frege, Use Java for LSP
+
+A language feature is divided into three layers. As an example, we have a closer look at the hover feature:
+
+Hover.fr:: The core logic which extracts the hover information from the compiler global. Must be testable in isolation. Written in Frege.
+HoverLSP.fr:: Transforms the extracted hover information to the language server protocol (LSP) data types. Written in Frege.
+HoverService.java:: Sends the result to the text editor using xref:constraints.adoc#lsp4j[LSP4J]. This class is not allowed to call the `Hover` class directly (e.g. imports of the `Hover` class are forbidden). Instead it must go through the `HoverLSP` class. Written in Java.
+
+The hover feature is usually built bottom up starting with a Frege test in the core logic layer.
+
+
+== Test-Driven Development
+The core Frege logic should be built using test-driven development. While Frege has builtin support for property-based testing, it lacks a traditional unit test framework. As a workaround, we use the `once` function to mimick a unit test as can be seen in <<code-hover-prop>>. The tests are written in the same Frege file as the code.
+
+.Mimicking a Unit Test with a Property
+[source#code-hover-prop,haskell]
+----
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
+fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = 
+    once $ morallyDubiousIOProperty do
+        fregeCodeWithoutError = "module CorrectFregeTest where\n\n"
+                             ++ "ok = 42 + 42"
+        global               <- standardCompileGlobal
+        compiledGlobal       <- compile fregeCodeWithoutError global
+        expected              = []
+        actual                = getDiagnostics compiledGlobal
+        pure                  $ expected == actual
+----
+
+=== Do Not Test the LSP, do not Test the Frege Compiler
+This follows naturally from the <<funCore>> design principle.
+We only test the core logic we build. We neither test the LSP nor the correct compilation functionality because the first is the responsibility of the LSP4J library and the latter is the responsibility of the Frege compiler.
+
+== Frege Modules & Java Packages are Feature Driven
+A feature should be testable in isolation. Hence, we group the different classes by feature and put them into a common module/package. E.g. the hover package contains the `Hover.fr` `HoverLSP.fr` and `HoverService.java` classes.

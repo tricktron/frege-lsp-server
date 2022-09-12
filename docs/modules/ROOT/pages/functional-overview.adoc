@@ -1,0 +1,55 @@
+ifdef::env-vscode[:imagesdir: ../assets/images]
+:xrefstyle: short
+= Functional Overview
+
+The Frege Integrated Development IDE powers language features for the https://github.com/frege/frege[Frege programming language]. Language features help developers to write code more efficiently by providing language specific support during the development process. There are https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#languageFeatures[many different language features], such as showing compile warnings and errors, providing autocompletion suggestions and additional information while hovering over source code, etc. While the Frege IDE powers the language features with the help of the Frege compiler, the text editor visualises them to provide a fast feedback loop. See the xref:context.adoc[Context] page for an overview of all involved systems and users.   
+
+== Supported Language Features
+// TODO: add a quick description and screenshots for each feature and maybe a GIF for the code lens actions
+=== Compiler Errors and Warnings
+
+Compiler errors are shown with red, warnings with blue squiggles, as can be seen in <<img-warnings-errors>>.
+
+.Compiler Errors & Warnings: Errors are marked with red, warnings with blue squiggles. Besides, the corresponding messages are accumulated and displayed in the problem tab.
+[#img-warnings-errors]
+image::errors-warnings.png[]
+
+=== Type Signature on Hover
+
+Hovering over an expression triggers a popup which shows the type signature or the error/warning message, as can be seen in <<vid-hover>>.
+
+.The Hover Feature Video
+[#vid-hover]
+video::hover.mov[width=100%,height=auto,opts=autoplay]
+
+=== Automatic Gradle Build Tool Support
+
+The Frege IDE automatically recognises Frege projects which have been setup with the xref:software-architecture.adoc#_frege_gradle_plugin[Frege Gradle plugin]. As a result, the Frege IDE should work out of the box without the need to configure anything.
+
+If you have setup your project manually, you can set the following two environment variables to configure the Frege IDE:
+
+`FREGE_LS_SOURCE_DIR`:: Path to your Frege source directory. Default is `<ProjectRoot>/src/main/frege`.
+`FREGE_LS_EXTRA_CLASSPATH`:: Classpath for additional Frege and Java dependencies. Default is empty.
+
+== Visual Studio Code Features Only
+
+The following two features are currently implemented on the client side and are thus only available in the Visual Studio Code extension. Besides, you need to have set up your Frege project with the xref:software-architecture.adoc#_frege_gradle_plugin[Frege Gradle plugin].
+
+=== Code Lens to Run Frege Programs
+
+If your Frege application has a `main` function, then a code lens with the option to run it will appear above it. If you click on it, then the application will be executed using the Frege Gradle Plugin, as shown in the <<vid-run-frege>>.
+
+.Run your Frege Application Video
+[#vid-run-frege]
+video::run-frege.mov[width=100%,height=auto,opts=autoplay]
+
+
+=== Code Lens to Load a Frege Module Into the Frege Repl
+
+If your Frege application has a `main` function, then a code lens with the option to load it into the Frege Repl will appear above it. If you click on it, then the current Frege Module will be loaded into the Frege Repl, as shown in the <<vid-repl-frege>>.
+
+.Load your Frege Module Into the Repl Video
+[#vid-repl-frege]
+video::repl-frege.mov[width=100%,height=auto,opts=autoplay]
+
+In the Frege Repl you can experiment with the loaded module by executing defined functions etc. See the https://github.com/Frege/frege-repl[Frege Repl documentation] for more information.
