@@ -8,7 +8,9 @@ import Compiler.types.Global(StG, StIO, Message, Global, Severity(), tokens, get
 import Compiler.types.Tokens(Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Control.monad.State (evalStateT, execStateT, evalState)
+import frege.Prelude hiding (Reader)
+import Control.monad.Reader(Reader, ask)
+import frege.data.wrapper.Identity(Identity)
 
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
@@ -44,13 +46,13 @@ tokensToRange tks    =
         end   = Position endToken.line (endToken.col + (length endToken.value))  
     }
 
-createRangeFromPos :: TokenPosition -> StG Range
+createRangeFromPos :: TokenPosition -> Reader Global Range
 createRangeFromPos pos = do
-    gl  <- getST
+    gl  <- ask
     toks = tokens pos gl
     pure $ tokensToRange toks
 
-createDiagnosticFromMessage :: Message -> StG Diagnostic
+createDiagnosticFromMessage :: Message -> Reader Global Diagnostic
 createDiagnosticFromMessage message = do
     range <- createRangeFromPos message.pos
     pure   $ Diagnostic 
@@ -61,14 +63,14 @@ createDiagnosticFromMessage message = do
             message = message.text
         }
 
-extractDiagnostics :: StG [ Diagnostic ]
+extractDiagnostics :: Reader Global [ Diagnostic ]
 extractDiagnostics = do
-    gl         <- getST
+    gl         <- ask
     diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
     sequence diagnostics
 
 getDiagnostics :: Global -> [ Diagnostic ]
-getDiagnostics = evalState $ extractDiagnostics
+getDiagnostics gl = Identity.run $ Reader.run (extractDiagnostics) gl
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
