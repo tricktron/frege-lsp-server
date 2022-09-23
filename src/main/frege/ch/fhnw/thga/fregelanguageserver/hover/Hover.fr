@@ -39,6 +39,9 @@ data Hover = Hover {
 derive Eq Hover
 derive Show Hover
 
+liftMaybe :: MonadPlus m => Maybe a -> m a
+liftMaybe = maybe mzero return
+
 getSymbolType:: Symbol -> RGlobal String
 getSymbolType sym = do
     global <- Reader.ask
@@ -61,12 +64,10 @@ findSymbol qname = MaybeT $ do
     pure     $ Global.find global qname
 
 tokenToQName :: Token -> MaybeT RGlobal QName
-tokenToQName t = MaybeT do
-    global   <- Reader.ask
-    resolved  = Global.resolved global t
-    case resolved of
-        Nothing -> pure Nothing
-        (Just namespaceOrVariable) -> pure $ either (const Nothing) Just namespaceOrVariable
+tokenToQName t = do
+    global   <- lift $ Reader.ask
+    resolved <- liftMaybe $ Global.resolved global t
+    liftMaybe $ either (const empty) Just resolved
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
 getTypeSignatureOnHover pos global = res where
