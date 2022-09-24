@@ -8,7 +8,7 @@ import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
 import Compiler.types.Global(Global, Symbol)
 import Compiler.types.Tokens(Token)
 import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
-import Control.monad.Reader(ReaderT)
+import Control.monad.Reader(ReaderT, ask)
 import Control.monad.trans.MonadTrans (lift)
 import Control.monad.trans.MaybeT (MaybeT)
 import frege.ide.Utilities(label)
@@ -41,12 +41,12 @@ liftMaybe = maybe mzero return
 
 getSymbolType:: Symbol -> RGlobal String
 getSymbolType sym = do
-    global <- Reader.ask
+    global <- ask
     pure    $ label global sym
 
 findToken :: Position -> MaybeT RGlobal Token
 findToken pos = MaybeT $ do
-    global <- Reader.ask
+    global <- ask
     tokens  = listFromArray global.sub.toks
     pure    $ find isHoverOverToken tokens where
         isHoverOverToken :: Token -> Bool
@@ -57,18 +57,18 @@ findToken pos = MaybeT $ do
 
 findSymbol :: QName -> MaybeT RGlobal Symbol
 findSymbol qname = MaybeT $ do
-    global  <- Reader.ask
+    global  <- ask
     pure     $ Global.find global qname
 
 tokenToQName :: Token -> MaybeT RGlobal QName
 tokenToQName t = do
-    global              <- lift $ Reader.ask
+    global              <- lift $ ask
     namespaceOrVariable <- liftMaybe $ Global.resolved global t
     liftMaybe            $ either (const Nothing) Just namespaceOrVariable
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
 getTypeSignatureOnHover pos global = res where
-    readerAction = MaybeT.run $ getTypeOnHover pos
+    readerAction = MaybeT.run   $ getTypeOnHover pos
     res          = Identity.run $ ReaderT.run readerAction global
 
 getTypeOnHover :: Position -> MaybeT RGlobal Hover
@@ -77,7 +77,7 @@ getTypeOnHover pos = do
     qname      <- tokenToQName token
     symbol     <- findSymbol qname
     symbolType <- lift $ getSymbolType symbol
-    pure $ Hover 
+    pure        $ Hover 
         { 
             range   = tokenToRange token, 
             content = FregeCodeBlock symbolType
