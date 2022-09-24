@@ -5,17 +5,14 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
 import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
 
-import Compiler.types.Global(
-        StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo,
-        tokens, getST, liftStG, liftIO
-    )
+import Compiler.types.Global(Global, Symbol)
 import Compiler.types.Tokens(Token)
 import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
 import Control.monad.Reader(ReaderT)
 import Control.monad.trans.MonadTrans (lift)
 import Control.monad.trans.MaybeT (MaybeT)
 import frege.ide.Utilities(label)
-import Data.List(find, sortBy)
+import Data.List(find)
 import Compiler.types.QNames(QName)
 import Control.arrow.Kleisli(Kleisli)
 import frege.data.wrapper.Identity(Identity)
@@ -65,9 +62,9 @@ findSymbol qname = MaybeT $ do
 
 tokenToQName :: Token -> MaybeT RGlobal QName
 tokenToQName t = do
-    global   <- lift $ Reader.ask
-    resolved <- liftMaybe $ Global.resolved global t
-    liftMaybe $ either (const empty) Just resolved
+    global              <- lift $ Reader.ask
+    namespaceOrVariable <- liftMaybe $ Global.resolved global t
+    liftMaybe            $ either (const Nothing) Just namespaceOrVariable
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
 getTypeSignatureOnHover pos global = res where

@@ -4,7 +4,7 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlo
 import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
 import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
-import Compiler.types.Global(StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
+import Compiler.types.Global(Global, Message, Severity(), tokens)
 import Compiler.types.Tokens(Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
