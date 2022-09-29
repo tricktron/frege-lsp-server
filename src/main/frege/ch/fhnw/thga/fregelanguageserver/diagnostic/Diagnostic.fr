@@ -70,7 +70,7 @@ extractDiagnostics = do
     sequence diagnostics
 
 getDiagnostics :: Global -> [ Diagnostic ]
-getDiagnostics = Identity.run . Reader.run (extractDiagnostics)
+getDiagnostics = Identity.run . Reader.run extractDiagnostics
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do

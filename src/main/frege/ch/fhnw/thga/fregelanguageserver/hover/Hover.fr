@@ -9,19 +9,14 @@ import Compiler.types.Global(Global, Symbol)
 import Compiler.types.Tokens(Token)
 import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
 import Control.monad.Reader(ReaderT, ask)
-import Control.monad.trans.MonadTrans (lift)
-import Control.monad.trans.MaybeT (MaybeT)
 import frege.ide.Utilities(label)
 import Data.List(find)
 import Compiler.types.QNames(QName)
-import Control.arrow.Kleisli(Kleisli)
-import frege.data.wrapper.Identity(Identity)
+import Control.arrow.Kleisli(Kleisli, arr)
 
 newtype FregeCodeBlock = FregeCodeBlock {
     code :: String
 }
-
-type RGlobal = Kleisli Identity Global
 
 derive Eq FregeCodeBlock
 instance Show FregeCodeBlock where
@@ -36,47 +31,43 @@ data Hover = Hover {
 derive Eq Hover
 derive Show Hover
 
-liftMaybe :: MonadPlus m => Maybe a -> m a
-liftMaybe = maybe mzero return
+liftKleisli :: Monad m => m b -> Kleisli m a b
+liftKleisli = Kleisli . pure
 
-getSymbolType:: Symbol -> RGlobal String
-getSymbolType sym = do
-    global <- ask
-    pure    $ label global sym
+getSymbolType:: Symbol -> Global -> String
+getSymbolType = flip label
 
-findToken :: Position -> MaybeT RGlobal Token
-findToken pos = MaybeT $ do
-    global <- ask
-    tokens  = listFromArray global.sub.toks
-    pure    $ find isHoverOverToken tokens where
+findToken :: Position -> ReaderT Maybe Global Token
+findToken pos = do
+    global     <- ask
+    tokens      = listFromArray global.sub.toks
+    liftKleisli $ find isHoverOverToken tokens where
         isHoverOverToken :: Token -> Bool
         isHoverOverToken t = 
             pos.line      == t.line && 
             pos.character  < (t.col + (length t.value)) &&
             pos.character >= t.col
 
-findSymbol :: QName -> MaybeT RGlobal Symbol
-findSymbol qname = MaybeT $ do
-    global  <- ask
-    pure     $ Global.find global qname
+findSymbol :: QName -> ReaderT Maybe Global Symbol
+findSymbol qname = do
+    global     <- ask
+    liftKleisli $ Global.find global qname
 
-tokenToQName :: Token -> MaybeT RGlobal QName
+tokenToQName :: Token -> ReaderT Maybe Global QName
 tokenToQName t = do
-    global              <- lift $ ask
-    namespaceOrVariable <- liftMaybe $ Global.resolved global t
-    liftMaybe            $ either (const Nothing) Just namespaceOrVariable
+    global              <- ask
+    namespaceOrVariable <- liftKleisli $ Global.resolved global t
+    liftKleisli          $ either (const Nothing) Just namespaceOrVariable
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
-getTypeSignatureOnHover pos global = res where
-    readerAction = MaybeT.run   $ getTypeOnHover pos
-    res          = Identity.run $ ReaderT.run readerAction global
+getTypeSignatureOnHover pos global = ReaderT.run (getTypeOnHover pos) global
 
-getTypeOnHover :: Position -> MaybeT RGlobal Hover
+getTypeOnHover :: Position -> ReaderT Maybe Global Hover
 getTypeOnHover pos = do
     token      <- findToken pos
     qname      <- tokenToQName token
     symbol     <- findSymbol qname
-    symbolType <- lift $ getSymbolType symbol
+    symbolType <- arr $ getSymbolType symbol
     pure        $ Hover 
         { 
             range   = tokenToRange token, 
