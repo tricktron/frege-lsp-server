@@ -8,9 +8,6 @@ import Compiler.types.Global(Global, Message, Severity(), tokens)
 import Compiler.types.Tokens(Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import frege.Prelude hiding (Reader)
-import Control.monad.Reader(Reader, ask)
-import frege.data.wrapper.Identity(Identity)
 
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
@@ -46,16 +43,15 @@ tokensToRange tks    =
         end   = Position endToken.line (endToken.col + (length endToken.value))  
     }
 
-createRangeFromPos :: TokenPosition -> Reader Global Range
-createRangeFromPos pos = do
-    gl  <- ask
-    toks = tokens pos gl
-    pure $ tokensToRange toks
+createRangeFromPos :: Global -> TokenPosition -> Range
+createRangeFromPos global pos = do
+    toks = tokens pos global
+    tokensToRange toks
 
-createDiagnosticFromMessage :: Message -> Reader Global Diagnostic
-createDiagnosticFromMessage message = do
-    range <- createRangeFromPos message.pos
-    pure   $ Diagnostic 
+createDiagnosticFromMessage :: Global -> Message -> Diagnostic
+createDiagnosticFromMessage global message = do
+    range = createRangeFromPos global message.pos
+    Diagnostic 
         {
             range = range,
             severity = fromCompilerSeverity message.level, 
@@ -63,14 +59,11 @@ createDiagnosticFromMessage message = do
             message = message.text
         }
 
-extractDiagnostics :: Reader Global [ Diagnostic ]
-extractDiagnostics = do
-    gl         <- ask
-    diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
-    sequence diagnostics
+extractDiagnostics :: Global -> [ Diagnostic ]
+extractDiagnostics global = map (createDiagnosticFromMessage global) global.sub.messages
 
 getDiagnostics :: Global -> [ Diagnostic ]
-getDiagnostics = Identity.run . Reader.run (extractDiagnostics)
+getDiagnostics = extractDiagnostics
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
@@ -93,7 +86,8 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
                 range    = Range { start = Position 3 8, end = Position 3 22 }, 
                 severity = ERROR, 
                 source   = "frege compiler", 
-                message  = "Could not import module frege.does.not.Exist\n(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
+                message  = "Could not import module frege.does.not.Exist\n"
+                        ++ "(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
             } 
         ]
     actual  = getDiagnostics compiledGlobal
@@ -101,7 +95,11 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
 
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics :: Property
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
-    fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
+    fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\n"
+                       ++ "err1 = do\n"
+                       ++ "  x = 42\n\n"
+                       ++ "err2 = [ 22.0 ] ++ \"42\"\n\n"
+                       ++ "err3 = 42 + \"42\""
     global             <- standardCompileGlobal
     compiledGlobal     <- compile fregeCodeWithErrors global 
     expected            = 
