@@ -44,20 +44,20 @@ tokensToRange tks    =
     }
 
 createRangeFromPos :: Global -> TokenPosition -> Range
-createRangeFromPos global pos = do
-    toks = tokens pos global
+createRangeFromPos global pos =
+    let
+        toks = tokens pos global
+    in
     tokensToRange toks
 
 createDiagnosticFromMessage :: Global -> Message -> Diagnostic
-createDiagnosticFromMessage global message = do
-    range = createRangeFromPos global message.pos
-    Diagnostic 
-        {
-            range = range,
-            severity = fromCompilerSeverity message.level, 
-            source = "frege compiler", 
-            message = message.text
-        }
+createDiagnosticFromMessage global message = Diagnostic 
+    {
+        range    = createRangeFromPos global message.pos,
+        severity = fromCompilerSeverity message.level, 
+        source   = "frege compiler", 
+        message  = message.text
+    }
 
 extractDiagnostics :: Global -> [ Diagnostic ]
 extractDiagnostics global = map (createDiagnosticFromMessage global) global.sub.messages
@@ -135,8 +135,14 @@ posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
 
 main :: IO ()
 main = do
-    let fregeCode       = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\"\n\n"
-    let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
+    let fregeCode       = "module ch.fhnw.thga.FaultyFregeTest where\n\n"
+                       ++ "err1 = do\n"
+                       ++ "  x = 42\n\n"
+                       ++ "err2 = [ 22.0 ] ++ \"42\"\n\n"
+                       ++ "err3 = 42 + \"42\""
+    let trickyFregeCode = "module FaultyFregeTest where\n\n"
+                       ++ "simplyString s = s\n\n"
+                       ++ "err1 = (simplyString 42) ++ \"test\""
     global             <- standardCompileGlobal 
     gl                 <- compile trickyFregeCode global
     println             $ CharSequence.toString gl.sub.code

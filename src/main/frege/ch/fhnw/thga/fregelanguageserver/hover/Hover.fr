@@ -34,8 +34,10 @@ getSymbolType:: Global -> Symbol -> String
 getSymbolType = label
 
 findToken :: Global -> Position -> Maybe Token
-findToken global pos = do
-    tokens = listFromArray global.sub.toks
+findToken global pos =
+    let 
+        tokens = listFromArray global.sub.toks
+    in
     find isHoverOverToken tokens where
         isHoverOverToken :: Token -> Bool
         isHoverOverToken t = 
@@ -48,8 +50,8 @@ findSymbol = Global.find
 
 tokenToQName :: Global -> Token -> Maybe QName
 tokenToQName global token = do
-    namespaceOrVariable <- Global.resolved global token
-    either (const Nothing) Just namespaceOrVariable
+    Right namespaceOrVariable <- Global.resolved global token
+    pure  namespaceOrVariable
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
 getTypeSignatureOnHover = flip getTypeOnHover
