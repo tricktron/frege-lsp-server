@@ -131,20 +131,20 @@ The `getTypeOnHover` function is responsible for the main work and is shown in <
 .The `getTypeOnHover` Function
 [source#code-getTypeOnHover,haskell]
 ----
-getTypeOnHover :: Position -> MaybeT RGlobal Hover // <1>
-getTypeOnHover pos = do
-    token      <- findToken pos // <2>
-    qname      <- tokenToQName token // <2>
-    symbol     <- findSymbol qname // <2>
-    symbolType <- lift $ getSymbolType symbol // <2>
-    pure        $ Hover // <3>
+getTypeOnHover :: Global -> Position -> Maybe Hover // <1>
+getTypeOnHover global pos = do
+    token      <- findToken global pos // <2>
+    qname      <- tokenToQName global token // <2>
+    symbol     <- findSymbol global qname // <2>
+    symbolType  = getSymbolType global symbol // <2>
+    pure        $ Hover // <3> 
         { 
             range   = tokenToRange token, 
             content = FregeCodeBlock symbolType
         }
 ----
-<1> The function uses the monad transformer concept to combine the `Maybe Hover` (to account for no available type signature) and the `Reader Global` (the read-only `Global` record from the impure input phase) monads.
-<2> The main logic: We find the needed type in the big `Global` record by moving from `token -> qualifiedName -> symbol -> symbolType`.
+<1> The function uses the `Maybe` monad to account for no available type signature.
+<2> The main logic: We find the needed type in the big `Global` record by moving from `token -> qualified name -> symbol -> symbolType`.
 <3> As a last step, we transform the result to our core data type `Hover`.
 
 Since the core is pure and since we developed it with a xref:principles.adoc#_test_driven_development[Test-Driven Development] approach it is testable as shown in <<code-hover-test>>.
