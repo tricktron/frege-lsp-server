@@ -229,18 +229,17 @@ The code for the impure input is already implemented while the code skeleton for
 <div class="title">Figure 5. Hover layers: The <code>HoverService.java</code> class creates the Frege <code>PositionLSP</code> type and calls the <code>HoverLSP.fr</code> module. The <code>HoverLSP.fr</code> module converts the <code>PositionLSP</code> type to the core <code>Position</code> type to make the core logic data types independent of the LSP types. It then calls the <code>Hover.fr</code> module to compute the type signature, which is returned as <code>Maybe Hover</code> signaling that there may be no available type for the requested hover expression. As a final step the core data type <code>Maybe Hover</code> is transformed back to the <code>Maybe HoverLSP</code> type and returned to the <code>HoverService.java</code> class. The whole interaction is pure because there is no <code>IO</code> involved.</div>
 </div>
 <div class="paragraph">
-<p>The <code>getTypeOnHover</code> function is responsible for the main work and shown in <a href="#code-getTypeOnHover">Listing 1</a>.</p>
+<p>The <code>getTypeOnHover</code> function is responsible for the main work and is shown in <a href="#code-getTypeOnHover">Listing 1</a>.</p>
 </div>
 <div id="code-getTypeOnHover" class="listingblock">
 <div class="title">Listing 1. The <code>getTypeOnHover</code> Function</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-haskell hljs" data-lang="haskell">getTypeOnHover :: Position -&gt; StateT Global Maybe Hover <i class="conum" data-value="1"></i><b>(1)</b>
-getTypeOnHover pos = do
-    global     &lt;- StateT.get
-    token      &lt;- findToken pos <i class="conum" data-value="2"></i><b>(2)</b>
-    qname      &lt;- tokenToQName token <i class="conum" data-value="2"></i><b>(2)</b>
-    symbol     &lt;- findSymbol qname <i class="conum" data-value="2"></i><b>(2)</b>
-    symbolType &lt;- getSymbolType symbol <i class="conum" data-value="2"></i><b>(2)</b>
+<pre class="highlightjs highlight"><code class="language-haskell hljs" data-lang="haskell">getTypeOnHover :: Global -&gt; Position -&gt; Maybe Hover <i class="conum" data-value="1"></i><b>(1)</b>
+getTypeOnHover global pos = do
+    token      &lt;- findToken global pos <i class="conum" data-value="2"></i><b>(2)</b>
+    qname      &lt;- tokenToQName global token <i class="conum" data-value="2"></i><b>(2)</b>
+    symbol     &lt;- findSymbol global qname <i class="conum" data-value="2"></i><b>(2)</b>
+    symbolType  = getSymbolType global symbol <i class="conum" data-value="2"></i><b>(2)</b>
     pure        $ Hover <i class="conum" data-value="3"></i><b>(3)</b>
         {
             range   = tokenToRange token,
@@ -252,11 +251,11 @@ getTypeOnHover pos = do
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The function uses the monad transformer concept to combine the <code>State Global</code> and the <code>Maybe Hover</code> monad.</td>
+<td>The function uses the <code>Maybe</code> monad to account for no available type signature.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The main logicWe find the needed type in the big <code>Global</code> record by moving from <code>token &#8594; qualifiedName &#8594; symbol &#8594; symbolType</code>.</td>
+<td>The main logic: We find the needed type in the big <code>Global</code> record by moving from <code>token &#8594; qualified name &#8594; symbol &#8594; symbolType</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -265,7 +264,7 @@ getTypeOnHover pos = do
 </table>
 </div>
 <div class="paragraph">
-<p>Since the core is pure and since we developed it with a <a href="principles.html#_test_driven_development" class="xref page">Test-Driven Development</a> approach it is testable as shown <a href="#code-hover-test">Listing 2</a>.</p>
+<p>Since the core is pure and since we developed it with a <a href="principles.html#_test_driven_development" class="xref page">Test-Driven Development</a> approach it is testable as shown in <a href="#code-hover-test">Listing 2</a>.</p>
 </div>
 <div id="code-hover-test" class="listingblock">
 <div class="title">Listing 2. A Hover test case checking the type signature of a string constant</div>
@@ -311,7 +310,7 @@ shouldShowLocalVaridTypeSignature = once $ morallyDubiousIOProperty do <i class=
   <p>This page was built using the Antora default UI.</p>
   <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
 </footer>
-<script src="../../_/js/site.js"></script>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
