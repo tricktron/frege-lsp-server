@@ -5,72 +5,63 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
 import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
 
-import Compiler.types.Global(
-        StG, StIO, Message, Global, Severity(), Symbol, Symtab, IdInfo,
-        tokens, getST, liftStG, liftIO
-    )
+import Compiler.types.Global(Global, Symbol)
 import Compiler.types.Tokens(Token)
 import Test.QuickCheck(Property, once, morallyDubiousIOProperty)
-import Control.monad.State(StateT, evalStateT, execStateT, evalState)
-import Control.monad.trans.MonadTrans (lift)
 import frege.ide.Utilities(label)
-import Data.List(find, sortBy)
+import Data.List(find)
 import Compiler.types.QNames(QName)
 
-newtype FregeCodeBlock = FregeCodeBlock {
-    code :: String
-}
-
+newtype FregeCodeBlock = FregeCodeBlock 
+    {
+        code :: String
+    }
 derive Eq FregeCodeBlock
+
 instance Show FregeCodeBlock where
     show FregeCodeBlock { code } = 
         "```frege\n" ++ code ++ "\n```"
 
-data Hover = Hover {
-    range   :: Range,
-    content :: FregeCodeBlock
-}
-
+data Hover = Hover 
+    {
+        range   :: Range,
+        content :: FregeCodeBlock
+    }
 derive Eq Hover
 derive Show Hover
 
-getSymbolType:: Symbol -> StateT Global Maybe String
-getSymbolType sym = do
-    global <- StateT.get
-    pure   $ label global sym
+getSymbolType:: Global -> Symbol -> String
+getSymbolType = label
 
-findToken :: Position -> StateT Global Maybe Token
-findToken pos = do
-    global <- StateT.get
-    tokens = listFromArray global.sub.toks
-    lift   $ find isHoverOverToken tokens where
+findToken :: Global -> Position -> Maybe Token
+findToken global pos =
+    let 
+        tokens = listFromArray global.sub.toks
+    in
+    find isHoverOverToken tokens where
         isHoverOverToken :: Token -> Bool
         isHoverOverToken t = 
             pos.line      == t.line && 
             pos.character  < (t.col + (length t.value)) &&
             pos.character >= t.col
 
-findSymbol :: QName -> StateT Global Maybe Symbol
-findSymbol qname = do
-    global  <- StateT.get
-    lift     $ Global.find global qname
+findSymbol :: Global -> QName -> Maybe Symbol
+findSymbol = Global.find
 
-tokenToQName :: Token -> StateT Global Maybe QName
-tokenToQName t = do
-    global              <- StateT.get
-    namespaceOrVariable <- lift $ Global.resolved global t
-    lift                 $ either (const Nothing) Just namespaceOrVariable
+tokenToQName :: Global -> Token -> Maybe QName
+tokenToQName global token = do
+    Right namespaceOrVariable <- Global.resolved global token
+    pure  namespaceOrVariable
 
 getTypeSignatureOnHover :: Position -> Global -> Maybe Hover
-getTypeSignatureOnHover pos = evalStateT $ getTypeOnHover pos
+getTypeSignatureOnHover = flip getTypeOnHover
 
-getTypeOnHover :: Position -> StateT Global Maybe Hover
-getTypeOnHover pos = do
-    global     <- StateT.get
-    token      <- findToken pos
-    qname      <- tokenToQName token
-    symbol     <- findSymbol qname
-    symbolType <- getSymbolType symbol
+getTypeOnHover :: Global -> Position -> Maybe Hover
+getTypeOnHover global pos = do
+    token      <- findToken global pos
+    qname      <- tokenToQName global token
+    symbol     <- findSymbol global qname
+    symbolType  = getSymbolType global symbol
     pure        $ Hover 
         { 
             range   = tokenToRange token, 

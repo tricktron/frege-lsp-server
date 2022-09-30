@@ -4,11 +4,10 @@ import ch.fhnw.thga.fregelanguageserver.compile.CompileGlobal(standardCompileGlo
 import ch.fhnw.thga.fregelanguageserver.compile.CompileNormalMode(compile)
 import ch.fhnw.thga.fregelanguageserver.types.Position(Position)
 import ch.fhnw.thga.fregelanguageserver.types.Range(Range, tokenToRange)
-import Compiler.types.Global(StG, StIO, Message, Global, Severity(), tokens, getST, liftStG, liftIO)
+import Compiler.types.Global(Global, Message, Severity(), tokens)
 import Compiler.types.Tokens(Token)
 import frege.compiler.types.Positions (Position TokenPosition)
 import Test.QuickCheck (Property, once, morallyDubiousIOProperty)
-import Control.monad.State (evalStateT, execStateT, evalState)
 
 data DiagnosticSeverity = ERROR | WARNING | INFORMATION | HINT
 
@@ -44,31 +43,27 @@ tokensToRange tks    =
         end   = Position endToken.line (endToken.col + (length endToken.value))  
     }
 
-createRangeFromPos :: TokenPosition -> StG Range
-createRangeFromPos pos = do
-    gl  <- getST
-    toks = tokens pos gl
-    pure $ tokensToRange toks
+createRangeFromPos :: Global -> TokenPosition -> Range
+createRangeFromPos global pos =
+    let
+        toks = tokens pos global
+    in
+    tokensToRange toks
 
-createDiagnosticFromMessage :: Message -> StG Diagnostic
-createDiagnosticFromMessage message = do
-    range <- createRangeFromPos message.pos
-    pure   $ Diagnostic 
-        {
-            range = range,
-            severity = fromCompilerSeverity message.level, 
-            source = "frege compiler", 
-            message = message.text
-        }
+createDiagnosticFromMessage :: Global -> Message -> Diagnostic
+createDiagnosticFromMessage global message = Diagnostic 
+    {
+        range    = createRangeFromPos global message.pos,
+        severity = fromCompilerSeverity message.level, 
+        source   = "frege compiler", 
+        message  = message.text
+    }
 
-extractDiagnostics :: StG [ Diagnostic ]
-extractDiagnostics = do
-    gl         <- getST
-    diagnostics = fmap createDiagnosticFromMessage gl.sub.messages
-    sequence diagnostics
+extractDiagnostics :: Global -> [ Diagnostic ]
+extractDiagnostics global = map (createDiagnosticFromMessage global) global.sub.messages
 
 getDiagnostics :: Global -> [ Diagnostic ]
-getDiagnostics = evalState $ extractDiagnostics
+getDiagnostics = extractDiagnostics
 
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray :: Property
 fregeLSPServerShouldMapNoCompilerMessagesToEmptyArray = once $ morallyDubiousIOProperty do
@@ -91,7 +86,8 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
                 range    = Range { start = Position 3 8, end = Position 3 22 }, 
                 severity = ERROR, 
                 source   = "frege compiler", 
-                message  = "Could not import module frege.does.not.Exist\n(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
+                message  = "Could not import module frege.does.not.Exist\n"
+                        ++ "(java.lang.ClassNotFoundException: frege.does.not.Exist)" 
             } 
         ]
     actual  = getDiagnostics compiledGlobal
@@ -99,7 +95,11 @@ fregeLSPServerShouldMapSingleCompilerMessageToDiagnostics = once $ morallyDubiou
 
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics :: Property
 fregeLSPServerShouldMapMultipleCompilerMessageToDiagnostics = once $ morallyDubiousIOProperty do
-    fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\""
+    fregeCodeWithErrors = "module ch.fhnw.thga.FaultyFregeTest where\n\n"
+                       ++ "err1 = do\n"
+                       ++ "  x = 42\n\n"
+                       ++ "err2 = [ 22.0 ] ++ \"42\"\n\n"
+                       ++ "err3 = 42 + \"42\""
     global             <- standardCompileGlobal
     compiledGlobal     <- compile fregeCodeWithErrors global 
     expected            = 
@@ -135,8 +135,14 @@ posToTokens (p:ps) gl = tokens p gl ++ posToTokens ps gl
 
 main :: IO ()
 main = do
-    let fregeCode       = "module ch.fhnw.thga.FaultyFregeTest where\n\nerr1 = do\n  x = 42\n\nerr2 = [ 22.0 ] ++ \"42\"\n\nerr3 = 42 + \"42\"\n\n"
-    let trickyFregeCode = "module FaultyFregeTest where\n\nsimplyString s = s\n\nerr1 = (simplyString 42) ++ \"test\""
+    let fregeCode       = "module ch.fhnw.thga.FaultyFregeTest where\n\n"
+                       ++ "err1 = do\n"
+                       ++ "  x = 42\n\n"
+                       ++ "err2 = [ 22.0 ] ++ \"42\"\n\n"
+                       ++ "err3 = 42 + \"42\""
+    let trickyFregeCode = "module FaultyFregeTest where\n\n"
+                       ++ "simplyString s = s\n\n"
+                       ++ "err1 = (simplyString 42) ++ \"test\""
     global             <- standardCompileGlobal 
     gl                 <- compile trickyFregeCode global
     println             $ CharSequence.toString gl.sub.code
